@@ -1,0 +1,10 @@
+config:
+  dynamic-view-distance:
+    max: 32
+    calc-period: 100000
+  position-align:
+    fix-spawn-position: true
+  surrounding-refresh:
+    update-on-explode: false
+  freecam:
+    anti-cheat: true

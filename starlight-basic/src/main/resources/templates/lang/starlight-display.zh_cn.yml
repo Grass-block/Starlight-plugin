@@ -1,0 +1,75 @@
+language:
+  -module-name:
+    action-bar-hud: 快捷栏HUD信息显示
+    afk: 挂机检测
+    chat-format: 聊天行格式化
+    custom-death-message: 自定义死亡信息格式
+    custom-kick-message: 自定义踢出信息
+    custom-motd: 自定义MOTD信息
+    custom-scoreboard: 自定义计分板提示信息
+    drop-item-info: 掉落物高亮信息
+    hover-display: 悬浮文本
+    player-name-header: 玩家头衔
+    tab-menu: TAB栏提示信息
+    welcome-message: 自定义欢迎信息
+    we-session-renderer: WorldEdit选区渲染器
+  tab-menu:
+    welcome-header: '欢迎来到{#aqua}{#server-name}{#reset}服务器!'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    ping: '{#gray}Ping: {#white}{#ping}'
+    player: '{#gray}当前在线: {#white}{#player}'
+    max-player: '{#gray}最大: {#white}{#max-player}'
+    date: '{#gray}日期/时间: {#white}{#date}'
+    website: '{#gray}官网: {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}日期: {#white}{#date-day}'
+    time: '{#gray}时间: {#white}{#date-time}'
+    player: '{#gray}玩家: {#white}{player}'
+    rank: '{#gray}身份: {#white}{#rank}'
+    play-time: '{#gray}游戏时间: {#white}{#play-time}'
+    world-time: '{#gray}世界时间: {#white}{#world-time}'
+    player-count: '{#gray}在线玩家: {#white}{#player}'
+    ping: '{#gray}当前延迟(参考): {#white}{#ping}'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}QQ群:{#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}将 {#var} 的头衔设置为 {#var}。'
+    clear-header: '{global#sys-operation}将 {#var} 的头衔清除。'
+    announce: '{global#sys-info}玩家 {#var} 获得了头衔 {#var}。'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}WorldEdit选区渲染模式已设为 [{#white}持久{#gray}]"
+    mode-update: "{global#sys-info}WorldEdit选区渲染模式已设为 [{#white}更新时{#gray}]"
+    mode-off: "{global#sys-info}WorldEdit选区渲染模式已设为 [{#white}关{#gray}]"
+    render: "{global#sys-success}您的WorldEdit选区已渲染（高亮）。"
+  afk:
+    left: "{global#info}玩家{#var}暂时离开了。"
+    left-self: "{global#info}你暂时离开了。"
+    back: "{global#info}玩家{#var}在暂时离开{#var}后回来了。"
+    back-self: "{global#info}你在暂时离开{#var}后回来了"
+  action-bar-hud:
+    time: "{#dark-aqua}世界时间: {#aqua}{#world-time}"
+    position: "{#dark-purple}位置: {#red}%.3f{#gray},{#green}%.3f{#gray},{#aqua}%.3f{#gray}"
+    biome: "{#dark-green}生物群系: {translate;color(green)}biome.%s.%s{;}"
+    face: "{#dark-blue}朝向: {#blue}%.3f(俯仰),%.3f(水平)"
+  welcome-message:
+    title: '{#gold}欢迎!'
+    content: '{#white}欢迎来到{#server-name}{#white}服务器,祝你玩得开心!'
+    callback: '{#gray}(本消息可用{#gold}/welcome-message{#gray}再次呼出)'
+  custom-motd:
+    motd-command: '{global#info}服务器MOTD信息: '
+    icon-refresh: '{global#success}成功刷新MOTD图片缓存。'
+    text-refresh: '{global#success}成功刷新MOTD文字缓存。'
+  custom-kick-message:
+    header: '{#white}您已被踢出 {#server-name}{#white} 服务器'
+    ban-header: '{#white}您已被 {#server-name}{#reset} 封禁'
+    ban-name: '{#gray}很抱歉,您的玩家档案名称已被此服务器封禁.'
+    ban-ip: '{#gray}很抱歉,您的IP地址已被此服务器封禁.'
+    ban-hint: '{#gray}如果您确认这是个错误, 请联系服务器管理员.'
+    ban-reason: '{#gray}封禁原因{#white}: {reason}'
+    ban-op: '{#gray}操作者{#white}: {source}'
+    ban-expire: '{#gray}此封禁将在 {#white}{expire}{#gray} 结束.'
+    website-hint: '{#gray}访问官网: {#aqua}{#underline}{#server-website}'

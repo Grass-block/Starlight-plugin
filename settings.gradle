@@ -1,0 +1,12 @@
+rootProject.name = 'Starlight-plugin'
+
+include 'lib-starlight-shared'
+include 'starlight-core'
+
+include 'starlight-basic'
+include 'starlight-game'
+include 'starlight-extensions:starlight-ext-lobby'
+include 'starlight-extensions:starlight-ext-music'
+include 'starlight-extensions:starlight-ext-plot'
+
+include 'starlight-velocity'

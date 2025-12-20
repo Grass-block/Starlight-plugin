@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+}
+
+project.setProperty("version", "25.3.10")
+
+apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
+
+applyGlobalScript("Publish/MinecraftServerTest.gradle")
+applyGlobalScript("Publish/ProjectOutput.gradle")
+applyGlobalScript("Publish/LocalStorage.gradle")
+
+applyGlobalScript("Repo/MinecraftPlugins.gradle")
+applyGlobalScript("/Dependencies.gradle")
+
+apply from: rootDir.getAbsolutePath() + "/info.gradle"
+
+
+repositories {
+    mavenCentral()
+    papermcRepo()
+    spigotmcRepo()
+    papiRepo()
+}
+
+setJavaCompatibility(17)
+
+repositories {
+    maven { url = 'https://maven.enginehub.org/repo/' }
+}
+
+dependencies {
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
+}
+
+//implemented by platform
+dependencies {
+    compileOnly 'net.kyori:adventure-api:4.17.0'
+    compileOnly 'net.kyori:adventure-text-serializer-gson:4.17.0'
+    compileOnly 'net.kyori:adventure-text-serializer-legacy:4.17.0'
+    compileOnly 'net.kyori:adventure-text-minimessage:4.17.0'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+}
+
+//integrated
+dependencies {
+    implementation project(":lib-starlight-shared")
+
+    implementation gbuildLib('me.gb2022.commons:commons-nbt')
+    implementation gbuildLib('me.gb2022.commons:commons-math')
+    implementation gbuildLib('me.gb2022.commons:commons-container')
+    implementation gbuildLib('me.gb2022.commons:commons-general')
+    implementation gbuildLib('me.gb2022.commons:commons-event')
+    implementation gbuildLib('me.gb2022.commons:commons-reflection')
+
+    implementation gbuildLib("me.gb2022.apm:apm-remote")
+    implementation gbuildLib("me.gb2022.apm:apm-plugin")
+
+    implementation gbuildLib("org.atcraftmc.qlib:qlib-bukkit")
+    implementation gbuildLib("me.gb2022:modular-main")
+
+
+    implementation localStorage("me.gb2022.pluginsX-lib")
+
+    //provided by starlight dependency loader.
+    compileOnly 'org.fusesource.leveldbjni:leveldbjni-all:1.8'
+    compileOnly 'com.h2database:h2:2.3.232'
+    compileOnly 'org.mongodb:bson:5.6.0'
+}
+
+//platform api reference
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT';
+    compileOnly 'io.netty:netty-buffer:4.1.25.Final'
+
+    compileOnly projectLib('paper-plugin')
+    compileOnly projectLib("ProtocolLib")
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from sourceSets.main.output.filter { File file ->
+        (file.name != 'LICENSE.txt')
+    }
+}

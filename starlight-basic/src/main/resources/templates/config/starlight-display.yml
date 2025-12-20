@@ -1,0 +1,71 @@
+config:
+  tab-menu:
+    render-ping: true
+    header-ui:
+      - '{#dark-gray}一一一一一一一一一一一一一一一一一一一一一一一一一一一一'
+      - '{#yellow}>> {#white} {msg#welcome-header} {#yellow} <<{#white}'
+      - '{msg#player}    {msg#max-player}'
+    footer-ui:
+      - ' '
+      - '{msg#tps}   {msg#mspt}   {msg#ping}'
+      - '{msg#date}'
+      - '{#dark-gray}一一一一一一一一一一一一一一一一一一一一一一一一一一一一'
+  custom-scoreboard:
+    ui:
+      - ' '
+      - ' {msg#date}'
+      - ' {msg#time}'
+      - ' '
+      - ' {msg#player}'
+      - ' {msg#rank}'
+      - ' {msg#play-time}'
+      - ' {msg#world-time}'
+      - ' '
+      - ' {msg#player-count}'
+      - ' {msg#ping}'
+      - ' '
+      - ' {msg#qq-group}'
+      - ' {msg#website}'
+      - ' '
+  player-name-header:
+    template: "[{#white}{header}{#white}] {player}"
+    op-header: '{#dark-purple}管理'
+    player-header: '{#dark-aqua}玩家'
+    below-name: " {msg#custom-scoreboard:play-time}  {msg#custom-scoreboard:ping}"
+    below-name-enable: false
+  chat-format:
+    world: "common:world:%s"
+    time: "<post>   {#gray}%s"
+    template: '[{#white}{world}{#white}]{0} {color(gold)}> {color(white)}{1} {time}'
+  custom-death-message:
+    prefix: "{#gray}[{#red}X{#gray}]{#reset}"
+    suffix: ""
+  action-bar-hud:
+    template: "{biome}{#yellow} | {position} {#yellow} | {time}"
+  afk:
+    timeout: 3600
+  welcome-message:
+    ui:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{msg#title}"
+      - '  {msg#content}'
+      - ' '
+      - '  {msg#callback}'
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+  custom-kick-message:
+    ui:
+      - '{#yellow}>> {msg#header} {#yellow}<<'
+      - '{#return}'
+      - '{#reset}{reason}{#return}{#return}'
+      - '{msg#website-hint}'
+    ban-ui:
+      - '{#yellow}>> {msg#ban-header} {#yellow}<<'
+      - '{#return}'
+      - '{#reset}{msg#@type}'
+      - '{msg#ban-hint}{#return}'
+      - '{msg#ban-reason}{#return}{#return}'
+      - '{msg#ban-expire}'
+      - '{msg#ban-op}'
+      - '{msg#website-hint}'
+  drop-item-info:
+    template: "{#red}{amount}{#yellow}x{translate;color(aqua)}{id}{;}"

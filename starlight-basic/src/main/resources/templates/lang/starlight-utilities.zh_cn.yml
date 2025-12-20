@@ -1,0 +1,73 @@
+language:
+  -module-name:
+    block-update-locker: 方块更新锁定
+    calculator: 计算器
+    camera-movement: 自定义相机路径
+    dynamic-view-distance: 自定义渲染距离
+    hitokoto: 「一言」
+    player-ping-command: 玩家延迟查询
+    position-align: 位置对齐指令
+    position-lock: 位置锁定指令
+    surrounding-refresh: 环境方块刷新
+    particle-font: 粒子文本绘制
+  particle-font:
+    done: '{global#sys-info}渲染完成({#var}, {#var} 个粒子)。'
+    no-fonts: '{global#error}无字体，请在{#white}/assets/font{#gray}放入ttf或otf字体。'
+    trim: '{global#sys-info}成功调整 {#var} 个文件名格式。'
+  position-lock:
+    lock: '{global#sys-info}您的位置已被锁定。'
+    unlock: '{global#sys-info}您的位置已被解锁。'
+    lock-player: '{global#sys-operation}您已锁定 {#var} 的位置。'
+    unlock-player: '{global#sys-operation}您已解锁 {#var} 的位置。'
+  position-align:
+    align: "{global#sys-success}已将您的坐标调整至 [{#var},{#var},{#var}] [{#var}|{#var}]。"
+  calculator:
+    calc: "[{#blue}计算{#white}]{#gray} {#var} = {#var}"
+    tip: "{#gray}使用{#gold}/calc [表达式]{#gray}进行简便计算。"
+  player-ping-command:
+    ping-msg: "{global#sys-info}你的延迟是: {#var} {#gray}ms"
+    tip: "{#gray}使用{#gold}/ping{#gray}来查询当前的延迟！"
+  block-update-locker:
+    lock: "{global#sys-info}已锁定方块更新。"
+    unlock: "{global#sys-info}已解锁方块更新。"
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}已将玩家 {#var} 的视野距离设置为 {#var} 个区块。"
+    reset-target: "{global#sys-operation}已重置玩家 {#var} 的视野距离设置。"
+    set-self: "{global#sys-info}你的视野距离已设置为 {#var} 个区块。"
+    reset-self: "{global#sys-info}你的视野距离已被重置。"
+    tip:
+      - "{#gray}您可以使用{#gold}/view-distance [玩家名字] [距离] {#gray}设置您的服务器渲染距离。"
+      - "{#gray}如果您感觉到卡顿(高延迟)，您可以尝试降低您的服务器渲染距离。"
+  camera-movement:
+    cam-start: '{global#sys-info}镜头路径开始({#var} ticks)'
+    cam-end: '{global#sys-info}镜头路径结束。'
+  freecam:
+    start: "{global#info}自由视角已打开。"
+    reset: "{global#info}自由视角已关闭。"
+    tip: "{#gray}使用{#gold}/freecam{#gray}可以启用或关闭自由视角，以便于您进行更好的探索。"
+    anti-cheat: "{global#sys-error}为保证游戏公平性，请不要在自由视角下使用指令。"
+  fly-command:
+    cmd-speed-set: "{global#info}飞行速度已被设为 {#var} 。"
+    toggle: "{global#info}飞行模式已切换"
+    tip: "{#gray}使用{#gold}/flyspeed [数值]{#gray}可以调节您的飞行速度"
+  surrounding-refresh:
+    to-big: '{global#error}半径过大。'
+    not-found: '{global#error}目标玩家{#var}未找到。'
+    success: '{global#success}正在向{#var}发送区域重刷新请求。'
+    refresh-target: '{global#info}正在刷新您身边{#var}半径的区域，这可能导致卡顿，请不要移动。'
+    refresh-complete: '{global#info}成功刷新了您周围的方块数据。'
+    tip: "{#gray}如果您遇到假方块，使用{#gold}/refresh-area [半径]{#gray}可以快速刷新您附近的方块。"
+  force-sprint:
+    tip: "{#gray}使用{#gold}/sprint{#gray}可以快速切换自动疾跑。"
+    enable: "{global#info}自动疾跑已开启。"
+    disable: "{global#info}自动疾跑已关闭。"
+  item-custom-name:
+    bind: "{global#sys-info}已将物品 {#var} 绑定到自定义语言键 {#var}。"
+    unbind: "{global#sys-info}已将清除物品 {#var} 自定义语言键绑定。"
+    bind-fail: "{global#sys-error}无法将自定义语言键绑定到空手。"
+  tick-manager:
+    freeze: "{global#warn}服务器已冻结。"
+    unfreeze: "{global#info}服务器已解冻。"
+    step: "{global#info}服务器已运行{#var}ticks。"
+  hitokoto:
+    sentence: "{hover(text,文字来自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}%s {#gray}——%s(%s)"

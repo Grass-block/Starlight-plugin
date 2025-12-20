@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+apply from: "../gbuild.gradle"
+
+applyGlobalScript("Publish/ProjectOutput.gradle")
+
+group = 'org.atcraftmc'
+
+repositories {
+    papermcRepo()
+}
+
+dependencies {
+    compileOnly projectLib('bukkit-configurations-api')
+
+    compileOnly gbuildLib('me.gb2022.commons:commons-nbt')
+    compileOnly gbuildLib('me.gb2022.commons:commons-math')
+    compileOnly gbuildLib('me.gb2022.commons:commons-container')
+    compileOnly gbuildLib('me.gb2022.commons:commons-general')
+    compileOnly gbuildLib('me.gb2022.commons:commons-event')
+    compileOnly gbuildLib('me.gb2022.commons:commons-reflection')
+
+    compileOnly gbuildLib("me.gb2022.apm:apm-remote")
+    compileOnly gbuildLib("me.gb2022.apm:apm-plugin")
+
+    compileOnly gbuildLib("me.gb2022:modular-main")
+    compileOnly gbuildLib("org.atcraftmc.qlib:qlib-base")
+
+    compileOnly 'io.netty:netty-buffer:4.1.100.Final'
+    compileOnly 'com.google.code.gson:gson:2.13.2'
+
+    compileOnly "org.apache.logging.log4j:log4j-api:2.8.1"
+}

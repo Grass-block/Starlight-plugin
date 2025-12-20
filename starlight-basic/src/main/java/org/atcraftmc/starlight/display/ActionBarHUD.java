@@ -1,0 +1,90 @@
+package org.atcraftmc.starlight.display;
+
+import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.commons.reflect.Inject;
+import me.gb2022.modular.APIIncompatibleException;
+import me.gb2022.modular.Registrations;
+import me.gb2022.modular.module.ApplicationModule;
+import net.md_5.bungee.api.chat.BaseComponent;
+import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.PlayerView;
+import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.atcraftmc.starlight.foundation.TextSender;
+import org.atcraftmc.starlight.foundation.platform.APIProfile;
+import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+
+@ApplicationModule(id = "action-bar-hud")
+@AutoRegister(Registrations.SERVER_EVENT)
+public final class ActionBarHUD extends SLPackageModule {
+    @Inject
+    private LanguageEntry language;
+
+    private String render(Player player) {
+        var loc = player.getLocation();
+        var block = loc.getBlock();
+
+        var locale = LocaleService.locale(player);
+        var biome_n = block.getBiome().getKey().getNamespace();
+        var biome_k = block.getBiome().getKey().getKey();
+
+        var p = MessageAccessor.getMessage(this.language, locale, "position", loc.getX(), loc.getY(), loc.getZ());
+        var b = MessageAccessor.getMessage(this.language, locale, "biome", biome_n, biome_k);
+        var t = MessageAccessor.getMessage(this.language, locale, "time");
+        var f = MessageAccessor.getMessage(this.language, locale, "face", loc.getYaw(), loc.getPitch());
+
+        var template = config().value("template")
+                .string()
+                .replace("{position}", p)
+                .replace("{biome}", b)
+                .replace("{time}", t)
+                .replace("{face}", f);
+
+        return PlaceHolderService.formatPlayer(player, template);
+    }
+
+    private void startRender(Player player) {
+        PlayerView.getInstance(player).getActionbar().addChannel("quark:actionbar-hud", -10, 3, TaskService::entity, (p, c) -> {
+            var comp = TextBuilder.buildComponent(render(p));
+            TextSender.sendActionbarTitle(p, comp);
+        });
+    }
+
+    private void stopRender(Player player) {
+        PlayerView.getInstance(player).getActionbar().removeChannel("quark:actionbar-hud");
+    }
+
+
+    @Override
+    public void enable() {
+        for (var player : Bukkit.getOnlinePlayers()) {
+            startRender(player);
+        }
+    }
+
+    @Override
+    public void disable() throws Exception {
+        for (var player : Bukkit.getOnlinePlayers()) {
+            stopRender(player);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        startRender(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        stopRender(event.getPlayer());
+    }
+}

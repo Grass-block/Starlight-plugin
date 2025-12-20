@@ -1,0 +1,5 @@
+plugins {
+    id 'java'
+}
+
+apply from: '../starlight-package.build.gradle'

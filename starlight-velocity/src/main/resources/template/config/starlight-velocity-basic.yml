@@ -1,0 +1,9 @@
+config:
+  motd:
+    sync: true #sync=false: use local motd
+    sync-target: lobby
+    sync-interval: 1000 #millseconds
+    overwrite-version: true #use version from synced ping
+    overwrite-player-count: true #use all players on proxy
+    overwrite-player-max: 2026 #set -1 to use value synced
+    overwrite-text: true #apply some proxy-dedicated process to motd
