@@ -1,20 +1,20 @@
 package org.atcraftmc.starlight.core.placeholder;
 
 import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.ObjectivePlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.StringExtraction;
 import org.atcraftmc.starlight.data.GlobalVars;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.regex.Pattern;
 
 @ApplicationService(id = "place-holder")
-public interface PlaceHolderService extends SLService {
+public interface PlaceHolderService extends BukkitService {
     StringExtraction PATTERN = new StringExtraction(Pattern.compile("\\{#(.*?)}"), 2, 1);
     GlobalVars EXTERNAL_VARS = new GlobalVars();
 

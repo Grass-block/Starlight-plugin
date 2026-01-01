@@ -2,22 +2,23 @@ package org.atcraftmc.starlight.framework.module;
 
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.starlight.framework.ModuleCommandHolder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 
-public abstract class SLCommandModule extends SLPackageModule implements PluginCommandExecutor {
+public abstract class SLCommandModule extends PluginAbstractModule implements PluginCommandExecutor {
     private final AbstractCommand commandAdapter = new AdapterCommand<>(this);
 
     @Override
     public void enable() throws Exception {
-        this.handle().registerCommand(this.commandAdapter);
+        this.handle().getAttachment(ModuleCommandHolder.class).registerCommand(this.commandAdapter);
     }
 
     @Override
     public void disable() throws Exception {
-        this.handle().unregisterCommand(this.commandAdapter);
+        this.handle().getAttachment(ModuleCommandHolder.class).unregisterCommand(this.commandAdapter);
     }
 
     public Command getCoveredCommand() {

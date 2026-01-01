@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 @ApplicationModule(id = "portable-shulker-box", version = "1.2")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class PortableShulkerBox extends SLPackageModule {
+public final class PortableShulkerBox extends PluginAbstractModule {
     private final Map<String, Session> sessions = new HashMap<>();
 
     @Override

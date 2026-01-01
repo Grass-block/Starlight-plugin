@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.display;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import me.gb2022.modular.APIIncompatibleException;
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @ApplicationModule(id="custom-death-message")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class CustomDeathMessage extends SLPackageModule {
+public final class CustomDeathMessage extends PluginAbstractModule {
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
         Compatibility.requireMethod(()->PlayerDeathEvent.class.getMethod("deathMessage"));

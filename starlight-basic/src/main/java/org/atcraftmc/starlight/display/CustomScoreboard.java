@@ -12,7 +12,7 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "custom-scoreboard", version = "0.2")
-public final class CustomScoreboard extends SLPackageModule {
+public final class CustomScoreboard extends PluginAbstractModule {
 
     @Inject
     private LanguageEntry language;

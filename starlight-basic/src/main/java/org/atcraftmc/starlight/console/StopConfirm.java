@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.console;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @ApplicationModule(id = "stop-confirm", defaultEnable = false)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class StopConfirm extends SLPackageModule {
+public final class StopConfirm extends PluginAbstractModule {
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         if (!List.of(event.getMessage().split("")).contains("/stop")) {
@@ -25,7 +25,7 @@ public final class StopConfirm extends SLPackageModule {
         }
         event.setCancelled(true);
 
-        MessageAccessor.send(this.handle().getLanguage(), event.getPlayer(), "hint");
+        MessageAccessor.send(this.language(), event.getPlayer(), "hint");
     }
 
     @EventHandler
@@ -39,6 +39,6 @@ public final class StopConfirm extends SLPackageModule {
         }
         event.setCancelled(true);
 
-        MessageAccessor.send(this.handle().getLanguage(), event.getSender(), "hint");
+        MessageAccessor.send(this.language(), event.getSender(), "hint");
     }
 }

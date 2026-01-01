@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -25,7 +25,7 @@ import java.util.Set;
 @ApplicationModule(id = "item-drop-secure")
 @CommandProvider(ItemDropSecure.DropInsecureUnlockCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class ItemDropSecure extends SLPackageModule implements PluginCommandExecutor {
+public final class ItemDropSecure extends PluginAbstractModule implements PluginCommandExecutor {
     private final Set<String> unlocks = new HashSet<>();
 
     @Inject

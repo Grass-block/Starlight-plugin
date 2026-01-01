@@ -61,11 +61,11 @@ public final class TPSBar extends SLCommandModule {
 
         if (this.bar.getPlayers().contains(player)) {
             this.bar.removePlayer(player);
-            MessageAccessor.send(this.handle().getLanguage(), player, "false");
+            MessageAccessor.send(this.language(), player, "false");
             return;
         }
 
         this.bar.addPlayer(player);
-        MessageAccessor.send(this.handle().getLanguage(), player, "true");
+        MessageAccessor.send(this.language(), player, "true");
     }
 }

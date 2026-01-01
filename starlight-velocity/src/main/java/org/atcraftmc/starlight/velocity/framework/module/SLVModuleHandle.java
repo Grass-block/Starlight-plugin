@@ -1,34 +1,23 @@
 package org.atcraftmc.starlight.velocity.framework.module;
 
-import me.gb2022.commons.reflect.Annotations;
 import me.gb2022.modular.ComponentMetadata;
 import me.gb2022.modular.module.ModuleHandle;
-import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
-import org.atcraftmc.starlight.foundation.platform.APIProfile;
-import org.atcraftmc.starlight.framework.packages.SLPackage;
+import org.atcraftmc.starlight.velocity.StarlightVelocity;
+import org.atcraftmc.starlight.velocity.framework.packages.SLVPackage;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public final class SLVModuleHandle extends ModuleHandle<SLVModule, SLVModuleHandle, SLPackage> {
+public final class SLVModuleHandle extends ModuleHandle<SLVModule, SLVModuleHandle, SLVPackage> {
     private final LanguageItem displayName;
-    private final Set<AbstractCommand> commands = new HashSet<>();
-    private APIProfile[] compatBlackList = new APIProfile[0];
     private LanguageEntry language;
     private ConfigEntry config;
 
-    public SLVModuleHandle(SLPackage pack, Class<? extends SLVModule> reference) {
+    public SLVModuleHandle(SLVPackage pack, Class<? extends SLVModule> reference) {
         super(pack, reference, ComponentMetadata.fromModule(pack.getId(), reference));
-        this.displayName = Starlight.lang().access(pack.getId()).item("-module-name:" + getMetadata().key().id());
-        Annotations.matchAnnotation(reference, BlacklistPlatform.class, (b) -> this.compatBlackList = b.value());
+        this.displayName = StarlightVelocity.lang().access(pack.getId()).item("-module-name:" + getMetadata().key().id());
     }
 
     @Override
@@ -36,7 +25,7 @@ public final class SLVModuleHandle extends ModuleHandle<SLVModule, SLVModuleHand
         var ns = this.getParent().getId();
         var id = this.getMetadata().key().id();
 
-        this.language = Starlight.instance().language().entry(ns, id);
+        this.language = StarlightVelocity.lang().entry(ns, id);
         this.config = ConfigContainer.getInstance().entry(ns, id);
 
         ModuleServices.onEnable(this);
@@ -69,30 +58,5 @@ public final class SLVModuleHandle extends ModuleHandle<SLVModule, SLVModuleHand
 
     public LanguageEntry getLanguage() {
         return language;
-    }
-
-    public APIProfile[] getCompatBlackList() {
-        return compatBlackList;
-    }
-
-    public Set<AbstractCommand> getCommands() {
-        return this.commands;
-    }
-
-    public void registerCommand(AbstractCommand c) {
-        this.commands.add(c);
-        if (c instanceof ModuleCommand mc) {
-            mc.initContext(getModule(SLVModule.class).orElseThrow());
-        }
-        StarlightCommandManager.getInstance().register(c);
-    }
-
-    public void unregisterCommand(AbstractCommand c) {
-        this.commands.remove(c);
-        StarlightCommandManager.getInstance().unregister(c);
-    }
-
-    public AbstractCommand getCommand(String id) {
-        return StarlightCommandManager.getInstance().getCommand(id);
     }
 }

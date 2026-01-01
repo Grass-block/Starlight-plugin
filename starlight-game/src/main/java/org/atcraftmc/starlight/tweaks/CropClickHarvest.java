@@ -5,7 +5,7 @@ import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.data.Ageable;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @ApplicationModule(id = "crop-click-harvest", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class CropClickHarvest extends SLPackageModule {
+public final class CropClickHarvest extends PluginAbstractModule {
     public static final Map<Material, Material> CROPS = new HashMap<>();
     public static final double X_RANGE = 0.15;
     public static final double Y_RANGE = 0.35;

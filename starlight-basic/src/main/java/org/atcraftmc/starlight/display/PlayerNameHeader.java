@@ -8,7 +8,7 @@ import me.gb2022.commons.reflect.method.MethodHandleO1;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.command.QuarkCommand;
@@ -20,14 +20,14 @@ import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.StringObjectPlaceHolder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.data.flex.TableColumn;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.data.PlayerDataService;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -94,11 +94,11 @@ public final class PlayerNameHeader extends SLCommandModule {
         var o = Bukkit.getOfflinePlayer(args[1]);
 
         if (Objects.equals(args[0], "set")) {
-            PLAYER_HEADER.set(PlayerDataService.PLAYER_SHARED, Bukkit.getOfflinePlayer(args[1]).getUniqueId(), args[2]);
+            PLAYER_HEADER.set(JDBCPlayerData.PLAYER_SHARED, Bukkit.getOfflinePlayer(args[1]).getUniqueId(), args[2]);
             MessageAccessor.send(this.language, sender, "set-header", args[1], args[2]);
         }
         if (Objects.equals(args[0], "clear")) {
-            PLAYER_HEADER.set(PlayerDataService.PLAYER_SHARED, o.getUniqueId(), "unset");
+            PLAYER_HEADER.set(JDBCPlayerData.PLAYER_SHARED, o.getUniqueId(), "unset");
             MessageAccessor.send(this.language, sender, "clear-header", args[1]);
         }
 
@@ -158,7 +158,7 @@ public final class PlayerNameHeader extends SLCommandModule {
             return this.cache.get(player.getUniqueId());
         }
 
-        var data = PLAYER_HEADER.get(PlayerDataService.PLAYER_SHARED, player.getUniqueId());
+        var data = PLAYER_HEADER.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
 
         if (!Objects.equals(data, "unset")) {
             this.cache.put(player.getUniqueId(), data);

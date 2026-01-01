@@ -1,28 +1,23 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.modular.service.*;
-import me.gb2022.modular.service.injection.Export;
-import me.gb2022.modular.service.injection.ServiceInject;
-import me.gb2022.modular.service.injection.ServiceProvider;
-import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
+import org.atcraftmc.starlight.util.Identifiers;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.atcraftmc.starlight.util.Identifiers;
 
 import java.util.Objects;
 
-@ApplicationService(id = "hashing")
-public interface PlayerIdentificationService extends SLService {
+@ApplicationService(id = "hashing", layer = ServiceLayer.FOUNDATION, export = true)
+public interface PlayerIdentificationService extends BukkitService {
 
-    @Export
     @ServiceInject
     ServiceHolder<PlayerIdentificationService> INSTANCE = new ServiceHolder<>();
 
     @ServiceProvider
-    static PlayerIdentificationService create(ConfigEntry config) {
+    static PlayerIdentificationService create() {
         try {
             Player.class.getMethod("getUniqueId");
             OfflinePlayer.class.getMethod("getUniqueId");

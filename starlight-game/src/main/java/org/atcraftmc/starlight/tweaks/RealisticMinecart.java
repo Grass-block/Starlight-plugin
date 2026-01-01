@@ -8,7 +8,7 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -19,7 +19,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -48,7 +48,7 @@ import java.util.UUID;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "realistic-minecart")
 @ComponentProvider(RealisticMinecart.PlayerWorldCache.class)
-public final class RealisticMinecart extends SLPackageModule {
+public final class RealisticMinecart extends PluginAbstractModule {
     private static final String GLOBAL_TASK_ID = "quark:minecart:simulate";
     private static final double MAX_SAFE_SPEED = 0.6;
     private static final double SIMULATED_GRAVITY = 0.05;
@@ -233,7 +233,7 @@ public final class RealisticMinecart extends SLPackageModule {
     }
 
     private PlayerWorldCache playerWorldCache() {
-        return this.handle().getComponent(PlayerWorldCache.class);
+        return this.handle().getComponentContainer().getComponent(PlayerWorldCache.class);
     }
 
     private Vector buildInitialSpeedVector(Player p) {

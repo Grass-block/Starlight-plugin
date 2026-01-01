@@ -1,23 +1,24 @@
 package org.atcraftmc.starlight.core;
 
 import me.gb2022.commons.container.ObjectContainer;
+import me.gb2022.modular.service.ApplicationService;
+import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.modular.service.ServiceLayer;
 import org.atcraftmc.qlib.bukkit.task.TaskManager;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.injection.ServiceInject;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 
-@ApplicationService(id = "task")
-public interface TaskService extends SLService {
+@ApplicationService(id = "task", layer = ServiceLayer.FOUNDATION)
+public interface TaskService extends BukkitService {
     ObjectContainer<TaskManager> CONTAINER = new ObjectContainer<>();
 
     @ServiceInject
@@ -59,7 +60,7 @@ public interface TaskService extends SLService {
     }
 
     static <I> void future(Future<I> future, Consumer<I> consumer) {
-        async().run(()-> {
+        async().run(() -> {
             try {
                 consumer.accept(future.get());
             } catch (InterruptedException | ExecutionException e) {

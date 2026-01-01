@@ -21,14 +21,14 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
 import org.atcraftmc.starlight.core.data.poi.LocationBasedObject;
 import org.atcraftmc.starlight.core.data.poi.RegionalLocatedDataService;
-import org.atcraftmc.starlight.data.ModuleDataService;
+import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.BukkitCodec;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -44,7 +44,7 @@ import java.util.*;
 @ApplicationModule(id = "hover-display")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(HoverDisplay.HoverDisplayCommand.class)
-public final class HoverDisplay extends SLPackageModule implements PluginCommandExecutor {
+public final class HoverDisplay extends PluginAbstractModule implements PluginCommandExecutor {
     private final HoverDisplayStorageService service = new HoverDisplayStorageService();
 
     private final Map<String, ArmorStandGroup> stands = new HashMap<>();

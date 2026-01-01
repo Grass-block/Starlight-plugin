@@ -6,7 +6,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -18,7 +18,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @CommandProvider(ExplosionDefender.ExplosionWhitelistCommand.class)
 @ApplicationModule(id = "explosion-defender", version = "1.4.3")
 @ComponentProvider(ExplosionDefender.BlockExplosionListener.class)
-public final class ExplosionDefender extends SLPackageModule {
+public final class ExplosionDefender extends PluginAbstractModule {
     private static final RecordRegistry.A5<String, Number, Number, Number, String> RECORD = new RecordRegistry.A5<>(
             "explosions",
             RecordField.WORLD,
@@ -73,7 +73,7 @@ public final class ExplosionDefender extends SLPackageModule {
         }
         if (ConfigAccessor.getBool(this.config(), "broadcast")) {
             MessageAccessor.broadcast(
-                    this.handle().getLanguage(),
+                    this.language(),
                     true,
                     false,
                     "exploded",

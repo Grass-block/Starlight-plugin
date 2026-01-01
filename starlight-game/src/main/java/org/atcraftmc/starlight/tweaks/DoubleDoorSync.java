@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.tweaks;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 @ApplicationModule(id = "double-door-sync", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class DoubleDoorSync extends SLPackageModule {
+public final class DoubleDoorSync extends PluginAbstractModule {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {

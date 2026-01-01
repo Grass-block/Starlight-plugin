@@ -5,7 +5,7 @@ import me.gb2022.modular.Registrations;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id="kick-on-reload",version = "1.0.0")
-public final class KickOnReload extends SLPackageModule {
+public final class KickOnReload extends PluginAbstractModule {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
@@ -40,11 +40,11 @@ public final class KickOnReload extends SLPackageModule {
 
     public void handle(String command) {
         if (command.equalsIgnoreCase("reload")) {
-            kick((locale) -> this.handle().getLanguage().item("reload-hint").message(locale));
+            kick((locale) -> this.language().item("reload-hint").message(locale));
         }
         if (command.equalsIgnoreCase("stop")) {
             for (var p : Bukkit.getOnlinePlayers()) {
-                p.kickPlayer(this.handle().getLanguage().item("stop-hint").message(LocaleService.locale(p)));
+                p.kickPlayer(this.language().item("stop-hint").message(LocaleService.locale(p)));
             }
         }
     }

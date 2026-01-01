@@ -8,21 +8,18 @@ import me.gb2022.commons.reflect.AutoRegisterManager;
 import me.gb2022.commons.reflect.DependencyInjector;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
-import me.gb2022.modular.pack.IPackage;
-import me.gb2022.modular.subcomponent.ComponentProvider;
-import me.gb2022.modular.subcomponent.SubComponent;
-import org.apache.logging.log4j.LogManager;
+import me.gb2022.modular.module.ModuleContainer;
+import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.modular.module.component.SubComponent;
+import me.gb2022.modular.pack.ApplicationPackage;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.shared.service.JDBCService;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.atcraftmc.starlight.core.data.BanEntryService;
-import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
-import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
 import org.atcraftmc.starlight.core.data.WaypointService;
+import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.data.assets.Asset;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
@@ -30,6 +27,12 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.framework.BukkitModule;
+import org.atcraftmc.starlight.framework.ModuleCommandHolder;
+import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
+import org.atcraftmc.starlight.shared.service.IRemoteMessageService;
+import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
@@ -45,32 +48,30 @@ import java.util.function.Function;
 
 
 public interface ModuleServices {
-    Logger LOGGER = LogManager.getLogger("SLModuleServices");
-
     ModuleAutoRegManager AUTO_REG = new ModuleAutoRegManager();
-    DependencyInjector<SLModule> MODULE_DEPENDENCY_INJECTOR = new ModuleDependencyInjector();
+    DependencyInjector<BukkitModule> MODULE_DEPENDENCY_INJECTOR = new ModuleDependencyInjector();
 
-    static void onEnable(SLModuleHandle module) {
-        module.getComponents().clear();
-        for (var component : createComponents(module.getModule().orElseThrow())) {
-            module.getComponents().put((Class<? extends SLModuleComponent<?>>) component.getClass(), (component));
+    static void onEnable(ModuleContainer module) {
+        module.getComponentContainer().clear();
+        for (var component : createComponents(module.getHandle(BukkitModule.class))) {
+            module.getComponentContainer().getComponents().put((Class<? extends SLModuleComponent<?>>) component.getClass(), (component));
         }
 
-        MODULE_DEPENDENCY_INJECTOR.inject(module.getModule(SLModule.class).orElseThrow());
+        MODULE_DEPENDENCY_INJECTOR.inject(module.getHandle(BukkitModule.class));
         AUTO_REG.attach(module);
         initCommands(module);
     }
 
-    static void onDisable(SLModuleHandle module) {
+    static void onDisable(ModuleContainer module) {
         AUTO_REG.detach(module);
 
         if (module.getClass().getDeclaredAnnotation(CommandProvider.class) != null) {
-            for (AbstractCommand cmd : module.getCommands()) {
+            for (AbstractCommand cmd : module.getAttachment(ModuleCommandHolder.class).getCommands()) {
                 Starlight.instance().getCommandManager().unregister(cmd);
             }
         }
 
-        module.getComponents().clear();
+        module.getComponentContainer().getComponents().clear();
     }
 
     static <E> Set<SubComponent<E>> createComponents(E holder) {
@@ -104,14 +105,14 @@ public interface ModuleServices {
     }
 
     @SuppressWarnings({"rawtypes"})
-    static void initCommands(SLModuleHandle handle) {
-        var module = handle.getModule().orElseThrow();
+    static void initCommands(ModuleContainer handle) {
+        var module = handle.getHandle(BukkitModule.class);
 
         if (!module.getClass().isAnnotationPresent(CommandProvider.class)) {
             return;
         }
 
-        handle.getCommands().clear();
+        handle.getAttachment(ModuleCommandHolder.class).getCommands().clear();
 
         var annotation = module.getClass().getAnnotation(CommandProvider.class);
 
@@ -120,30 +121,31 @@ public interface ModuleServices {
             try {
                 cmd = commandClass.getConstructor().newInstance();
                 if (cmd instanceof ModuleCommand c) {
-                    c.initContext(handle.getModule(SLModule.class).orElseThrow());
+                    c.initContext(handle.getHandle(BukkitModule.class));
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             StarlightCommandManager.getInstance().register(cmd);
-            handle.getCommands().add(cmd);
+            handle.getAttachment(ModuleCommandHolder.class).getCommands().add(cmd);
         }
     }
 
-    final class ModuleDependencyInjector extends DependencyInjector<SLModule> {
+    //todo: 拆分公用部分
+    final class ModuleDependencyInjector extends DependencyInjector<BukkitModule> {
         public ModuleDependencyInjector() {
             Function<String[], Boolean> useCacheForAsset = (p) -> p.length == 1 || Boolean.parseBoolean(p[1]);
 
-            registerInjector(Asset.class, (p, m) -> new Asset(m.ownerPlugin(), p[0], useCacheForAsset.apply(p)));
-            registerInjector(AssetGroup.class, (p, m) -> new AssetGroup(m.ownerPlugin(), p[0], useCacheForAsset.apply(p)));
+            registerInjector(Asset.class, (p, m) -> new Asset(m.owner(), p[0], useCacheForAsset.apply(p)));
+            registerInjector(AssetGroup.class, (p, m) -> new AssetGroup(m.owner(), p[0], useCacheForAsset.apply(p)));
             registerInjector(Permission.class, (p, m) -> PermissionService.createPermissionObject(p[0]));
 
-            registerInjector(IPackage.class, (p, m) -> m.parent());
-            registerInjector(Plugin.class, (p, m) -> m.ownerPlugin());
+            registerInjector(ApplicationPackage.class, (p, m) -> m.parent());
+            registerInjector(Plugin.class, (p, m) -> m.owner(Plugin.class));
 
             registerInjector(Logger.class, (p, m) -> m.handle().getLogger());
-            registerInjector(LanguageEntry.class, (p, m) -> m.handle().getLanguage());
-            registerInjector(LanguageItem.class, (p, m) -> Starlight.lang().item(m.parent().getId(), m.id(), p[0]));
+            registerInjector(LanguageEntry.class, (p, m) -> m.language());
+            registerInjector(LanguageItem.class, (p, m) -> Starlight.lang().item(m.parent().meta().id(), m.id(), p[0]));
 
             registerInjector(SimpleRegionService.class, (a, m) -> {
                 var service = new SimpleRegionService(a[1]);
@@ -184,7 +186,7 @@ public interface ModuleServices {
         }
 
         @Override
-        public <T> T createInjection(Class<T> type, SLModule owner, String argument) {
+        public <T> T createInjection(Class<T> type, BukkitModule owner, String argument) {
             return super.createInjection(type, owner, argument.replace("/", ";"));
         }
     }
@@ -205,18 +207,18 @@ public interface ModuleServices {
             });
         }
 
-        public void attach(SLModuleHandle object) {
-            this.attach(object.getModule(SLModule.class).orElseThrow());
+        public void attach(ModuleContainer object) {
+            this.attach(object.getHandle(BukkitModule.class));
 
-            for (var component : object.getComponents().values()) {
+            for (var component : object.getComponentContainer().getComponents().values()) {
                 this.attach((Listener) component);
             }
         }
 
-        public void detach(SLModuleHandle object) {
-            this.detach(object.getModule(SLModule.class).orElseThrow());
+        public void detach(ModuleContainer object) {
+            this.detach(object.getHandle(BukkitModule.class));
 
-            for (var component : object.getComponents().values()) {
+            for (var component : object.getComponentContainer().getComponents().values()) {
                 this.detach((Listener) component);
             }
         }
@@ -241,7 +243,7 @@ public interface ModuleServices {
                 builder.build(target);
             }
 
-            public static Consumer<Listener> apmService(BiConsumer<Listener, RemoteMessageService> func) {
+            public static Consumer<Listener> apmService(BiConsumer<Listener, IRemoteMessageService> func) {
                 return listener -> func.accept(listener, RemoteMessageService.instance());
             }
 

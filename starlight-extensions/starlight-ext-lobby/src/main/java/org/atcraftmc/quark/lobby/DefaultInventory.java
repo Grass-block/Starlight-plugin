@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.atcraftmc.starlight.data.ModuleDataService;
+import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import me.gb2022.modular.module.ApplicationModule;

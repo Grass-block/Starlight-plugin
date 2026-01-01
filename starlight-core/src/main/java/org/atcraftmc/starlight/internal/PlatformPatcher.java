@@ -4,12 +4,12 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @ApplicationModule(id = "platform-patcher", description = "Provide fixes for certain platform.")
 @ComponentProvider({PlatformPatcher.PlayerLastLoginPatch.class, PlatformPatcher.ServerTPSPatch.class, PlatformPatcher.LegacyCommandTimingsPatch.class})
-public final class PlatformPatcher extends SLPackageModule {
+public final class PlatformPatcher extends PluginAbstractModule {
     static PlatformPatcher INSTANCE;
 
     public static Optional<PlatformPatcher> instance() {
@@ -37,11 +37,11 @@ public final class PlatformPatcher extends SLPackageModule {
     }
 
     public PlayerLastLoginPatch lastLogin() {
-        return handle().getComponent(PlayerLastLoginPatch.class);
+        return handle().getComponentContainer().getComponent(PlayerLastLoginPatch.class);
     }
 
     public ServerTPSPatch tps() {
-        return handle().getComponent(ServerTPSPatch.class);
+        return handle().getComponentContainer().getComponent(ServerTPSPatch.class);
     }
 
 

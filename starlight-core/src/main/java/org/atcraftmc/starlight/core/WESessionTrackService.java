@@ -16,9 +16,9 @@ import org.atcraftmc.starlight.api.event.worldedit.WESessionEditEvent;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionPreEditEvent;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
 import me.gb2022.modular.service.ApplicationService;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceProvider;
+import me.gb2022.modular.service.ServiceProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,14 +28,14 @@ import org.atcraftmc.qlib.config.ConfigEntry;
 import me.gb2022.modular.APIIncompatibleException;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 @ApplicationService(id = "we-session-track")
-public interface WESessionTrackService extends SLService {
+public interface WESessionTrackService extends BukkitService {
     @ServiceInject
     ServiceHolder<WESessionTrackService> INSTANCE = new ServiceHolder<>();
 

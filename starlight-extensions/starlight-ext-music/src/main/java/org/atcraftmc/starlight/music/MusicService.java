@@ -4,23 +4,23 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO3;
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
-import me.gb2022.modular.service.injection.ServiceProvider;
+import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.modular.service.ServiceProvider;
 import me.gb2022.simpnet.util.BufferUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 import org.atcraftmc.starlight.music.resolve.EnumInstrument;
 import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
 import org.atcraftmc.starlight.music.resolve.MusicResolver;
-import org.atcraftmc.starlight.util.FilePath;
+import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.bukkit.Note;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -36,7 +36,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @ApplicationService(id = "music-service")
-public interface MusicService extends SLService {
+public interface MusicService extends BukkitService {
     String UNSUPPORTED_FORMAT = "unsupported-format";
     String RESOLVE_ERROR = "error-resolving";
     String NOT_FOUND = "not-found";
@@ -49,7 +49,7 @@ public interface MusicService extends SLService {
         ctx.attempt(() -> {
             Class.forName("org.bukkit.SoundCategory");
             return null;
-        }, (p, s, power, pitch) -> p.playSound(p.getLocation(), s, SoundCategory.RECORDS, power, pitch));
+        }, (p, s, power, pitch) -> p.playSound(p.getLocation(), s, SoundCategory.PLAYERS, power, pitch));
         ctx.dummy((p, s, power, pitch) -> p.playSound(p.getLocation(), s, power, pitch));
     });
 

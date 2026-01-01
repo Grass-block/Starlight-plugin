@@ -2,25 +2,30 @@ package org.atcraftmc.starlight.internal.command;
 
 import me.gb2022.commons.TriState;
 import me.gb2022.modular.ObjectOperationResult;
+import me.gb2022.modular.pack.ApplicationPackage;
+import me.gb2022.modular.pack.PackageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
-import org.atcraftmc.starlight.framework.packages.SLPackageManager;
-import org.atcraftmc.starlight.framework.packages.SLPackage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 @QuarkCommand(name = "package", permission = "-starlight.packages")
 public final class PackageCommand extends CoreCommand {
+    private final PackageManager handle = Starlight.instance().context().getPackageManager();
+
+
     static String messageId(ObjectOperationResult result, String success) {
         return switch (result) {
             case SUCCESS -> success;
@@ -31,9 +36,9 @@ public final class PackageCommand extends CoreCommand {
         };
     }
 
-    private static @NotNull String getPackageDisplayHover(SLPackage pkg, String owner, String ownerVer) {
-        var service = pkg.serviceRegistry();
-        var module = pkg.moduleRegistry();
+    private static @NotNull String getPackageDisplayHover(ApplicationPackage pkg, String owner, String ownerVer) {
+        var service = pkg.getServices();
+        var module = pkg.getModules();
         return """
                 &7ID: &b%s
                 &7Owner: &a%s
@@ -42,10 +47,10 @@ public final class PackageCommand extends CoreCommand {
                 &f
                 &8[click to view modules]
                 """.formatted(
-                pkg.getId(),
+                pkg.meta().id(),
                 owner + ":" + ownerVer,
-                service == null ? "&7[empty]" : "&a" + service.getServices().size(),
-                module == null ? "&7[empty]" : "&a" + module.getMetas().size()
+                service == null ? "&7[empty]" : "&a" + service.size(),
+                module == null ? "&7[empty]" : "&a" + module.size()
         );
     }
 
@@ -57,9 +62,9 @@ public final class PackageCommand extends CoreCommand {
     public void suggest(CommandSuggestion suggestion) {
         suggestion.suggest(0, "enable", "disable", "list");
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, "<search meta>"));
-        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, SLPackageManager.getInstance().getPackages().keySet()));
-        suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, SLPackageManager.getIdsByStatus(TriState.TRUE)));
-        suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, SLPackageManager.getIdsByStatus(TriState.FALSE)));
+        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, this.handle.getPackages().keySet()));
+        suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
+        suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
     }
 
     @Override
@@ -70,23 +75,23 @@ public final class PackageCommand extends CoreCommand {
         switch (context.requireEnum(0, "list", "info", "enable", "disable", "reload", "enable-all", "disable-all", "reload-all")) {
             case "list" -> list(sender, !context.hasArgumentAt(1) ? "" : context.requireArgumentAt(1));
             case "enable-all" -> {
-                SLPackageManager.enableAllPackages();
+                this.handle.enableAll();
                 this.getLanguage().item("enable-all").send(sender);
             }
             case "disable-all" -> {
-                SLPackageManager.disableAllPackages();
+                this.handle.disableAll();
                 this.getLanguage().item("disable-all").send(sender);
             }
-            case "enable" -> sendMessage(sender, messageId(SLPackageManager.enablePackage(id), "enable"), id);
-            case "disable" -> sendMessage(sender, messageId(SLPackageManager.disablePackage(id), "disable"), id);
+            case "enable" -> sendMessage(sender, messageId(this.handle.enable(id), "enable"), id);
+            case "disable" -> sendMessage(sender, messageId(this.handle.disable(id), "disable"), id);
         }
     }
 
     private void listPackages(CommandSender sender) {
         StringBuilder sb = new StringBuilder();
         HashMap<String, List<String>> map = new HashMap<>();
-        for (String s : SLPackageManager.getAllPackages().keySet().stream().sorted().toList()) {
-            String namespace = SLPackageManager.getPackage(s).getOwner().getName();
+        for (String s : this.handle.getAllPackages().keySet().stream().sorted().toList()) {
+            var namespace = this.handle.get(s).holder(Plugin.class).getName();
             if (!map.containsKey(namespace)) {
                 map.put(namespace, new ArrayList<>());
             }
@@ -104,7 +109,7 @@ public final class PackageCommand extends CoreCommand {
                     .append("):\n");
             for (String id : list) {
                 sb.append(ChatColor.RESET).append(" - ");
-                if (SLPackageManager.getPackageStatus(id) == TriState.FALSE) {
+                if (this.handle.getStatus(id) == TriState.FALSE) {
                     sb.append(ChatColor.GREEN);
                 } else {
                     sb.append(ChatColor.GRAY);
@@ -117,31 +122,30 @@ public final class PackageCommand extends CoreCommand {
         this.getLanguage().item("list").send(sender, sb.toString());
     }
 
-    private Component buildModuleInfo(SLPackage pkg) {
-        var state = SLPackageManager.isPackageEnabled(pkg.getId()) ? "&aE" : "&cD";
-        var owner = pkg.getOwner().getName();
-        var ownerVer = pkg.getOwner().getDescription().getVersion();
-        var line = "&f[%s&f]%s".formatted(state, pkg.getId());
+    private Component buildModuleInfo(ApplicationPackage pkg) {
+        var state = this.handle.isEnabled(pkg.meta().id()) ? "&aE" : "&cD";
+        var owner = pkg.holder(Plugin.class).getName();
+        var ownerVer = pkg.holder(Plugin.class).getDescription().getVersion();
+        var line = "&f[%s&f]%s".formatted(state, pkg.meta().id());
 
         var command = "/starlight module list %s";
         var hover = getPackageDisplayHover(pkg, owner, ownerVer);
 
         return Component.text(ChatColor.translateAlternateColorCodes('&', line))
-                .clickEvent(ClickEvent.runCommand(command.formatted(pkg.getId())))
+                .clickEvent(ClickEvent.runCommand(command.formatted(pkg.meta().id())))
                 .hoverEvent(HoverEvent.showText(Component.text(ChatColor.translateAlternateColorCodes('&', hover))));
     }
 
     private void list(CommandSender sender, String prefix) {
-        var nodes = SLPackageManager.getInstance()
-                .getPackages()
+        var nodes = this.handle.getPackages()
                 .values()
                 .stream()
-                .sorted(Comparator.comparing(m -> m.getOwner().getName()))
-                .filter((m) -> m.getId().contains(prefix))
+                .sorted(Comparator.comparing(m -> m.holder(Plugin.class).getName()))
+                .filter((m) -> m.meta().id().contains(prefix))
                 .toList();
         getLanguage().item("list").send(sender, "");
         for (var meta : nodes) {
-            Component msg = buildModuleInfo((SLPackage) meta);
+            Component msg = buildModuleInfo(meta);
             TextSender.sendMessage(sender, msg);
         }
     }

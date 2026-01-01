@@ -1,5 +1,7 @@
 package org.atcraftmc.starlight.shared.service;
 
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

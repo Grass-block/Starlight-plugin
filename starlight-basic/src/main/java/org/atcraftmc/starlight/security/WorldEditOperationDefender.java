@@ -31,7 +31,7 @@ import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -51,7 +51,7 @@ import java.util.function.Consumer;
 @ApplicationModule(id = "we-operation-defender", version = "1.3")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WorldEditOperationDefender.ConfirmCommand.class)
-public final class WorldEditOperationDefender extends SLPackageModule {
+public final class WorldEditOperationDefender extends PluginAbstractModule {
     @Inject("-starlight.worldedit.size")
     public Permission bypassCheck;
     private Cache<UUID, String> commandCache;

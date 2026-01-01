@@ -2,8 +2,7 @@ package org.atcraftmc.starlight.core.custom;
 
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.Export;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -13,7 +12,7 @@ import org.atcraftmc.starlight.api.customization.CustomBlock;
 import org.atcraftmc.starlight.api.customization.CustomItem;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.block.TileState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -26,9 +25,9 @@ import org.bukkit.persistence.PersistentDataHolder;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApplicationService(id = "custom-block", impl = CustomBlockService.class)
-public final class CustomBlockService implements SLService {
-    @Export
+@ApplicationService(id = "custom-block", impl = CustomBlockService.class, export = true)
+public final class CustomBlockService implements BukkitService {
+
     @ServiceInject
     public static final ServiceHolder<CustomBlockService> HOLDER = new ServiceHolder<>();
     private final Map<String, CustomBlock> blocks = new HashMap<>();

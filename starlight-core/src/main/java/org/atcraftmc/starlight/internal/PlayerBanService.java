@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
 import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -17,7 +17,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 
 @ApplicationService(id = "player-ban-service")
 @SuppressWarnings("Convert2MethodRef")
-public interface PlayerBanService extends SLService {
+public interface PlayerBanService extends BukkitService {
     LoginHandler EVENT_LISTENER = new LoginHandler();
     String MODIFIED_REASON_HEADER = "\u0002";
 

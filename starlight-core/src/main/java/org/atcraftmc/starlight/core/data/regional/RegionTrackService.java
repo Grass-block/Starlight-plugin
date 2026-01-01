@@ -3,9 +3,9 @@ package org.atcraftmc.starlight.core.data.regional;
 import it.unimi.dsi.fastutil.longs.Long2IntMap;
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArraySet;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Location;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class RegionTrackService implements SLService {
+public abstract class RegionTrackService implements BukkitService {
     private static final Map<String, RegionPositionTracker> instances = new HashMap<>();
 
     @ServiceInject

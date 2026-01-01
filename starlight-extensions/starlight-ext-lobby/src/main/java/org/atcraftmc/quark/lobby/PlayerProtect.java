@@ -2,7 +2,7 @@ package org.atcraftmc.quark.lobby;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -12,7 +12,7 @@ import org.atcraftmc.starlight.migration.ConfigAccessor;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(version = "1.0.3")
-public final class PlayerProtect extends SLPackageModule {
+public final class PlayerProtect extends PluginAbstractModule {
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event) {
         if (event.getEntity().getType() != EntityType.PLAYER) {

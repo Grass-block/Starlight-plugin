@@ -1,25 +1,25 @@
 package org.atcraftmc.starlight.api.event;
 
-import org.atcraftmc.starlight.framework.module.SLModuleHandle;
-import org.bukkit.event.HandlerList;
+import me.gb2022.modular.ObjectOperationResult;
+import me.gb2022.modular.module.ModuleContainer;
 import org.atcraftmc.starlight.core.event.CustomEvent;
 import org.atcraftmc.starlight.core.event.SLEvent;
-import me.gb2022.modular.ObjectOperationResult;
+import org.bukkit.event.HandlerList;
 
 public abstract class ModuleEvent extends CustomEvent {
-    private final SLModuleHandle meta;
+    private final ModuleContainer meta;
 
-    protected ModuleEvent(SLModuleHandle meta) {
+    protected ModuleEvent(ModuleContainer meta) {
         this.meta = meta;
     }
 
-    public SLModuleHandle getMeta() {
+    public ModuleContainer getMeta() {
         return meta;
     }
 
     @SLEvent
     public static final class PreEnable extends ModuleEvent {
-        public PreEnable(SLModuleHandle meta) {
+        public PreEnable(ModuleContainer meta) {
             super(meta);
         }
 
@@ -32,7 +32,7 @@ public abstract class ModuleEvent extends CustomEvent {
     public static final class Enable extends ModuleEvent {
         private final ObjectOperationResult result;
 
-        public Enable(SLModuleHandle meta, ObjectOperationResult result) {
+        public Enable(ModuleContainer meta, ObjectOperationResult result) {
             super(meta);
             this.result = result;
         }
@@ -48,7 +48,7 @@ public abstract class ModuleEvent extends CustomEvent {
 
     @SLEvent
     public static final class PreDisable extends ModuleEvent {
-        public PreDisable(SLModuleHandle meta) {
+        public PreDisable(ModuleContainer meta) {
             super(meta);
         }
 
@@ -61,7 +61,7 @@ public abstract class ModuleEvent extends CustomEvent {
     public static final class Disable extends ModuleEvent {
         private final ObjectOperationResult result;
 
-        public Disable(SLModuleHandle meta, ObjectOperationResult result) {
+        public Disable(ModuleContainer meta, ObjectOperationResult result) {
             super(meta);
             this.result = result;
         }

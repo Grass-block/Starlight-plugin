@@ -10,16 +10,16 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
 import org.atcraftmc.starlight.core.SimpleRegion;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.data.flex.FlexibleMapService;
-import org.atcraftmc.starlight.core.data.flex.TableColumn;
-import org.atcraftmc.starlight.data.PlayerDataService;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.core.WESessionTrackService;
+import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ApplicationModule(id = "we-session-renderer", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WESessionRenderer.WESessionRenderCommand.class)
-public final class WESessionRenderer extends SLPackageModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode> {
+public final class WESessionRenderer extends PluginAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode> {
     private final TableColumn<RenderMode> RENDER_MODE = TableColumn.custom("we_render_mode", 24, RenderMode.UPDATE, this);
 
     @Override
@@ -88,7 +88,7 @@ public final class WESessionRenderer extends SLPackageModule implements Flexible
     }
 
     private RenderMode getMode(Player player) {
-        return RENDER_MODE.get(PlayerDataService.PLAYER_SHARED, player.getUniqueId());
+        return RENDER_MODE.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class WESessionRenderer extends SLPackageModule implements Flexible
     }
 
     private void setMode(Player player, RenderMode of) {
-        RENDER_MODE.set(PlayerDataService.PLAYER_SHARED, player.getUniqueId(), of);
+        RENDER_MODE.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), of);
     }
 
     public enum RenderMode {

@@ -7,8 +7,7 @@ import me.gb2022.commons.reflect.method.MethodHandleRO0;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
-import org.atcraftmc.qlib.config.ConfigContainer;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.api.CustomChatRenderer;
@@ -17,7 +16,7 @@ import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextExaminer;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.util.TemplateExpansion;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -30,7 +29,7 @@ import java.util.Date;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "chat-format", version = "1.2.0")
 @ComponentProvider(ChatFormat.PaperChatListener.class)
-public final class ChatFormat extends SLPackageModule {
+public final class ChatFormat extends PluginAbstractModule {
     MethodHandleRO0<World, String> getDimensionId = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> World.class.getMethod("getKey"), (w) -> {
             var origin = w.getKey().toString();

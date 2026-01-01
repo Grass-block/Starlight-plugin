@@ -3,14 +3,14 @@ package org.atcraftmc.starlight.sideload;
 import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.commons.reflect.Inject;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.starlight.shared.config.Configurations;
+import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.foundation.crafting.RecipeManager;
 import me.gb2022.modular.APIIncompatibleException;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 @ApplicationModule(id="recipe-loader")
-public final class RecipeLoader extends SLPackageModule {
+public final class RecipeLoader extends PluginAbstractModule {
     private final Map<String, RecipeDispatcher> dispatchers = new HashMap<>();
     private final Set<Recipe> recipes = new HashSet<>();
 

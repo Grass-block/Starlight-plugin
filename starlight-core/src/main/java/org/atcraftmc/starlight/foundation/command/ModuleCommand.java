@@ -5,10 +5,9 @@ import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.module.SLModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.BukkitModule;
 
-public abstract class ModuleCommand<M extends SLModule> extends AbstractCommand {
+public abstract class ModuleCommand<M extends BukkitModule> extends AbstractCommand {
     private M module;
 
     public ModuleCommand(M module) {

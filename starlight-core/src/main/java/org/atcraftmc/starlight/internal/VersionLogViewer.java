@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.internal;
 import me.gb2022.commons.reflect.Inject;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.ProductInfo;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationModule(id = "version-log-viewer")
-public final class VersionLogViewer extends SLPackageModule implements PluginCommandExecutor {
+public final class VersionLogViewer extends PluginAbstractModule implements PluginCommandExecutor {
     private final Map<String, List<String>> versions = new HashMap<>();
 
     @Inject

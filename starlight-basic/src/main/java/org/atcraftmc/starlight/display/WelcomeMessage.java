@@ -13,7 +13,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ import org.bukkit.event.EventHandler;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({WelcomeMessage.WelcomeMessageCommand.class})
 @ApplicationModule(id = "welcome-message", version = "0.1.0")
-public final class WelcomeMessage extends SLPackageModule {
+public final class WelcomeMessage extends PluginAbstractModule {
     @EventHandler
     public void onPlayerFirstJoin(PlayerFirstJoinEvent event) {
         TaskService.global().delay(5, () -> this.sendWelcomeMessage(event.getPlayer()));
@@ -29,7 +29,7 @@ public final class WelcomeMessage extends SLPackageModule {
 
     private void sendWelcomeMessage(Player player) {
         try {
-            var msg = this.handle().getLanguage().inline(Language.generateTemplate(this.config(), "ui"), LocaleService.locale(player));
+            var msg = this.language().inline(Language.generateTemplate(this.config(), "ui"), LocaleService.locale(player));
             msg = msg.replace("{player}", player.getName());
             ComponentLike component = TextBuilder.buildComponent(msg);
             TextSender.sendMessage(player, component);

@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.core.data;
 
 import org.atcraftmc.starlight.core.objects.Waypoint;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,15 +1,15 @@
 package org.atcraftmc.starlight.data.record;
 
-import org.atcraftmc.starlight.data.record.registry.RecordData;
 import me.gb2022.modular.service.ApplicationService;
-import org.atcraftmc.starlight.framework.SLService;
+import me.gb2022.modular.service.Service;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
+import org.atcraftmc.starlight.data.record.registry.RecordData;
 
 import java.util.HashMap;
 
 @ApplicationService(id = "record", impl = RecordService.ServiceImplementation.class)
-public interface RecordService extends SLService {
+public interface RecordService extends Service {
     @ServiceInject
     ServiceHolder<RecordService> INSTANCE = new ServiceHolder<>();
 

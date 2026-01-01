@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.data.record.registry;
 
 import me.gb2022.commons.nbt.NBTTagCompound;
-import org.bukkit.entity.Player;
 
 public interface DataRenderer<I> {
     DataRenderer<Number> NUMBER = new DataRenderer<>() {
@@ -55,19 +54,6 @@ public interface DataRenderer<I> {
         @Override
         public String render(Boolean o) {
             return o.toString();
-        }
-    };
-
-    DataRenderer<Player> PLAYER = new DataRenderer<>() {
-
-        @Override
-        public String render(Player o) {
-            return o.getName();
-        }
-
-        @Override
-        public void render(NBTTagCompound tag, String name, Player o) {
-            tag.setString(name, o.getName());
         }
     };
 

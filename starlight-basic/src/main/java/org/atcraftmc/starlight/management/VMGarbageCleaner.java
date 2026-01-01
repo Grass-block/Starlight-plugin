@@ -7,14 +7,14 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 
 @CommandProvider({VMGarbageCleaner.GCCommand.class})
 @ApplicationModule(id = "vm-garbage-cleaner", version = "1.3.0")
-public final class VMGarbageCleaner extends SLPackageModule {
+public final class VMGarbageCleaner extends PluginAbstractModule {
     public static final String GC_TASK_TID = "starlight:gc";
 
     @Inject

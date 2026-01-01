@@ -5,7 +5,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -13,18 +13,18 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.data.BanEntryService;
-import org.atcraftmc.starlight.core.data.flex.TableColumn;
 import org.atcraftmc.starlight.core.objects.BanEntry;
-import org.atcraftmc.starlight.data.PlayerDataService;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.data.storage.DataEntry;
 import org.atcraftmc.starlight.data.storage.StorageTable;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -44,7 +44,7 @@ import java.util.UUID;
 @ApplicationModule(id = "mute", version = "1.0.2")
 @ComponentProvider(Mute.PaperListener.class)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class Mute extends SLPackageModule implements Listener {
+public final class Mute extends PluginAbstractModule implements Listener {
     public static final String DATA_ENTRY_ID = "starlight:mute";
     public static final TableColumn<DataEntry> MUTE_DATA = TableColumn.dom("chat_mute");
 
@@ -61,7 +61,7 @@ public final class Mute extends SLPackageModule implements Listener {
             if (!nbt.hasKey(DATA_ENTRY_ID)) {
                 return;
             }
-            var e2 = MUTE_DATA.get(PlayerDataService.PLAYER_SHARED, uuid);
+            var e2 = MUTE_DATA.get(JDBCPlayerData.PLAYER_SHARED, uuid);
 
             e2.getTagMap().clear();
             e2.getTagMap().putAll(nbt.getCompoundTag(DATA_ENTRY_ID).getTagMap());
@@ -84,7 +84,7 @@ public final class Mute extends SLPackageModule implements Listener {
     }
 
     public StorageTable getBanEntryFor(UUID id) {
-        var entry = MUTE_DATA.get(PlayerDataService.PLAYER_SHARED, id);
+        var entry = MUTE_DATA.get(JDBCPlayerData.PLAYER_SHARED, id);
 
         if (!entry.hasKey("banned")) {
             entry.setLong("expired", 0);

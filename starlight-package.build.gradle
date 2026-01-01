@@ -31,6 +31,7 @@ dependencies {
     compileOnly 'io.netty:netty-buffer:4.1.25.Final'
 
     compileOnly project(":starlight-core")
+    compileOnly project(":lib-starlight-shared")
     compileOnly gbuildLib("me.gb2022:modular-main")
 }
 

@@ -4,12 +4,12 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.shared.FilePath;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 @ApplicationModule(id = "command-tab-fix", version = "1.2.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({CommandTabFix.WEAddition.class,})
-public final class CommandTabFix extends SLPackageModule {
+public final class CommandTabFix extends PluginAbstractModule {
     public static boolean isCommandNameMatch(TabCompleteEvent event, String... names) {
         for (var name : names) {
             if (event.getBuffer().startsWith(name) || event.getBuffer().startsWith("/" + name)) {

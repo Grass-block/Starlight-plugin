@@ -1,18 +1,18 @@
 package org.atcraftmc.starlight.display;
 
 import org.atcraftmc.starlight.api.PlayerFirstJoinEvent;
-import org.atcraftmc.starlight.core.data.flex.TableColumn;
-import org.atcraftmc.starlight.data.PlayerDataService;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import me.gb2022.modular.service.ApplicationService;
-import org.atcraftmc.starlight.framework.SLService;
-import me.gb2022.modular.service.injection.ServiceInject;
+import org.atcraftmc.starlight.framework.BukkitService;
+import me.gb2022.modular.service.ServiceInject;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 @ApplicationService(id = "player-welcome")
-public interface PlayerWelcomeService extends SLService {
+public interface PlayerWelcomeService extends BukkitService {
     EventListener EVENT_LISTENER = new EventListener();
 
     @ServiceInject
@@ -30,9 +30,9 @@ public interface PlayerWelcomeService extends SLService {
 
         @EventHandler
         public void onPlayerJoin(PlayerJoinEvent event) {
-            if (!JOINED.get(PlayerDataService.PLAYER_LOCAL, event.getPlayer().getUniqueId())) {
+            if (!JOINED.get(JDBCPlayerData.PLAYER_LOCAL, event.getPlayer().getUniqueId())) {
                 BukkitUtil.callEvent(new PlayerFirstJoinEvent(event.getPlayer()));
-                JOINED.set(PlayerDataService.PLAYER_LOCAL, event.getPlayer().getUniqueId(), true);
+                JOINED.set(JDBCPlayerData.PLAYER_LOCAL, event.getPlayer().getUniqueId(), true);
             }
         }
     }

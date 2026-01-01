@@ -10,3 +10,5 @@ include 'starlight-extensions:starlight-ext-music'
 include 'starlight-extensions:starlight-ext-plot'
 
 include 'starlight-velocity'
+include 'starlight-bundler'
+

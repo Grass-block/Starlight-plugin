@@ -1,50 +1,41 @@
 package org.atcraftmc.starlight;
 
-import me.gb2022.modular.FeatureAvailability;
-import org.atcraftmc.starlight.framework.packages.SLPackageBuilder;
-import org.atcraftmc.starlight.framework.packages.SLPackageInitializer;
-import org.atcraftmc.starlight.framework.packages.provider.MultiPackageProvider;
-import org.atcraftmc.starlight.framework.packages.provider.SLPackageProvider;
-import org.atcraftmc.starlight.core.custom.CustomBlockService;
+import me.gb2022.modular.pack.ApplicationPackageProvider;
+import me.gb2022.modular.pack.ContentBuilder;
+import org.atcraftmc.starlight.framework.PluginPackageAttachment;
+import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
+import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
 import org.atcraftmc.starlight.oddities.Elevator;
 import org.atcraftmc.starlight.tweaks.*;
 
-import java.util.Set;
-
 @SLPackageProvider
 public final class SLGamePackage extends MultiPackageProvider {
-    static SLPackageInitializer tweak() {
-        return SLPackageBuilder.of("starlight-tweaks", FeatureAvailability.BOTH, (i) -> {
-            i.config("starlight-tweaks");
-            i.language("starlight-tweaks", "zh_cn");
 
-            i.module(CropClickHarvest.class);
-            i.module(DispenserInteraction.class);
-            i.module(DoubleDoorSync.class);
-            i.module(RealisticSleep.class);
-            i.module(VeinMiner.class);
-            i.module(PortableFunctionalBlocks.class);
-            i.module(PortableShulkerBox.class);
-            i.module(ItemDropSecure.class);
-            i.module(StairSeat.class);
-            i.module(RealisticMinecart.class);
-        });
+    @ApplicationPackageProvider(id = "starlight-tweaks")
+    static void tweak(ContentBuilder b) {
+        var i = b.getAttachment(PluginPackageAttachment.class);
+
+        i.config("starlight-tweaks");
+        i.language("starlight-tweaks", "zh_cn");
+
+        b.module(CropClickHarvest.class);
+        b.module(DispenserInteraction.class);
+        b.module(DoubleDoorSync.class);
+        b.module(RealisticSleep.class);
+        b.module(VeinMiner.class);
+        b.module(PortableFunctionalBlocks.class);
+        b.module(PortableShulkerBox.class);
+        b.module(ItemDropSecure.class);
+        b.module(StairSeat.class);
+        b.module(RealisticMinecart.class);
     }
 
-    static SLPackageInitializer oddities() {
-        return SLPackageBuilder.of("starlight-oddities", FeatureAvailability.BOTH, (i) -> {
-            i.config("starlight-oddities");
-            i.language("starlight-oddities", "zh_cn");
-            i.module(Elevator.class);
-        });
-    }
+    @ApplicationPackageProvider(id = "starlight-oddities")
+    static void oddities(ContentBuilder b) {
+        var i = b.getAttachment(PluginPackageAttachment.class);
 
-    static Set<SLPackageInitializer> initializers() {
-        return Set.of(tweak(), oddities());
-    }
-
-    @Override
-    public Set<SLPackageInitializer> createInitializers() {
-        return initializers();
+        i.config("starlight-oddities");
+        i.language("starlight-oddities", "zh_cn");
+        b.module(Elevator.class);
     }
 }

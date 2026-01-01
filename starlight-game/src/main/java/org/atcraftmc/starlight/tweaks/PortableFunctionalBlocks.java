@@ -4,11 +4,11 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
-import me.gb2022.modular.subcomponent.SubComponent;
+import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.modular.module.component.SubComponent;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 @ApplicationModule(id="portable-functional-blocks")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({PortableFunctionalBlocks.NetherUpdate.class, PortableFunctionalBlocks.VillageUpdate.class})
-public final class PortableFunctionalBlocks extends SLPackageModule {
+public final class PortableFunctionalBlocks extends PluginAbstractModule {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -33,7 +33,7 @@ public final class PortableFunctionalBlocks extends SLPackageModule {
             //case ANVIL -> event.getPlayer().openInventory(Bukkit.createInventory(null, InventoryType.ANVIL)); bugggy
             case ENDER_CHEST -> event.getPlayer().openInventory(event.getPlayer().getEnderChest());
             default -> {
-                for (SubComponent<?> c : this.handle().getComponents().values()) {
+                for (SubComponent<?> c : this.handle().getComponentContainer().getComponents().values()) {
                     if (!((InventoryActionHandler) c).handle(event.getPlayer(), event.getItem().getType())) {
                         continue;
                     }

@@ -14,7 +14,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.util.BukkitSound;
 import org.atcraftmc.starlight.util.PlayerMap;
@@ -27,7 +27,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 @ApplicationModule(id = "back-to-death", version = "1.3.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(BackToDeath.BackCommand.class)
-public final class BackToDeath extends SLPackageModule implements PluginCommandExecutor {
+public final class BackToDeath extends PluginAbstractModule implements PluginCommandExecutor {
     private final PlayerMap<Location> deaths = new PlayerMap<>();
 
     @Inject

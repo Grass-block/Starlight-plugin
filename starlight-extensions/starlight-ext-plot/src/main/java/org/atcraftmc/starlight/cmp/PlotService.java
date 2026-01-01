@@ -2,18 +2,18 @@ package org.atcraftmc.starlight.cmp;
 
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.starlight.cmp.data.BuildArea;
 import org.atcraftmc.starlight.core.data.region.AbstractRegionService;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bson.BsonDocument;
 import org.joml.Vector3d;
 
 import java.util.UUID;
 
-//todo:init
+//todo:initContext
 @ApplicationService(id = "plot-service")
-public interface PlotService extends SLService {
+public interface PlotService extends BukkitService {
     ServiceHolder<PlotServiceHandle> HANDLE = new ServiceHolder<>();
 
     @ServiceInject

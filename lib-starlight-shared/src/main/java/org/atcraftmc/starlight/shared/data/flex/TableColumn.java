@@ -2,8 +2,8 @@ package org.atcraftmc.starlight.shared.data.flex;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.data.storage.DataEntry;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -11,13 +11,10 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
+import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.qlib.texts.ComponentBlock;
-import org.atcraftmc.qlib.texts.TextBuilder;
-import org.atcraftmc.starlight.shared.config.Configurations;
-import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.api.event.QueryPingEvent;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextSender;
@@ -26,29 +23,28 @@ import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.shared.ConfigDataModel;
+import org.atcraftmc.starlight.shared.Configurations;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.CachedServerIcon;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @ApplicationModule(id = "custom-motd", version = "1.0.2")
 @CommandProvider({CustomMotd.MotdCommand.class})
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(CustomMotd.ProtocolLibSender.class)
-public final class CustomMotd extends SLPackageModule implements PluginCommandExecutor {
-    public static final Pattern PATTERN = Pattern.compile("\\{[a-z]+}");
+public final class CustomMotd extends PluginAbstractModule implements PluginCommandExecutor {
     private CachedServerIcon cachedServerIcon;
     private YamlConfiguration setting;
 
@@ -77,51 +73,14 @@ public final class CustomMotd extends SLPackageModule implements PluginCommandEx
         }
     }
 
-    public ComponentBlock getMessage() {
-        ConfigurationSection root = this.setting.getConfigurationSection("motd");
-
-        if (root == null) {
-            throw new RuntimeException("invalid config!");
-        }
-
-        var template = root.getString("motd-title") + "\n{#reset}" + root.getString("motd-subtitle");
-
-        Matcher matcher = PATTERN.matcher(template);
-
-        while (matcher.find()) {
-            var raw = matcher.group();
-
-            var key = raw.replace("{", "").replace("}", "");
-
-            if (key.startsWith("$")) {
-                continue;
-            }
-
-            String content;
-
-            if (!root.contains(key)) {
-                content = key;
-            } else if (root.isString(key)) {
-                content = root.getString(key);
-            } else {
-                List<String> list = root.getStringList(key);
-                content = list.get(SharedObjects.RANDOM.nextInt(list.size()));
-            }
-
-            if (content == null) {
-                content = key;
-            }
-
-            template = template.replace(raw, content);
-        }
-
-        return TextBuilder.build(template);
+    public Component getMessage() {
+        return ConfigDataModel.motd(this.setting);
     }
 
     @EventHandler
     public void onPing(ServerListPingEvent e) {
         try {
-            e.motd(getMessage().toSingleLine());
+            e.motd(getMessage());
         } catch (Error ex) {
             e.setMotd(getMessage().toString());
         }
@@ -134,7 +93,7 @@ public final class CustomMotd extends SLPackageModule implements PluginCommandEx
 
     @EventHandler
     public void onPing(QueryPingEvent e) {
-        e.setMotd(getMessage().toPlainTextString());
+        e.setMotd(ComponentSerializer.legacy(getMessage()));
 
         if (this.cachedServerIcon == null) {
             return;
@@ -188,7 +147,7 @@ public final class CustomMotd extends SLPackageModule implements PluginCommandEx
 
         @Override
         public void enable() {
-            this.handler = new PacketAdapter(this.parent.ownerPlugin(), PacketType.Status.Server.OUT_SERVER_INFO) {
+            this.handler = new PacketAdapter(this.parent.owner(Plugin.class), PacketType.Status.Server.OUT_SERVER_INFO) {
                 @Override
                 public void onPacketSending(PacketEvent e) {
                     WrappedServerPing ping = e.getPacket().getServerPings().read(0);

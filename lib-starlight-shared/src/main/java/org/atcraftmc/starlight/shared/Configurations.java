@@ -165,7 +165,7 @@ public interface Configurations {
     }
 
     static ConfigurationSection standalone(String name) {
-        var file = "%s/%s.yml".formatted(FilePath.slDataFolder(), name);
+        var file = "%s/config/%s.yml".formatted(FilePath.slDataFolder(), name);
         var template = "/templates/%s.yml".formatted(name);
 
         return values(template, file).getConfigurationSection(name);

@@ -6,8 +6,8 @@ import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.commons.reflect.method.MethodHandleO3;
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
-import me.gb2022.modular.service.injection.ServiceProvider;
+import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.modular.service.ServiceProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.atcraftmc.starlight.core.TaskService;
@@ -16,7 +16,7 @@ import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +27,7 @@ import org.bukkit.scoreboard.*;
 import java.util.*;
 
 @ApplicationService(id = "visual-scoreboard")
-public interface VisualScoreboardService extends SLService {
+public interface VisualScoreboardService extends BukkitService {
     @ServiceInject
     ServiceHolder<BukkitScoreboardService> INSTANCE = new ServiceHolder<>();
 

@@ -1,0 +1,53 @@
+package org.atcraftmc.starlight;
+
+import me.gb2022.modular.ModularApplicationContext;
+import org.atcraftmc.starlight.environment.PathManager;
+import org.atcraftmc.starlight.framework.PluginApplication;
+
+public class SLPluginEnvironment {
+    private static PluginApplication plugin;
+    private static PathManager pathManager;
+    private static ModularApplicationContext context;
+
+    private static String pluginId;
+    private static String corePackageName;
+
+    private static boolean debug = false;
+
+    public static void init(ModularApplicationContext c, PluginApplication p, String cpn, PathManager fm) {
+        plugin = p;
+        pluginId = p.id();
+        corePackageName = cpn;
+        pathManager = fm;
+        context = c;
+    }
+
+    public static <I> I returnSafely(I object) {
+        if (object == null) {
+            throw new RuntimeException("Plugin environment is not initialized!");
+        }
+
+        return object;
+    }
+
+    public static String getPluginId() {
+        return returnSafely(pluginId);
+    }
+
+    public static String getCorePackageName() {
+        return returnSafely(corePackageName);
+    }
+
+    public static PluginApplication getPlugin() {
+        return returnSafely(plugin);
+    }
+
+
+    public static PathManager getPathManager() {
+        return returnSafely(pathManager);
+    }
+
+    public static boolean isDebug() {
+        return debug;
+    }
+}

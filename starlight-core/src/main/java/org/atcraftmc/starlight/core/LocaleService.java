@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRO0;
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.ServiceLayer;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -13,13 +13,13 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
-import org.atcraftmc.starlight.data.PlayerDataService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -36,7 +36,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @ApplicationService(id = "locale", layer = ServiceLayer.FRAMEWORK)
-public interface LocaleService extends SLService {
+public interface LocaleService extends BukkitService {
     TableColumn<String> TESTED_LOCALE = TableColumn.string("lang_tested", 16, "unknown");
     TableColumn<String> CUSTOM_LOCALE = TableColumn.string("lang_custom", 16, "auto");
 
@@ -53,8 +53,8 @@ public interface LocaleService extends SLService {
     @ServiceInject
     static void start() {
         try {
-            PlayerDataService.PLAYER_LOCAL.init(JDBCService.getDB(JDBCService.SL_LOCAL).orElseThrow());
-            PlayerDataService.PLAYER_SHARED.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
+            JDBCPlayerData.PLAYER_LOCAL.init(JDBCService.getDB(JDBCService.SL_LOCAL).orElseThrow());
+            JDBCPlayerData.PLAYER_SHARED.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -92,19 +92,19 @@ public interface LocaleService extends SLService {
     }
 
     static void setCustomLanguage(OfflinePlayer user, String value) {
-        CUSTOM_LOCALE.set(PlayerDataService.PLAYER_SHARED, user.getUniqueId(), value);
+        CUSTOM_LOCALE.set(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId(), value);
         LOCALE_CACHE.put(user.getUniqueId(), getUserLocale(user));
     }
 
     static String getUserLocale(OfflinePlayer user) {
         try {
-            var custom = CUSTOM_LOCALE.get(PlayerDataService.PLAYER_SHARED, user.getUniqueId());
+            var custom = CUSTOM_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId());
 
             if (!Objects.equals(custom, "auto")) {
                 return custom;
             }
 
-            var tested = TESTED_LOCALE.get(PlayerDataService.PLAYER_SHARED, user.getUniqueId());
+            var tested = TESTED_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId());
 
             if (!Objects.equals(tested, "unknown")) {
                 return tested;
@@ -144,8 +144,8 @@ public interface LocaleService extends SLService {
             boolean isValidChange = true;
 
             var uuid = event.getPlayer().getUniqueId();
-            var custom = CUSTOM_LOCALE.get(PlayerDataService.PLAYER_SHARED, uuid);
-            var cache = TESTED_LOCALE.get(PlayerDataService.PLAYER_SHARED, uuid);
+            var custom = CUSTOM_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, uuid);
+            var cache = TESTED_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, uuid);
 
             if (Objects.equals(locale, "en_us")) {
                 if (!Objects.equals(cache, "unknown")) {
@@ -160,7 +160,7 @@ public interface LocaleService extends SLService {
             }
 
             if (Objects.equals(custom, "auto")) {
-                TESTED_LOCALE.set(PlayerDataService.PLAYER_SHARED, uuid, locale);
+                TESTED_LOCALE.set(JDBCPlayerData.PLAYER_SHARED, uuid, locale);
                 if (isValidChange) {
                     ComponentBlock block = preset.component(locale(event.getPlayer()), locale);
                     TextSender.sendBlock(event.getPlayer(), block);

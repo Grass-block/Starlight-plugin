@@ -9,7 +9,7 @@ import me.gb2022.commons.reflect.method.MethodHandleRO1;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.atcraftmc.qlib.Pipeline;
@@ -28,7 +28,7 @@ import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.SignChangeEvent;
@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({ChatComponent.PaperChatListener.class, ChatComponent.PaperSignChangeListener.class})
 @ApplicationModule(id = "chat-component", version = "1.3.0")
-public final class ChatComponent extends SLPackageModule {
+public final class ChatComponent extends PluginAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
     private final GloballyPlaceHolder chatPH = PlaceHolders.chat();
 

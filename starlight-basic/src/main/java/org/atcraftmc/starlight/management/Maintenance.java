@@ -12,7 +12,7 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @ApplicationModule(id = "maintenance", version = "2.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(Maintenance.MaintenanceCommand.class)
-public final class Maintenance extends SLPackageModule {
+public final class Maintenance extends PluginAbstractModule {
     private final Set<UUID> allowed = new HashSet<>();
     private boolean active = false;
 
@@ -71,7 +71,7 @@ public final class Maintenance extends SLPackageModule {
             }
         }
 
-        var message = MessageAccessor.getMessage(this.handle().getLanguage(), LocaleService.locale(p), "kick-message");
+        var message = MessageAccessor.getMessage(this.language(), LocaleService.locale(p), "kick-message");
         var name = event.getPlayerProfile().getName();
 
         event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, PluginMessenger.queryKickMessage(name, message, locale.minecraft()));
@@ -83,7 +83,7 @@ public final class Maintenance extends SLPackageModule {
                 continue;
             }
 
-            var msg = MessageAccessor.getMessage(this.handle().getLanguage(), LocaleService.locale(player), "kick-message");
+            var msg = MessageAccessor.getMessage(this.language(), LocaleService.locale(player), "kick-message");
             player.kickPlayer(msg);
         }
     }

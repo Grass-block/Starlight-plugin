@@ -6,7 +6,7 @@ import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,7 @@ import java.util.List;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({BlockUpdateLocker.BlockUpdateLockerCommand.class})
 @ApplicationModule(id = "block-update-locker", version = "1.0.0")
-public final class BlockUpdateLocker extends SLPackageModule {
+public final class BlockUpdateLocker extends PluginAbstractModule {
     private boolean locked = false;
 
     @EventHandler

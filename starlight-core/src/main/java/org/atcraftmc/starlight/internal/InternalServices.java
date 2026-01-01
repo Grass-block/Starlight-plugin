@@ -1,6 +1,15 @@
 package org.atcraftmc.starlight.internal;
 
+import me.gb2022.modular.service.ApplicationService;
+import me.gb2022.modular.service.ServiceHolder;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.api.event.CommandEvent;
+import org.atcraftmc.starlight.api.event.CommandTabEvent;
+import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.framework.BukkitService;
+import org.atcraftmc.starlight.internal.command.InternalCommands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -8,18 +17,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.event.server.TabCompleteEvent;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.api.event.CommandEvent;
-import org.atcraftmc.starlight.api.event.CommandTabEvent;
-import me.gb2022.modular.service.ApplicationService;
-import org.atcraftmc.starlight.framework.SLService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
-import org.atcraftmc.starlight.internal.command.InternalCommands;
 
 public interface InternalServices {
     @ApplicationService(id = "internal#bungee-channel-supplier")
-    interface BungeeChannelSupplier extends SLService {
+    interface BungeeChannelSupplier extends BukkitService {
         String BUNGEE_CHANNEL_ID = "BungeeCord";
 
         @ServiceInject
@@ -34,7 +35,7 @@ public interface InternalServices {
     }
 
     @ApplicationService(id = "internal#command-provider")
-    interface InternalCommandsProvider extends SLService {
+    interface InternalCommandsProvider extends BukkitService {
         @ServiceInject
         static void start() {
             InternalCommands.register();
@@ -47,13 +48,13 @@ public interface InternalServices {
     }
 
     @ApplicationService(id = "internal#command-event", impl = CommandEventService.CommandEventAdapter.class)
-    interface CommandEventService extends SLService {
+    interface CommandEventService extends BukkitService {
 
         @ServiceInject
         ServiceHolder<CommandEventAdapter> INSTANCE = new ServiceHolder<>();
 
         @ServiceInject
-        static void init() {
+        static void start() {
             BukkitUtil.registerEventListener(INSTANCE.get());
         }
 
@@ -87,7 +88,8 @@ public interface InternalServices {
                         event.getBuffer().split(" "),
                         event.getCompletions()
                 );
-                Bukkit.getPluginManager().callEvent(evt);
+
+                TaskService.async().run(() -> Bukkit.getPluginManager().callEvent(evt));
                 if (evt.isCancelled()) {
                     event.setCancelled(true);
                 }
@@ -97,8 +99,12 @@ public interface InternalServices {
                 String[] raw = commandLine.split(" ");
                 String[] args = new String[raw.length - 1];
                 System.arraycopy(raw, 1, args, 0, raw.length - 1);
+
+
                 CommandEvent evt = new CommandEvent(sender, raw[0], args);
-                Bukkit.getPluginManager().callEvent(evt);
+
+                TaskService.async().run(() -> Bukkit.getPluginManager().callEvent(evt));
+
                 return evt.isCancelled();
             }
         }

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.shared.data.flex;
 
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -8,12 +8,12 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 
 @ApplicationModule(id = "world-edit-commands")
 @CommandProvider({WorldEditCommands.MirrorCommand.class, WorldEditCommands.DrainWaterCommand.class, WorldEditCommands.FastBrushCommand.class})
-public final class WorldEditCommands extends SLPackageModule {
+public final class WorldEditCommands extends PluginAbstractModule {
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("WorldEdit");

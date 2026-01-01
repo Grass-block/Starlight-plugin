@@ -2,14 +2,13 @@ package org.atcraftmc.starlight.internal;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.injection.ServiceInject;
-import net.kyori.adventure.text.Component;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.api.event.ChatForwardingEvent;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,7 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 @ApplicationService(id = "chat-forwarding")
-public interface ChatForwardingService extends SLService {
+public interface ChatForwardingService extends BukkitService {
     Listener EVENT_HANDLER = createImplementation();
 
     @ServiceInject

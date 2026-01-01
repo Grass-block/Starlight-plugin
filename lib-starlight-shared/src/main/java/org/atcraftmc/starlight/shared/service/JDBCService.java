@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.shared.service;
 import me.gb2022.modular.service.ApplicationService;
 import me.gb2022.modular.service.Service;
 import me.gb2022.modular.service.ServiceLayer;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.shared.FilePath;

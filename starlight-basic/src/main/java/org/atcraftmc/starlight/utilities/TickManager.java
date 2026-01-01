@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("UnstableApiUsage")
-@ApplicationModule(id = "tickAppend-manager")
-@QuarkCommand(name = "server-tickAppend", permission = "-quark.tickAppend")
+@ApplicationModule(id = "tick-manager")
+@QuarkCommand(name = "server-tick", permission = "-quark.tick")
 public final class TickManager extends SLCommandModule {
 
     @Inject

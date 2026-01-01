@@ -5,13 +5,13 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.APIIncompatibleException;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 @ApplicationModule(id = "chat-sync", version = "1.0.0")
 @AutoRegister({Registrations.SERVER_EVENT})
 @ComponentProvider({ProxyChatSync.BukkitListener.class, ProxyChatSync.PaperListener.class})
-public final class ProxyChatSync extends SLPackageModule {
+public final class ProxyChatSync extends PluginAbstractModule {
     @Override
     public void enable() {
         Bukkit.getMessenger().registerOutgoingPluginChannel(Starlight.instance(), "quark_plugin:msg");

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.chat;
 
 import org.atcraftmc.starlight.chat.mail.MailMessage;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;

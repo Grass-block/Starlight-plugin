@@ -13,7 +13,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationModule(id = "proxy-ping", defaultEnable = false)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class ProxyPing extends SLPackageModule {
+public final class ProxyPing extends PluginAbstractModule {
     private final Map<String, Integer> ping = new HashMap<>();
 
     @Inject

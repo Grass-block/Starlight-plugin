@@ -1,24 +1,31 @@
 package org.atcraftmc.starlight.core.permission;
 
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.ServiceInject;
-import me.gb2022.modular.service.ServiceLayer;
 import me.gb2022.modular.service.ApplicationService;
-import org.atcraftmc.starlight.framework.SLService;
+import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.modular.service.ServiceLayer;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
-import org.atcraftmc.starlight.Starlight;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @ApplicationService(id = "permission", impl = PermissionService.Impl.class, layer = ServiceLayer.FOUNDATION)
-public interface PermissionService extends SLService {
+public interface PermissionService extends BukkitService {
+    PermissionService INSTANCE = new Impl();
 
     @ServiceInject
-    ServiceHolder<PermissionService> INSTANCE = new ServiceHolder<>();
+    static void start() throws Exception {
+        INSTANCE.enable();
+    }
+
+    @ServiceInject
+    static void stop() throws Exception {
+        INSTANCE.disable();
+    }
 
     static Permission getPermission(String codec) {
         String name = codec;
@@ -54,11 +61,11 @@ public interface PermissionService extends SLService {
     }
 
     static void createPermission(String fmt) {
-        INSTANCE.get().create(fmt);
+        INSTANCE.create(fmt);
     }
 
     static Permission createPermissionObject(String fmt) {
-        return INSTANCE.get().create(fmt);
+        return INSTANCE.create(fmt);
     }
 
     static void update() {
@@ -68,7 +75,7 @@ public interface PermissionService extends SLService {
     }
 
     static void deletePermission(String fmt) {
-        INSTANCE.get().delete(fmt);
+        INSTANCE.delete(fmt);
     }
 
     Permission create(String fmt);
@@ -99,7 +106,7 @@ public interface PermissionService extends SLService {
             } else {
                 try {
                     Bukkit.getPluginManager().addPermission(permission);
-                }catch (Exception ignored){
+                } catch (Exception ignored) {
                     //Starlight.getInstance().getLogger().warning("duplicated permission:" + perm);
                 }
             }

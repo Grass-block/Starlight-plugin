@@ -6,12 +6,7 @@ import me.gb2022.apm.remote.RemoteQuery;
 import me.gb2022.apm.remote.connector.RemoteConnector;
 import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.channel.MessageChannel;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.injection.Export;
-import me.gb2022.modular.service.injection.ServiceInject;
-import me.gb2022.modular.service.injection.ServiceProvider;
+import me.gb2022.modular.service.*;
 import org.atcraftmc.starlight.shared.Configurations;
 
 import java.net.InetSocketAddress;
@@ -21,11 +16,11 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-@ApplicationService(id = "remote-message-service")
+@ApplicationService(id = "remote-message-service",export = true)
 public final class RemoteMessageService implements Service, IRemoteMessageService {
     public static final Logger LOGGER = Logger.getLogger("Starlight:RemoteMessageService");
     public static final Runnable EMPTY_ACTION = () -> {};
-    @Export
+
     @ServiceInject
     public static final ServiceHolder<RemoteMessageService> INSTANCE = new ServiceHolder<>();
     private final IRemoteMessageService handle;
@@ -35,7 +30,7 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
     }
 
     @ServiceProvider
-    static IRemoteMessageService create() {
+    public static IRemoteMessageService create() {
         var config = Configurations.secret("plugin-vpn");
 
         if (!config.getBoolean("enabled")) {
@@ -50,7 +45,7 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
         );
     }
 
-    public static RemoteMessageService instance() {
+    public static IRemoteMessageService instance() {
         return INSTANCE.get();
     }
 

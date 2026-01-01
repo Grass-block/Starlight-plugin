@@ -8,7 +8,7 @@ import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @ApplicationModule(id = "fly-command", version = "1.2.0")
 @CommandProvider({FlyCommand.FlySpeedCommand.class, FlyCommand.FlyToggleCommand.class})
-public final class FlyCommand extends SLPackageModule {
+public final class FlyCommand extends PluginAbstractModule {
     @Inject("tip")
     private LanguageItem tip;
 

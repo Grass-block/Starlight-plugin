@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.core.data.regional;
 
 import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.injection.ServiceInject;
+import me.gb2022.modular.service.ServiceInject;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.framework.SLService;
+import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ApplicationService(id = "region-position-provider")
-public abstract class RegionPositionProvidingService implements SLService {
+public abstract class RegionPositionProvidingService implements BukkitService {
     public static final RegionPositionProvidingService PLAYER = new PlayerPositionProvider();
     public static final RegionPositionProvidingService SPAWN = new SpawnPositionProvider();
     private static final Set<RegionPositionProvidingService> INSTANCES = new HashSet<>();

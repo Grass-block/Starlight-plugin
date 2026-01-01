@@ -3,7 +3,7 @@ package org.atcraftmc.quark.lobby;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,14 +16,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.gb2022.modular.APIIncompatibleException;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 
 @ApplicationModule(version = "1.0.3")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(MapProtect.PaperPreAttackEventEXT.class)
-public final class MapProtect extends SLPackageModule {
+public final class MapProtect extends PluginAbstractModule {
     private static boolean allowBreak(Player player) {
         if (player.getGameMode() == GameMode.CREATIVE) {
             return true;

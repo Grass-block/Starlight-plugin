@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.data.region;
 
 import org.atcraftmc.starlight.shared.service.JDBCService;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.core.objects.Region;
 import org.atcraftmc.starlight.core.objects.WorldAABB;
 import org.atcraftmc.starlight.util.BsonCodec;

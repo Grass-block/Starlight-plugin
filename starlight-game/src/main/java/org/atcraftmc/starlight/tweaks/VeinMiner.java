@@ -9,7 +9,7 @@ import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Axis;
 import org.bukkit.GameMode;
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "vein-miner")
-public final class VeinMiner extends SLPackageModule {
+public final class VeinMiner extends PluginAbstractModule {
     private final Set<String> breakingSession = new HashSet<>();
 
     @Inject("tip")

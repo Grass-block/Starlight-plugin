@@ -11,7 +11,7 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.PlayerExtraBanCheckEvent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.event.EventHandler;
 
 import java.time.Duration;
@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 @ApplicationModule(id = "img-regulation-sync")
 @AutoRegister(Registrations.SERVER_EVENT)
-public class IMGRegulationSync extends SLPackageModule {
+public class IMGRegulationSync extends PluginAbstractModule {
     private final Cache<UUID, IMGRegulationService.BanRecord> cache = CacheBuilder.newBuilder()
             .expireAfterAccess(Duration.ofMinutes(5))
             .build();

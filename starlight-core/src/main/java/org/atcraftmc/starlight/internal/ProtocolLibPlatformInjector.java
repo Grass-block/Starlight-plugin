@@ -13,13 +13,13 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 @ApplicationModule(id = "protocol-lib-injector", internal = true, description = "Create more compatible message sending via ProtocolLib.")
-public final class ProtocolLibPlatformInjector extends SLPackageModule {
+public final class ProtocolLibPlatformInjector extends PluginAbstractModule {
 
     @Override
     public void checkCompatibility() throws APIIncompatibleException {

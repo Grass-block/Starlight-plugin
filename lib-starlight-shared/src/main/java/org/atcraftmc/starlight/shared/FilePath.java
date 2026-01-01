@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.shared;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 
 import java.io.*;
 import java.util.Objects;
@@ -68,7 +69,7 @@ public interface FilePath {
     }
 
     static String slDataFolder() {
-        return server() + "/plugins/" + SLPluginEnvironment.getPluginId();
+        return SLPluginEnvironment.getPathManager().getCurrentPluginFolder().toString();
     }
 
     static InputStream getPluginResource(String path) {
@@ -101,7 +102,5 @@ public interface FilePath {
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
     }
 
-    static String cache() {
-        return slDataFolder() + "/cache";
-    }
+
 }

@@ -59,7 +59,7 @@ public final class EntityMotion extends SLCommandModule {
         if (!(context.getSender() instanceof Player)) {
             return;
         }
-        MessageAccessor.send(this.handle().getLanguage(), context.getSender(), "hint", target.size(), time, mode, x, y, z);
+        MessageAccessor.send(this.language(), context.getSender(), "hint", target.size(), time, mode, x, y, z);
     }
 
     private void attempt(Entity e, int time, Vector value, boolean add) {

@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public interface SLVModule extends IModule<SLVPackage, SLVModuleHandle> {
     default LanguageEntry language() {
-        return this.handle().getLanguage();
+        return this.language();
     }
 
     default ConfigEntry config() {

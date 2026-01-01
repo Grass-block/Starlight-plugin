@@ -1,26 +1,23 @@
 package org.atcraftmc.starlight;
 
-import me.gb2022.modular.FeatureAvailability;
-import org.atcraftmc.starlight.framework.packages.SLPackageBuilder;
-import org.atcraftmc.starlight.framework.packages.SLPackageInitializer;
-import org.atcraftmc.starlight.framework.packages.provider.MultiPackageProvider;
+import me.gb2022.modular.pack.ApplicationPackageProvider;
+import me.gb2022.modular.pack.ContentBuilder;
+import org.atcraftmc.starlight.framework.PluginPackageAttachment;
+import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
 import org.atcraftmc.starlight.music.MusicGame;
 import org.atcraftmc.starlight.music.MusicPlayer;
 import org.atcraftmc.starlight.music.MusicService;
 
-import java.util.Set;
-
 public final class SLMusicPackage extends MultiPackageProvider {
-    @Override
-    public Set<SLPackageInitializer> createInitializers() {
-        return Set.of(SLPackageBuilder.of("starlight-music", FeatureAvailability.BOTH, (i) -> {
-            i.service(MusicService.class);
+    @ApplicationPackageProvider(id = "starlight-music")
+    static void music(ContentBuilder b) {
+        var i = b.getAttachment(PluginPackageAttachment.class);
 
-            i.module(MusicPlayer.class);
-            i.module(MusicGame.class);
+        b.service(MusicService.class);
+        b.module(MusicPlayer.class);
+        b.module(MusicGame.class);
 
-            i.config("starlight-music");
-            i.language("starlight-music", "zh_cn");
-        }));
+        i.config("starlight-music");
+        i.language("starlight-music", "zh_cn");
     }
 }

@@ -3,20 +3,22 @@ package org.atcraftmc.starlight.internal.command;
 import me.gb2022.commons.TriState;
 import me.gb2022.modular.FunctionalComponentStatus;
 import me.gb2022.modular.ObjectOperationResult;
+import me.gb2022.modular.module.ModuleContainer;
+import me.gb2022.modular.module.ModuleManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
-import org.atcraftmc.starlight.framework.SLModuleManager;
-import org.atcraftmc.starlight.framework.module.SLModuleHandle;
-import org.atcraftmc.starlight.framework.packages.SLPackageManager;
+import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ import java.util.List;
 
 @QuarkCommand(name = "module", permission = "-starlight.core.module")
 public final class ModuleCommand extends CoreCommand {
-    private final SLModuleManager handle = SLModuleManager.getInstance();
+    private final ModuleManager handle = Starlight.instance().context().getModuleManager();
 
     static String messageId(ObjectOperationResult result, String success) {
         return switch (result) {
@@ -38,14 +40,15 @@ public final class ModuleCommand extends CoreCommand {
 
     private void sendMessage(CommandSender sender, String id, String mid) {
         var module = this.handle.get(mid).orElseThrow();
-        this.getLanguage().item(id).send(sender, module.displayName(LocaleService.locale(sender)));
+        var name = module.getAttachment(PluginModuleAttachment.class).displayName(LocaleService.locale(sender));
+        this.getLanguage().item(id).send(sender, name);
     }
 
     @Override
     public void suggest(CommandSuggestion suggestion) {
         suggestion.suggest(0, "list", "enable", "disable", "reload", "info");
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, "<search meta>"));
-        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, SLPackageManager.getInstance().getPackages().keySet()));
+        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, Starlight.instance().context().getPackageManager().getPackages().keySet()));
         suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
         suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
         suggestion.matchArgument(0, "reload", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
@@ -76,7 +79,7 @@ public final class ModuleCommand extends CoreCommand {
         }
     }
 
-    private Component buildModuleHoverInfo(SLModuleHandle m) {
+    private Component buildModuleHoverInfo(ModuleContainer m) {
         var statusColor = switch (m.getStatus()) {
             case UNKNOWN -> "&7";
             case REGISTER_FAILED, CONSTRUCT_FAILED, ENABLE_FAILED -> "&c";
@@ -101,7 +104,7 @@ public final class ModuleCommand extends CoreCommand {
         return Component.text(ChatColor.translateAlternateColorCodes('&', hover));
     }
 
-    private Component buildModuleInfo(SLModuleHandle m, MinecraftLocale locale) {
+    private Component buildModuleInfo(ModuleContainer m, MinecraftLocale locale) {
         var prefix = "&f[%s&f]".formatted(switch (m.getStatus()) {
             case UNKNOWN -> "&7U";
             case REGISTER_FAILED, CONSTRUCT_FAILED, ENABLE_FAILED -> "&cF";
@@ -109,20 +112,24 @@ public final class ModuleCommand extends CoreCommand {
             case ENABLED -> "&aE";
         });
 
-        var info = Component.text(ChatColor.translateAlternateColorCodes('&', prefix + m.displayName(locale)));
+        var info = Component.text(ChatColor.translateAlternateColorCodes(
+                '&',
+                prefix + m.getAttachment(PluginModuleAttachment.class)
+                        .displayName(locale)
+        ));
 
         return info.hoverEvent(HoverEvent.showText(buildModuleHoverInfo(m)));
     }
 
     private void list(CommandSender sender, String prefix) {
-        var nodes = SLModuleManager.getInstance().getModules().values().stream().filter((m) -> m.getMetadata()
+        var nodes = this.handle.getModules().values().stream().filter((m) -> m.getMetadata()
                 .key()
                 .toString()
                 .contains(prefix)).toList();
 
         getLanguage().item("list").send(sender, "");
 
-        var groups = new HashMap<String, List<SLModuleHandle>>();
+        var groups = new HashMap<String, List<ModuleContainer>>();
 
         for (var meta : nodes) {
             groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>()).add(meta);
@@ -134,7 +141,7 @@ public final class ModuleCommand extends CoreCommand {
 
             var all = group.size();
             var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).getOwner().getName(), enable, all);
+            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(Plugin.class).getName(), enable, all);
 
             Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
             TextSender.sendMessage(sender, msg1);

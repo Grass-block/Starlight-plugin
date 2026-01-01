@@ -33,6 +33,7 @@ dependencies {
 
     compileOnly "org.apache.logging.log4j:log4j-api:2.8.1"
     implementation 'org.slf4j:log4j-over-slf4j:2.0.0-alpha1'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 
     implementation gbuildLib("me.gb2022:modular-main")
     implementation gbuildLib("org.atcraftmc.qlib:qlib-base")

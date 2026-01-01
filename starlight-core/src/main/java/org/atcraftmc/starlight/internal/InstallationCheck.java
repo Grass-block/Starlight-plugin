@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.subcomponent.ComponentProvider;
+import me.gb2022.modular.module.component.ComponentProvider;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -14,8 +14,7 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
-import org.atcraftmc.starlight.framework.packages.SLPackageManager;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +27,7 @@ import java.util.List;
 
 @ComponentProvider({InstallationCheck.Incomplete.class, InstallationCheck.Unregistered.class, InstallationCheck.CounterConflicts.class})
 @ApplicationModule(id = "installation-check", internal = true)
-public final class InstallationCheck extends SLPackageModule {
+public final class InstallationCheck extends PluginAbstractModule {
 
     @AutoRegister(Registrations.SERVER_EVENT)
     public static final class Incomplete extends SLModuleComponent<InstallationCheck> {
@@ -178,7 +177,7 @@ public final class InstallationCheck extends SLPackageModule {
 
             for (String s : CONFLICT_LIST) {
                 this.logger.warn("rejected local package %s.".formatted(s));
-                SLPackageManager.addRejection(s);
+                //SLPackageManager.addRejection(s);
             }
         }
     }

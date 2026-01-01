@@ -25,7 +25,7 @@ import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -37,7 +37,7 @@ import java.util.*;
 @CommandProvider(ChatReport.ChatReportCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 @BlacklistPlatform({APIProfile.SPIGOT, APIProfile.BUKKIT, APIProfile.ARCLIGHT})
-public final class ChatReport extends SLPackageModule {
+public final class ChatReport extends PluginAbstractModule {
     private static final RecordRegistry.A5<String, String, String, String, String> RECORD = new RecordRegistry.A5<>(
             "chat-report",
             new RecordField<>("op-id", TextRenderer.literal("Operation ID"), DataRenderer.STRING),

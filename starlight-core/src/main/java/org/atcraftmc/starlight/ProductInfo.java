@@ -6,9 +6,6 @@ import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolders;
 import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.framework.SLModuleManager;
-import org.atcraftmc.starlight.framework.SLServiceManager;
-import org.atcraftmc.starlight.framework.packages.SLPackageManager;
 import org.atcraftmc.starlight.internal.ProductService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -86,14 +83,18 @@ public interface ProductInfo {
                 {#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """;
 
+        var mm = Starlight.instance().context().getModuleManager();
+        var sm = Starlight.instance().context().getServiceManager();
+        var pm = Starlight.instance().context().getPackageManager();
+
         var text = ChatColor.translateAlternateColorCodes('&', dom.formatted(
                 version() + "/api_" + apiMajorVersion() + "." + apiMinorVersion(),
                 ProductInfo.METADATA.getProperty("build-time"),
-                SLModuleManager.getInstance().getIdsByStatus(TriState.TRUE).size(),
-                SLModuleManager.getInstance().getModules().size(),
-                SLPackageManager.getIdsByStatus(TriState.TRUE).size(),
-                SLPackageManager.getAllPackages().size(),
-                SLServiceManager.all().size(),
+                mm.getIdsByStatus(TriState.TRUE).size(),
+                mm.getModules().size(),
+                pm.getIdsByStatus(TriState.TRUE).size(),
+                pm.getAllPackages().size(),
+                sm.all().size(),
                 CORE_UA,
                 Starlight.instance().getInstanceUUID(),
                 ProductService.getSystemIdentifier()

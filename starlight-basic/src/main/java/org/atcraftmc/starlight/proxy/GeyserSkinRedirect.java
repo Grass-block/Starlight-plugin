@@ -12,7 +12,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 @ApplicationModule(id = "geyser-skin-redirect")
 @AutoRegister({Registrations.SERVER_EVENT})
 @CommandProvider(GeyserSkinRedirect.RedirectSkinCommand.class)
-public class GeyserSkinRedirect extends SLPackageModule implements PluginCommandExecutor {
+public class GeyserSkinRedirect extends PluginAbstractModule implements PluginCommandExecutor {
 
     @Override
     public void checkCompatibility() throws APIIncompatibleException {

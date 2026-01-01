@@ -3,17 +3,17 @@ package org.atcraftmc.starlight.core.placeholder;
 import me.gb2022.commons.Formating;
 import me.gb2022.commons.TriState;
 import org.atcraftmc.qlib.texts.placeholder.*;
+import org.atcraftmc.starlight.ProductInfo;
+import org.atcraftmc.starlight.SharedObjects;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.data.ModuleDataService;
+import org.atcraftmc.starlight.core.data.PlayerDataService;
+import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.foundation.platform.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.atcraftmc.starlight.ProductInfo;
-import org.atcraftmc.starlight.SharedObjects;
-import org.atcraftmc.starlight.data.ModuleDataService;
-import org.atcraftmc.starlight.data.PlayerDataService;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.SLModuleManager;
-import org.atcraftmc.starlight.core.LocaleService;
 
 import java.util.Date;
 import java.util.Objects;
@@ -101,10 +101,17 @@ public interface PlaceHolders {
     static GloballyPlaceHolder quarkStats() {
         GloballyPlaceHolder holder = new GloballyPlaceHolder();
 
-        holder.register("module-installed", GlobalPlaceHolder.object(() -> SLModuleManager.getInstance().getModules().size()));
+        holder.register(
+                "module-installed",
+                GlobalPlaceHolder.object(() -> Starlight.instance().context().getModuleManager().getModules().size())
+        );
         holder.register(
                 "module-enabled",
-                GlobalPlaceHolder.object(() -> SLModuleManager.getInstance().getIdsByStatus(TriState.FALSE).size())
+                GlobalPlaceHolder.object(() -> Starlight.instance()
+                        .context()
+                        .getModuleManager()
+                        .getIdsByStatus(TriState.FALSE)
+                        .size())
         );
         holder.register("player-data-count", GlobalPlaceHolder.object(PlayerDataService::entryCount));
         holder.register("module-data-count", GlobalPlaceHolder.object(ModuleDataService::getEntryCount));

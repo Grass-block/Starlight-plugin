@@ -10,7 +10,7 @@ import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.texts.TextBuilder;
-import org.atcraftmc.starlight.shared.config.Configurations;
+import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
 import org.atcraftmc.starlight.core.permission.PermissionService;

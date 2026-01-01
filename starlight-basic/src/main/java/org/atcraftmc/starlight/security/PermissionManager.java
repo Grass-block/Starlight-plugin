@@ -15,17 +15,17 @@ import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.shared.config.Configurations;
+import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.core.JDBCService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.core.permission.PermissionEntry;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -43,7 +43,7 @@ import java.util.concurrent.ExecutionException;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({PermissionManager.PermissionCommand.class})
 @ApplicationModule(id = "permission-manager", version = "1.0.3")
-public final class PermissionManager extends SLPackageModule implements PluginCommandExecutor, PermissionEventHandler {
+public final class PermissionManager extends PluginAbstractModule implements PluginCommandExecutor, PermissionEventHandler {
     private final PlayerPermissionManager service = new DirectPermissionManager(this, Starlight.instance());
     private final Map<String, List<String>> tags = new HashMap<>();
     private final Map<String, ConfigurationSection> groups = new HashMap<>();

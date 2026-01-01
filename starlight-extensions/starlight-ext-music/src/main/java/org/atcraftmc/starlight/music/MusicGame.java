@@ -9,7 +9,7 @@ import org.atcraftmc.starlight.api.customization.CustomItem;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.music.game.MusicGameData;
 import org.atcraftmc.starlight.music.game.MusicGameMeta;
 import org.atcraftmc.starlight.music.game.MusicGameSession;
@@ -24,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 @ApplicationModule(id = "music-game")
 @CommandProvider(MusicGame.MusicGameCommand.class)
-public class MusicGame extends SLPackageModule implements PlayerUIRenderer {
+public class MusicGame extends PluginAbstractModule implements PlayerUIRenderer {
     private final CustomItem item_DiamondSword = new MusicGamePunchItem("m-puncher-diamond", Material.DIAMOND_SWORD);
     private final CustomItem item_GoldenSword = new MusicGamePunchItem("m-puncher-gold", Material.GOLDEN_SWORD);
     private final CustomItem item_IronSword = new MusicGamePunchItem("m-puncher-iron", Material.IRON_SWORD);

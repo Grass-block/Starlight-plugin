@@ -6,7 +6,7 @@ import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
@@ -22,7 +22,7 @@ import java.util.List;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "position-lock", version = "1.0.0")
 @CommandProvider(PositionLock.LockPositionCommand.class)
-public final class PositionLock extends SLPackageModule {
+public final class PositionLock extends PluginAbstractModule {
     private final HashSet<String> lockedPlayers = new HashSet<>();
 
 
@@ -44,10 +44,10 @@ public final class PositionLock extends SLPackageModule {
         }
         if (this.isLocked(name)) {
             this.lockedPlayers.remove(name);
-            MessageAccessor.send(this.handle().getLanguage(), p, "unlock");
+            MessageAccessor.send(this.language(), p, "unlock");
         } else {
             this.lockedPlayers.add(name);
-            MessageAccessor.send(this.handle().getLanguage(), p, "lock");
+            MessageAccessor.send(this.language(), p, "lock");
         }
     }
 

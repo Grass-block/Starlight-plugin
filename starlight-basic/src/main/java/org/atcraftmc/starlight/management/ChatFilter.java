@@ -8,11 +8,11 @@ import net.kyori.adventure.text.TextReplacementConfig;
 import org.ahocorasick.trie.Trie;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.shared.config.Configurations;
+import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.api.ChatReportedEvent;
 import org.atcraftmc.starlight.core.TaskService;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.util.CachedInfo;
@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "chat-filter", version = "1.0.0")
-public final class ChatFilter extends SLPackageModule {
+public final class ChatFilter extends PluginAbstractModule {
     public static final char WRAP_START = '\ufffa';
     public static final char WRAP_END = '\ufffb';
     public static final String WRAP_START_S = String.valueOf(WRAP_START);

@@ -10,14 +10,16 @@ import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -25,7 +27,7 @@ import java.util.function.BiConsumer;
 
 @ApplicationModule(id = "modrinth-version-check", internal = true)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class ModrinthVersionCheck extends SLPackageModule implements PluginCommandExecutor {
+public final class ModrinthVersionCheck extends PluginAbstractModule implements PluginCommandExecutor {
     public static final String API = "https://api.modrinth.com/v2/project/quark-plugin/version";
     public static final String VERSION_PAGE = "https://modrinth.com/plugin/quark-plugin/version/%s";
 
@@ -43,7 +45,7 @@ public final class ModrinthVersionCheck extends SLPackageModule implements Plugi
 
     @Override
     public void enable() {
-        this.handle().getCommand("starlight").registerSubCommand(new CheckVersionCommand(this));
+        Starlight.instance().getCommandManager().getCommand("starlight").registerSubCommand(new CheckVersionCommand(this));
 
         check((state, version) -> {
         });
@@ -63,7 +65,7 @@ public final class ModrinthVersionCheck extends SLPackageModule implements Plugi
                 var latest = arr.get(0).getAsJsonObject();
 
                 var latestVersion = latest.get("version_number").getAsString();
-                var currentVersion = ownerPlugin().getDescription().getVersion();
+                var currentVersion = owner(Plugin.class).getDescription().getVersion();
 
                 this.cachedVersion = latestVersion;
 

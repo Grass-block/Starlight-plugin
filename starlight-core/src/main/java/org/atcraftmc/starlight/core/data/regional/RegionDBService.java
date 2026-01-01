@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.data.regional;
 
 import me.gb2022.commons.nbt.NBT;
-import org.atcraftmc.starlight.core.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.data.storage.StorageTable;
 
 import java.sql.Connection;

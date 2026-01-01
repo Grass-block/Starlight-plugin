@@ -18,9 +18,9 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.data.flex.TableColumn;
+import org.atcraftmc.starlight.data.record.BukkitRecordRenderer;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
-import org.atcraftmc.starlight.data.PlayerDataService;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.data.record.registry.DataRenderer;
 import org.atcraftmc.starlight.data.record.registry.RecordField;
@@ -29,9 +29,10 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.SLPackageModule;
+import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.bukkit.BanList;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -46,11 +47,11 @@ import java.util.Objects;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "ip-defender", version = "1.3.4")
 @CommandProvider(IPDefender.IPQueryCommand.class)
-public final class IPDefender extends SLPackageModule implements PluginCommandExecutor {
+public final class IPDefender extends PluginAbstractModule implements PluginCommandExecutor {
     private static final TableColumn<String> IP_ADDRESS = TableColumn.string("ip_address", 128, "__");
     private static final RecordRegistry.A3<Player, String, String> RECORD = new RecordRegistry.A3<>(
             "ip-log",
-            new RecordField<>("player", TextRenderer.literal("Player"), DataRenderer.PLAYER),
+            new RecordField<>("player", TextRenderer.literal("Player"), BukkitRecordRenderer.PLAYER),
             new RecordField<>("old-ip", TextRenderer.literal("Old-IP"), DataRenderer.STRING),
             new RecordField<>("new-ip", TextRenderer.literal("Current-IP"), DataRenderer.STRING)
     );
@@ -88,13 +89,13 @@ public final class IPDefender extends SLPackageModule implements PluginCommandEx
 
     public void check(Player player) {
         var current = query(player.getAddress(), MinecraftLocale.EN_US);
-        var data = IP_ADDRESS.get(PlayerDataService.PLAYER_SHARED, player.getUniqueId());
+        var data = IP_ADDRESS.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
         var state = TriState.UNKNOWN;
 
         String previous;
 
         if (data.equals("__")) {
-            IP_ADDRESS.set(PlayerDataService.PLAYER_SHARED, player.getUniqueId(), current);
+            IP_ADDRESS.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), current);
             previous = null;
         } else {
             previous = data;
@@ -102,7 +103,7 @@ public final class IPDefender extends SLPackageModule implements PluginCommandEx
             if (Objects.equals(previous, current)) {
                 state = TriState.FALSE;
             } else {
-                IP_ADDRESS.set(PlayerDataService.PLAYER_SHARED, player.getUniqueId(), current);
+                IP_ADDRESS.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), current);
 
                 state = TriState.TRUE;
             }
