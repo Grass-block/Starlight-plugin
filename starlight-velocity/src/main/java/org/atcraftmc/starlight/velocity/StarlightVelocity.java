@@ -8,37 +8,44 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.gb2022.apm.remote.RemoteMessenger;
 import me.gb2022.commons.container.ObjectContainer;
+import me.gb2022.modular.ModularApplicationContext;
 import net.kyori.adventure.text.ComponentLike;
 import org.apache.logging.log4j.LogManager;
-import org.atcraftmc.qlib.PluginConcept;
-import org.atcraftmc.qlib.PluginPlatform;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.config.StandaloneConfiguration;
 import org.atcraftmc.qlib.language.LanguageContainer;
+import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.language.StandaloneLanguagePack;
+import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
+import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;
-import org.atcraftmc.starlight.shared.SLPluginEnvironment;
+import org.atcraftmc.starlight.framework.PluginApplication;
+import org.atcraftmc.starlight.framework.PluginModuleManager;
+import org.atcraftmc.starlight.framework.PluginServiceManager;
+import org.atcraftmc.starlight.util.ProductMetadata;
+import org.atcraftmc.starlight.util.dependency.LibraryManager;
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Plugin(id = "starlight-velocity")
-public final class StarlightVelocity implements PluginConcept {
+public final class StarlightVelocity implements PluginApplication {
     public static final ObjectContainer<StarlightVelocity> INSTANCE = new ObjectContainer<>();
 
-    private final ModuleManager moduleManager = new ModuleManager(this);
+    private final ModularApplicationContext context = createContext(this);
+    private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
+    private final LanguageContainer language = new LanguageContainer(this, "starlight-velocity");
+    private final ConfigContainer config = ConfigContainer.getInstance();
     private final Config config0 = new Config(this);
-    private final LanguageContainer lang = new LanguageContainer();
-
     private final Logger logger;
     private final ProxyServer server;
 
     @Inject
     public StarlightVelocity(ProxyServer server, Logger logger) {
-        PluginPlatform.setPlatform(new StarlightVelocityPlatform());
+        PluginPlatform.global().addLast("starlight-velocity", new StarlightVelocityPlatform());
 
         this.server = server;
         this.logger = logger;
@@ -46,8 +53,51 @@ public final class StarlightVelocity implements PluginConcept {
         INSTANCE.set(this);
     }
 
+    private static ModularApplicationContext createContext(PluginApplication application) {
+        var b = PluginApplication.createContext(application);
+        b.moduleManager(PluginModuleManager::new);
+        b.serviceManager(PluginServiceManager::new);
+
+        return b.build();
+    }
+
     public static LanguageContainer lang() {
         return INSTANCE.get().lang;
+    }
+
+    @Override
+    public ClassLoader classLoader() {
+        return getClass().getClassLoader();
+    }
+
+    @Override
+    public String name() {
+        return "starlight-velocity";
+    }
+
+    @Override
+    public ProductMetadata getMetadata() {
+        return this.metadata;
+    }
+
+    @Override
+    public File getFile() {
+        return null;
+    }
+
+    @Override
+    public LibraryManager getLibraryManager() {
+        return null;
+    }
+
+    @Override
+    public LanguageContainer language() {
+        return this.language;
+    }
+
+    @Override
+    public ConfigContainer config() {
+        return this.config;
     }
 
     @Subscribe
@@ -93,26 +143,6 @@ public final class StarlightVelocity implements PluginConcept {
         return server;
     }
 
-    public ProxyModuleRegManager getRegManager() {
-        return regManager;
-    }
-
-    public VelocityCommandManager getCommandManager() {
-        return commandManager;
-    }
-
-    public RemoteMessenger getMessenger() {
-        return messenger.getConnector();
-    }
-
-    public Path getDataDirectory() {
-        return Path.of(folder());
-    }
-
-    public Config getConfig() {
-        return config0;
-    }
-
     @Override
     public String id() {
         return "quark-velocity";
@@ -134,7 +164,7 @@ public final class StarlightVelocity implements PluginConcept {
     }
 
 
-    private final class StarlightVelocityPlatform implements PluginPlatform {
+    private static final class StarlightVelocityPlatform extends ForwardingPluginPlatform {
 
         @Override
         public void sendMessage(Object o, ComponentLike componentLike) {
@@ -142,25 +172,13 @@ public final class StarlightVelocity implements PluginConcept {
         }
 
         @Override
-        public Locale locale(Object o) {
-            return Optional.ofNullable(((Player) o).getPlayerSettings().getLocale()).orElse(Locale.getDefault());
+        public MinecraftLocale locale(Object o) {
+            return MinecraftLocale.locale(Optional.ofNullable(((Player) o).getPlayerSettings().getLocale()).orElse(Locale.getDefault()));
         }
 
         @Override
         public String globalFormatMessage(String s) {
             return PlaceHolder.format(PlaceHolder.format(s));
-        }
-
-        @Override
-        public void broadcastLine(Function<Locale, ComponentLike> function, boolean b, boolean b1) {
-            for (var player : getServer().getAllPlayers()) {
-                sendMessage(player, function.apply(locale(player)));
-            }
-        }
-
-        @Override
-        public PluginConcept defaultPlugin() {
-            return StarlightVelocity.this;
         }
 
         @Override

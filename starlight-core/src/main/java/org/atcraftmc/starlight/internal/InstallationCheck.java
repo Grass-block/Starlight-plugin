@@ -13,8 +13,8 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -52,6 +52,11 @@ public final class InstallationCheck extends PluginAbstractModule {
 
         @Override
         public void enable() {
+            if (Starlight.instance().isBundler()) {
+                this.hasWorkload = true;
+                return;
+            }
+
             for (var plugin : Bukkit.getPluginManager().getPlugins()) {
                 if (plugin.getDescription().getDepend().contains(ProductInfo.CORE_ID)) {
                     this.hasWorkload = true;

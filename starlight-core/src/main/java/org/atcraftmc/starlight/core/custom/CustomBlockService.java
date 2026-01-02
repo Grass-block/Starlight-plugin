@@ -123,11 +123,15 @@ public final class CustomBlockService implements BukkitService {
             return;
         }
 
-        if (!CustomMeta.hasPDCIdentifier(state)) {
-            return;
+        String id = null;
+
+        if (CustomMeta.hasPDCIdentifier(state)) {
+            id = CustomMeta.getPDCIdentifier(state);
         }
 
-        var id = CustomMeta.getPDCIdentifier(state);
+        if (CustomMeta.getPDCLegacyIdentifier(state) != null) {
+            id = CustomMeta.getPDCLegacyIdentifier(state);
+        }
 
         if (!this.blocks.containsKey(id)) {
             return;

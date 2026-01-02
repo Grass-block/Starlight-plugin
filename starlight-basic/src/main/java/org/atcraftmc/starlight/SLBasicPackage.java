@@ -85,6 +85,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(FreeCam.class);
         b.module(FlyCommand.class);
         b.module(ParticleFont.class);
+        b.module(ClientEnvironmentSetting.class);
 
         p.config("starlight-utilities");
         p.language("starlight-utilities", "zh_cn");
@@ -139,7 +140,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
     }
 
 
-    @ApplicationPackageProvider(id = "starlight-security")
+    @ApplicationPackageProvider(id = "starlight-chat")
     public static void chat(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 

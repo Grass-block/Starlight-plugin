@@ -34,9 +34,9 @@ public final class ProductMetadata {
     }
 
     public static ProductMetadata createFromResource(SLPluginConcept plugin) {
-        var res = plugin.getResource("product-meta.json");
+        var res = plugin.getResource(plugin.name() + ".product-meta.json");
         if (res == null) {
-            throw new RuntimeException("Failed to load product meta!");
+            throw new RuntimeException("Failed to load product meta: " + plugin.name() + ".product-meta.json");
         }
 
         try {

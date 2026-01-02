@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.internal.command;
 
 import org.atcraftmc.qlib.command.QuarkCommand;
-import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
@@ -15,15 +15,15 @@ public final class GlobalVarsCommand extends CoreCommand {
         switch (args[0]) {
             case "reload" -> {
                 PlaceHolderService.reloadExternal();
-                Starlight.LANGUAGE.item("global-var:reload").send(sender);
+                Starlight.instance().coreLanguage().item("global-var:reload").send(sender);
             }
             case "restore" -> {
                 PlaceHolderService.EXTERNAL_VARS.restore();
-                Starlight.LANGUAGE.item("global-var:restore").send(sender);
+                Starlight.instance().coreLanguage().item("global-var:restore").send(sender);
             }
             case "sync" -> {
                 PlaceHolderService.EXTERNAL_VARS.sync();
-                Starlight.LANGUAGE.item("global-var:sync").send(sender);
+                Starlight.instance().coreLanguage().item("global-var:sync").send(sender);
             }
         }
     }

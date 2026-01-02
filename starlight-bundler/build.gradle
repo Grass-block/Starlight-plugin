@@ -5,13 +5,28 @@ plugins {
 group = 'me.gb2022'
 version = 'unspecified'
 
+apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
+
+applyGlobalScript("Publish/ProjectOutput.gradle")
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(":starlight-core")
+    implementation project(":starlight-basic")
+    implementation project(":starlight-game")
+    implementation project(":starlight-extensions:starlight-ext-music")
+    //todo: add lobby
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 test {

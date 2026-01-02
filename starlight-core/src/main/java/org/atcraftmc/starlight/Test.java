@@ -197,18 +197,9 @@ public interface Test {
         }
     }
 
+    //d3bbc486-1fd6-4c35-8a44-7e9ebe10f7e1
     static void main(String[] args) {
-        for (int i = 0; i < 10000; i++) {
-            codec();
-        }
-
-        var last = System.currentTimeMillis();
-
-        for (int i = 0; i < 100000; i++) {
-            codec();
-        }
-
-        System.out.println((System.currentTimeMillis() - last) / 100000F);
+        System.out.println(SHA.getSHA1(Identifiers.external("d3bbc486-1fd6-4c35-8a44-7e9ebe10f7e1"), false));
     }
 
 

@@ -26,6 +26,19 @@ public interface CustomMeta {
         return getPDCProperty(holder, ID_PROPERTY_NAME);
     }
 
+    static String getPDCLegacyIdentifier(PersistentDataHolder holder) {
+        return getLegacyPDCProperty(holder, ID_PROPERTY_NAME);
+    }
+
+    static String getLegacyPDCProperty(PersistentDataHolder holder, String id) {
+        NamespacedKey key = new NamespacedKey("quark", id);
+        try {
+            return holder.getPersistentDataContainer().get(key, PersistentDataType.STRING);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     static boolean matchPDCIdentifier(PersistentDataHolder holder, String data) {
         return Objects.equals(getPDCIdentifier(holder), data);
     }
@@ -59,6 +72,10 @@ public interface CustomMeta {
 
     static boolean hasPDCProperty(PersistentDataHolder holder, String id) {
         return getPDCProperty(holder, id) != null;
+    }
+
+    static boolean hasLegacyPDCProperty(PersistentDataHolder holder, String id) {
+        return getLegacyPDCProperty(holder, id) != null;
     }
 
 

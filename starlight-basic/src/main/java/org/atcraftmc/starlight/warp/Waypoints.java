@@ -29,7 +29,6 @@ import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 import org.atcraftmc.starlight.util.BukkitSound;
-import org.atcraftmc.starlight.util.NBTExaminer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -94,8 +93,6 @@ public final class Waypoints extends SLCommandModule {
         });
 
         QuarkDataImporter.registerPlayerDataHandler("starlight:waypoints", (uuid, nbt) -> {
-            NBTExaminer.send(Bukkit.getConsoleSender(), nbt);
-
             if (!nbt.hasKey("waypoint")) {
                 return;
             }
@@ -162,7 +159,7 @@ public final class Waypoints extends SLCommandModule {
                 return;
             }
 
-            if (!this.service.hasAccess(player.getUniqueId(), name)) {
+            if (!this.service.hasAccess(player.getUniqueId(), name) && !player.hasPermission(adminPermission)) {
                 this.language.item("no-access").send(player, name);
                 return;
             }

@@ -108,7 +108,7 @@ public class MusicGame extends PluginAbstractModule implements PlayerUIRenderer 
         private final Material item;
 
         public MusicGamePunchItem(String id, Material item) {
-            super(id);
+            super(id, "__");
             this.item = item;
         }
 

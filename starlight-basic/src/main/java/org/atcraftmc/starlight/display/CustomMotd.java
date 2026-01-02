@@ -15,6 +15,7 @@ import me.gb2022.modular.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.QueryPingEvent;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextSender;
@@ -147,7 +148,7 @@ public final class CustomMotd extends PluginAbstractModule implements PluginComm
 
         @Override
         public void enable() {
-            this.handler = new PacketAdapter(this.parent.owner(Plugin.class), PacketType.Status.Server.OUT_SERVER_INFO) {
+            this.handler = new PacketAdapter(Starlight.instance(), PacketType.Status.Server.OUT_SERVER_INFO) {
                 @Override
                 public void onPacketSending(PacketEvent e) {
                     WrappedServerPing ping = e.getPacket().getServerPings().read(0);

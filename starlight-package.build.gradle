@@ -24,6 +24,13 @@ dependencies {
     compileOnly gbuildLib('me.gb2022.apm:apm-plugin')
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 //api
 dependencies {

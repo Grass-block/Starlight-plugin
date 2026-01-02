@@ -19,6 +19,7 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.api.event.CoreEvent;
+import org.atcraftmc.starlight.bundle.BundledPackageProvider;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
@@ -43,6 +44,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,19 +58,22 @@ import java.util.UUID;
  */
 public final class Starlight extends BukkitPluginConcept implements PluginApplication {
     public static final Logger LOGGER = LogManager.getLogger("Starlight-Core");
-    public static Starlight PLUGIN;
+
     public static LanguageAccess LANGUAGE;
     public final LanguageContainer language = new LanguageContainer(this, ProductInfo.CORE_ID);
+    public final LanguageAccess coreLanguage = this.language.access("starlight-core");
     private final ModularApplicationContext context = createContext(this);
     private final CommandManager commandManager = new StarlightCommandManager(this);
     private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
+    private final BundledPackageProvider bundledPackageProvider = new BundledPackageProvider(() -> Class.forName(
+            "org.atcraftmc.starlight.bundler.StarlightBukkitBundler"));
+    private final boolean hasBundler = this.bundledPackageProvider.isPresent();
+
     private LibraryManager libraryManager;
     private String uuid;
     private Metrics metrics;
     private boolean fastBoot;
     private boolean initialized;
-    private boolean hasBundler = false;
-    private boolean debug = true;
 
     public static ModularApplicationContext createContext(PluginApplication application) {
         return PluginApplication.createContext(application)
@@ -93,6 +98,10 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             var modernPluginManager = PluginUtil.INSTANCE;
             var coreFile = modernPluginManager.getFile(ProductInfo.CORE_ID);
 
+            if (coreFile == null) {
+                coreFile = modernPluginManager.getFile("starlight-bundler");
+            }
+
             for (var id : serverPacks) {
                 service.unload(id);
             }
@@ -116,7 +125,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     }
 
     public static Starlight instance() {
-        return PLUGIN;
+        return ((Starlight) SLPluginEnvironment.getPlugin());
     }
 
     public static LanguageContainer lang() {
@@ -134,18 +143,28 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     }
 
     @Override
+    public LibraryManager getLibraryManager() {
+        return this.libraryManager;
+    }
+
+    @Override
     public ClassLoader classLoader() {
         return getClassLoader();
     }
 
     @Override
-    public File getFile() {
+    public @NotNull File getFile() {
         return super.getFile();
     }
 
     @Override
     public ProductMetadata getMetadata() {
         return this.metadata;
+    }
+
+    @Override
+    public String name() {
+        return "starlight-core";
     }
 
     private void operation(String operation, Runnable task) {
@@ -166,7 +185,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     //----[plugin concept]----
     @Override
     public String id() {
-        return ProductInfo.CORE_ID;
+        return "starlight";
     }
 
     @Override
@@ -192,7 +211,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         var threadedRegions = APIProfileTest.isFoliaServer();
         var modded = APIProfileTest.isMixedServer();
         this.uuid = UUID.randomUUID().toString();
-        PLUGIN = this;
         PluginUtil.CORE_REF.set(this);
         LANGUAGE = this.language.access(ProductInfo.CORE_ID);
 
@@ -227,7 +245,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         var config = getConfig();
         var metrics = config.getBoolean("config.plugin.metrics");
         this.fastBoot = config.getBoolean("config.plugin.fast-boot");
-        this.debug = config.getBoolean("config.plugin.debug");
+        SLPluginEnvironment.setDebug(config.getBoolean("config.plugin.debug"));
 
         try {
             ProductInfo.METADATA.load(getClass().getClassLoader().getResourceAsStream("product-info.properties"));
@@ -258,7 +276,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
         var pluginsPath = System.getProperty("user.dir") + "/plugins/";
         var pluginsDir = new File(pluginsPath);
-        var loader = Starlight.class.getClassLoader();
 
         File jar = null;
         for (File f : Objects.requireNonNull(pluginsDir.listFiles())) {
@@ -267,7 +284,13 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             }
 
             try {
-                if (PluginUtil.getPluginDescription(f).getName().equals(ProductInfo.CORE_ID)) {
+                var n = PluginUtil.getPluginDescription(f).getName();
+                var n1 = this.getDescription().getName();
+                var b1 = n.equals(ProductInfo.CORE_ID);
+                var b2 = n.equals("starlight-bundler");
+                var b3 = n.equals(n1);
+
+                if (b1 || b2 || b3) {
                     jar = f;
                 }
             } catch (InvalidDescriptionException ignored) {
@@ -296,8 +319,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     @Override
     public void onEnable() {
         onLoad();
-
-        PLUGIN = this;
 
         Timer.restartTiming();
 
@@ -344,13 +365,11 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             this.loadFullJar();
         }
 
-        operation("starting services...", () -> {
-            this.context.registerPackage(this, SLInternalPackage.class);
-        });
+        operation("starting services...", () -> this.context.registerPackage(this, SLInternalPackage.class));
 
         if (this.hasBundler) {
             LOGGER.info("loading bundled packs...");
-            //this.bundledPackageLoader.onEnable();
+            this.bundledPackageProvider.load();
         }
 
         LOGGER.info("done. ({} ms)", Timer.passedTime());
@@ -373,7 +392,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
         if (this.hasBundler) {
             LOGGER.info("unloading bundled packs...");
-            //this.bundledPackageLoader.onDisable();
+            this.bundledPackageProvider.unload();
         }
 
         try {
@@ -409,10 +428,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         return metrics;
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-
     public boolean isPluginInitialized() {
         return initialized;
     }
@@ -421,12 +436,17 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         return commandManager;
     }
 
-    public LibraryManager getLibraryManager() {
-        return this.libraryManager;
-    }
 
     public ModularApplicationContext context() {
         return this.context;
+    }
+
+    public LanguageAccess coreLanguage() {
+        return this.coreLanguage;
+    }
+
+    public boolean isBundler() {
+        return this.hasBundler;
     }
 
     private static final class StarlightBukkitPlatform extends ForwardingPluginPlatform {

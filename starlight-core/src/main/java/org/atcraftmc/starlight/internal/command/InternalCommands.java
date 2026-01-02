@@ -3,13 +3,13 @@ package org.atcraftmc.starlight.internal.command;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
+import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.util.ExceptionUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.util.ExceptionUtil;
 
 public interface InternalCommands {
     Listener INVALID_COMMAND_WARN = new InvalidCommandWarn();
@@ -53,7 +53,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(ServerCommandEvent event) {
             if (event.getCommand().startsWith("reload")) {
-                Starlight.LANGUAGE.item("folia-compat:reload-warn").send(event.getSender());
+                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(event.getSender());
                 //event.setCancelled(true);
             }
         }
@@ -61,7 +61,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(PlayerCommandPreprocessEvent event) {
             if (event.getMessage().startsWith("/reload")) {
-                Starlight.LANGUAGE.item("folia-compat:reload-warn").send(event.getPlayer());
+                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(event.getPlayer());
                 //event.setCancelled(true);
             }
         }

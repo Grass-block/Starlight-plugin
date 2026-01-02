@@ -273,7 +273,7 @@ public final class AnimateBlockCommand extends SLCommandModule {
     public final class HelperWandItem extends CustomItem {
 
         private HelperWandItem() {
-            super("animate-block-helper");
+            super("animate-block-helper", "__");
         }
 
         @Override

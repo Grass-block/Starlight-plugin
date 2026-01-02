@@ -141,7 +141,7 @@ public final class Elevator extends PluginAbstractModule {
     public final class ElevatorBlock extends CustomBlock {
 
         private ElevatorBlock() {
-            super("elevator");
+            super("elevator","elevator");
         }
 
         @Override

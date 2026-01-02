@@ -3,8 +3,9 @@ package org.atcraftmc.starlight;
 import me.gb2022.modular.ModularApplicationContext;
 import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
+import org.atcraftmc.starlight.util.dependency.LibraryManager;
 
-public class SLPluginEnvironment {
+public final class SLPluginEnvironment {
     private static PluginApplication plugin;
     private static PathManager pathManager;
     private static ModularApplicationContext context;
@@ -42,12 +43,23 @@ public class SLPluginEnvironment {
         return returnSafely(plugin);
     }
 
+    public static ModularApplicationContext getContext() {
+        return context;
+    }
 
     public static PathManager getPathManager() {
         return returnSafely(pathManager);
     }
 
+    public static LibraryManager getLibraryManager() {
+        return getPlugin().getLibraryManager();
+    }
+
     public static boolean isDebug() {
         return debug;
+    }
+
+    public static void setDebug(boolean d) {
+        debug = d;
     }
 }

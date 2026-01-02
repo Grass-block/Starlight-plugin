@@ -16,6 +16,7 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
+import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -141,7 +142,7 @@ public final class ModuleCommand extends CoreCommand {
 
             var all = group.size();
             var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(Plugin.class).getName(), enable, all);
+            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginConcept.class).name(), enable, all);
 
             Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
             TextSender.sendMessage(sender, msg1);

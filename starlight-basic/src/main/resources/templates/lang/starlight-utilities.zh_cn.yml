@@ -69,5 +69,12 @@ language:
     freeze: "{global#warn}服务器已冻结。"
     unfreeze: "{global#info}服务器已解冻。"
     step: "{global#info}服务器已运行{#var}ticks。"
+  client-environment-setting:
+    weather-none: "{global#sys-info}您的客户端天气已设为 [{#white}晴{#gray}]"
+    weather-rain: "{global#sys-info}您的客户端天气已设为 [{#white}雨{#gray}]"
+    weather-off: "{global#sys-info}您的客户端天气已重置为实际天气。"
+    time-offset: "{global#sys-info}您的客户端时间已设为 [{#white}偏移: %s ticks{#gray}]"
+    time-fixed: "{global#sys-info}您的客户端时间已设为 [{#white}固定: %s ticks{#gray}]"
+    time-off: "{global#sys-info}您的客户端时间已重置为实际时间。"
   hitokoto:
     sentence: "{hover(text,文字来自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}%s {#gray}——%s(%s)"

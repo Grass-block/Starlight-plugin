@@ -34,4 +34,6 @@ public interface SLPluginConcept {
             return null;
         }
     }
+
+    String name();
 }

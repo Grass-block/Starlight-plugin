@@ -93,7 +93,7 @@ public final class CustomLanguagePackLoader extends PluginAbstractModule {
                 packs.add(new ThirdPartyLanguagePack(
                         packInfos[0],
                         packInfos[1],
-                        Starlight.PLUGIN,
+                        Starlight.instance(),
                         uuid,
                         packInput
                 ));

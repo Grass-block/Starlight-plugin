@@ -8,8 +8,8 @@ import org.bukkit.persistence.PersistentDataHolder;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class CustomBlock extends CustomItem {
-    protected CustomBlock(String id) {
-        super(id);
+    protected CustomBlock(String id, String legacyId) {
+        super(id, legacyId);
     }
 
     public void onPlaced(Player player, Block blockPlaced, ItemStack item) {
@@ -22,6 +22,10 @@ public abstract class CustomBlock extends CustomItem {
     public boolean test(Block b) {
         if (!(b.getState() instanceof PersistentDataHolder state)) {
             return false;
+        }
+
+        if (this.legacyId.equals(CustomMeta.getPDCLegacyIdentifier(state))) {
+            return true;
         }
 
         if (!CustomMeta.hasPDCIdentifier(state)) {

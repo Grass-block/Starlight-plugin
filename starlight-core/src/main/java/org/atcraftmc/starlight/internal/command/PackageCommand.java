@@ -10,9 +10,11 @@ import net.kyori.adventure.text.event.HoverEvent;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -91,7 +93,7 @@ public final class PackageCommand extends CoreCommand {
         StringBuilder sb = new StringBuilder();
         HashMap<String, List<String>> map = new HashMap<>();
         for (String s : this.handle.getAllPackages().keySet().stream().sorted().toList()) {
-            var namespace = this.handle.get(s).holder(Plugin.class).getName();
+            var namespace = this.handle.get(s).holder(SLPluginConcept.class).name();
             if (!map.containsKey(namespace)) {
                 map.put(namespace, new ArrayList<>());
             }
@@ -124,12 +126,12 @@ public final class PackageCommand extends CoreCommand {
 
     private Component buildModuleInfo(ApplicationPackage pkg) {
         var state = this.handle.isEnabled(pkg.meta().id()) ? "&aE" : "&cD";
-        var owner = pkg.holder(Plugin.class).getName();
-        var ownerVer = pkg.holder(Plugin.class).getDescription().getVersion();
+        var owner = pkg.holder(SLPluginConcept.class).name();
+        //var ownerVer = pkg.holder(Plugin.class).getDescription().getVersion();
         var line = "&f[%s&f]%s".formatted(state, pkg.meta().id());
 
         var command = "/starlight module list %s";
-        var hover = getPackageDisplayHover(pkg, owner, ownerVer);
+        var hover = getPackageDisplayHover(pkg, owner, ProductInfo.version());
 
         return Component.text(ChatColor.translateAlternateColorCodes('&', line))
                 .clickEvent(ClickEvent.runCommand(command.formatted(pkg.meta().id())))
@@ -140,7 +142,7 @@ public final class PackageCommand extends CoreCommand {
         var nodes = this.handle.getPackages()
                 .values()
                 .stream()
-                .sorted(Comparator.comparing(m -> m.holder(Plugin.class).getName()))
+                .sorted(Comparator.comparing(m -> m.holder(SLPluginConcept.class).name()))
                 .filter((m) -> m.meta().id().contains(prefix))
                 .toList();
         getLanguage().item("list").send(sender, "");

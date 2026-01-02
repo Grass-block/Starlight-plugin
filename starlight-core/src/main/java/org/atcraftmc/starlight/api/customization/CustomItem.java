@@ -17,9 +17,11 @@ import java.util.stream.Collectors;
 
 public abstract class CustomItem {
     public final String id;
+    public final String legacyId;
 
-    protected CustomItem(String id) {
+    protected CustomItem(String id, String legacyId) {
         this.id = id;
+        this.legacyId = legacyId;
     }
 
     public final String getId() {

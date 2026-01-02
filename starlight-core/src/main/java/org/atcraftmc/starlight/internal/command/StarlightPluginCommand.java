@@ -18,27 +18,30 @@ public final class StarlightPluginCommand extends CoreCommand {
 
     @Override
     public void execute(CommandExecution context) {
+        var l = Starlight.instance().coreLanguage();
+
         switch (context.requireEnum(0, "info", "stats", "sync-commands", "update-data")) {
             case "info" -> ProductInfo.sendInfoDisplay(context.getSender());
             case "stats" -> ProductInfo.sendStatsDisplay(context.getSender());
             case "update-data" -> {
                 var id = context.requireArgumentAt(1);
 
+
                 if (!QuarkDataImporter.has(id)) {
-                    Starlight.LANGUAGE.item("data-update:none").send(context.getSender(), id);
+                    l.item("data-update:none").send(context.getSender(), id);
                     return;
                 }
 
-                Starlight.LANGUAGE.item("data-update:start").send(context.getSender(), id);
+                l.item("data-update:start").send(context.getSender(), id);
 
                 TaskService.async().run(() -> {
                     QuarkDataImporter.runDataUpdater(id);
-                    Starlight.LANGUAGE.item("data-update:done").send(context.getSender());
+                    l.item("data-update:done").send(context.getSender());
                 });
             }
             case "sync-commands" -> {
                 LegacyCommandManager.sync();
-                Starlight.LANGUAGE.item("command:sync-commands").send(context.getSender());
+                l.item("command:sync-commands").send(context.getSender());
             }
         }
     }

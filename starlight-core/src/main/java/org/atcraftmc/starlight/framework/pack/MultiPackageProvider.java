@@ -20,7 +20,7 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
     private String coreInstanceId;
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
         LibraryManager.prepareEnvironment(Starlight.instance().getLibraryManager(), this);
 
         this.coreInstanceId = Starlight.instance().getInstanceUUID();
@@ -31,31 +31,31 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
     }
 
     @Override
-    public @Nullable InputStream getResource(@NotNull String filename) {
+    public final @Nullable InputStream getResource(@NotNull String filename) {
         return super.getResource(filename);
     }
 
-    public Set<ApplicationPackage> createPackages() {
+    public final Set<ApplicationPackage> createPackages() {
         return Starlight.instance().context().registerPackage(this, this.getClass());
     }
 
     @Override
-    public ClassLoader classLoader() {
+    public final ClassLoader classLoader() {
         return super.getClassLoader();
     }
 
     @Override
-    public @NotNull File getFile() {
+    public final @NotNull File getFile() {
         return super.getFile();
     }
 
     @Override
-    public ProductMetadata getMetadata() {
+    public final ProductMetadata getMetadata() {
         return this.metadata;
     }
 
     @Override
-    public void onDisable() {
+    public final void onDisable() {
         if (!this.isCoreContextMatch()) {
             return;
         }
@@ -65,7 +65,12 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
     }
 
     @Override
-    public String getCoreInstanceId() {
+    public final String name() {
+        return getName();
+    }
+
+    @Override
+    public final String getCoreInstanceId() {
         return coreInstanceId;
     }
 }
