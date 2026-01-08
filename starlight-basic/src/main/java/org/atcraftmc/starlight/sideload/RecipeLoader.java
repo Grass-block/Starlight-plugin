@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.foundation.crafting.RecipeManager;
 import me.gb2022.modular.APIIncompatibleException;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 @ApplicationModule(id="recipe-loader")
-public final class RecipeLoader extends PluginAbstractModule {
+public final class RecipeLoader extends BukkitAbstractModule {
     private final Map<String, RecipeDispatcher> dispatchers = new HashMap<>();
     private final Set<Recipe> recipes = new HashSet<>();
 

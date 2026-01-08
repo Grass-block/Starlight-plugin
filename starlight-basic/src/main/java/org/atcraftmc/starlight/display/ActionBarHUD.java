@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.core.PlayerView;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 @ApplicationModule(id = "action-bar-hud")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class ActionBarHUD extends PluginAbstractModule {
+public final class ActionBarHUD extends BukkitAbstractModule {
     @Inject
     private LanguageEntry language;
 

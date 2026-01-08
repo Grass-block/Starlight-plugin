@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "starr-seat", version = "2.0.1")
-public final class StairSeat extends PluginAbstractModule {
+public final class StairSeat extends BukkitAbstractModule {
     public static final String CHAIR_ENTITY_ID = "quark_chair_entity";
     private final HashMap<String, Entity> entityMapping = new HashMap<>();
     private final HashMap<String, Location> locationMapping = new HashMap<>();

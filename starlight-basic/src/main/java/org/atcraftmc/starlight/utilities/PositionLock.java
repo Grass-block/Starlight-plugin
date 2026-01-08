@@ -6,7 +6,7 @@ import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
@@ -22,7 +22,7 @@ import java.util.List;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "position-lock", version = "1.0.0")
 @CommandProvider(PositionLock.LockPositionCommand.class)
-public final class PositionLock extends PluginAbstractModule {
+public final class PositionLock extends BukkitAbstractModule {
     private final HashSet<String> lockedPlayers = new HashSet<>();
 
 

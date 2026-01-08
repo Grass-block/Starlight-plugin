@@ -5,14 +5,15 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.util.Favicon;
+import me.gb2022.modular.module.AbstractModule;
 import me.gb2022.modular.module.ApplicationModule;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
-import org.atcraftmc.starlight.velocity.core.PlayerStatisticService;
-import org.atcraftmc.starlight.velocity.framework.module.SLVPackageModule;
+import org.atcraftmc.starlight.velocity.core.ProxyPlayerTrackService;
+import org.atcraftmc.starlight.velocity.framework.VelocityModule;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 //todo: refresh command
 @ApplicationModule(id = "custom-motd")
-public final class ProxyMotd extends SLVPackageModule {
+public final class ProxyMotd extends AbstractModule<SLVModuleHandle, SLVPackage> implements VelocityModule {
     public static final Logger LOGGER = LogManager.getLogger("CustomMotd");
 
     private ConfigurationSection setting;
@@ -92,7 +93,7 @@ public final class ProxyMotd extends SLVPackageModule {
         var ping = sync ? this.getSyncedMotd() : this.buildLocalServerPing(origin);
 
         var version = owrVersion ? origin.getVersion() : ping.getVersion();
-        var playerCount = owrPlayerCount ? PlayerStatisticService.getAllPlayersInProxy().size() : getProxyServer().getPlayerCount();
+        var playerCount = owrPlayerCount ? ProxyPlayerTrackService.getAllPlayersInProxy().size() : getProxyServer().getPlayerCount();
         var playerCapacity = owrPlayerCaps == -1 ? origin.getPlayers()
                 .map(ServerPing.Players::getMax)
                 .orElse(owrPlayerCaps) : owrPlayerCaps;

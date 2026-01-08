@@ -25,6 +25,11 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+tasks.named('build').get().dependsOn(':starlight-core:build')
+tasks.named('build').get().dependsOn(':starlight-basic:build')
+tasks.named('build').get().dependsOn(':starlight-game:build')
+tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-music:build')
+
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

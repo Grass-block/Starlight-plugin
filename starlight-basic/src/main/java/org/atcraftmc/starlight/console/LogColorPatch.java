@@ -18,7 +18,7 @@ import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.message.MessageFormatMessage;
 import org.apache.logging.log4j.util.StringMap;
 import org.atcraftmc.starlight.core.GameTestService;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import java.util.Set;
 
 @ApplicationModule(id = "log-color-patch", defaultEnable = false)
 @AutoRegister(Registrations.PLUGIN_MESSAGE)
-public final class LogColorPatch extends PluginAbstractModule {
+public final class LogColorPatch extends BukkitAbstractModule {
     private final Map<String, Log4jConfiguration> configurations = new HashMap<>();
     private final Set<String> injections = new HashSet<>();
 

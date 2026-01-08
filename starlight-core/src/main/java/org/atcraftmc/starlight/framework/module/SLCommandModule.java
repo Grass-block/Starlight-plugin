@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 
-public abstract class SLCommandModule extends PluginAbstractModule implements PluginCommandExecutor {
+public abstract class SLCommandModule extends BukkitAbstractModule implements PluginCommandExecutor {
     private final AbstractCommand commandAdapter = new AdapterCommand<>(this);
 
     @Override

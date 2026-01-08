@@ -1,12 +1,11 @@
-package org.atcraftmc.starlight.framework.module;
+package org.atcraftmc.starlight.velocity.framework;
 
 import me.gb2022.modular.module.AbstractModule;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.BukkitModule;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 
-public abstract class PluginAbstractModule extends AbstractModule implements BukkitModule {
+public abstract class VelocityAbstractModule extends AbstractModule implements VelocityModule {
     private LanguageEntry language;
     private ConfigEntry config;
 

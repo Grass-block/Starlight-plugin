@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.api.event.ItemCreateEvent;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Nameable;
 import org.bukkit.World;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @ApplicationModule(id = "drop-item-info")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class DropItemInfo extends PluginAbstractModule {
+public final class DropItemInfo extends BukkitAbstractModule {
 
     @Override
     public void enable() {

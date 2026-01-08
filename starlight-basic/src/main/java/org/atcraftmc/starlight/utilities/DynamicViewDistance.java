@@ -10,7 +10,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.utilities.viewdistance.CustomSettingStrategy;
 import org.atcraftmc.starlight.utilities.viewdistance.PlayerCountStrategy;
 import org.atcraftmc.starlight.utilities.viewdistance.ViewDistanceStrategy;
@@ -37,7 +37,7 @@ import java.util.List;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(DynamicViewDistance.ViewDistanceCommand.class)
 @ApplicationModule(id="dynamic-view-distance",version = "1.0.0")
-public final class DynamicViewDistance extends PluginAbstractModule implements PluginCommandExecutor {
+public final class DynamicViewDistance extends BukkitAbstractModule implements PluginCommandExecutor {
     private final List<ViewDistanceStrategy> pipeline = new ArrayList<>();
 
     @Inject

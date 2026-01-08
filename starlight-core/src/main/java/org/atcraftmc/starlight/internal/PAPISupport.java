@@ -9,14 +9,14 @@ import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @ApplicationModule(id = "papi-support", internal = true)
-public final class PAPISupport extends PluginAbstractModule {
+public final class PAPISupport extends BukkitAbstractModule {
     private final PlaceholderSwapExtension extension = new PlaceholderSwapExtension();
 
     @Override

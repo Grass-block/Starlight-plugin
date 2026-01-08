@@ -15,7 +15,7 @@ import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 @ApplicationModule(id = "command-variables")
 @CommandProvider(CommandVariables.VariableCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
-public class CommandVariables extends PluginAbstractModule implements PluginCommandExecutor {
+public class CommandVariables extends BukkitAbstractModule implements PluginCommandExecutor {
     public static final Pattern EXTRACT_VARIABLES = Pattern.compile("\\$\\{.*?}");
 
     private final Map<String, DataStorage> storages = new HashMap<>();

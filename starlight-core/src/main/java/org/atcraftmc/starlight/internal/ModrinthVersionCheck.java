@@ -14,7 +14,7 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -27,7 +27,7 @@ import java.util.function.BiConsumer;
 
 @ApplicationModule(id = "modrinth-version-check", internal = true)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class ModrinthVersionCheck extends PluginAbstractModule implements PluginCommandExecutor {
+public final class ModrinthVersionCheck extends BukkitAbstractModule implements PluginCommandExecutor {
     public static final String API = "https://api.modrinth.com/v2/project/quark-plugin/version";
     public static final String VERSION_PAGE = "https://modrinth.com/plugin/quark-plugin/version/%s";
 

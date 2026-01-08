@@ -28,7 +28,7 @@ import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.SignChangeEvent;
@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({ChatComponent.PaperChatListener.class, ChatComponent.PaperSignChangeListener.class})
 @ApplicationModule(id = "chat-component", version = "1.3.0")
-public final class ChatComponent extends PluginAbstractModule {
+public final class ChatComponent extends BukkitAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
     private final GloballyPlaceHolder chatPH = PlaceHolders.chat();
 

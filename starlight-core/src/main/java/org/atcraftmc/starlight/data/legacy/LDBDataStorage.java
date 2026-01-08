@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.data.legacy;
 
 import me.gb2022.commons.container.Pair;
-import org.fusesource.leveldbjni.JniDBFactory;
 import org.iq80.leveldb.DB;
 import org.iq80.leveldb.Options;
+import org.iq80.leveldb.impl.Iq80DBFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public final class LDBDataStorage implements DataStorage {
         }
 
         try {
-            this.db = new JniDBFactory().open(folder, new Options());
+            this.db = new Iq80DBFactory().open(folder, new Options());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

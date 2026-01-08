@@ -3,11 +3,11 @@ package org.atcraftmc.starlight.chat;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 
 @CommandProvider(Mail.MailCommand.class)
-public class Mail extends PluginAbstractModule {
+public class Mail extends BukkitAbstractModule {
     private final JDBCMailDataService dataService = new JDBCMailDataService();
 
 

@@ -9,7 +9,7 @@ import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @ApplicationModule(id = "platform-patcher", description = "Provide fixes for certain platform.")
 @ComponentProvider({PlatformPatcher.PlayerLastLoginPatch.class, PlatformPatcher.ServerTPSPatch.class, PlatformPatcher.LegacyCommandTimingsPatch.class})
-public final class PlatformPatcher extends PluginAbstractModule {
+public final class PlatformPatcher extends BukkitAbstractModule {
     static PlatformPatcher INSTANCE;
 
     public static Optional<PlatformPatcher> instance() {

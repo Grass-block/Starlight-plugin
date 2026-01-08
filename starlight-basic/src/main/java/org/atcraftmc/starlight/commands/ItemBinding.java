@@ -5,7 +5,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.Registrations;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ import java.util.Objects;
 @ApplicationModule(id="item-command",version = "0.3")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({ItemBinding.ItemCommandCommand.class})
-public final class ItemBinding extends PluginAbstractModule implements PluginCommandExecutor {
+public final class ItemBinding extends BukkitAbstractModule implements PluginCommandExecutor {
 
     @Inject("tip")
     private LanguageItem tip;

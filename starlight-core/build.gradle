@@ -63,7 +63,9 @@ dependencies {
     implementation localStorage("me.gb2022.pluginsX-lib")
 
     //provided by starlight dependency loader.
-    compileOnly 'org.fusesource.leveldbjni:leveldbjni-all:1.8'
+    compileOnly 'org.iq80.leveldb:leveldb:0.12'
+    compileOnly 'org.rocksdb:rocksdbjni:10.4.2'
+
     compileOnly 'com.h2database:h2:2.3.232'
     compileOnly 'org.mongodb:bson:5.6.0'
 }

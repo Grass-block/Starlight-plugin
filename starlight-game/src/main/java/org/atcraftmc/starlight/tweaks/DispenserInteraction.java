@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Material;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Directional;
@@ -18,7 +18,7 @@ import org.bukkit.event.EventHandler;
 
 @ApplicationModule(id = "dispenser-interaction", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class DispenserInteraction extends PluginAbstractModule {
+public final class DispenserInteraction extends BukkitAbstractModule {
 
     @Inject("tip")
     private LanguageItem tip;

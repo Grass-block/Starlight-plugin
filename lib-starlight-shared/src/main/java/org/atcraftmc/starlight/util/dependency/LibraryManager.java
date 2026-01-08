@@ -38,7 +38,7 @@ public final class LibraryManager {
     public static void loadFullJar(@NotNull ClassLoader loader, File jar) {
         LOGGER.info("target core jar file: {}", jar.getAbsolutePath());
 
-        var counter = 0;
+        var classes = new HashSet<String>();
 
         try (JarFile jarFile = new JarFile(jar)) {
             var entries = jarFile.entries();
@@ -59,17 +59,16 @@ public final class LibraryManager {
                 }
 
                 try {
-                    loader.loadClass(className);
-                    counter++;
+                    loadClass(className, loader, classes);
                 } catch (Throwable e) {
-                    LOGGER.warn("failed to load class {}: {}", className, e.getMessage());
+                    LOGGER.warn("failed to load class {}: {}({})", className, e.getClass().getName(), e.getMessage());
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        LOGGER.info("loaded {} classes.", counter);
+        LOGGER.info("loaded {} classes.", classes.size());
     }
 
     public static void prepareEnvironment(LibraryManager lm, SLPluginConcept p) {
@@ -77,6 +76,22 @@ public final class LibraryManager {
         lm.injectLibraries(p);
         if (lm.loadFully) {
             LibraryManager.loadFullJar(p.classLoader(), p.getFile());
+        }
+    }
+
+    public static void loadClass(String className, ClassLoader loader, Set<String> set) throws Exception {
+        var n = className.replace("/", ".").replaceAll("\\.class$", "");
+
+        if (set.contains(n)) {
+            return;
+        }
+
+        try {
+            loader.loadClass(className);
+            set.add(n);
+        } catch (NoClassDefFoundError e) {
+            loadClass(e.getMessage(), loader, set);
+            loadClass(n, loader, set);
         }
     }
 
@@ -213,7 +228,7 @@ public final class LibraryManager {
                 addURLMethod.invoke(cl, url);
 
                 if (this.loadFully) {
-                    loadFullJar(cl, new File(url.getFile()));
+                    loadFullJar(cl, new File(url.toURI()));
                 }
 
 

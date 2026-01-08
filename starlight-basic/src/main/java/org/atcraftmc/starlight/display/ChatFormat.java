@@ -16,7 +16,7 @@ import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextExaminer;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.util.TemplateExpansion;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -29,7 +29,7 @@ import java.util.Date;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "chat-format", version = "1.2.0")
 @ComponentProvider(ChatFormat.PaperChatListener.class)
-public final class ChatFormat extends PluginAbstractModule {
+public final class ChatFormat extends BukkitAbstractModule {
     MethodHandleRO0<World, String> getDimensionId = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> World.class.getMethod("getKey"), (w) -> {
             var origin = w.getKey().toString();

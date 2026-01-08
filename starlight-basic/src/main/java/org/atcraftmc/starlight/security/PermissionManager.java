@@ -23,7 +23,7 @@ import org.atcraftmc.starlight.core.permission.PermissionEntry;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
@@ -43,7 +43,7 @@ import java.util.concurrent.ExecutionException;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({PermissionManager.PermissionCommand.class})
 @ApplicationModule(id = "permission-manager", version = "1.0.3")
-public final class PermissionManager extends PluginAbstractModule implements PluginCommandExecutor, PermissionEventHandler {
+public final class PermissionManager extends BukkitAbstractModule implements PluginCommandExecutor, PermissionEventHandler {
     private final PlayerPermissionManager service = new DirectPermissionManager(this, Starlight.instance());
     private final Map<String, List<String>> tags = new HashMap<>();
     private final Map<String, ConfigurationSection> groups = new HashMap<>();

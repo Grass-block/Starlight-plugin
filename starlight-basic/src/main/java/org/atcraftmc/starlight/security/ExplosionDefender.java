@@ -18,7 +18,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @CommandProvider(ExplosionDefender.ExplosionWhitelistCommand.class)
 @ApplicationModule(id = "explosion-defender", version = "1.4.3")
 @ComponentProvider(ExplosionDefender.BlockExplosionListener.class)
-public final class ExplosionDefender extends PluginAbstractModule {
+public final class ExplosionDefender extends BukkitAbstractModule {
     private static final RecordRegistry.A5<String, Number, Number, Number, String> RECORD = new RecordRegistry.A5<>(
             "explosions",
             RecordField.WORLD,

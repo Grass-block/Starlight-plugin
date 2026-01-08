@@ -29,7 +29,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
@@ -47,7 +47,7 @@ import java.util.Objects;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "ip-defender", version = "1.3.4")
 @CommandProvider(IPDefender.IPQueryCommand.class)
-public final class IPDefender extends PluginAbstractModule implements PluginCommandExecutor {
+public final class IPDefender extends BukkitAbstractModule implements PluginCommandExecutor {
     private static final TableColumn<String> IP_ADDRESS = TableColumn.string("ip_address", 128, "__");
     private static final RecordRegistry.A3<Player, String, String> RECORD = new RecordRegistry.A3<>(
             "ip-log",

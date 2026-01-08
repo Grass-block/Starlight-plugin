@@ -19,7 +19,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -48,7 +48,7 @@ import java.util.UUID;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "realistic-minecart")
 @ComponentProvider(RealisticMinecart.PlayerWorldCache.class)
-public final class RealisticMinecart extends PluginAbstractModule {
+public final class RealisticMinecart extends BukkitAbstractModule {
     private static final String GLOBAL_TASK_ID = "quark:minecart:simulate";
     private static final double MAX_SAFE_SPEED = 0.6;
     private static final double SIMULATED_GRAVITY = 0.05;

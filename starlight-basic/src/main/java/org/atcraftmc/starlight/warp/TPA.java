@@ -9,7 +9,7 @@ import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 @ApplicationModule(id = "tpa", version = "1.0.2")
-public final class TPA extends PluginAbstractModule {
+public final class TPA extends BukkitAbstractModule {
     private final TPACommand tpa = new TPACommand();
     private final TPAHereCommand tpaHere = new TPAHereCommand();
 

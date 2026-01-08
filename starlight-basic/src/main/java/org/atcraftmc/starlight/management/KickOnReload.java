@@ -5,7 +5,7 @@ import me.gb2022.modular.Registrations;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id="kick-on-reload",version = "1.0.0")
-public final class KickOnReload extends PluginAbstractModule {
+public final class KickOnReload extends BukkitAbstractModule {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {

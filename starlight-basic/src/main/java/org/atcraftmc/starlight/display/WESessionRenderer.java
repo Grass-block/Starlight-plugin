@@ -15,7 +15,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ApplicationModule(id = "we-session-renderer", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WESessionRenderer.WESessionRenderCommand.class)
-public final class WESessionRenderer extends PluginAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode> {
+public final class WESessionRenderer extends BukkitAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode> {
     private final TableColumn<RenderMode> RENDER_MODE = TableColumn.custom("we_render_mode", 24, RenderMode.UPDATE, this);
 
     @Override

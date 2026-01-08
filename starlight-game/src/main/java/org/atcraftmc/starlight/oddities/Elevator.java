@@ -14,7 +14,7 @@ import org.atcraftmc.starlight.foundation.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.foundation.crafting.RecipeManager;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,7 +30,7 @@ import org.bukkit.inventory.Recipe;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "elevator", version = "1.0.0")
 @SuppressWarnings("deprecation")
-public final class Elevator extends PluginAbstractModule {
+public final class Elevator extends BukkitAbstractModule {
     private final ElevatorBlock block = new ElevatorBlock();
     public Recipe recipe;
     @Inject("tip")

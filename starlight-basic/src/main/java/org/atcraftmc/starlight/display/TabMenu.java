@@ -20,7 +20,7 @@ import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +28,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "tab-menu", version = "2.0.3")
-public final class TabMenu extends PluginAbstractModule {
+public final class TabMenu extends BukkitAbstractModule {
     public static final String UPDATE_TASK_TID = "sl-display:tab-menu:update";
 
     @SuppressWarnings("Convert2MethodRef")

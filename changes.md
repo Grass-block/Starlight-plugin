@@ -1,3 +1,7 @@
+## 26.1.11
+- Fixed library loading exception in some paths.
+- Elevator can now recognize legacy blocks.
+
 ## 26.1.10
 
 - Updated modular framework.

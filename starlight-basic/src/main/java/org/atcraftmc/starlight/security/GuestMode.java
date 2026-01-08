@@ -5,7 +5,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.starlight.core.permission.PermissionService;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -19,7 +19,7 @@ import org.bukkit.permissions.Permission;
 
 @ApplicationModule(id = "guest-mode")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class GuestMode extends PluginAbstractModule {
+public final class GuestMode extends BukkitAbstractModule {
     @Inject("-starlight.guest.bypass")
     public Permission bypassGuestPermission;
 

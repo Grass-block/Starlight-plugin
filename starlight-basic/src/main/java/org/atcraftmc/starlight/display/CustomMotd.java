@@ -24,7 +24,7 @@ import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
@@ -33,7 +33,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.ServerListPingEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.util.CachedServerIcon;
 
 import java.io.FileInputStream;
@@ -45,7 +44,7 @@ import java.util.List;
 @CommandProvider({CustomMotd.MotdCommand.class})
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(CustomMotd.ProtocolLibSender.class)
-public final class CustomMotd extends PluginAbstractModule implements PluginCommandExecutor {
+public final class CustomMotd extends BukkitAbstractModule implements PluginCommandExecutor {
     private CachedServerIcon cachedServerIcon;
     private YamlConfiguration setting;
 

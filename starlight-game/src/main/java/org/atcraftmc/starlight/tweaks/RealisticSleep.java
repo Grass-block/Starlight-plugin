@@ -14,7 +14,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.util.TaskHandle;
@@ -34,7 +34,7 @@ import java.util.*;
 @AutoRegister(Registrations.SERVER_EVENT)
 @BlacklistPlatform({APIProfile.ARCLIGHT, APIProfile.BUKKIT})
 @CommandProvider(RealisticSleep.LeaveBedCommand.class)
-public final class RealisticSleep extends PluginAbstractModule {
+public final class RealisticSleep extends BukkitAbstractModule {
     private final Map<World, Set<Player>> sleepingPlayers = new HashMap<>();
 
     private final Set<Player> daySleepingPlayers = new HashSet<>();

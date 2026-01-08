@@ -9,13 +9,13 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.WeatherType;
 import org.bukkit.entity.Player;
 
 @ApplicationModule(id = "client-environment-setting")
 @CommandProvider({ClientEnvironmentSetting.LocalWeatherCommand.class, ClientEnvironmentSetting.LocalTimeCommand.class})
-public final class ClientEnvironmentSetting extends PluginAbstractModule {
+public final class ClientEnvironmentSetting extends BukkitAbstractModule {
 
     @Override
     public void checkCompatibility() throws APIIncompatibleException {

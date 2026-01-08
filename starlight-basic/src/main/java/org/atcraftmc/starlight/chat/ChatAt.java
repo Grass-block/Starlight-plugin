@@ -12,7 +12,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Players;
 import me.gb2022.modular.module.ApplicationModule;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -27,7 +27,7 @@ import java.util.Objects;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "chat-at", version = "1.2")
 @CommandProvider(ChatAt.AtCommand.class)
-public final class ChatAt extends PluginAbstractModule {
+public final class ChatAt extends BukkitAbstractModule {
 
     @Override
     public void enable() throws Exception {

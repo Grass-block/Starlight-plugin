@@ -6,7 +6,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @ApplicationModule(id = "client-transfer-support")
 @CommandProvider(ClientTransferSupport.ConnectCommand.class)
-public final class ClientTransferSupport extends PluginAbstractModule {
+public final class ClientTransferSupport extends BukkitAbstractModule {
     private final Map<String, String> originRecords = new HashMap<>();
 
     static void connect(Player player, String target) {

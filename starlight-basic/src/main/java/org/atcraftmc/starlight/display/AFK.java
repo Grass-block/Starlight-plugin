@@ -8,7 +8,7 @@ import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 
 @ApplicationModule(id = "afk", version = "1.1")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class AFK extends PluginAbstractModule {
+public final class AFK extends BukkitAbstractModule {
     private final Listener actionListener = new PlayerActionListener();
     private final Map<String, Long> lastAFK = new HashMap<>();
 

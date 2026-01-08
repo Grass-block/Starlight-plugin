@@ -13,7 +13,7 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +27,7 @@ import java.util.List;
 
 @ComponentProvider({InstallationCheck.Incomplete.class, InstallationCheck.Unregistered.class, InstallationCheck.CounterConflicts.class})
 @ApplicationModule(id = "installation-check", internal = true)
-public final class InstallationCheck extends PluginAbstractModule {
+public final class InstallationCheck extends BukkitAbstractModule {
 
     @AutoRegister(Registrations.SERVER_EVENT)
     public static final class Incomplete extends SLModuleComponent<InstallationCheck> {

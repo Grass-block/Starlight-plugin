@@ -12,7 +12,7 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @ApplicationModule(id = "maintenance", version = "2.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(Maintenance.MaintenanceCommand.class)
-public final class Maintenance extends PluginAbstractModule {
+public final class Maintenance extends BukkitAbstractModule {
     private final Set<UUID> allowed = new HashSet<>();
     private boolean active = false;
 

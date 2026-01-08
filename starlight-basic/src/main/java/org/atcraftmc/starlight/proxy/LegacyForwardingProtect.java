@@ -10,7 +10,7 @@ import me.gb2022.modular.Registrations;
 import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -23,7 +23,7 @@ import java.util.Set;
 
 @ApplicationModule(id = "legacy-forwarding-protect", defaultEnable = false)
 @AutoRegister({Registrations.SERVER_EVENT})
-public final class LegacyForwardingProtect extends PluginAbstractModule {
+public final class LegacyForwardingProtect extends BukkitAbstractModule {
     private final Set<String> sessions = new HashSet<>();
 
     @Override

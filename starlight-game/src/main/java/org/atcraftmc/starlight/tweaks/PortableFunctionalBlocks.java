@@ -8,7 +8,7 @@ import me.gb2022.modular.module.component.ComponentProvider;
 import me.gb2022.modular.module.component.SubComponent;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 @ApplicationModule(id="portable-functional-blocks")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({PortableFunctionalBlocks.NetherUpdate.class, PortableFunctionalBlocks.VillageUpdate.class})
-public final class PortableFunctionalBlocks extends PluginAbstractModule {
+public final class PortableFunctionalBlocks extends BukkitAbstractModule {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {

@@ -34,7 +34,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
@@ -58,7 +58,7 @@ import java.util.List;
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_VPN_EVENT})
 @ComponentProvider({MusicPlayer.APMEventHandler.class, MusicPlayer.PlayerEventHandler.class})
 @ApplicationModule(id = "music-player", version = "1.0.3")
-public final class MusicPlayer extends PluginAbstractModule implements PlayerUIRenderer {
+public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIRenderer {
     private final GUIProvider<InventoryUI> musicUI = new MusicUI(this);
     private MusicSession globalSession;
 

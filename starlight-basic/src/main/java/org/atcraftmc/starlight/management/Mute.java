@@ -21,7 +21,7 @@ import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
@@ -44,7 +44,7 @@ import java.util.UUID;
 @ApplicationModule(id = "mute", version = "1.0.2")
 @ComponentProvider(Mute.PaperListener.class)
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class Mute extends PluginAbstractModule implements Listener {
+public final class Mute extends BukkitAbstractModule implements Listener {
     public static final String DATA_ENTRY_ID = "starlight:mute";
     public static final TableColumn<DataEntry> MUTE_DATA = TableColumn.dom("chat_mute");
 

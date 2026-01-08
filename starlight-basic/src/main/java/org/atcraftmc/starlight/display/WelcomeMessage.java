@@ -13,7 +13,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ import org.bukkit.event.EventHandler;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({WelcomeMessage.WelcomeMessageCommand.class})
 @ApplicationModule(id = "welcome-message", version = "0.1.0")
-public final class WelcomeMessage extends PluginAbstractModule {
+public final class WelcomeMessage extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerFirstJoin(PlayerFirstJoinEvent event) {
         TaskService.global().delay(5, () -> this.sendWelcomeMessage(event.getPlayer()));

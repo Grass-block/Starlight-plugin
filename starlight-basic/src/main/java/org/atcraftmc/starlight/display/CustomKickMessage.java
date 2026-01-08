@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.api.event.BanMessageFetchEvent;
 import org.atcraftmc.starlight.api.event.KickMessageFetchEvent;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.framework.module.PluginAbstractModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.BanList;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_MESSAGE})
 @ApplicationModule(id = "custom-kick-message", version = "1.0.0")
-public final class CustomKickMessage extends PluginAbstractModule {
+public final class CustomKickMessage extends BukkitAbstractModule {
 
     @Inject
     private LanguageEntry language;
