@@ -20,7 +20,7 @@ import org.bukkit.event.EventHandler;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({WelcomeMessage.WelcomeMessageCommand.class})
-@ApplicationModule(id = "welcome-message", version = "0.1.0")
+@ApplicationModule(id = "welcome-message", version = "0.1.0", description = "Present a welcome message when player join a server at first time.")
 public final class WelcomeMessage extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerFirstJoin(PlayerFirstJoinEvent event) {

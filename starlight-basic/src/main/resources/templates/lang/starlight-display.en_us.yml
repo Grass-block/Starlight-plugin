@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    action-bar-hud: Action Bar HUD Information Display
+    afk: AFK Detection
+    chat-format: Chat Line Formatting
+    custom-death-message: Custom Death Message Format
+    custom-kick-message: Custom Kick Message
+    custom-motd: Custom MOTD Information
+    custom-scoreboard: Custom Scoreboard Information
+    drop-item-info: Dropped Item Highlight Information
+    hover-display: Hover Text
+    player-name-header: Player Title
+    tab-menu: TAB Menu Information
+    welcome-message: Custom Welcome Message
+    we-session-renderer: WorldEdit Selection Renderer
+  player-join-message:
+    join: '{global#sys-info}{#gray}Player {#white}{#var}{#gray} has joined the server. Welcome.'
+    leave: '{global#sys-info}Player {#white}{#var}{#gray} has left the server.'
+    welcome-message: '{global#sys-info}Welcome ({#var}) to the {#server-name}{#gray} server, have fun.'
+  tab-menu:
+    welcome-header: 'Welcome to the {#aqua}{#server-name}{#reset} Server!'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    ping: '{#gray}Ping: {#white}{#ping}'
+    player: '{#gray}Online Players: {#white}{#player}'
+    max-player: '{#gray}Max: {#white}{#max-player}'
+    date: '{#gray}Date/Time: {#white}{#date}'
+    website: '{#gray}Website: {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}Date: {#white}{#date-day}'
+    time: '{#gray}Time: {#white}{#date-time}'
+    player: '{#gray}Player: {#white}{player}'
+    rank: '{#gray}Rank: {#white}{#rank}'
+    play-time: '{#gray}PlayTime: {#white}{#play-time}'
+    world-time: '{#gray}WorldTime: {#white}{#world-time}'
+    player-count: '{#gray}Online: {#white}{#player}'
+    ping: '{#gray}Ping: {#white}{#ping}'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}QQ Group: {#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}Set the title of {#var} to {#var}.'
+    clear-header: '{global#sys-operation}Cleared the title of {#var}.'
+    announce: '{global#sys-info}Player {#var} has obtained the title {#var}.'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}WorldEdit selection render mode set to [{#white}Persistent{#gray}]"
+    mode-update: "{global#sys-info}WorldEdit selection render mode set to [{#white}On Update{#gray}]"
+    mode-off: "{global#sys-info}WorldEdit selection render mode set to [{#white}Off{#gray}]"
+    render: "{global#sys-success}Your WorldEdit selection has been rendered (highlighted)."
+  afk:
+    left: "{global#info}Player {#var} is temporarily away."
+    left-self: "{global#info}You are temporarily away."
+    back: "{global#info}Player {#var} has returned after being away for {#var}."
+    back-self: "{global#info}You have returned after being away for {#var}."
+  action-bar-hud:
+    time: "{#dark-aqua}World Time: {#aqua}{#world-time}"
+    position: "{#dark-purple}Position: {#red}%.3f{#gray},{#green}%.3f{#gray},{#aqua}%.3f{#gray}"
+    biome: "{#dark-green}Biome: {translate;color(green)}biome.%s.%s{;}"
+    face: "{#dark-blue}Facing: {#blue}%.3f(Pitch),%.3f(Yaw)"
+  welcome-message:
+    title: '{#gold}Welcome!'
+    content: '{#white}Welcome to the {#server-name}{#white} server, have fun!'
+    callback: '{#gray}(This message can be recalled using {#gold}/welcome-message{#gray})'
+  custom-motd:
+    motd-command: '{global#info}Server MOTD: '
+    icon-refresh: '{global#success}Successfully refreshed MOTD image cache.'
+    text-refresh: '{global#success}Successfully refreshed MOTD text cache.'
+  custom-kick-message:
+    header: '{#white}You have been kicked from the {#server-name}{#white} server'
+    ban-header: '{#white}You have been banned from {#server-name}{#reset}'
+    ban-name: '{#gray}Sorry, your player name has been banned from this server.'
+    ban-ip: '{#gray}Sorry, your IP address has been banned from this server.'
+    ban-hint: '{#gray}If you believe this is an error, please contact the server administrator.'
+    ban-reason: '{#gray}Ban Reason{#white}: {reason}'
+    ban-op: '{#gray}Banned by{#white}: {source}'
+    ban-expire: '{#gray}This ban will expire on {#white}{expire}{#gray}.'
+    website-hint: '{#gray}Visit our website: {#aqua}{#underline}{#server-website}'

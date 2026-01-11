@@ -66,6 +66,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-warps");
         p.language("starlight-warps", "zh_cn");
+        p.language("starlight-warps", "en_us");
     }
 
     @ApplicationPackageProvider(id = "starlight-utilities")
@@ -151,7 +152,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         p.language("starlight-chat", "zh_cn");
     }
 
-    @ApplicationPackageProvider(id = "starlight-display")
+    @ApplicationPackageProvider(id = "starlight-display", description = "Create client's visual look, but not only UI.")
     public static void display(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
         b.module(ActionBarHUD.class);
@@ -167,12 +168,14 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(WelcomeMessage.class);
         b.module(WESessionRenderer.class);
         b.module(CustomKickMessage.class);
+        b.module(PlayerJoinMessage.class);
 
         b.service(VisualScoreboardService.class);
         b.service(PlayerWelcomeService.class); //todo [DFU] import status-> first-join-detection
 
         p.config("starlight-display");
         p.language("starlight-display", "zh_cn");
+        p.language("starlight-display", "en_us");
     }
 
     @ApplicationPackageProvider(id = "starlight-sideload")

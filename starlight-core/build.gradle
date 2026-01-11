@@ -2,9 +2,10 @@ plugins {
     id 'java'
 }
 
-project.setProperty("version", "25.3.10")
+project.setProperty("version", "26.2.1")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
+apply from: rootDir.getAbsolutePath() + "/info.gradle"
 
 applyGlobalScript("Publish/MinecraftServerTest.gradle")
 applyGlobalScript("Publish/ProjectOutput.gradle")
@@ -13,7 +14,7 @@ applyGlobalScript("Publish/LocalStorage.gradle")
 applyGlobalScript("Repo/MinecraftPlugins.gradle")
 applyGlobalScript("/Dependencies.gradle")
 
-apply from: rootDir.getAbsolutePath() + "/info.gradle"
+
 
 
 repositories {

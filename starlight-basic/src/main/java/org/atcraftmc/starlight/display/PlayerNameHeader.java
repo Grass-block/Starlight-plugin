@@ -41,7 +41,7 @@ import java.util.*;
 
 @SuppressWarnings("deprecation")
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "player-name-header")
+@ApplicationModule(id = "player-name-header", description = "Provide a Header before player's name.")
 @QuarkCommand(name = "header", permission = "-starlight.name.header")
 @ComponentProvider({PlayerNameHeader.BelowNameColumns.class})
 public final class PlayerNameHeader extends SLCommandModule {

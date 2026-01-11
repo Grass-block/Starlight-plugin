@@ -19,7 +19,6 @@ import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +59,18 @@ public final class ModuleCommand extends CoreCommand {
         var sender = context.getSender();
         var id = !context.hasArgumentAt(1) ? null : context.requireArgumentAt(1);
 
-        switch (context.requireEnum(0, "list", "info", "enable", "disable", "reload", "enable-all", "disable-all", "reload-all")) {
+        switch (context.requireEnum(
+                0,
+                "list",
+                "info",
+                "enable",
+                "disable",
+                "reload",
+                "enable-all",
+                "disable-all",
+                "reload-all",
+                "list-readme"
+        )) {
             case "list" -> list(sender, !context.hasArgumentAt(1) ? "" : context.requireArgumentAt(1));
             case "enable-all" -> {
                 this.handle.enableAll();
@@ -77,6 +87,32 @@ public final class ModuleCommand extends CoreCommand {
             case "enable" -> sendMessage(sender, messageId(this.handle.enable(id), "enable"), id);
             case "disable" -> sendMessage(sender, messageId(this.handle.disable(id), "disable"), id);
             case "reload" -> sendMessage(sender, messageId(this.handle.reload(id), "reload"), id);
+            case "list-readme" -> {
+                var nodes = this.handle.getModules().values();
+
+                var groups = new HashMap<String, List<ModuleContainer>>();
+
+                for (var meta : nodes) {
+                    groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>()).add(meta);
+                }
+
+                for (var gid : groups.keySet()) {
+                    var exampleMeta = groups.get(gid).get(0);
+                    var group = groups.get(gid);
+
+                    var all = group.size();
+                    var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
+                    var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginConcept.class).name(), enable, all);
+
+                    Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
+                    TextSender.sendMessage(sender, msg1);
+
+                    for (var meta : groups.get(gid)) {
+                        Component msg = Component.text("  ").append(buildModuleInfo(meta, LocaleService.locale(sender)));
+                        TextSender.sendMessage(sender, msg);
+                    }
+                }
+            }
         }
     }
 

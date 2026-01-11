@@ -1,6 +1,6 @@
 #identifier
 name: starlight-bundler
-version: '26.2.0' #todo: use linked version
+version: '${version}'
 
 #api
 main: org.atcraftmc.starlight.Starlight

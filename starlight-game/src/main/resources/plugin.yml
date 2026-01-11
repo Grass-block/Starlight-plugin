@@ -1,6 +1,6 @@
 #identifier
 name: starlight-game
-version: '${core_version}'
+version: '${version}'
 
 #api
 main: org.atcraftmc.starlight.SLGamePackage

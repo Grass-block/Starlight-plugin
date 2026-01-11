@@ -450,7 +450,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         return this.hasBundler;
     }
 
-    private static final class StarlightBukkitPlatform extends ForwardingPluginPlatform {
+    public static final class StarlightBukkitPlatform extends ForwardingPluginPlatform {
         @Override
         public MinecraftLocale locale(Object sender) {
             return LocaleService.locale(sender);

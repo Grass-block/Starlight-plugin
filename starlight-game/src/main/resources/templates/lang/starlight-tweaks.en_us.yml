@@ -1,0 +1,35 @@
+language:
+  -module-name:
+    crop-click-harvest: Crop Click Harvest
+    dispenser-interaction: Dispenser Interaction Imporovement
+    double-door-sync: Double Door Synchronization
+    vein-miner: Vein Miner
+    realistic-sleep: Realistic Sleep
+    portable-functional-blocks: Portable Functional Blocks
+    portable-shulker-box: Quick Open Shulker Box
+    item-drop-secure: Drop Prevention
+    realistic-minecart: Realistic Minecart
+  item-drop-secure:
+    warn: "{global#warning}You cannot drop this item for security reasons. Use {#gold}/unlock-drop{#gray} or {click(command,/unlock-drop)}{#white}[{#green}Click{#white}]{;} {#gray}to temporarily unlock."
+    unlock: "{global#info}You have disabled the drop safety lock. The lock will restore in {#var} seconds."
+    unlock-end: "{global#info}The drop safety lock has been restored."
+  vein-miner:
+    tip: "{#gray}Sneak mining can harvest connected ores, logs, and leaves in one go. This will also consume more durability."
+  realistic-sleep:
+    sleep-day: '{global#sys-info}You are sleeping outside normal sleep hours. Please use {#gold}/leave-bed{#gray} or {click(command,/leave-bed)}{#white}[{#green}Click Here{#white}]{reset}{#gray} to leave the bed.'
+    leave-bed: '{global#sys-info}You have left the bed. You can sleep again at any time.'
+    tip: "{#gray}Sleeping in a bed during the day restores health, while sleeping at night helps all server players skip the night."
+  dispenser-interaction:
+    tip: "{#gray}When receiving a signal, dispensers will attempt to place blocks; if the item being dispensed is a tool, it will try to break the block in front of it."
+  portable-functional-blocks:
+    tip: "{#gray}Some functional blocks (such as smithing tables, crafting tables, etc.) can be opened by right-clicking in the air while holding them."
+  stair-seat:
+    tip: "{#gray}Right-click on stair blocks to sit."
+  realistic-minecart:
+    run-mode-run: "{#aqua}Running"
+    run-mode-boost: "{#green}Boost"
+    run-mode-break: "{#purple}Brake"
+    run-mode-stop: "{#gray}Stop"
+    acceleration: "Acceleration: "
+    speed: "Speed: "
+    level: "Thrust: "

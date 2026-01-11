@@ -27,7 +27,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "tab-menu", version = "2.0.3")
+@ApplicationModule(id = "tab-menu", version = "2.0.3", description = "Provide a tab board display.")
 public final class TabMenu extends BukkitAbstractModule {
     public static final String UPDATE_TASK_TID = "sl-display:tab-menu:update";
 

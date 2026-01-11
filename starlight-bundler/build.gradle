@@ -6,6 +6,7 @@ group = 'me.gb2022'
 version = 'unspecified'
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
+apply from: rootDir.getAbsolutePath() + "/info.gradle"
 
 applyGlobalScript("Publish/ProjectOutput.gradle")
 

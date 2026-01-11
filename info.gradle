@@ -14,7 +14,7 @@ tasks.processResources.dependsOn(copyInfo)
 
 processResources {
     doFirst {
-        filesMatching('**/product-info.properties') {
+        filesMatching('**/*.product-meta.json') {
             expand([
                     'version'   : project.property("version"),
                     'build_time': new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
@@ -22,8 +22,7 @@ processResources {
         }
         filesMatching("**/plugin.yml") {
             expand([
-                    'version'     : project.property("version"),
-                    'core_version': project(":starlight-core").property("version")
+                    'version'     : project(":starlight-core").property("version")
             ])
         }
     }

@@ -27,7 +27,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.util.Date;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "chat-format", version = "1.2.0")
+@ApplicationModule(id = "chat-format", version = "1.2.0",description = "Re-format your chat line.")
 @ComponentProvider(ChatFormat.PaperChatListener.class)
 public final class ChatFormat extends BukkitAbstractModule {
     MethodHandleRO0<World, String> getDimensionId = MethodHandle.select((ctx) -> {

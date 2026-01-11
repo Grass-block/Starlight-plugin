@@ -28,7 +28,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "elevator", version = "1.0.0")
+@ApplicationModule(id = "elevator", version = "1.0.0", description = "Create a OpenBlock mod styled elevator block.")
 @SuppressWarnings("deprecation")
 public final class Elevator extends BukkitAbstractModule {
     private final ElevatorBlock block = new ElevatorBlock();

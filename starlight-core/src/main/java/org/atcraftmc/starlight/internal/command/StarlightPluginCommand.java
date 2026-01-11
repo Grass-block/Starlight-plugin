@@ -4,6 +4,7 @@ import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -71,6 +72,10 @@ public final class StarlightPluginCommand extends CoreCommand {
                 case "prepare" -> {
                     var loc = LocaleService.locale(context.getSender());
                     Starlight.instance().onDisable();
+                    try {
+                        PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
+                    } catch (Exception ignored) {
+                    }
                     InternalCommands.register();
 
                     TextSender.sendMessage(context.getSender(), this.getLanguage().item("prepared").component(loc));

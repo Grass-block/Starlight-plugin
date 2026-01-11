@@ -12,7 +12,7 @@ import me.gb2022.modular.module.ApplicationModule;
 
 import java.util.Objects;
 
-@ApplicationModule(id="custom-death-message")
+@ApplicationModule(id="custom-death-message",description = "Re-format your death message.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class CustomDeathMessage extends BukkitAbstractModule {
     @Override

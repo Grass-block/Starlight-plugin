@@ -1,0 +1,14 @@
+language:
+  -module-name:
+    elevator: Elevator Block
+  elevator:
+    item-name: '{#aqua}Elevator'
+    item-lore:
+      - '{#gray}An ordinary-looking elevator block.'
+      - '{#gray}If you place them {#white}vertically and clear the space{#gray},'
+      - '{#gray}then {#white}jump or sneak{#gray} on top of one,'
+      - '{#gray}perhaps something {#white}interesting{#gray} will happen...'
+    tip:
+      - "{#gray}Craft elevator blocks using gold ingots, redstone, and pistons. Jump or sneak on top to quickly move up or down."
+      - "{#gray}For the elevator to function correctly, the two blocks directly above it must be air."
+      - "{#gray}You can check the recipe at {click(link,https://example.org){#white}[{#aqua}here{#white}]{#gray}."

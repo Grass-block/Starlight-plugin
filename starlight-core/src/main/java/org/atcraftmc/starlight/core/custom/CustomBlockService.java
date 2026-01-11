@@ -11,15 +11,18 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.customization.CustomBlock;
 import org.atcraftmc.starlight.api.customization.CustomItem;
 import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.block.TileState;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.persistence.PersistentDataHolder;
 
 import java.util.HashMap;
@@ -70,7 +73,7 @@ public final class CustomBlockService implements BukkitService {
     }
 
     @EventHandler
-    public void onPlayerHarvestBlock(PlayerHarvestBlockEvent event) {
+    public void onPlayerPickItem(PlayerHarvestBlockEvent event) {
         for (var stack : event.getItemsHarvested()) {
             if (!CustomMeta.hasItemPDCIdentifier(stack)) {
                 continue;
@@ -86,6 +89,49 @@ public final class CustomBlockService implements BukkitService {
             block.render(stack, LocaleService.locale(event.getPlayer()));
             block.onItemPick(event.getPlayer(), stack);
         }
+    }
+
+    @EventHandler
+    public void onPlayerPickItem(PlayerPickupItemEvent event) {
+        var stack = event.getItem().getItemStack();
+        if (!CustomMeta.hasItemPDCIdentifier(stack)) {
+            return;
+        }
+
+        var id = CustomMeta.getItemPDCIdentifier(stack);
+
+        if (!this.items.containsKey(id)) {
+            return;
+        }
+
+        var block = this.items.get(id);
+        block.render(stack, LocaleService.locale(event.getPlayer()));
+        block.onItemPick(event.getPlayer(), stack);
+
+        event.getItem().setItemStack(stack);
+    }
+
+    public void refreshInventory(Player player, int delay) {
+        TaskService.entity(player).delay(delay, () -> {
+            for (var i : player.getInventory().getContents()) {
+                if (i == null) {
+                    continue;
+                }
+
+                if (!CustomMeta.hasItemPDCIdentifier(i)) {
+                    continue;
+                }
+
+                var id2 = CustomMeta.getItemPDCIdentifier(i);
+
+                if (!this.items.containsKey(id2)) {
+                    continue;
+                }
+
+                var block2 = this.items.get(id2);
+                block2.render(i, LocaleService.locale(i));
+            }
+        });
     }
 
     @EventHandler

@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-@ApplicationModule(id = "afk", version = "1.1")
+@ApplicationModule(id = "afk", version = "1.1",description = "Announce when player starting AFK.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class AFK extends BukkitAbstractModule {
     private final Listener actionListener = new PlayerActionListener();

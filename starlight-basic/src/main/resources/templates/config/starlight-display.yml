@@ -1,4 +1,8 @@
 config:
+  player-join-message:
+    proxy: /{$proxy}
+    sound: true
+    volume: 0.10
   tab-menu:
     render-ping: true
     header-ui:

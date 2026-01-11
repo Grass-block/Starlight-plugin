@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-@ApplicationModule(id = "action-bar-hud")
+@ApplicationModule(id = "action-bar-hud",description = "Create a HUD display on actionbar title.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ActionBarHUD extends BukkitAbstractModule {
     @Inject
