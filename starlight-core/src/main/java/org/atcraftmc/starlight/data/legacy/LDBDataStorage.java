@@ -1,9 +1,8 @@
 package org.atcraftmc.starlight.data.legacy;
 
 import me.gb2022.commons.container.Pair;
+import org.atcraftmc.starlight.data.leveldb.LevelDBService;
 import org.iq80.leveldb.DB;
-import org.iq80.leveldb.Options;
-import org.iq80.leveldb.impl.Iq80DBFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,16 +12,9 @@ public final class LDBDataStorage implements DataStorage {
     private final DB db;
 
     public LDBDataStorage(File folder) {
-        if (!folder.isDirectory()) {
-            throw new IllegalArgumentException("folder is not a directory: " + folder);
-        }
-
-        try {
-            this.db = new Iq80DBFactory().open(folder, new Options());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.db = LevelDBService.create(folder);
     }
+
 
     @Override
     public void put(byte[] key, byte[] data) {

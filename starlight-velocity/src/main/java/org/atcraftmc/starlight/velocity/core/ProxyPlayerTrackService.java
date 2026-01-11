@@ -16,10 +16,12 @@ import org.atcraftmc.starlight.velocity.StarlightVelocity;
 import org.atcraftmc.starlight.velocity.api.ProxyJoinedEvent;
 import org.atcraftmc.starlight.velocity.api.RemotePlayerLeftEvent;
 import org.atcraftmc.starlight.velocity.api.RemoteServerConnectEvent;
+import org.atcraftmc.starlight.velocity.util.VelocityUtil;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 
 @ApplicationService(id = "proxy-player-track")
 public interface ProxyPlayerTrackService extends Service {
@@ -27,18 +29,20 @@ public interface ProxyPlayerTrackService extends Service {
     String MSG_PROXY_LEAVE = "/proxy/player/leave";//player
     String MSG_PROXY_CONNECT = "/proxy/player/connect";//player,current,previous
 
-
     @ServiceInject
     ServiceHolder<ProxyPlayerTrackService> INSTANCE = new ServiceHolder<>();
 
-
     static Map<String, String> getAllPlayersInProxy() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return INSTANCE.get().getPlayerServerMap();
     }
 
-    static Map<String, String> getAllPlayersInCurrentProxy() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    static Optional<String> getPlayerServer(String player) {
+        return Optional.ofNullable(INSTANCE.get().getPlayerServerMap().get(player));
     }
+
+    Map<String, String> getPlayerProxyMap();
+
+    Map<String, String> getPlayerServerMap();
 
 
     final class ServiceImpl implements ProxyPlayerTrackService {
@@ -48,13 +52,25 @@ public interface ProxyPlayerTrackService extends Service {
         private final IRemoteMessageService service = RemoteMessageService.instance();
 
         @Override
+        public Map<String, String> getPlayerProxyMap() {
+            return player2ProxyTable;
+        }
+
+        @Override
+        public Map<String, String> getPlayerServerMap() {
+            return player2ServerTable;
+        }
+
+        @Override
         public void enable() throws Exception {
             this.service.registerEventHandler(this);
+            VelocityUtil.registerListener(this);
         }
 
         @Override
         public void disable() {
             this.service.registerEventHandler(this);
+            VelocityUtil.unregisterListener(this);
         }
 
         @APMRemoteEvent(MSG_PROXY_JOIN)
@@ -104,7 +120,7 @@ public interface ProxyPlayerTrackService extends Service {
 
 
         private void fireEvent(Object event) {
-            StarlightVelocity.INSTANCE.get().getServer().getEventManager().fire(event);
+            StarlightVelocity.instance().getServer().getEventManager().fire(event);
         }
 
 

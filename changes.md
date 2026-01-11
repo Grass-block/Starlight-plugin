@@ -1,6 +1,9 @@
-## 26.1.11
+## 26.2.0
 - Fixed library loading exception in some paths.
 - Elevator can now recognize legacy blocks.
+- Dispenser can now interact correctly.
+- Fixed LevelDB loading issue.
+- Fixed pack loading on hot reload.
 
 ## 26.1.10
 

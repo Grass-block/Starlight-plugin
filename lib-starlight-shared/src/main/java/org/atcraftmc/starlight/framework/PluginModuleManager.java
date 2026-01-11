@@ -1,9 +1,12 @@
 package org.atcraftmc.starlight.framework;
 
 import me.gb2022.modular.ModularApplicationContext;
+import me.gb2022.modular.ObjectOperationResult;
 import me.gb2022.modular.module.ModuleContainer;
 import me.gb2022.modular.module.ModuleManager;
 import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.util.PluginAutoRegManager;
+import org.atcraftmc.starlight.util.PluginDependencyInjector;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +15,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PluginModuleManager extends ModuleManager {
+    private final PluginDependencyInjector dependencyInjector = createDependencyInjector();
+    private final PluginAutoRegManager autoRegManager = createAutoRegManager();
 
     public PluginModuleManager(ModularApplicationContext context) {
         super(context);
@@ -24,6 +29,14 @@ public class PluginModuleManager extends ModuleManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public PluginDependencyInjector createDependencyInjector() {
+        return new PluginDependencyInjector();
+    }
+
+    public PluginAutoRegManager createAutoRegManager() {
+        return new PluginAutoRegManager();
     }
 
     private File getStatusFile() {
@@ -44,6 +57,19 @@ public class PluginModuleManager extends ModuleManager {
             return file;
         }
         return file;
+    }
+
+    @Override
+    public void handlePreEnable(ModuleContainer handle) {
+        super.handlePreEnable(handle);
+        this.dependencyInjector.inject(handle.getHandle(PluginModule.class));
+        this.autoRegManager.attachModuleContainer(handle);
+    }
+
+    @Override
+    public void handlePostDisable(ModuleContainer handle, ObjectOperationResult result) {
+        super.handlePostDisable(handle, result);
+        this.autoRegManager.detachModuleContainer(handle);
     }
 
     @Override

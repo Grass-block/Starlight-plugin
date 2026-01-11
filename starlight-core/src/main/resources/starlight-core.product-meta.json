@@ -5,7 +5,8 @@
   "libraries": [
     "com.h2database:h2:2.3.232",
     "org.mongodb:bson:5.6.0",
-    "org.iq80.leveldb:leveldb:0.12",
-    "org.iq80.leveldb:leveldb-api:0.12"
+    "org.iq80.leveldb:leveldb-api:0.12",
+    "org.iq80.snappy:snappy:0.4",
+    "org.iq80.leveldb:leveldb:0.12"
   ]
 }

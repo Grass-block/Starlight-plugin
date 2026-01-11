@@ -1,16 +1,17 @@
-package org.atcraftmc.starlight.velocity.basic.peer;
+package org.atcraftmc.starlight.velocity.basic;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.AbstractModule;
+import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
-import org.atcraftmc.starlight.velocity.framework.VelocityModule;
+import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 
+@ApplicationModule(id = "legacy-forwarding-protect")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class LegacyForwardingProtect extends AbstractModule<SLVModuleHandle, SLVPackage> implements VelocityModule {
+public final class LegacyForwardingProtect extends VelocityAbstractModule {
 
     @Subscribe
     public void onServerConnect(ServerPreConnectEvent event) {

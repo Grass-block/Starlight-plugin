@@ -45,7 +45,7 @@ public interface SLPackageManager {
             return false;
         }
 
-        return p.getResource("product-meta.json") != null;
+        return p.getResource(p.getName() + ".product-meta.json") != null;
     }
 
     static boolean verify(File f) {
@@ -62,7 +62,7 @@ public interface SLPackageManager {
         }
         try {
             JarFile jf = new JarFile(f);
-            if (jf.getJarEntry("product-meta.json") == null) {
+            if (jf.getJarEntry(id + ".product-meta.json") == null) {
                 jf.close();
                 return false;
             }

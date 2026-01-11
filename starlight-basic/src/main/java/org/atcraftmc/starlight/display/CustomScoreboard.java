@@ -9,6 +9,7 @@ import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.PlayerView;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;

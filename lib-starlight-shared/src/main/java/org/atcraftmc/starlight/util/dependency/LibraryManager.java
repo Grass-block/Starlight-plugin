@@ -1,20 +1,24 @@
 package org.atcraftmc.starlight.util.dependency;
 
+import me.gb2022.commons.container.OrderedHashMap;
 import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import sun.misc.Unsafe;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.*;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +30,8 @@ public final class LibraryManager {
 
     private final String repositoryURL;
     private final String workingDirectory;
-    private final Map<String, URL> loadedURLs = new HashMap<>();
+    private final OrderedHashMap<String, URL> loadedURLs = new OrderedHashMap<>();
+    private final Set<String> loadFailedClasses = new HashSet<>();
     private final boolean loadFully;
 
     public LibraryManager(String repositoryURL, String workingDirectory, boolean loadFully) {
@@ -35,47 +40,11 @@ public final class LibraryManager {
         this.loadFully = loadFully;
     }
 
-    public static void loadFullJar(@NotNull ClassLoader loader, File jar) {
-        LOGGER.info("target core jar file: {}", jar.getAbsolutePath());
-
-        var classes = new HashSet<String>();
-
-        try (JarFile jarFile = new JarFile(jar)) {
-            var entries = jarFile.entries();
-
-            while (entries.hasMoreElements()) {
-                var entry = entries.nextElement();
-                if (entry.isDirectory()) {
-                    continue;
-                }
-                if (!entry.getName().endsWith(".class")) {
-                    continue;
-                }
-
-                var className = entry.getName().replace("/", ".").replaceAll("\\.class$", "");
-
-                if (className.contains("Utils21")) {
-                    continue;
-                }
-
-                try {
-                    loadClass(className, loader, classes);
-                } catch (Throwable e) {
-                    LOGGER.warn("failed to load class {}: {}({})", className, e.getClass().getName(), e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        LOGGER.info("loaded {} classes.", classes.size());
-    }
-
     public static void prepareEnvironment(LibraryManager lm, SLPluginConcept p) {
         lm.resolveDependencies(p.getMetadata().getDependencies());
         lm.injectLibraries(p);
         if (lm.loadFully) {
-            LibraryManager.loadFullJar(p.classLoader(), p.getFile());
+            lm.loadFullJar(p.classLoader(), p.getFile());
         }
     }
 
@@ -95,7 +64,47 @@ public final class LibraryManager {
         }
     }
 
-    public String getPOMDocument(GradleDependency dependency) throws Exception {
+    public void loadFullJar(@NotNull ClassLoader loader, File jar) {
+        var classes = new HashSet<String>();
+
+        try (JarFile jarFile = new JarFile(jar)) {
+            var entries = jarFile.entries();
+
+            while (entries.hasMoreElements()) {
+                var entry = entries.nextElement();
+                if (entry.isDirectory()) {
+                    continue;
+                }
+                if (!entry.getName().endsWith(".class")) {
+                    continue;
+                }
+
+                var className = entry.getName().replace("/", ".").replaceAll("\\.class$", "");
+
+                if (this.loadFailedClasses.contains(className)) {
+                    continue;
+                }
+
+                try {
+                    loadClass(className, loader, classes);
+                } catch (ClassNotFoundException e) {
+                    this.loadFailedClasses.add(className);
+                    if(SLPluginEnvironment.isDebug()){
+                        LOGGER.info("Failed to load class with dep missing: {}({})", className, e.getMessage());
+                    }
+                } catch (Throwable e) {
+                    this.loadFailedClasses.add(className);
+                    LOGGER.warn("failed to load class {}: {}({})", className, e.getClass().getName(), e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        LOGGER.info("Loaded library {} ({} classes).", jar.getName(), classes.size());
+    }
+
+    public InputStream getPOMDocumentIS(GradleDependency dependency) throws Exception {
         var pf = new File(this.workingDirectory + "/maven-poms/" + dependency.toFlatPomPath());
 
         if (!pf.exists() || pf.length() == 0) {
@@ -130,9 +139,7 @@ public final class LibraryManager {
             }
         }
 
-        try (var in = new FileInputStream(pf)) {
-            return new String(in.readAllBytes(), StandardCharsets.UTF_8);
-        }
+        return new FileInputStream(pf);
     }
 
     public File getDependencyFile(GradleDependency dependency) throws Exception {
@@ -191,7 +198,7 @@ public final class LibraryManager {
     }
 
     public List<GradleDependency> resolvePOMDependencies(GradleDependency dependency) throws Exception {
-        return getPOMDependencies(getPOMDocument(dependency));
+        return parseDependencies(dependency, getPOMDocumentIS(dependency));
     }
 
     public void clearCache() {
@@ -227,12 +234,13 @@ public final class LibraryManager {
                 }
                 addURLMethod.invoke(cl, url);
 
+
+                var f = new File(url.toURI());
                 if (this.loadFully) {
-                    loadFullJar(cl, new File(url.toURI()));
+                    loadFullJar(cl, f);
+                } else {
+                    LOGGER.info("Loaded library(URL): {}({}KiB)", f.getName(), f.length() / 1024);
                 }
-
-
-                LOGGER.info("injected dependency: {}", new File(url.toURI()).getName());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -243,50 +251,64 @@ public final class LibraryManager {
 
     private void checkDependencyFully(GradleDependency dependency, List<String> visited) throws Exception {
         var dependencyKey = dependency.toString();
-        if (visited.contains(dependencyKey)) {
-            return;
-        }
-        visited.add(dependencyKey);
 
         var file = getDependencyFile(dependency);
-        this.loadedURLs.put(dependencyKey, file.toURI().toURL());
 
         try {
             var parents = resolvePOMDependencies(dependency);
             for (var parent : parents) {
-                checkDependencyFully(parent, visited);
+                //checkDependencyFully(parent, visited);
             }
         } catch (Exception e) {
             LOGGER.catching(e);
             e.printStackTrace();
         }
+
+        if (!visited.contains(dependencyKey)) {
+            this.loadedURLs.put(dependencyKey, file.toURI().toURL());
+            visited.add(dependencyKey);
+        }
     }
 
-    private List<GradleDependency> getPOMDependencies(String pomContent) {
-        List<GradleDependency> dependencies = new ArrayList<>();
 
-        // 简单的字符串解析（实际项目中应该使用DOM或SAX解析器）
-        String[] lines = pomContent.split("\n");
-        boolean inDependenciesSection = false;
+    public List<GradleDependency> parseDependencies(GradleDependency owner, InputStream stream) throws Exception {
+        var dependencies = new ArrayList<GradleDependency>();
 
-        for (String line : lines) {
-            line = line.trim();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
 
-            if (line.contains("<dependencies>")) {
-                inDependenciesSection = true;
+        Document document = builder.parse(stream);
+        document.getDocumentElement().normalize();
+
+        // 获取所有dependency节点
+        NodeList dependencyNodes = document.getElementsByTagName("dependency");
+
+        for (int i = 0; i < dependencyNodes.getLength(); i++) {
+            var dependencyNode = dependencyNodes.item(i);
+
+            if (dependencyNode.getNodeType() != Node.ELEMENT_NODE) {
                 continue;
             }
 
-            if (line.contains("</dependencies>")) {
-                break;
+            var dependencyElement = (Element) dependencyNode;
+
+            // 提取dependency信息
+            var groupId = dependencyElement.getElementsByTagName("groupId").item(0).getTextContent().trim();
+            var artifactId = dependencyElement.getElementsByTagName("artifactId").item(0).getTextContent().trim();
+
+            var l_ver = dependencyElement.getElementsByTagName("version");
+            var version = l_ver.getLength() == 0 ? owner.getVersion() : l_ver.item(0).getTextContent().trim();
+
+            var l_optional = dependencyElement.getElementsByTagName("optional");
+            var optional = l_optional.getLength() != 0 && Boolean.parseBoolean(l_optional.item(0).getTextContent().trim());
+
+            if (optional) {
+                continue;
             }
 
-            if (inDependenciesSection && line.contains("<dependency>")) {
-                var dep = dispatchPOMDependencies(lines, pomContent.indexOf(line));
-                if (dep != null && !dep.getVersion().isEmpty()) {
-                    dependencies.add(dep);
-                }
-            }
+            var dep = new GradleDependency(groupId, artifactId, version);
+
+            dependencies.add(dep);
         }
 
         return dependencies;

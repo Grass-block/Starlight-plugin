@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.framework.module;
 import me.gb2022.modular.module.AbstractModule;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.BukkitModule;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 
 public abstract class BukkitAbstractModule extends AbstractModule implements BukkitModule {

@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.velocity.api;
 
-public class RemoteServerConnectEvent {
+public final class RemoteServerConnectEvent {
     private final String player;
     private final String server;
     private final String previous;

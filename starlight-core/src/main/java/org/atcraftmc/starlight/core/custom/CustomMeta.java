@@ -52,12 +52,12 @@ public interface CustomMeta {
     }
 
     static void setPDCProperty(PersistentDataHolder holder, String id, String data) {
-        NamespacedKey key = new NamespacedKey(Starlight.instance(), id);
+        NamespacedKey key = new NamespacedKey("starlight-core", id);
         holder.getPersistentDataContainer().set(key, PersistentDataType.STRING, data);
     }
 
     static String getPDCProperty(PersistentDataHolder holder, String id) {
-        NamespacedKey key = new NamespacedKey(Starlight.instance(), id);
+        NamespacedKey key = new NamespacedKey("starlight-core", id);
         try {
             return holder.getPersistentDataContainer().get(key, PersistentDataType.STRING);
         } catch (Exception ignored) {

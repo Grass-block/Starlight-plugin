@@ -46,6 +46,10 @@ public final class DispenserInteraction extends BukkitAbstractModule {
         var data = BukkitDataAccess.blockData(block, Directional.class);
         var face = block.getRelative(data.getFacing());
 
+        if (event.getItemStack().isEmpty() || event.getItemStack().getType().isAir()) {
+            return;
+        }
+
         if (type.isBlock() && face.getType().isAir()) {
             if (type == Material.TNT) {
                 return;
@@ -63,7 +67,10 @@ public final class DispenserInteraction extends BukkitAbstractModule {
             return;
         }
 
-        if (face.getType().isBlock() && face.isValidTool(event.getItemStack())) {
+        var is = event.getItemStack();
+        var isItem = !(is.isEmpty() && is.getType().isAir() || is.getType().isBlock());
+
+        if (face.getType().isBlock() && face.isValidTool(event.getItemStack()) && isItem) {
             event.setCancelled(true);
             face.breakNaturally(event.getItemStack(), true);
         }

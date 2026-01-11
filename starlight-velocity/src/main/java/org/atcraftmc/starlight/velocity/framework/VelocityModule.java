@@ -6,7 +6,7 @@ import org.atcraftmc.starlight.velocity.StarlightVelocity;
 
 public interface VelocityModule extends PluginModule {
     default StarlightVelocity getProxy() {
-        return StarlightVelocity.INSTANCE.get();
+        return StarlightVelocity.instance();
     }
 
     default ProxyServer getProxyServer() {

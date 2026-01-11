@@ -6,7 +6,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import me.gb2022.apm.remote.RemoteMessenger;
 import me.gb2022.commons.container.ObjectContainer;
 import me.gb2022.modular.ModularApplicationContext;
 import net.kyori.adventure.text.ComponentLike;
@@ -20,14 +19,13 @@ import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;
 import org.atcraftmc.starlight.framework.PluginApplication;
-import org.atcraftmc.starlight.framework.PluginModuleManager;
 import org.atcraftmc.starlight.framework.PluginServiceManager;
 import org.atcraftmc.starlight.util.ProductMetadata;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
+import org.atcraftmc.starlight.velocity.framework.VelocityModuleManager;
 import org.slf4j.Logger;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -55,7 +53,7 @@ public final class StarlightVelocity implements PluginApplication {
 
     private static ModularApplicationContext createContext(PluginApplication application) {
         var b = PluginApplication.createContext(application);
-        b.moduleManager(PluginModuleManager::new);
+        b.moduleManager(VelocityModuleManager::new);
         b.serviceManager(PluginServiceManager::new);
 
         return b.build();
@@ -63,6 +61,10 @@ public final class StarlightVelocity implements PluginApplication {
 
     public static LanguageContainer lang() {
         return INSTANCE.get().lang;
+    }
+
+    public static StarlightVelocity instance() {
+        return StarlightVelocity.INSTANCE.get();
     }
 
     @Override

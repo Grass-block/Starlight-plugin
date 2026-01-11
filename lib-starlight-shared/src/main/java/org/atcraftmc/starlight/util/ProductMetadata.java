@@ -6,16 +6,16 @@ import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.atcraftmc.starlight.util.dependency.GradleDependency;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ProductMetadata {
     private final String version;
     private final String buildTime;
     private final int apiVersion;
-    private final Set<GradleDependency> dependencies;
+    private final List<GradleDependency> dependencies;
 
-    public ProductMetadata(String version, String buildTime, int apiVersion, Set<GradleDependency> dependencies) {
+    public ProductMetadata(String version, String buildTime, int apiVersion, List<GradleDependency> dependencies) {
         this.version = version;
         this.buildTime = buildTime;
         this.apiVersion = apiVersion;
@@ -26,7 +26,7 @@ public final class ProductMetadata {
         this.version = json.get("version").getAsString();
         this.buildTime = json.get("build-time").getAsString();
         this.apiVersion = json.get("api-version").getAsInt();
-        this.dependencies = new HashSet<>();
+        this.dependencies = new ArrayList<>();
 
         for (var s : json.getAsJsonArray("libraries")) {
             this.dependencies.add(GradleDependency.fromGradle(s.getAsString()));
@@ -58,7 +58,7 @@ public final class ProductMetadata {
         return apiVersion;
     }
 
-    public Set<GradleDependency> getDependencies() {
+    public List<GradleDependency> getDependencies() {
         return dependencies;
     }
 }

@@ -3,12 +3,16 @@ package org.atcraftmc.starlight.velocity.features;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.modular.Registrations;
+import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.quark_velocity.Config;
 import org.atcraftmc.quark_velocity.ProxyModule;
 import org.atcraftmc.quark_velocity.Registers;
+import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 
-@AutoRegister(Registers.VELOCITY_EVENT)
-public final class ModdedServerSupport extends ProxyModule {
+@AutoRegister(Registrations.SERVER_EVENT)
+@ApplicationModule()
+public final class ModdedServerSupport extends VelocityAbstractModule {
 
     @Subscribe
     public void onServerConnect(ServerPreConnectEvent event) {
@@ -38,6 +42,8 @@ public final class ModdedServerSupport extends ProxyModule {
         }
 
         event.setResult(ServerPreConnectEvent.ServerResult.denied());
+
+
 
         Config.language("mod-server-support").sendMessage(player, "message");
     }

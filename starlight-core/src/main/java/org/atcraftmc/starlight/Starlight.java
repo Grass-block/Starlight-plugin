@@ -29,7 +29,7 @@ import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
-import org.atcraftmc.starlight.framework.BukkitModuleManager;
+import org.atcraftmc.starlight.framework.module.BukkitModuleManager;
 import org.atcraftmc.starlight.framework.BukkitServiceManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.SLPackageManager;
@@ -49,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
@@ -301,7 +302,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             throw new RuntimeException("cannot find plugin!");
         }
 
-        LibraryManager.loadFullJar(this.getClassLoader(), jar);
+        getLibraryManager().loadFullJar(this.getClassLoader(), jar);
     }
 
     @Override
@@ -345,7 +346,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
             this.libraryManager = new LibraryManager(repo, cache, !this.fastBoot);
 
-            var deps = new HashSet<>(this.metadata.getDependencies());
+            var deps = new ArrayList<>(this.metadata.getDependencies());
 
             try {
                 Class.forName("net.kyori.adventure.Adventure");
