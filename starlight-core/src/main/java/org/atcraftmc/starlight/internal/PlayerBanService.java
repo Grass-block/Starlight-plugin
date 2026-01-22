@@ -98,9 +98,13 @@ public interface PlayerBanService extends BukkitService {
             var p = event.getPlayer();
 
             var e = new KickMessageFetchEvent(p, r, l);
-            var it = Starlight.instance().language().item("starlight-core.ban-service.default-kick-line");
-            e.setResultMessage(it.message(l, r));
+            //var it = Starlight.instance().language().item("starlight-core.ban-service.default-kick-line");
+            //e.setResultMessage(it.message(l, r));
             BukkitUtil.callEvent(e).get();
+
+            if (!e.isModified()) {
+                return;
+            }
 
             SET_KICK_REASON.invoke(event, TextBuilder.buildComponent(e.getResultMessage()));
         }

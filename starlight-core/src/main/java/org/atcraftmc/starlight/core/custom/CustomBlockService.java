@@ -10,10 +10,12 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.customization.CustomBlock;
 import org.atcraftmc.starlight.api.customization.CustomItem;
+import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
+import org.bukkit.Bukkit;
 import org.bukkit.block.TileState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,8 +57,8 @@ public final class CustomBlockService implements BukkitService {
         this.items.put(item.getId(), item);
     }
 
-    public void unregisterItem(String elevator) {
-        this.items.remove(elevator);
+    public void unregisterItem(String id) {
+        this.items.remove(id);
     }
 
     @Override
@@ -64,12 +66,21 @@ public final class CustomBlockService implements BukkitService {
         //todo: possible offline-mount name issue
         BukkitUtil.registerEventListener(this);
         Starlight.instance().getCommandManager().register(this.command);
+
+        for (var player : Bukkit.getOnlinePlayers()) {
+            refreshInventory(player, 1);
+        }
     }
 
     @Override
     public void disable() {
         BukkitUtil.unregisterEventListener(this);
         Starlight.instance().getCommandManager().unregister(this.command);
+    }
+
+    @EventHandler
+    public void onClientLocaleChange(ClientLocaleChangeEvent event) {
+        refreshInventory(event.getPlayer(), 1);
     }
 
     @EventHandler

@@ -78,3 +78,10 @@ language:
     time-off: "{global#sys-info}您的客户端时间已重置为实际时间。"
   hitokoto:
     sentence: "{hover(text,文字来自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}%s {#gray}——%s(%s)"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}菜单{#yellow} ||"
+    item-lore:
+      - '{#gray}一个用于打开{#white}服务器功能菜单{#gray}的小物件，'
+      - '{#gray}进行任意点击可以快速打开打开菜单界面；'
+      - '{#gray}当然，不慎{#white}丢失这个物件{#gray}的话，'
+      - '{#gray}也可以使用指令"/menu-item"再拿一个。'

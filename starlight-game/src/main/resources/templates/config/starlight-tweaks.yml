@@ -27,7 +27,7 @@ config:
   realistic-minecart:
     ui: '{run-mode}{#white}({msg#level}{level}) {#yellow}|{#white} {msg#speed}{speed} {#yellow}|{#white} {msg#acceleration}{acceleration}m/s^2'
     max-speed: 1.5
-    auto-align: true
+    auto-align: false
     thrust-1-acceleration: 0.08
     thrust-2-acceleration: 0.16
     thrust-3-acceleration: 0.27

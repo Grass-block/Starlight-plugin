@@ -8,3 +8,9 @@ config:
     update-on-explode: false
   freecam:
     anti-cheat: true
+  menu-item:
+    item: 'minecraft:clock'
+    bind-command: 'menu'
+    detect-join: true
+    detect-respawn: false
+    detect-drop: true

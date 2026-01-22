@@ -12,7 +12,7 @@ public final class PlayerMap<V> extends HashMap<String, V> {
     }
 
     public V get(Player player) {
-        return get(PlayerIdentificationService.transformPlayer(player));
+        return get(player.getUniqueId());
     }
 
     public boolean contains(Player player) {

@@ -1,3 +1,7 @@
+# This file is for example/defaults of this group.
+# It is auto saved by Starlight plugin.
+# You COULD rather edit or clear this file.
+# To make this file re-appear, just delete it.
 inventory-ui:
   id: "quark:example_menu"
   title: { text: "{#purple}{#server-name-plain} {#gold}>> {#dark_aqua}主菜单" }
@@ -30,9 +34,9 @@ inventory-ui:
     14: "back-to-death"
     16: "open-servers-menu"
 
-    29: "open-music-player"
-    31: "enter-freecam"
-    33:
+    28: "open-music-player"
+    30: "enter-freecam"
+    32:
       icon: {type: 'beacon'}
       name: { text: "{#dark_green}刷新周围方块" }
       lore:
@@ -44,3 +48,16 @@ inventory-ui:
         - "[close]"
         - "[sound]ui.button.click"
         - "[command]/refresh-area 7"
+    34:
+      icon: {type: 'ender_eye'}
+      name: { text: "{#dark_green}调整服务器渲染距离" }
+      lore:
+        - { text: "{#gray}修改服务器向你的客户端发送数据的范围。" }
+        - { text: "{#gray}调大则可看得更远，调小则可缓解卡顿" }
+        - { text: "{#gray}注意：过大的值可能引发卡顿与其他玩家体验下降" }
+        - { text: "{#gray}使用前请务必咨询管理员!" }
+        - { text: "{#gold}[点击打开]" }
+      any-click:
+        - "[close]"
+        - "[sound]ui.button.click"
+        - "[command]/view-distance-menu"

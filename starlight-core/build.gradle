@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-project.setProperty("version", "26.2.1")
+project.setProperty("version", "26.2.3")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 apply from: rootDir.getAbsolutePath() + "/info.gradle"

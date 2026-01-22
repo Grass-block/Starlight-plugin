@@ -87,6 +87,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(FlyCommand.class);
         b.module(ParticleFont.class);
         b.module(ClientEnvironmentSetting.class);
+        b.module(MenuItem.class);
 
         p.config("starlight-utilities");
         p.language("starlight-utilities", "zh_cn");

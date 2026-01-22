@@ -55,43 +55,7 @@ provided, just use them without doubts——They are 100% better.
 
 ## Installation
 
-> Artifact relations:
-> - starlight-core.jar: you can see this as a library or CORE, though it works differently.
-> - starlight-xxx.jar: recommended extension pack.
-> - starlight-ext-xxx.jar: addition (optional) extension pack.
-
-### 1. identify correct files needed.
-
-Modrinth does not like putting multiple files on single version.
-So you need to get multiple versions:
-
-This is what a artifact id looks like:
-
-```
-sl-core-25.3.10
-```
-
-The prefix `sl-core` says the artifact jar pack.
-This can be located by filtering modules you need in `Contents` section.
-
-The version `25.3.10` has three parts:
-
-- Major version: 25 is the releases in 25.
-- API version: 3 is API version 3.
-- Snapshot version: only for verification and sorting. does not matter.
-
-All you have to do is to match them:
-
-| Example Core Version | Example Pack Version | Compatible? | Reason                              |
-|----------------------|----------------------|-------------|-------------------------------------|
-| 25.3.10              | 25.2.0               | NO          | API imcompatible.                   |
-| 25.3.10              | 25.4.0               | NO          | Pack requires a higher API version. |
-| 25.3.10              | 25.3.10              | YES         | API Matched(BEST)                   |
-| 25.3.10              | 25.3.08              | YES         | API backward compatible.            |
-| 25.91.78             | 25.3.03              | NO          | Core API Version too high           |
-
-Commonly, you need to download multiple versions for full functions.
-We will also publish `starlight-all` artifacts for lazy users. (coming soon)
+### 1. Download the bundler pack from page.
 
 ### 2. install them.
 
@@ -102,6 +66,26 @@ We will also publish `starlight-all` artifacts for lazy users. (coming soon)
 
 - Start your server or type `/starlight reload action`
 - Wait.
+
+### 4. Stuck on library download?
+
+For better performance and smaller jars, starlight will use OTA mode
+to download all libraries needed.
+
+You can change maven mirror if you got stuck on library loading in config.yml:
+
+```yaml
+config:
+  #...
+  dependency:
+    maven-repo: ALICLOUD
+    # accept any maven repo URLS, or:
+    #  - 'ALICLOUD' (AliCloud maven central)
+    #  - 'HUAWEI' (Huawei maven repo)
+    #  - 'TENCENT' (TencentCloud maven repo)
+    #  - 'TSINGHUA' (Tsinghua University maven repository)
+    #  - 'CENTRAL' (Maven Central repo, Capable for non-China users.)
+```
 
 ## Contents
 

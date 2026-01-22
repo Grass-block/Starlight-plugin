@@ -16,6 +16,8 @@ public abstract class RegionalLocatedDataService<R extends LocationBasedObject> 
         super(table);
     }
 
+
+
     @Override
     public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
         var sql = """
@@ -32,7 +34,6 @@ public abstract class RegionalLocatedDataService<R extends LocationBasedObject> 
 
         return conn.prepareStatement(sql);
     }
-
 
     /*
     public boolean set(R data) {
@@ -153,22 +154,19 @@ public abstract class RegionalLocatedDataService<R extends LocationBasedObject> 
     }
 
     public Set<String> listNames() throws SQLException {
-        try (var ps = this.connection.prepareStatement("SELECT name FROM _region_")) {
+        try (var ps = this.connection.prepareStatement("SELECT name FROM _poi_")) {
             return _queryNames(ps);
         }
     }
 
     public Set<String> listNamesByOwner(UUID owner) {
-        try (var ps = this.connection.prepareStatement("SELECT name FROM _region_ where owner = ?")) {
+        try (var ps = this.connection.prepareStatement("SELECT name FROM _poi_ where owner = ?")) {
             ps.setString(1, owner.toString());
             return _queryNames(ps);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-
 
 
     @Override

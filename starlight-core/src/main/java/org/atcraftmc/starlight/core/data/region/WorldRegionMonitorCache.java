@@ -46,7 +46,7 @@ public final class WorldRegionMonitorCache<V extends Region> {
     }
 
     public static int unpackX(long v) {
-        return (int) (v >> 32);
+        return (int) (v >> 32);//何移位
     }
 
     public static int unpackY(long v) {
@@ -67,7 +67,7 @@ public final class WorldRegionMonitorCache<V extends Region> {
     }
 
     public synchronized void markLoad(int wx, int wz) {
-        markLoadCP(wx >> 6, wz >> 6);
+        markLoadCP(wx >> V_CHUNK_SIZE_BIT, wz >> V_CHUNK_SIZE_BIT);
     }
 
     private synchronized void unload(int cx, int cz) {
@@ -157,10 +157,10 @@ public final class WorldRegionMonitorCache<V extends Region> {
     public Set<UUID> getRegionContained(WorldAABB region) {
         var result = new HashSet<UUID>();
 
-        var cx0 = ((int) Math.floor(region.getMinPoint().getX())) >> 6;
-        var cz0 = ((int) Math.floor(region.getMinPoint().getZ())) >> 6;
-        var cx1 = ((int) Math.floor(region.getMaxPoint().getX())) >> 6;
-        var cz1 = ((int) Math.floor(region.getMaxPoint().getZ())) >> 6;
+        var cx0 = ((int) Math.floor(region.getMinPoint().getX())) >> V_CHUNK_SIZE_BIT;
+        var cz0 = ((int) Math.floor(region.getMinPoint().getZ())) >> V_CHUNK_SIZE_BIT;
+        var cx1 = ((int) Math.floor(region.getMaxPoint().getX())) >> V_CHUNK_SIZE_BIT;
+        var cz1 = ((int) Math.floor(region.getMaxPoint().getZ())) >> V_CHUNK_SIZE_BIT;
 
         for (int xx = cx0; xx <= cx1; xx++) {
             for (int zz = cz0; zz <= cz1; zz++) {

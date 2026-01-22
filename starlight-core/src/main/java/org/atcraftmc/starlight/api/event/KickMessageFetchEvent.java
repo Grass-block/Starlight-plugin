@@ -16,6 +16,7 @@ public final class KickMessageFetchEvent extends CustomEvent {
     private final String reason;
     private final MinecraftLocale locale;
     private String resultMessage;
+    private boolean modified = false;
 
     public KickMessageFetchEvent(Player player, String reason, MinecraftLocale locale) {
         this.player = player;
@@ -29,6 +30,7 @@ public final class KickMessageFetchEvent extends CustomEvent {
 
     public void setResultMessage(String resultMessage) {
         this.resultMessage = resultMessage;
+        this.modified = true;
     }
 
     public String getResultMessage() {
@@ -45,5 +47,9 @@ public final class KickMessageFetchEvent extends CustomEvent {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public boolean isModified() {
+        return modified;
     }
 }

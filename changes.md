@@ -1,4 +1,13 @@
+## 26.2.3
+
+- PlayerKickMessage will no longer be modified.
+- Custom item can now be re-rendered while changing locale.
+- Player's camera will no longer mounted to minecart direction.
+- Local fixed time of player is now actively updated and synced.(need protocol-lib)
+- Added Menu-item.
+
 ## 26.2.1
+
 - BuildTime and Version are now correct.
 - Fixed chat error on reloading.
 - Add module `sit-on-player`.
@@ -11,8 +20,8 @@
 - Fixed crashing by duplicate reloading.
 - Fixed custom block rendering on pickup.
 
-
 ## 26.2.0
+
 - Fixed library loading exception in some paths.
 - Elevator can now recognize legacy blocks.
 - Dispenser can now interact correctly.
