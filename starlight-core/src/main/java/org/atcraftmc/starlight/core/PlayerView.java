@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.core;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
+import org.atcraftmc.starlight.core.view.PlayerViewChannelRenderer;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,10 +12,15 @@ import java.util.*;
 import java.util.function.Function;
 
 public final class PlayerView {
+
+
+
     public static final Map<UUID, PlayerView> INSTANCES = new HashMap<>();
     private final ChannelRenderer actionbar = new ChannelRenderer(this);
     private final Map<String, Boolean> rejections = new HashMap<>();
     private final UUID pointer;
+
+    private final PlayerViewChannelRenderer scoreboard = new PlayerViewChannelRenderer(this);
 
     public PlayerView(Player pointer) {
         this.pointer = pointer.getUniqueId();
@@ -60,7 +66,7 @@ public final class PlayerView {
     public static final class ChannelRenderer {
         private final Map<String, GeneratedRendererRecord> renderers = new HashMap<>();
         private final PlayerView holder;
-        private boolean rejectAll;
+        private boolean rejectAll = false;
         private Task currentTask;
 
         public ChannelRenderer(PlayerView holder) {

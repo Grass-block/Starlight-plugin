@@ -17,14 +17,15 @@ import org.atcraftmc.starlight.data.record.registry.RecordRegistry;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -62,13 +63,20 @@ public final class ExplosionDefender extends BukkitAbstractModule {
         if (matchRegion(e.getLocation())) {
             return;
         }
-        event.setCancelled(true);
-        this.handle(e.getLocation(), e.getType().getKey().toString());
+
+        if (config().value("smart-cancel").bool()) {
+            event.blockList().clear();
+        } else {
+            event.setCancelled(true);
+        }
+
+        this.handle(e.getLocation(), e.getType().getKey().toString(), event);
     }
 
-    public void handle(Location loc, String explodedId) {
+
+    public void handle(Location loc, String explodedId, Cancellable e) {
         PluginMessenger.broadcastMapped("quark:explosion", (b) -> b.put("loc", loc));
-        if (ConfigAccessor.getBool(this.config(), "override-explosion")) {
+        if (ConfigAccessor.getBool(this.config(), "override-explosion") && e.isCancelled()) {
             Objects.requireNonNull(loc.getWorld()).createExplosion(loc, 4f, false, false);
         }
         if (ConfigAccessor.getBool(this.config(), "broadcast")) {
@@ -187,8 +195,22 @@ public final class ExplosionDefender extends BukkitAbstractModule {
             if (this.parent.matchRegion(b.getLocation())) {
                 return;
             }
-            event.setCancelled(true);
-            this.parent.handle(b.getLocation(), "[?]");
+
+            if (this.parent.config().value("smart-cancel").bool()) {
+                event.blockList().clear();
+            } else {
+                event.setCancelled(true);
+            }
+
+            var id = "[?]";
+
+            var bs = event.getExplodedBlockState();
+
+            if (bs != null) {
+                id = bs.getBlock().getType().key().toString();
+            }
+
+            this.parent.handle(b.getLocation(), id, event);
         }
     }
 }

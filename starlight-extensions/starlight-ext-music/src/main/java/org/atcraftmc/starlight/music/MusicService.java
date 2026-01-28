@@ -49,8 +49,8 @@ public interface MusicService extends BukkitService {
         ctx.attempt(() -> {
             Class.forName("org.bukkit.SoundCategory");
             return null;
-        }, (p, s, power, pitch) -> p.playSound(p.getLocation(), s, SoundCategory.PLAYERS, power, pitch));
-        ctx.dummy((p, s, power, pitch) -> p.playSound(p.getLocation(), s, power, pitch));
+        }, (p, s, power, pitch) -> p.playSound(p, s, SoundCategory.PLAYERS, power, pitch));
+        ctx.dummy((p, s, power, pitch) -> p.playSound(p, s, power, pitch));
     });
 
     @ServiceProvider

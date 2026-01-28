@@ -21,4 +21,5 @@ config:
     key: 07007爱炉管07007爱炉管07007爱炉管07007爱炉管07007爱炉管07007爱炉管 #fill in data in quark-proxy velocity-end config.
   locale:
     join-delay: 20 #time before recalculate player's locale
+    as-control: true
 

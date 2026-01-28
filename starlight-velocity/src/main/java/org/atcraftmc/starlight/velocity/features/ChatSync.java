@@ -29,11 +29,11 @@ public final class ChatSync extends ProxyModule {
             return;
         }
 
-        event.setResult(PluginMessageEvent.ForwardResult.handled());
-
         if (!(event.getSource() instanceof ServerConnection connection)) {
             return;
         }
+
+        event.setResult(PluginMessageEvent.ForwardResult.handled());
 
         var server = connection.getServer();
         var player = connection.getPlayer();

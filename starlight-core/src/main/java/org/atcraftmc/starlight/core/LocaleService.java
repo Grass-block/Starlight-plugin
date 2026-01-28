@@ -3,23 +3,25 @@ package org.atcraftmc.starlight.core;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRO0;
 import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceLayer;
 import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.modular.service.ServiceLayer;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.ComponentBlock;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
+import org.atcraftmc.starlight.shared.data.flex.TableColumn;
+import org.atcraftmc.starlight.shared.service.AbstractLocaleService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -30,18 +32,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.ServicePriority;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.*;
 
 @ApplicationService(id = "locale", layer = ServiceLayer.FRAMEWORK)
 public interface LocaleService extends BukkitService {
+
+
     TableColumn<String> TESTED_LOCALE = TableColumn.string("lang_tested", 16, "unknown");
     TableColumn<String> CUSTOM_LOCALE = TableColumn.string("lang_custom", 16, "auto");
-
     Map<UUID, String> LOCALE_CACHE = new HashMap<>();
-
     @SuppressWarnings("Convert2MethodRef")
     MethodHandleRO0<Player, String> GET_LOCALE = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> Player.class.getMethod("getLocale"), (p) -> p.getLocale());
@@ -123,14 +127,103 @@ public interface LocaleService extends BukkitService {
         return GET_LOCALE.invoke(player);
     }
 
-    final class BukkitListener implements Listener {
+    class BukkitLocaleService extends AbstractLocaleService<CommandSender> implements Listener {
+
+        @Override
+        public void enable() throws Exception {
+            Bukkit.getMessenger().registerOutgoingPluginChannel(Starlight.instance(), "locale");
+            Bukkit.getMessenger().registerIncomingPluginChannel(
+                    Starlight.instance(),
+                    "locale",
+                    (channel, player, message) -> onLanguageUpdated(
+                            player,
+                            MinecraftLocale.minecraft(
+                                    new String(
+                                            message,
+                                            StandardCharsets.UTF_8
+                                    ))
+                    )
+            );
+        }
+
+        @Override
+        public void disable() throws Exception {
+            Bukkit.getMessenger().unregisterIncomingPluginChannel(Starlight.instance(), "locale");
+            Bukkit.getMessenger().unregisterOutgoingPluginChannel(Starlight.instance(), "locale");
+        }
+
+        @Override
+        public boolean isNativeAudience(CommandSender audience) {
+            if (audience instanceof ConsoleCommandSender) {
+                return true;
+            }
+            if (audience instanceof BlockCommandSender) {
+                return true;
+            }
+
+            return !(audience instanceof OfflinePlayer);
+        }
+
+        @Override
+        public UUID getIdentifier(CommandSender pointer) {
+            if (!(pointer instanceof Player p)) {
+                throw new UnsupportedOperationException("Cannot get uid of " + pointer.getClass().getName());
+            }
+            return p.getUniqueId();
+        }
+
+        @Override
+        public MinecraftLocale getLocaleNatively(CommandSender pointer) {
+            if (!(pointer instanceof Player p)) {
+                throw new UnsupportedOperationException("Cannot get locale of " + pointer.getClass().getName());
+            }
+            return MinecraftLocale.minecraft(GET_LOCALE.invoke(p));
+        }
+
+        @Override
+        public void onLanguageUpdated(CommandSender audience, MinecraftLocale locale) {
+            BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) audience, locale));
+        }
+
+        @Override
+        public String getConfigNamespace() {
+            return "starlight-core";
+        }
+
+        @EventHandler
+        public void onPlayerQuit(PlayerQuitEvent event) {
+            this.invalidateCachedLocale(event.getPlayer().getUniqueId());
+        }
 
         @EventHandler
         public void onLocaleChange(PlayerLocaleChangeEvent event) {
-            _check(event);
-            TaskService.global()
-                    .delay(60, () -> _check(new PlayerLocaleChangeEvent(event.getPlayer(), saveGetMCPlayerLocale(event.getPlayer()))));
+            var cfg = SLPluginEnvironment.getPlugin().config();
+
+            if (!cfg.value("starlight-core.locale.as-control").bool()) {
+                //return;
+            }
+
+            this.checkClientLocale(event.getPlayer(), event.getLocale());
+            TaskService.global().delay(60, () -> {
+                var natived = getLocaleNatively(event.getPlayer()).minecraft();
+                this.checkClientLocale(event.getPlayer(), natived);
+            });
         }
+    }
+
+    final class BukkitListener implements Listener {
+        @EventHandler
+        public void onLocaleChange(PlayerLocaleChangeEvent event) {
+            _check(event);
+            TaskService.global().delay(
+                    60,
+                    () -> _check(new PlayerLocaleChangeEvent(
+                            event.getPlayer(),
+                            saveGetMCPlayerLocale(event.getPlayer())
+                    ))
+            );
+        }
+
 
         private void _check(PlayerLocaleChangeEvent event) {
             var preset = Starlight.instance().language().item("starlight-core.locale.preset");

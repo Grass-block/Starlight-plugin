@@ -28,8 +28,8 @@ import java.util.function.BiConsumer;
 @ApplicationModule(id = "modrinth-version-check", internal = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ModrinthVersionCheck extends BukkitAbstractModule implements PluginCommandExecutor {
-    public static final String API = "https://api.modrinth.com/v2/project/quark-plugin/version";
-    public static final String VERSION_PAGE = "https://modrinth.com/plugin/quark-plugin/version/%s";
+    public static final String API = "https://api.modrinth.com/v2/project/starlight-plugin/version";
+    public static final String VERSION_PAGE = "https://modrinth.com/plugin/starlight-plugin/version/%s";
 
     @Inject("-starlight.version.announce")
     private Permission updateAnnounce;

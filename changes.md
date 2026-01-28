@@ -1,3 +1,11 @@
+## 26.2.5
+- [1.20.1] Fixed task tracking issue(upstream:qlib-bukkit)
+- Fixed BackToDeath null issue.
+- Added smart-cancel(clear blocks) to ExplosionDefender.
+- Fixed exploded block id record issue on ExplosionDefender.
+- Override-explosion option is now false due to smart-cancel option.
+- Music player will now try to bind sound on player.
+
 ## 26.2.3
 
 - PlayerKickMessage will no longer be modified.

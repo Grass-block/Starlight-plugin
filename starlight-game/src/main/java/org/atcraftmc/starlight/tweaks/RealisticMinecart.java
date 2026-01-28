@@ -18,8 +18,8 @@ import org.atcraftmc.starlight.core.PlayerView;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
@@ -66,6 +66,8 @@ public final class RealisticMinecart extends BukkitAbstractModule {
     @Inject
     private LanguageEntry language;
 
+    private float maxSafetySpeed = 0.5f;
+
     @Override
     public void enable() {
         TaskService.global().timer(GLOBAL_TASK_ID, 1, 1, this::tick);
@@ -80,6 +82,8 @@ public final class RealisticMinecart extends BukkitAbstractModule {
 
             initUI(m, player);
         }
+
+        this.maxSafetySpeed = config().value("safety-speed").floatValue();
     }
 
     @Override
@@ -386,7 +390,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
 
             var shouldSlow = shouldSlow();
 
-            this.minecart.setMaxSpeed(shouldSlow ? Math.min(MAX_SAFE_SPEED, this.expectedMaxSpeed) : this.expectedMaxSpeed);
+            this.minecart.setMaxSpeed(shouldSlow ? Math.min(this.holder.maxSafetySpeed, this.expectedMaxSpeed) : this.expectedMaxSpeed);
 
             this.lastLocation = loc;
             this.lastRailed = railed;

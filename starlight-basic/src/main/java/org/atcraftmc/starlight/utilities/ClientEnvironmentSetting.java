@@ -28,7 +28,6 @@ import java.util.UUID;
 public final class ClientEnvironmentSetting extends BukkitAbstractModule {
     private TimeManager timeManager;
 
-
     @Override
     public void enable() throws Exception {
         this.timeManager.init();
