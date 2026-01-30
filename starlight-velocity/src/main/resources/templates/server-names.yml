@@ -1,0 +1,8 @@
+server-names:
+  #Enter the name index of your servers and display name below.
+  #Those are some presets for our server.
+  lobby: '{color(#a569bd)}大厅{;}'
+  tbst-craft: '{color(#5dade2)}原版创造{;}'
+  survival: '{color(#eb984e)}原版生存{;}'
+  minigames: '{color(#48C9B0)}雷霆竞技场{;}'
+  guns-v3: '{color(#e74c3c)}模组生存{;}'

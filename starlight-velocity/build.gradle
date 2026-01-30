@@ -28,6 +28,7 @@ dependencies {
     implementation gbuildLib('me.gb2022.commons:commons-reflection')
 
     implementation gbuildLib("me.gb2022.apm:apm-remote")
+    implementation gbuildLib("me.gb2022.apm:apm-plugin")
 
     compileOnly 'io.netty:netty-buffer:4.1.100.Final'
 
@@ -36,7 +37,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     implementation gbuildLib("me.gb2022:modular-main")
-    implementation gbuildLib("org.atcraftmc.qlib:qlib-base")
+    implementation gbuildLib("org.atcraftmc.qlib:qlib-velocity")
 }
 
 jar {

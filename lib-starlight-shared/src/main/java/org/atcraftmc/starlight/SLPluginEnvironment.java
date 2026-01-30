@@ -4,23 +4,25 @@ import me.gb2022.modular.ModularApplicationContext;
 import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
+import org.atcraftmc.qlib.platform.api.APIManager;
 
 public final class SLPluginEnvironment {
     private static PluginApplication plugin;
     private static PathManager pathManager;
     private static ModularApplicationContext context;
-
+    private static APIManager apiManager;
     private static String pluginId;
     private static String corePackageName;
 
     private static boolean debug = false;
 
-    public static void init(ModularApplicationContext c, PluginApplication p, String cpn, PathManager fm) {
+    public static void init(ModularApplicationContext c, PluginApplication p, String cpn, PathManager fm, APIManager am) {
         plugin = p;
         pluginId = p.id();
         corePackageName = cpn;
         pathManager = fm;
         context = c;
+        apiManager = am;
     }
 
     public static <I> I returnSafely(I object) {
@@ -53,6 +55,10 @@ public final class SLPluginEnvironment {
 
     public static LibraryManager getLibraryManager() {
         return getPlugin().getLibraryManager();
+    }
+
+    public static APIManager getAPIManager() {
+        return returnSafely(apiManager);
     }
 
     public static boolean isDebug() {

@@ -1,0 +1,7 @@
+{
+  "build-time": "${build_time}",
+  "version": "${version}",
+  "api-version": 30,
+  "libraries": [
+  ]
+}

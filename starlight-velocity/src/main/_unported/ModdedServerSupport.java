@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.velocity.features;
+package org.atcraftmc.starlight.velocity._unported;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
@@ -12,7 +12,7 @@ import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule()
-public final class ModdedServerSupport extends VelocityAbstractModule {
+public class ModdedServerSupport extends VelocityAbstractModule {
 
     @Subscribe
     public void onServerConnect(ServerPreConnectEvent event) {

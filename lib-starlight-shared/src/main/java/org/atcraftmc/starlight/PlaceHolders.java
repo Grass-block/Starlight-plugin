@@ -1,17 +1,9 @@
-package org.atcraftmc.starlight.velocity.util;
+package org.atcraftmc.starlight;
 
-import me.gb2022.commons.container.ObjectContainer;
 import org.atcraftmc.qlib.texts.placeholder.GlobalPlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
-import org.atcraftmc.qlib.texts.placeholder.StringExtraction;
-import org.atcraftmc.quark_velocity.QuarkVelocity;
 
-import java.util.regex.Pattern;
-
-public interface PlaceHolder {
-    ObjectContainer<GloballyPlaceHolder> PLACE_HOLDER = new ObjectContainer<>();
-    StringExtraction PATTERN = new StringExtraction(Pattern.compile("\\{#(.*?)}"), 2, 1);
-
+public interface PlaceHolders {
     static GloballyPlaceHolder chat() {
         GloballyPlaceHolder holder = new GloballyPlaceHolder();
 
@@ -42,19 +34,5 @@ public interface PlaceHolder {
         holder.register("return", GlobalPlaceHolder.value("\n"));
 
         return holder;
-    }
-
-    static void init() {
-        var holder = chat();
-
-        for (var entry : QuarkVelocity.INSTANCE.get().getConfig().getEntry("environment-vars").entrySet()) {
-            holder.register(entry.getKey(), entry.getValue());
-        }
-
-        PLACE_HOLDER.set(holder);
-    }
-
-    static String format(String s) {
-        return org.atcraftmc.qlib.texts.placeholder.PlaceHolder.format(PATTERN, s, PLACE_HOLDER.get());
     }
 }

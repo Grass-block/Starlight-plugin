@@ -55,13 +55,13 @@ public final class ProtocolLibPlatformInjector extends BukkitAbstractModule {
     public static final class SystemChatImpl extends ForwardingPluginPlatform {
 
         @Override
-        public void sendMessage(Object pointer, ComponentLike message) {
+        public void sendMessage(Object pointer, ComponentLike componentLike) {
             if (!(pointer instanceof Player player)) {
-                super.sendMessage(pointer, message);
+                super.sendMessage(pointer, componentLike);
                 return;
             }
 
-            var json = GsonComponentSerializer.gson().serialize(message.asComponent());
+            var json = GsonComponentSerializer.gson().serialize(componentLike.asComponent());
             var packet = new PacketContainer(PacketType.Play.Server.SYSTEM_CHAT);
             packet.getModifier().writeDefaults();
             try {

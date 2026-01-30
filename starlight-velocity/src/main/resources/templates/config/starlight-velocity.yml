@@ -7,5 +7,9 @@ config:
     overwrite-player-count: true #use all players on proxy
     overwrite-player-max: 2026 #set -1 to use value synced
     overwrite-text: true #apply some proxy-dedicated process to motd
+    text-rewrites:
+      example: "Yay im a rewrite replacing {{example}} to me"
   hub-command:
     server: lobby #default server id.
+  tab-sync:
+    format: "{#gold}[{#reset}%s{#gold}]{#gray}%s"

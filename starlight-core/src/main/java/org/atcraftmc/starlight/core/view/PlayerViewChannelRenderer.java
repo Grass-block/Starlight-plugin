@@ -1,6 +1,5 @@
 package org.atcraftmc.starlight.core.view;
 
-import org.atcraftmc.starlight.core.PlayerView;
 import org.atcraftmc.starlight.core.view.process.TaskScheduleProcess;
 import org.atcraftmc.starlight.core.view.process.ViewRenderProcess;
 import org.bukkit.Bukkit;
@@ -10,19 +9,19 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
-public class PlayerViewChannelRenderer {
+public final class PlayerViewChannelRenderer {
+    private final String id;
     private final Map<String, ViewRenderProcess> renderers = new HashMap<>();
     private final AtomicReference<ViewRenderProcess> current = new AtomicReference<>();
     private final PlayerView holder;
-    private final Set<String> rejects = new HashSet<>();
     private final UUID player;
-    private boolean rejectAll = false;
     private Consumer<Player> cleanupAction = (p) -> {};
 
 
-    public PlayerViewChannelRenderer(PlayerView holder) {
+    public PlayerViewChannelRenderer(String id, PlayerView holder) {
+        this.id = id;
         this.holder = holder;
-        this.player = holder.pointer().getUniqueId();//todo
+        this.player = holder.pointer().getUniqueId();
     }
 
     public void setCleanupAction(Consumer<Player> cleanupAction) {
@@ -34,6 +33,7 @@ public class PlayerViewChannelRenderer {
     }
 
     public ViewRenderProcess registerProcess(String id, ViewRenderProcess process) {
+        PlayerView.CHANNELS.add(id);
         this.renderers.put(id, process);
         this.update();
 
@@ -44,16 +44,16 @@ public class PlayerViewChannelRenderer {
         return this.registerProcess(id, new TaskScheduleProcess(this.player, id, priority, interval, provider, func));
     }
 
-    public void addReject(String id) {
-        this.rejects.add(id);
+    public void removeProcess(String s) {
+        this.renderers.remove(s);
+        this.update();
     }
 
-    public void removeReject(String id) {
-        this.rejects.remove(id);
+    public PlayerView getHolder() {
+        return holder;
     }
 
-
-    private void update() {
+    public void update() {
         var previous = this.getCurrent();
         var player = Bukkit.getPlayer(this.player);
 
@@ -63,14 +63,14 @@ public class PlayerViewChannelRenderer {
         }
 
 
-        if (this.rejectAll) {
+        if (this.getHolder().isRendererRejected(this.id)) {
             this.cleanupAction.accept(player);
             return;
         }
 
         var list = new ArrayList<>(this.renderers.values());
 
-        list.removeIf((p) -> this.rejects.contains(p.id()));
+        list.removeIf((p) -> this.holder.isChannelRejected(p.id()));
 
         if (list.isEmpty()) {
             this.cleanupAction.accept(player);
@@ -92,13 +92,8 @@ public class PlayerViewChannelRenderer {
         });
 
         var selected = list.get(0);
-
         this.current.set(selected);
 
         selected.active(player);
-    }
-
-    public void rejectAll(boolean enable) {
-        this.rejectAll = enable;
     }
 }

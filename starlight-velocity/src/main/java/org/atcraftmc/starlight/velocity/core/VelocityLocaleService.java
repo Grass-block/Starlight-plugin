@@ -39,6 +39,11 @@ public final class VelocityLocaleService extends AbstractLocaleService<Audience>
     }
 
     @Override
+    public String getConfigNamespace() {
+        return "locale";
+    }
+
+    @Override
     public MinecraftLocale getLocaleNatively(Audience pointer) {
         if (!(pointer instanceof Player p)) {
             throw new UnsupportedOperationException("Cannot get locale of " + pointer.getClass().getName());
@@ -48,7 +53,7 @@ public final class VelocityLocaleService extends AbstractLocaleService<Audience>
 
     @Subscribe
     public void onPlayerJoin(PostLoginEvent event) {
-        if (SLPluginEnvironment.getPlugin().config().value("starlight-velocity.locale.detect").bool()) {
+        if (SLPluginEnvironment.getPlugin().config().value("starlight-velocity.locale.detect").bool(false)) {
             checkClientLocale(event.getPlayer(), getLocaleNatively(event.getPlayer()).minecraft());
         }
     }

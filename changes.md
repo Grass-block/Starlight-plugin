@@ -1,4 +1,9 @@
+## 26.2.6
+
+- Fixed component builder crashing issue(upstream:qlib-core)
+
 ## 26.2.5
+
 - [1.20.1] Fixed task tracking issue(upstream:qlib-bukkit)
 - Fixed BackToDeath null issue.
 - Added smart-cancel(clear blocks) to ExplosionDefender.

@@ -7,7 +7,7 @@ import me.gb2022.modular.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.PlayerView;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.TextSender;
@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-@ApplicationModule(id = "action-bar-hud",description = "Create a HUD display on actionbar title.")
+@ApplicationModule(id = "action-bar-hud", description = "Create a HUD display on actionbar title.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ActionBarHUD extends BukkitAbstractModule {
     @Inject
@@ -38,25 +38,29 @@ public final class ActionBarHUD extends BukkitAbstractModule {
         var t = MessageAccessor.getMessage(this.language, locale, "time");
         var f = MessageAccessor.getMessage(this.language, locale, "face", loc.getYaw(), loc.getPitch());
 
-        var template = config().value("template")
-                .string()
-                .replace("{position}", p)
-                .replace("{biome}", b)
-                .replace("{time}", t)
-                .replace("{face}", f);
+        var template = config().value("template").string().replace("{position}", p).replace("{biome}", b).replace("{time}", t).replace(
+                "{face}",
+                f
+        );
 
         return PlaceHolderService.formatPlayer(player, template);
     }
 
     private void startRender(Player player) {
-        PlayerView.getInstance(player).getActionbar().addChannel("quark:actionbar-hud", -10, 3, TaskService::entity, (p, c) -> {
-            var comp = TextBuilder.buildComponent(render(p));
-            TextSender.sendActionbarTitle(p, comp);
-        });
+        PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
+                "starlight:actionbar-hud",
+                -10,
+                3,
+                TaskService::entity,
+                (p, c) -> {
+                    var comp = TextBuilder.buildComponent(render(p));
+                    TextSender.sendActionbarTitle(p, comp);
+                }
+        );
     }
 
     private void stopRender(Player player) {
-        PlayerView.getInstance(player).getActionbar().removeChannel("quark:actionbar-hud");
+        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess("starlight:actionbar-hud");
     }
 
 

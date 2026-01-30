@@ -12,45 +12,12 @@ import org.atcraftmc.starlight.core.data.PlayerDataService;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Players;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Date;
 import java.util.Objects;
 
-public interface PlaceHolders {
-    static GloballyPlaceHolder chat() {
-        GloballyPlaceHolder holder = new GloballyPlaceHolder();
-
-        holder.register("&0", GlobalPlaceHolder.value(ChatColor.BLACK), "black");
-        holder.register("&1", GlobalPlaceHolder.value(ChatColor.DARK_BLUE), "dark-blue", "dark_blue");
-        holder.register("&2", GlobalPlaceHolder.value(ChatColor.DARK_GREEN), "dark-green", "dark_green");
-        holder.register("&3", GlobalPlaceHolder.value(ChatColor.DARK_AQUA), "dark-aqua", "dark_aqua");
-        holder.register("&4", GlobalPlaceHolder.value(ChatColor.DARK_RED), "dark-red", "dark_red");
-        holder.register("&5", GlobalPlaceHolder.value(ChatColor.DARK_PURPLE), "dark-purple", "dark_purple");
-        holder.register("&6", GlobalPlaceHolder.value(ChatColor.GOLD), "gold");
-        holder.register("&7", GlobalPlaceHolder.value(ChatColor.GRAY), "gray", "light-gray", "light_gray");
-        holder.register("&8", GlobalPlaceHolder.value(ChatColor.DARK_GRAY), "dark-gray", "dark_gray");
-        holder.register("&9", GlobalPlaceHolder.value(ChatColor.BLUE), "blue");
-        holder.register("&a", GlobalPlaceHolder.value(ChatColor.GREEN), "green", "light-green", "light_green");
-        holder.register("&b", GlobalPlaceHolder.value(ChatColor.AQUA), "aqua", "light-blue", "light-aqua", "light_aqua", "light_blue");
-        holder.register("&c", GlobalPlaceHolder.value(ChatColor.RED), "red", "light-red", "light_red");
-        holder.register("&d", GlobalPlaceHolder.value(ChatColor.LIGHT_PURPLE), "purple", "light-purple", "light_purple");
-        holder.register("&e", GlobalPlaceHolder.value(ChatColor.YELLOW), "yellow");
-        holder.register("&f", GlobalPlaceHolder.value(ChatColor.WHITE), "white");
-
-        holder.register("&k", GlobalPlaceHolder.value(ChatColor.MAGIC), "magic", "obfuscate");
-        holder.register("&l", GlobalPlaceHolder.value(ChatColor.BOLD), "bold");
-        holder.register("&m", GlobalPlaceHolder.value(ChatColor.STRIKETHROUGH), "delete", "strikethrough");
-        holder.register("&n", GlobalPlaceHolder.value(ChatColor.UNDERLINE), "underline");
-        holder.register("&o", GlobalPlaceHolder.value(ChatColor.ITALIC), "italic");
-        holder.register("&r", GlobalPlaceHolder.value(ChatColor.RESET), "reset", "unset");
-
-        holder.register("return", GlobalPlaceHolder.value("\n"));
-
-        return holder;
-    }
-
+public interface BukkitPlaceHolders {
     static GloballyPlaceHolder server() {
         GloballyPlaceHolder holder = new GloballyPlaceHolder();
 

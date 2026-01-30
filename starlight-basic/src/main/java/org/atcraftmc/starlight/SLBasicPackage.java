@@ -6,6 +6,7 @@ import org.atcraftmc.starlight.chat.ChatAt;
 import org.atcraftmc.starlight.chat.ChatComponent;
 import org.atcraftmc.starlight.commands.*;
 import org.atcraftmc.starlight.console.*;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.display.*;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
@@ -171,7 +172,6 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(CustomKickMessage.class);
         b.module(PlayerJoinMessage.class);
 
-        b.service(VisualScoreboardService.class);
         b.service(PlayerWelcomeService.class); //todo [DFU] import status-> first-join-detection
 
         p.config("starlight-display");

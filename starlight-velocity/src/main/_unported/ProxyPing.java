@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.velocity.features;
+package org.atcraftmc.starlight.velocity._unported;
 
 import me.gb2022.apm.remote.RemoteMessenger;
 import me.gb2022.apm.remote.event.APMRemoteEvent;

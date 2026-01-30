@@ -21,7 +21,7 @@ import org.atcraftmc.starlight.api.AnvilRenameEvent;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolders;
+import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 @ApplicationModule(id = "chat-component", version = "1.3.0")
 public final class ChatComponent extends BukkitAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
-    private final GloballyPlaceHolder chatPH = PlaceHolders.chat();
+    private final GloballyPlaceHolder chatPH = BukkitPlaceHolders.chat();
 
     @Inject("tip")
     private LanguageItem tip;

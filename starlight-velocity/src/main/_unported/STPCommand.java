@@ -1,19 +1,19 @@
-package org.atcraftmc.starlight.velocity.features;
+package org.atcraftmc.starlight.velocity._unported;
 
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.atcraftmc.quark_velocity.Config;
-import org.atcraftmc.quark_velocity.ProxyModule;
-import org.atcraftmc.quark_velocity.util.VelocityCommand;
+import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
+import org.atcraftmc.starlight.velocity.util.VelocityCommand;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @VelocityCommand(name = "stp", aliases = {"proxy-tp"})
-public final class STPCommand extends ProxyModule implements SimpleCommand {
+public final class STPCommand extends VelocityAbstractModule implements SimpleCommand {
 
     @Override
     public void enable() {
@@ -61,7 +61,7 @@ public final class STPCommand extends ProxyModule implements SimpleCommand {
         var current = p.getCurrentServer().orElseThrow().getServer().getServerInfo().getName();
         var list = new ArrayList<String>();
 
-        for (Player player : getProxy().getAllPlayers()) {
+        for (Player player : getProxy().getServer().getAllPlayers()) {
             var name = player.getCurrentServer().orElseThrow().getServer().getServerInfo().getName();
 
             if (Objects.equals(name, current)) {

@@ -4,7 +4,7 @@ import me.gb2022.commons.TriState;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolders;
+import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.internal.ProductService;
 import org.bukkit.ChatColor;
@@ -99,7 +99,7 @@ public interface ProductInfo {
                 Starlight.instance().getInstanceUUID(),
                 ProductService.getSystemIdentifier()
         ));
-        TextSender.sendBlock(sender, TextBuilder.build(PlaceHolderService.format(text, PlaceHolders.quarkStats())));
+        TextSender.sendBlock(sender, TextBuilder.build(PlaceHolderService.format(text, BukkitPlaceHolders.quarkStats())));
     }
 
     static void sendInfoDisplay(CommandSender sender) {

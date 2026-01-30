@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.velocity.api;
+package org.atcraftmc.starlight.velocity.api.event;
 
 import com.google.common.base.Preconditions;
 import com.velocitypowered.api.event.annotation.AwaitingEvent;

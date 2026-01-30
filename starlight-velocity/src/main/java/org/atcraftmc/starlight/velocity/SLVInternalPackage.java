@@ -2,26 +2,30 @@ package org.atcraftmc.starlight.velocity;
 
 import me.gb2022.modular.pack.ApplicationPackageProvider;
 import me.gb2022.modular.pack.ContentBuilder;
+import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
-import org.atcraftmc.starlight.velocity.basic.HUBCommand;
-import org.atcraftmc.starlight.velocity.basic.LegacyForwardingProtect;
-import org.atcraftmc.starlight.velocity.basic.ProxyMotd;
-import org.atcraftmc.starlight.velocity.core.ProxyPlayerTrackService;
+import org.atcraftmc.starlight.velocity.basic.*;
+import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
 import org.atcraftmc.starlight.velocity.core.VelocityCommandManager;
+import org.atcraftmc.starlight.velocity.core.VelocityPlaceHolderService;
 
 public interface SLVInternalPackage {
-    @ApplicationPackageProvider(id = "starlight-velocity-core")
+    @ApplicationPackageProvider(id = "starlight-velocity")
     static void core(ContentBuilder b) {
         b.service(RemoteMessageService.class);
-        b.service(ProxyPlayerTrackService.class);
+        b.service(ProxyPlayerDiscoveryService.class);
         b.service(VelocityCommandManager.class);
-    }
+        b.service(VelocityPlaceHolderService.class);
 
-
-    @ApplicationPackageProvider(id = "starlight-velocity-basic")
-    static void basic(ContentBuilder b) {
         b.module(LegacyForwardingProtect.class);
         b.module(HUBCommand.class);
         b.module(ProxyMotd.class);
+        b.module(TabSync.class);
+        b.module(ServerStatementObserver.class);
+
+        var attachment = b.getAttachment(PluginPackageAttachment.class);
+
+        attachment.config("starlight-velocity");
+        attachment.language("starlight-velocity", "zh_cn");
     }
 }

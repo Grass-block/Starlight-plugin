@@ -16,20 +16,20 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-@ApplicationService(id = "remote-message-service",export = true)
+@ApplicationService(id = "remote-message-service", export = true, impl = RemoteMessageService.class, layer = ServiceLayer.FRAMEWORK)
 public final class RemoteMessageService implements Service, IRemoteMessageService {
     public static final Logger LOGGER = Logger.getLogger("Starlight:RemoteMessageService");
     public static final Runnable EMPTY_ACTION = () -> {};
 
     @ServiceInject
     public static final ServiceHolder<RemoteMessageService> INSTANCE = new ServiceHolder<>();
+
     private final IRemoteMessageService handle;
 
     public RemoteMessageService() {
         this.handle = create();
     }
 
-    @ServiceProvider
     public static IRemoteMessageService create() {
         var config = Configurations.secret("plugin-vpn");
 

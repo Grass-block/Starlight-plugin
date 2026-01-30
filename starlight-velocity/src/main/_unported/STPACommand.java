@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.velocity.features;
+package org.atcraftmc.starlight.velocity._unported;
 
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;

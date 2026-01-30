@@ -16,6 +16,7 @@ import org.atcraftmc.qlib.config.YamlUtil;
 import org.atcraftmc.qlib.language.LanguageAccess;
 import org.atcraftmc.qlib.language.LanguageContainer;
 import org.atcraftmc.qlib.language.MinecraftLocale;
+import org.atcraftmc.qlib.platform.APIManagerPlatform;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.api.event.CoreEvent;
@@ -24,15 +25,16 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.environment.PathManager;
+import org.atcraftmc.starlight.foundation.BukkitAPI;
 import org.atcraftmc.starlight.foundation.TextExaminer;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
-import org.atcraftmc.starlight.framework.module.BukkitModuleManager;
 import org.atcraftmc.starlight.framework.BukkitServiceManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.SLPackageManager;
+import org.atcraftmc.starlight.framework.module.BukkitModuleManager;
 import org.atcraftmc.starlight.internal.command.InternalCommands;
 import org.atcraftmc.starlight.metrics.Metrics;
 import org.atcraftmc.starlight.util.ProductMetadata;
@@ -50,7 +52,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -309,7 +310,8 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     public void onLoad() {
         try {
             hackDataFolder();
-            SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"));
+            SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"), BukkitAPI.API_MANAGER);
+            BukkitAPI.init();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

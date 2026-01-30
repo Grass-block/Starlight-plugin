@@ -13,13 +13,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
-import org.atcraftmc.starlight.velocity.core.ProxyPlayerTrackService;
+import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 //todo: refresh command
@@ -34,7 +35,7 @@ public final class ProxyMotd extends VelocityAbstractModule {
     private long lastUpdate;
 
     private void refresh() {
-        this.setting = Configurations.standalone("motd.yml");
+        this.setting = Configurations.standalone("motd");
         try {
             this.favicon = Favicon.create(Path.of(Configurations.file("motd.png", false).getAbsolutePath()));
         } catch (IOException e) {
@@ -95,7 +96,9 @@ public final class ProxyMotd extends VelocityAbstractModule {
         var ping = sync ? this.getSyncedMotd() : this.buildLocalServerPing(origin);
 
         var version = owrVersion ? origin.getVersion() : ping.getVersion();
-        var playerCount = owrPlayerCount ? ProxyPlayerTrackService.getAllPlayersInProxy().size() : getProxyServer().getPlayerCount();
+        var playerCount = owrPlayerCount ? ProxyPlayerDiscoveryService.INSTANCE.get()
+                .getAllPlayerNames()
+                .size() : getProxyServer().getPlayerCount();
         var playerCapacity = owrPlayerCaps == -1 ? origin.getPlayers()
                 .map(ServerPing.Players::getMax)
                 .orElse(owrPlayerCaps) : owrPlayerCaps;
@@ -106,6 +109,12 @@ public final class ProxyMotd extends VelocityAbstractModule {
         if (owrText) {
             var serializer = JSONComponentSerializer.json();
             var rawMotd = serializer.serialize(desc);
+
+            var list = config().value("text-rewrites").section();
+
+            for (var rw : list.getKeys(false)) {
+                rawMotd = rawMotd.replace("{{" + rw + "}}", Objects.requireNonNull(list.getString(rw)));
+            }
 
             desc = serializer.deserialize(rawMotd);
         }

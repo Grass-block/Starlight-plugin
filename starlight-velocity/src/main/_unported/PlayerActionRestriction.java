@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.velocity.features;
+package org.atcraftmc.starlight.velocity._unported;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.command.CommandExecuteEvent;
