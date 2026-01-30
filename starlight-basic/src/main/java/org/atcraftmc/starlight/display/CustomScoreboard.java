@@ -9,9 +9,10 @@ import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.PlayerView;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.atcraftmc.starlight.core.view.SchedulerProvider;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -32,26 +33,36 @@ public final class CustomScoreboard extends BukkitAbstractModule {
         Compatibility.requireClass(() -> Class.forName("org.bukkit.scoreboard.Scoreboard"));
     }
 
+
+    public void startRender(Player player) {
+        PlayerUIService.getInstance(player).getScoreboard().registerIntervalProcess(
+                "starlight:scoreboard",
+                -10,
+                10,
+                SchedulerProvider.ASYNC,
+                (p, t) -> renderScoreboard(p)
+        );
+    }
+
+
     @Override
     public void enable() {
-        TaskService.global().timer("starlight:scoreboard/update", 1, 20, () -> {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                renderScoreboard(p);
-            }
-        });
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            startRender(p);
+        }
     }
 
     @Override
     public void disable() {
-        TaskService.global().cancel("starlight:scoreboard/update");
+
         for (Player p : Bukkit.getOnlinePlayers()) {
-            VisualScoreboardService.instance().visualScoreboard(p).stopSidebarRendering();
+            PlayerUIService.getInstance(p).getScoreboard().removeProcess("starlight:scoreboard");
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        renderScoreboard(event.getPlayer());
+        startRender(event.getPlayer());
     }
 
     private void renderScoreboard(Player player) {

@@ -1,8 +1,9 @@
 package org.atcraftmc.starlight.music.session;
 
-import org.atcraftmc.starlight.core.PlayerView;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.music.*;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.view.SchedulerProvider;
+import org.atcraftmc.starlight.music.MusicService;
+import org.atcraftmc.starlight.music.PlayerUIRenderer;
 import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicNode;
 import org.atcraftmc.starlight.util.PlayerList;
@@ -20,7 +21,7 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
     }
 
     private String rendererID() {
-        return "quark:music-player:ui@" + this.hashCode();
+        return "starlight:music-player";
     }
 
     @Override
@@ -33,16 +34,27 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
     @Override
     public void end(MusicTask task, MusicData music) {
         for (var player : this.players.getPlayerObjects()) {
-            PlayerView.getInstance(player).getActionbar().removeChannel(this.rendererID());
+            PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.rendererID());
         }
     }
 
 
     public void startRender(Player player) {
-        PlayerView.getInstance(player).getActionbar().addChannel(this.rendererID(), 5, 3, TaskService.async(), (a, t) -> {
-            var tt = this.current.get().getTick();
-            this.renderer.renderUI(player, this.current.get().getMusic(), tt, this.current.get().paused());
-        });
+        PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
+                this.rendererID(),
+                5,
+                3,
+                SchedulerProvider.ASYNC,
+                (a, t) -> {
+                    var tt = this.current.get().getTick();
+                    this.renderer.renderUI(
+                            player,
+                            this.current.get().getMusic(),
+                            tt,
+                            this.current.get().paused()
+                    );
+                }
+        );
     }
 
 
@@ -109,7 +121,7 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
 
     public final void removePlayer(Player player) {
         this.players.remove(player);
-        PlayerView.getInstance(player).getActionbar().removeChannel(this.rendererID());
+        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.rendererID());
     }
 
 }

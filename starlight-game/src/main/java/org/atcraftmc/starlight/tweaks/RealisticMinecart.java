@@ -14,8 +14,9 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.PlayerView;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.view.SchedulerProvider;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -129,8 +130,8 @@ public final class RealisticMinecart extends BukkitAbstractModule {
             return;
         }
 
-        var view = PlayerView.getInstance(p).getActionbar();
-        view.removeChannel("quark:realistic-minecart:ui");
+        var view = PlayerUIService.getInstance(p).getActionbar_v2();
+        view.removeProcess("quark:realistic-minecart:ui");
 
         playerWorldCache().updatePlayerWorld(p);
     }
@@ -149,9 +150,9 @@ public final class RealisticMinecart extends BukkitAbstractModule {
     }
 
     private void initUI(Minecart m, Player p) {
-        var view = PlayerView.getInstance(p).getActionbar();
+        var view = PlayerUIService.getInstance(p).getActionbar_v2();
 
-        view.addChannel("quark:realistic-minecart:ui", 999, 2, (a, t) -> {
+        view.registerIntervalProcess("quark:realistic-minecart:ui", 999, 2, SchedulerProvider.ENTITY, (a, t) -> {
             var thrustLevel = p.getInventory().getHeldItemSlot() - 4;
             var acceleration = ConfigAccessor.getFloat(config(), "thrust-" + thrustLevel + "-acceleration");
             var speed = m.getMaxSpeed();

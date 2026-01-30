@@ -20,6 +20,7 @@ import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.StringObjectPlaceHolder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;

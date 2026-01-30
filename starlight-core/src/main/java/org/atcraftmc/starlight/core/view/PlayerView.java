@@ -1,9 +1,10 @@
-package org.atcraftmc.starlight.core;
+package org.atcraftmc.starlight.core.view;
 
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
-import org.atcraftmc.starlight.core.view.PlayerViewChannelRenderer;
+import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,22 +13,34 @@ import java.util.*;
 import java.util.function.Function;
 
 public final class PlayerView {
-
-
-
-    public static final Map<UUID, PlayerView> INSTANCES = new HashMap<>();
+    public static final Set<String> CHANNELS = new HashSet<>();//temp impl
     private final ChannelRenderer actionbar = new ChannelRenderer(this);
-    private final Map<String, Boolean> rejections = new HashMap<>();
+    private PlayerUISetting setting;
     private final UUID pointer;
 
-    private final PlayerViewChannelRenderer scoreboard = new PlayerViewChannelRenderer(this);
+    private final PlayerViewChannelRenderer scoreboard;
+    private final PlayerViewChannelRenderer actionbar_v2;
 
     public PlayerView(Player pointer) {
         this.pointer = pointer.getUniqueId();
+
+        this.scoreboard = new PlayerViewChannelRenderer("starlight:scoreboard", this);
+        this.actionbar_v2 = new PlayerViewChannelRenderer("starlight:action-bar", this);
+        sync(PlayerUIService.getSetting(pointer.getUniqueId()));
+        this.scoreboard.setCleanupAction((p) -> VisualScoreboardService.instance().visualScoreboard(pointer).stopSidebarRendering());
     }
 
-    public static PlayerView getInstance(final Player player) {
-        return INSTANCES.computeIfAbsent(player.getUniqueId(), (k) -> new PlayerView(player));
+    public void update() {
+        this.scoreboard.update();
+        this.actionbar_v2.update();
+    }
+
+    public PlayerViewChannelRenderer getScoreboard() {
+        return scoreboard;
+    }
+
+    public PlayerViewChannelRenderer getActionbar_v2() {
+        return actionbar_v2;
     }
 
     public Player pointer() {
@@ -35,11 +48,7 @@ public final class PlayerView {
     }
 
     public boolean isChannelRejected(String source) {
-        if (this.rejections.containsKey(source)) {
-            return this.rejections.get(source);
-        }
-        this.rejections.put(source, false);
-        return false;
+        return this.setting.isChannelRejected(source);
     }
 
     public void sendMessage(String channel, Component message) {
@@ -52,6 +61,15 @@ public final class PlayerView {
 
     public ChannelRenderer getActionbar() {
         return actionbar;
+    }
+
+    public boolean isRendererRejected(String id) {
+        return this.setting.isRendererRejected(id)||this.setting.isRejectAllChannels();
+    }
+
+    public void sync(PlayerUISetting setting) {
+        this.setting = new PlayerUISetting(setting);
+        this.update();
     }
 
 

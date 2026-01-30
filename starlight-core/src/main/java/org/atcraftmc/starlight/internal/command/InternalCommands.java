@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.internal.command;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.ExceptionUtil;
@@ -13,7 +14,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 public interface InternalCommands {
     Listener INVALID_COMMAND_WARN = new InvalidCommandWarn();
-    AbstractCommand[] COMMANDS = new AbstractCommand[]{new StarlightPluginCommand(),new PlayerUICommand()};
+    AbstractCommand[] COMMANDS = new AbstractCommand[]{new StarlightPluginCommand(),new PlayerUIService.PlayerUICommand()};
 
     static void register() {
         if (APIProfileTest.isFoliaServer()) {

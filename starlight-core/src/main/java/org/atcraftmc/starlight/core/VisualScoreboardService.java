@@ -1,4 +1,4 @@
-package org.atcraftmc.starlight.display;
+package org.atcraftmc.starlight.core;
 
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO0;
@@ -10,7 +10,6 @@ import me.gb2022.modular.service.ServiceInject;
 import me.gb2022.modular.service.ServiceProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
@@ -20,6 +19,7 @@ import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.*;
@@ -159,6 +159,12 @@ public interface VisualScoreboardService extends BukkitService {
                 tab.getScore(target).setScore(value);
                 setDisplayName(tab, title);
             });
+        }
+
+
+        @EventHandler(priority = EventPriority.HIGHEST)
+        public void onPlayerQuit(PlayerQuitEvent event){
+            stopSidebarRendering();
         }
 
         @Override

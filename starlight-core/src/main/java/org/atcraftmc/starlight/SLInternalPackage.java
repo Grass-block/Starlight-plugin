@@ -4,6 +4,7 @@ import me.gb2022.modular.pack.ApplicationPackageProvider;
 import me.gb2022.modular.pack.ContentBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
@@ -11,6 +12,7 @@ import org.atcraftmc.starlight.core.data.PlayerDataService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.ui.UIManager;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.internal.*;
@@ -62,6 +64,8 @@ public interface SLInternalPackage {
         b.service(PlayerBanService.class);
         b.service(CustomBlockService.class);
         b.service(WESessionTrackService.class);
+        b.service(VisualScoreboardService.class);
+        b.service(PlayerUIService.class);
 
         b.service(InternalServices.BungeeChannelSupplier.class);
         b.service(InternalServices.InternalCommandsProvider.class);

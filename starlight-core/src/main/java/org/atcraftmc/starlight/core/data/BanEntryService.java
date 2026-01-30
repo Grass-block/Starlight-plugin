@@ -68,7 +68,6 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
                     operator varchar(128),
                     valid boolean
                 )
-                
                 """;
 
         return conn.prepareStatement(sql);
