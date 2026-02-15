@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.framework.pack;
 
-import me.gb2022.modular.pack.ApplicationPackage;
+import me.gb2022.gluon.pack.ApplicationPackage;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.atcraftmc.starlight.util.ProductMetadata;

@@ -2,14 +2,14 @@ package org.atcraftmc.starlight.display;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -48,7 +48,7 @@ public final class ActionBarHUD extends BukkitAbstractModule {
 
     private void startRender(Player player) {
         PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
-                "starlight:actionbar-hud",
+                this.getFullId(),
                 -10,
                 3,
                 TaskService::entity,
@@ -60,7 +60,7 @@ public final class ActionBarHUD extends BukkitAbstractModule {
     }
 
     private void stopRender(Player player) {
-        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess("starlight:actionbar-hud");
+        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.getFullId());
     }
 
 

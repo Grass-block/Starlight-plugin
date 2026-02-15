@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.shared.service;
 
-import me.gb2022.modular.service.Service;
+import me.gb2022.gluon.service.Service;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.platform.PluginPlatform;

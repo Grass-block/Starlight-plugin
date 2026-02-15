@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;

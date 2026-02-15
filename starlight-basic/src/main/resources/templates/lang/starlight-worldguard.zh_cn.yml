@@ -1,0 +1,20 @@
+language:
+  wg-we-check:
+    region-limit: "{global#error}出于安全考虑，您的WE选区所有点应当在同一领地内部。"
+  wg-claim:
+    no-wg: "{global#error}此世界未启用WorldGuard。"
+    no-rg: "{global#error}您没有踩在任何地块上。"
+    rg-claimed: "{global#error}这块地皮({#var})已被领取。"
+    rg-claimed-self: "{global#error}这块地皮({#var})已被领取且是您的领地。"
+    rg-not-self: "{global#error}这块地皮({#var})不是您的领地。"
+    rg-claim: "{global#info}恭喜！您已成功领取地皮 {#var}。"
+    rg-unclaim: "{global#info}您已成功放弃地皮 {#var}。"
+    cmd-error: "{global#error}操作领地管理系统时出错，请联系管理员。"
+  wg-region-hud:
+    --view-setting-title: "{#green}[快捷栏]领地HUD信息显示"
+    --view-setting-desc:
+      - "在HUD位置显示当前WorldGuard领地信息。"
+    ui-name: "区域:"
+    ui-owner: "所有者:"
+    ui-id: "区域id:"
+    ui-empty-owners: "[ 无, 可使用/plot claim占领 ]"

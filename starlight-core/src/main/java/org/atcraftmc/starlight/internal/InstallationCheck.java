@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.qlib.texts.TextBuilder;

@@ -4,9 +4,9 @@ import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.RemoteEventListener;
 import me.gb2022.commons.reflect.AutoRegisterManager;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.AppModule;
-import me.gb2022.modular.module.ModuleContainer;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.AppModule;
+import me.gb2022.gluon.module.ModuleContainer;
 import org.atcraftmc.starlight.shared.service.IRemoteMessageService;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 

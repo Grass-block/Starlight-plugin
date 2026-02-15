@@ -8,7 +8,7 @@ import org.atcraftmc.qlib.language.LanguagePack;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 
 import java.io.File;

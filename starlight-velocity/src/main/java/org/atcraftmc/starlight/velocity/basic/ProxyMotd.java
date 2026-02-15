@@ -6,11 +6,12 @@ import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.util.Favicon;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
@@ -19,8 +20,9 @@ import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 //todo: refresh command
@@ -103,7 +105,19 @@ public final class ProxyMotd extends VelocityAbstractModule {
                 .map(ServerPing.Players::getMax)
                 .orElse(owrPlayerCaps) : owrPlayerCaps;
 
-        var players = new ServerPing.Players(playerCount, playerCapacity, List.of());
+        var sample = new ArrayList<ServerPing.SamplePlayer>();
+
+        for (var s : config().value("player-prompt").list(String.class)) {
+            var str = s.replace("{all}", Integer.toString(playerCount))
+                    .replace("{node}", Integer.toString(getProxyServer().getPlayerCount()))
+                    .replace("{all-cap}", Integer.toString(owrPlayerCaps));
+
+            sample.add(new ServerPing.SamplePlayer(PluginPlatform.global().globalFormatMessage(str), UUID.randomUUID()));
+        }
+
+        var players = new ServerPing.Players(playerCount, playerCapacity, sample);
+
+
         var desc = ping.getDescriptionComponent();
 
         if (owrText) {

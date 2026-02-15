@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.internal.command;
 
 import me.gb2022.commons.TriState;
-import me.gb2022.modular.FunctionalComponentStatus;
-import me.gb2022.modular.ObjectOperationResult;
-import me.gb2022.modular.module.ModuleContainer;
-import me.gb2022.modular.module.ModuleManager;
+import me.gb2022.gluon.FunctionalComponentStatus;
+import me.gb2022.gluon.ObjectOperationResult;
+import me.gb2022.gluon.module.ModuleContainer;
+import me.gb2022.gluon.module.ModuleManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.atcraftmc.qlib.command.QuarkCommand;

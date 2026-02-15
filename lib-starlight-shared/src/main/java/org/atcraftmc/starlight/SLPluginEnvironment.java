@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight;
 
-import me.gb2022.modular.ModularApplicationContext;
+import me.gb2022.gluon.ModularApplicationContext;
 import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;

@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.core.data;
 
-import me.gb2022.modular.service.Service;
+import me.gb2022.gluon.service.Service;
 import org.atcraftmc.starlight.data.storage.DataEntry;
 import org.atcraftmc.starlight.data.storage.StorageContext;
 

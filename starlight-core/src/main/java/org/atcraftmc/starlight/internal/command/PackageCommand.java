@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.internal.command;
 
 import me.gb2022.commons.TriState;
-import me.gb2022.modular.ObjectOperationResult;
-import me.gb2022.modular.pack.ApplicationPackage;
-import me.gb2022.modular.pack.PackageManager;
+import me.gb2022.gluon.ObjectOperationResult;
+import me.gb2022.gluon.pack.ApplicationPackage;
+import me.gb2022.gluon.pack.PackageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -65,8 +65,8 @@ public final class PackageCommand extends CoreCommand {
         suggestion.suggest(0, "enable", "disable", "list");
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, "<search meta>"));
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, this.handle.getPackages().keySet()));
-        suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
-        suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
+        suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
+        suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
     }
 
     @Override
@@ -111,7 +111,7 @@ public final class PackageCommand extends CoreCommand {
                     .append("):\n");
             for (String id : list) {
                 sb.append(ChatColor.RESET).append(" - ");
-                if (this.handle.getStatus(id) == TriState.FALSE) {
+                if (this.handle.getStatus(id) == TriState.TRUE) {
                     sb.append(ChatColor.GREEN);
                 } else {
                     sb.append(ChatColor.GRAY);

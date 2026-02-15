@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.tweaks;
 
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;

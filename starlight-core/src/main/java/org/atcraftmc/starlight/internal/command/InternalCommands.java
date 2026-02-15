@@ -14,7 +14,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 public interface InternalCommands {
     Listener INVALID_COMMAND_WARN = new InvalidCommandWarn();
-    AbstractCommand[] COMMANDS = new AbstractCommand[]{new StarlightPluginCommand(),new PlayerUIService.PlayerUICommand()};
+    AbstractCommand[] COMMANDS = new AbstractCommand[]{new StarlightPluginCommand()};
 
     static void register() {
         if (APIProfileTest.isFoliaServer()) {

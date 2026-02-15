@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.custom;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;

@@ -1,12 +1,9 @@
 package org.atcraftmc.starlight.oddities;
 
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.starlight.api.PluginMessages;
-import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.api.customization.CustomBlock;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
@@ -33,12 +30,9 @@ import org.bukkit.inventory.Recipe;
 public final class Elevator extends BukkitAbstractModule {
     private final ElevatorBlock block = new ElevatorBlock();
     public Recipe recipe;
-    @Inject("tip")
-    private LanguageItem tip;
 
     @Override
     public void enable() {
-        PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.add(this.tip));
         this.recipe = RecipeBuilder.shaped("elevator", "@#@;#*#;@#@",
                                            block.createItem(2),
                                            RecipeBuilder.symbol('#', Material.IRON_INGOT),
@@ -51,7 +45,6 @@ public final class Elevator extends BukkitAbstractModule {
 
     @Override
     public void disable() {
-        PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
         RecipeManager.unregister(recipe);
         CustomBlockService.instance().unregisterBlock("elevator");
     }
@@ -141,7 +134,7 @@ public final class Elevator extends BukkitAbstractModule {
     public final class ElevatorBlock extends CustomBlock {
 
         private ElevatorBlock() {
-            super("elevator","elevator");
+            super("elevator", "elevator");
         }
 
         @Override

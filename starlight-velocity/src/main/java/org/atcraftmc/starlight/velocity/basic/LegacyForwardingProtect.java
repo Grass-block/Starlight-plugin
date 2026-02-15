@@ -4,8 +4,8 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 

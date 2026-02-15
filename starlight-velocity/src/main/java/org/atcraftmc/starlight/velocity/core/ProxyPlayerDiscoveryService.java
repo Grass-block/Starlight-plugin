@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.velocity.core;
 
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
@@ -7,8 +8,9 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import me.gb2022.apm.remote.RemoteMessenger;
 import me.gb2022.apm.remote.event.APMRemoteEvent;
 import me.gb2022.apm.remote.event.EndpointLeftEvent;
+import me.gb2022.apm.remote.event.connector.ConnectorReadyEvent;
 import me.gb2022.apm.remote.event.message.RemoteMessageEvent;
-import me.gb2022.modular.service.*;
+import me.gb2022.gluon.service.*;
 import me.gb2022.simpnet.util.BufferUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +33,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
     String MSG_PROXY_LEAVE = "sync:leave";
     String MSG_PROXY_CONNECT = "sync:connect";
     String MSG_PROXY_ACT_CONNECT = "sync:act-connect";
+    String MSG_DISCOVER_PLAYER = "sync:discover";
 
     @ServiceInject
     ServiceHolder<ProxyPlayerDiscoveryService> INSTANCE = new ServiceHolder<>();
@@ -68,12 +71,18 @@ public interface ProxyPlayerDiscoveryService extends Service {
         }
 
 
-        @Subscribe
+        @Subscribe(order = PostOrder.LAST)
         public void onPlayerLeft(DisconnectEvent event) {
-            this.playerUuidMap.remove(event.getPlayer().getUniqueId());
-            this.playerIdMap.remove(event.getPlayer().getUsername());
-
             this.service.broadcast(MSG_PROXY_LEAVE, event.getPlayer().getUniqueId().toString());
+
+            var plugin = StarlightVelocity.instance();
+
+            plugin.getServer().getScheduler()
+                    .buildTask(plugin, () -> {
+                        this.playerUuidMap.remove(event.getPlayer().getUniqueId());
+                        this.playerIdMap.remove(event.getPlayer().getUsername());
+                    })
+                    .schedule();
         }
 
         @Subscribe
@@ -97,6 +106,37 @@ public interface ProxyPlayerDiscoveryService extends Service {
                     BufferUtil.writeString(b, prev);
                 });
             }
+        }
+
+        @APMRemoteEvent
+        public void onConnectorReady(RemoteMessenger ctx, ConnectorReadyEvent event) {
+            LOGGER.info("joined network, discovering players...");
+            ctx.broadcast(MSG_DISCOVER_PLAYER, "");
+        }
+
+        @APMRemoteEvent(MSG_DISCOVER_PLAYER)
+        public void onDiscoverPlayer(RemoteMessenger ctx, RemoteMessageEvent event) {
+            LOGGER.info("Received discover request from {}, collecting...", event.sender());
+
+            var counter = 0;
+
+            for (var player : StarlightVelocity.instance().getServer().getAllPlayers()) {
+                var sv = player.getCurrentServer();
+
+                if (sv.isEmpty()) {
+                    continue;
+                }
+
+                counter++;
+
+                ctx.message(event.sender(), MSG_PROXY_JOIN, (b) -> {
+                    BufferUtil.writeString(b, player.getUniqueId().toString());
+                    BufferUtil.writeString(b, player.getUsername());
+                    BufferUtil.writeString(b, sv.orElseThrow().getServerInfo().getName());
+                });
+            }
+
+            LOGGER.info("Sent {} players to {}.", counter, event.sender());
         }
 
         @APMRemoteEvent(MSG_PROXY_JOIN)

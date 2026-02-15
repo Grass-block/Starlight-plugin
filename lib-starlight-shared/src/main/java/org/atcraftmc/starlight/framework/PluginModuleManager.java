@@ -1,9 +1,10 @@
 package org.atcraftmc.starlight.framework;
 
-import me.gb2022.modular.ModularApplicationContext;
-import me.gb2022.modular.ObjectOperationResult;
-import me.gb2022.modular.module.ModuleContainer;
-import me.gb2022.modular.module.ModuleManager;
+import me.gb2022.gluon.ModularApplicationContext;
+import me.gb2022.gluon.ObjectOperationResult;
+import me.gb2022.gluon.module.ModuleContainer;
+import me.gb2022.gluon.module.ModuleManager;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.FilePath;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.atcraftmc.starlight.util.PluginDependencyInjector;
@@ -40,7 +41,7 @@ public class PluginModuleManager extends ModuleManager {
     }
 
     private File getStatusFile() {
-        String path = FilePath.pluginFolder("quark") + "/data/modules.properties";
+        String path = SLPluginEnvironment.getPathManager().getCurrentPluginFolder().toString() + "/data/modules.properties";
         File file = new File(path);
         if (!file.exists() || file.length() == 0) {
             if (file.getParentFile().mkdirs()) {

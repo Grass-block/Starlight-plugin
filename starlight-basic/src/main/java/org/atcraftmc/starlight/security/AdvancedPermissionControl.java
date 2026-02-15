@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.security;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.permissions.Permission;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 
 @ApplicationModule(id="advanced-permission-control",version = "1.1")

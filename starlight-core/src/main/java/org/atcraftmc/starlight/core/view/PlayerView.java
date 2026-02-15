@@ -3,9 +3,11 @@ package org.atcraftmc.starlight.core.view;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
+import org.atcraftmc.starlight.api.event.PlayerViewInitEvent;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.foundation.TextSender;
+import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -15,18 +17,26 @@ import java.util.function.Function;
 public final class PlayerView {
     public static final Set<String> CHANNELS = new HashSet<>();//temp impl
     private final ChannelRenderer actionbar = new ChannelRenderer(this);
-    private PlayerUISetting setting;
     private final UUID pointer;
-
     private final PlayerViewChannelRenderer scoreboard;
     private final PlayerViewChannelRenderer actionbar_v2;
+    private PlayerUISetting setting = new PlayerUISetting();
 
     public PlayerView(Player pointer) {
         this.pointer = pointer.getUniqueId();
 
         this.scoreboard = new PlayerViewChannelRenderer("starlight:scoreboard", this);
         this.actionbar_v2 = new PlayerViewChannelRenderer("starlight:action-bar", this);
-        sync(PlayerUIService.getSetting(pointer.getUniqueId()));
+
+
+        BukkitUtil.callEvent(new PlayerViewInitEvent(pointer, this), (e) -> {
+            var setting = e.getSetting();
+
+            if (setting != null) {
+                sync(setting);
+            }
+        });
+
         this.scoreboard.setCleanupAction((p) -> VisualScoreboardService.instance().visualScoreboard(pointer).stopSidebarRendering());
     }
 
@@ -64,7 +74,7 @@ public final class PlayerView {
     }
 
     public boolean isRendererRejected(String id) {
-        return this.setting.isRendererRejected(id)||this.setting.isRejectAllChannels();
+        return this.setting.isRendererRejected(id) || this.setting.isRejectAllChannels();
     }
 
     public void sync(PlayerUISetting setting) {

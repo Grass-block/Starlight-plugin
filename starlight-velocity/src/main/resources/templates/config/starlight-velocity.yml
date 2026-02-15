@@ -9,7 +9,17 @@ config:
     overwrite-text: true #apply some proxy-dedicated process to motd
     text-rewrites:
       example: "Yay im a rewrite replacing {{example}} to me"
+    player-prompt:
+      - "{#aqua}在线人数: {#white}{node} {#gray}/ {#white}{all}"
+      - "{#gray}全局玩家数量: {#white}{all}"
+      - "{#gray}全局玩家上限: {#white}{all-cap}"
+      - "{#gray}节点玩家数量: {#white}{node}"
+      - "{#gray}节点玩家上限: {#white}40"
   hub-command:
     server: lobby #default server id.
   tab-sync:
     format: "{#gold}[{#reset}%s{#gold}]{#gray}%s"
+  chat-sync:
+    template: "{#gold}[{#reset}%s{#gold}]{#white}%s: "
+  server-transfer-message:
+    broadcast-global: true

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.cmp;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.cmp.data.BuildArea;
 import org.atcraftmc.starlight.core.data.region.AbstractRegionService;
 import org.atcraftmc.starlight.framework.BukkitService;

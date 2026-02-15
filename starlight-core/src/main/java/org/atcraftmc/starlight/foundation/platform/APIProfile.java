@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.foundation.platform;
 
-import me.gb2022.modular.PlatformProfile;
+import me.gb2022.gluon.PlatformProfile;
 
 public enum APIProfile implements PlatformProfile {
     BUKKIT("bukkit"),

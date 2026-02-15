@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;

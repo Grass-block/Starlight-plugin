@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.core.data.regional;
 import it.unimi.dsi.fastutil.longs.Long2IntMap;
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArraySet;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Location;

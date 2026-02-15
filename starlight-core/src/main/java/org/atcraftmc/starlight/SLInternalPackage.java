@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight;
 
-import me.gb2022.modular.pack.ApplicationPackageProvider;
-import me.gb2022.modular.pack.ContentBuilder;
+import me.gb2022.gluon.pack.ApplicationPackageProvider;
+import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
@@ -29,6 +29,7 @@ public interface SLInternalPackage {
         b.module(PAPISupport.class);
         b.module(ProtocolLibPlatformInjector.class);
         b.module(PlatformPatcher.class);
+        b.module(PlayerViewCustomization.class);
     }
 
     static void configs(ContentBuilder b) {

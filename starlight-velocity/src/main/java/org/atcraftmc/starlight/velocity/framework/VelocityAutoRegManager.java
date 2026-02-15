@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.velocity.framework;
 
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.atcraftmc.starlight.velocity.util.VelocityUtil;
 

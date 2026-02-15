@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.commands;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -22,7 +22,7 @@ import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.api.event;
 
-import me.gb2022.modular.ObjectOperationResult;
-import me.gb2022.modular.module.ModuleContainer;
+import me.gb2022.gluon.ObjectOperationResult;
+import me.gb2022.gluon.module.ModuleContainer;
 import org.atcraftmc.starlight.core.event.CustomEvent;
 import org.atcraftmc.starlight.core.event.SLEvent;
 import org.bukkit.event.HandlerList;

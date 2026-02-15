@@ -19,7 +19,7 @@ language:
     home-set-success: "{global#sys-operation}设置成功。"
     home-not-set: "{global#sys-error}你还没有设置家,使用 {#gold}/sethome{#gray} 来设置一个!"
     home-tp-success: "{global#sys-success}已将你传送回家。"
-    tip: "{#gray}使用{#gold}/waypoint{#gray}可以建立你自己的导航或者使用公共导航点。"
+    --tip: "{#gray}使用{#gold}/waypoint{#gray}可以建立你自己的导航或者使用公共导航点。"
     tip-home: "{#gray}使用{#gold}/sethome{#gray}添加一个家，用{#gold}/home{#gray}可以快速回家。"
     list: '{#aqua}导航点列表: '
     list-item: "{color(#44FFAA)}[%s]{#white}%s: %s,%s,%s{color(white);click(command,/waypoint remove %s)} [{#red}X{#white}]"

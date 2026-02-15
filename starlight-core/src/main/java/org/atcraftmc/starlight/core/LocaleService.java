@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.core;
 
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRO0;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceInject;
-import me.gb2022.modular.service.ServiceLayer;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceLayer;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;

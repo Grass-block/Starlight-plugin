@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-project.setProperty("version", "26.2.5")
+project.setProperty("version", "26.3.0")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 apply from: rootDir.getAbsolutePath() + "/info.gradle"
@@ -13,9 +13,6 @@ applyGlobalScript("Publish/LocalStorage.gradle")
 
 applyGlobalScript("Repo/MinecraftPlugins.gradle")
 applyGlobalScript("/Dependencies.gradle")
-
-
-
 
 repositories {
     mavenCentral()
@@ -54,12 +51,13 @@ dependencies {
     implementation gbuildLib('me.gb2022.commons:commons-general')
     implementation gbuildLib('me.gb2022.commons:commons-event')
     implementation gbuildLib('me.gb2022.commons:commons-reflection')
+    implementation gbuildLib('me.gb2022.commons:commons-compatibility')
 
     implementation gbuildLib("me.gb2022.apm:apm-remote")
     implementation gbuildLib("me.gb2022.apm:apm-plugin")
 
     implementation gbuildLib("org.atcraftmc.qlib:qlib-bukkit")
-    implementation gbuildLib("me.gb2022:modular-main")
+    implementation gbuildLib("me.gb2022:gluon-main")
 
     implementation localStorage("me.gb2022.pluginsX-lib")
 

@@ -16,6 +16,7 @@ dependencies {
     compileOnly gbuildLib('me.gb2022.commons:commons-general')
     compileOnly gbuildLib('me.gb2022.commons:commons-event')
     compileOnly gbuildLib('me.gb2022.commons:commons-reflection')
+    compileOnly gbuildLib('me.gb2022.commons:commons-compatibility')
 
     compileOnly 'org.mongodb:bson:5.6.0'
 
@@ -39,7 +40,7 @@ dependencies {
 
     compileOnly project(":starlight-core")
     compileOnly project(":lib-starlight-shared")
-    compileOnly gbuildLib("me.gb2022:modular-main")
+    compileOnly gbuildLib("me.gb2022:gluon-main")
 }
 
 apply from: rootDir.getAbsolutePath() + "/info.gradle"

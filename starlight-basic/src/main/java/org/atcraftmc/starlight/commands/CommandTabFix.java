@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.commands;
 
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;

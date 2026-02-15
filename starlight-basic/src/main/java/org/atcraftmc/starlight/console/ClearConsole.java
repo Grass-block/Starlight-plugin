@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.console;
 
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;

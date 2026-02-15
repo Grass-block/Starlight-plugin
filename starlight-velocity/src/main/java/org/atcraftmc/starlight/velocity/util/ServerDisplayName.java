@@ -11,7 +11,7 @@ public interface ServerDisplayName {
     Map<String, String> SERVER_NAMES = new HashMap<>();
 
     static void init() {
-        var cfg = Configurations.standalone("server-names.yml");
+        var cfg = Configurations.standalone("server-names");
 
         for (var id : cfg.getKeys(false)) {
             SERVER_NAMES.put(id, cfg.getString(id));

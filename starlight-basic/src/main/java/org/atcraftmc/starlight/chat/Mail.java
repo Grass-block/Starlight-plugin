@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.chat;
 
 import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.starlight.chat.mail.JDBCMailDataService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;

@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;

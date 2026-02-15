@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.velocity;
 
-import me.gb2022.modular.pack.ApplicationPackageProvider;
-import me.gb2022.modular.pack.ContentBuilder;
+import me.gb2022.gluon.pack.ApplicationPackageProvider;
+import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.basic.*;
@@ -22,6 +22,8 @@ public interface SLVInternalPackage {
         b.module(ProxyMotd.class);
         b.module(TabSync.class);
         b.module(ServerStatementObserver.class);
+        b.module(ServerTransferMessage.class);
+        b.module(ChatSync.class);
 
         var attachment = b.getAttachment(PluginPackageAttachment.class);
 

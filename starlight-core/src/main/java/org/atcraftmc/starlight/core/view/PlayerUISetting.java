@@ -17,6 +17,14 @@ public final class PlayerUISetting {
         this.rejectRenderers.addAll(setting.rejectRenderers);
     }
 
+    public Set<String> getRejectChannels() {
+        return rejectChannels;
+    }
+
+    public Set<String> getRejectRenderers() {
+        return rejectRenderers;
+    }
+
     public void rejectChannel(final String channel) {
         this.rejectChannels.add(channel);
     }

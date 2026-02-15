@@ -2,10 +2,10 @@ package org.atcraftmc.starlight.music;
 
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO3;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
-import me.gb2022.modular.service.ServiceProvider;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceProvider;
 import me.gb2022.simpnet.util.BufferUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -15,13 +15,13 @@ language:
     bind: "{global#sys-info}已将物品 {#var} 绑定到命令行 {#var}。"
     unbind: "{global#sys-info}已将清除物品 {#var} 的命令行绑定。"
     bind-fail: "{global#sys-error}无法将命令行绑定到空手。"
-    tip: "{#gray}使用{#gold}/item-command{#gray}可以将命令绑定在你的物品上，使用物品即可快速执行该命令。"
+    --tip: "{#gray}使用{#gold}/item-command{#gray}可以将命令绑定在你的物品上，\n使用物品即可快速执行该命令。"
   animate-block-command:
     size-invalid: "{global#error}选区的{#var}轴大小有误, 请检查坐标顺序后重试。"
     size-too-big: "{global#error}选区过大，三轴大小应小于{#var}个方块。"
     no-result: "{global#warning}没有方块以播放动画，任务取消。"
     success: "{global#success}成功创建动画(包含{#var}方块)。"
-    tip: "{#gray}使用{#gold}/animate-block{#gray}可以让方块动起来，{click(command,/custom-item animate-helper 1);underline}[法杖]{;}{#gray}可以帮助您创建路径。"
+    --tip: "{#gray}使用{#gold}/animate-block{#gray}可以让方块动起来，{click(command,/custom-item animate-helper 1);underline}[法杖]{;}{#gray}可以帮助您创建路径。"
     item-name: '{#purple}动画创建法杖'
     item-lore:
         - '{#gray}此工具可方便您快速创建动画路径。'

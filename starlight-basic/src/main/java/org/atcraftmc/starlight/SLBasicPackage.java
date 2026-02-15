@@ -1,12 +1,11 @@
 package org.atcraftmc.starlight;
 
-import me.gb2022.modular.pack.ApplicationPackageProvider;
-import me.gb2022.modular.pack.ContentBuilder;
+import me.gb2022.gluon.pack.ApplicationPackageProvider;
+import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.chat.ChatAt;
 import org.atcraftmc.starlight.chat.ChatComponent;
 import org.atcraftmc.starlight.commands.*;
 import org.atcraftmc.starlight.console.*;
-import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.display.*;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
@@ -20,6 +19,10 @@ import org.atcraftmc.starlight.warp.BackToDeath;
 import org.atcraftmc.starlight.warp.RTP;
 import org.atcraftmc.starlight.warp.TPA;
 import org.atcraftmc.starlight.warp.Waypoints;
+import org.atcraftmc.starlight.worldguard.WorldGuardClaimCommand;
+import org.atcraftmc.starlight.worldguard.WorldGuardRegionHUD;
+import org.atcraftmc.starlight.worldguard.WorldGuardRegionService;
+import org.atcraftmc.starlight.worldguard.WorldGuardWECheck;
 
 public final class SLBasicPackage extends MultiPackageProvider {
 
@@ -56,6 +59,19 @@ public final class SLBasicPackage extends MultiPackageProvider {
         p.language("starlight-console", "zh_cn");
     }
 
+    @ApplicationPackageProvider(id = "starlight-worldguard")
+    public static void worldguard(ContentBuilder b) {
+        var p = b.getAttachment(PluginPackageAttachment.class);
+
+        b.service(WorldGuardRegionService.class);
+        b.module(WorldGuardRegionHUD.class);
+        b.module(WorldGuardWECheck.class);
+        b.module(WorldGuardClaimCommand.class);
+
+        p.language("starlight-worldguard", "zh_cn");
+        p.config("starlight-worldguard");
+    }
+
     @ApplicationPackageProvider(id = "starlight-warps")
     public static void warps(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
@@ -89,6 +105,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(ParticleFont.class);
         b.module(ClientEnvironmentSetting.class);
         b.module(MenuItem.class);
+        b.module(InventoryProfile.class);
 
         p.config("starlight-utilities");
         p.language("starlight-utilities", "zh_cn");
@@ -171,6 +188,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(WESessionRenderer.class);
         b.module(CustomKickMessage.class);
         b.module(PlayerJoinMessage.class);
+        b.module(ChatAnnounce.class);
 
         b.service(PlayerWelcomeService.class); //todo [DFU] import status-> first-join-detection
 

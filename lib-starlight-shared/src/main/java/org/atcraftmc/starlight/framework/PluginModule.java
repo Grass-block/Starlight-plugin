@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.framework;
 
-import me.gb2022.modular.module.AppModule;
+import me.gb2022.gluon.module.AppModule;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SLPluginEnvironment;

@@ -1,4 +1,5 @@
 language:
+  #todo: pick ui channel information
   -module-name:
     action-bar-hud: 快捷栏HUD信息显示
     afk: 挂机检测
@@ -27,6 +28,10 @@ language:
     date: '{#gray}日期/时间: {#white}{#date}'
     website: '{#gray}官网: {#aqua}{#underline}{#server-website}'
   custom-scoreboard:
+    --view-setting-title: "{#aqua}[侧栏]基础侧边栏显示"
+    --view-setting-desc:
+      - "侧边栏基础HUD显示内容，"
+      - "提供基础游戏信息监控。"
     title: '{#aqua}{#server-name}{#reset}'
     date: '{#gray}日期: {#white}{#date-day}'
     time: '{#gray}时间: {#white}{#date-time}'
@@ -55,6 +60,10 @@ language:
     back: "{global#info}玩家{#var}在暂时离开{#var}后回来了。"
     back-self: "{global#info}你在暂时离开{#var}后回来了"
   action-bar-hud:
+    --view-setting-title: "{#green}[快捷栏]基础HUD信息显示"
+    --view-setting-desc:
+      - "快捷栏基础HUD显示内容,"
+      - "提供坐标, 群系和时间显示。"
     time: "{#dark-aqua}世界时间: {#aqua}{#world-time}"
     position: "{#dark-purple}位置: {#red}%.3f{#gray},{#green}%.3f{#gray},{#aqua}%.3f{#gray}"
     biome: "{#dark-green}生物群系: {translate;color(green)}biome.%s.%s{;}"
@@ -77,3 +86,6 @@ language:
     ban-op: '{#gray}操作者{#white}: {source}'
     ban-expire: '{#gray}此封禁将在 {#white}{expire}{#gray} 结束.'
     website-hint: '{#gray}访问官网: {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}更多{#white}]"
+    tip-title: "{#dark-aqua}小技巧:"

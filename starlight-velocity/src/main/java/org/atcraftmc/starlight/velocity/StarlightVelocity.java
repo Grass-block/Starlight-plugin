@@ -7,7 +7,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.gb2022.commons.container.ObjectContainer;
-import me.gb2022.modular.ModularApplicationContext;
+import me.gb2022.gluon.ModularApplicationContext;
 import net.kyori.adventure.text.ComponentLike;
 import org.apache.logging.log4j.LogManager;
 import org.atcraftmc.qlib.config.ConfigContainer;

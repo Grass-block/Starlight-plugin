@@ -1,7 +1,7 @@
 package org.atcraftmc.quark;
 
-import me.gb2022.modular.pack.ApplicationPackageProvider;
-import me.gb2022.modular.pack.ContentBuilder;
+import me.gb2022.gluon.pack.ApplicationPackageProvider;
+import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.quark.lobby.BackToSpawn;
 import org.atcraftmc.quark.lobby.DefaultInventory;
 import org.atcraftmc.quark.lobby.MapProtect;

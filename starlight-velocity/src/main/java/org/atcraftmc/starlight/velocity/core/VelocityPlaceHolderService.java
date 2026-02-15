@@ -1,13 +1,14 @@
 package org.atcraftmc.starlight.velocity.core;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.Service;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.StringExtraction;
 import org.atcraftmc.starlight.PlaceHolders;
 import org.atcraftmc.starlight.data.GlobalVars;
+import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -23,6 +24,7 @@ public interface VelocityPlaceHolderService extends Service {
     @ServiceInject
     static void start() {
         reloadExternal();
+        ServerDisplayName.init();
     }
 
     static void reloadExternal() {

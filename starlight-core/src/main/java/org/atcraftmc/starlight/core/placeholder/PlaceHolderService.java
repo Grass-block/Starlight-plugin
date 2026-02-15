@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.placeholder;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.Service;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.ObjectivePlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;

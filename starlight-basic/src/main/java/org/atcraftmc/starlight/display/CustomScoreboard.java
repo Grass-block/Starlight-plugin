@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.display;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -36,7 +36,7 @@ public final class CustomScoreboard extends BukkitAbstractModule {
 
     public void startRender(Player player) {
         PlayerUIService.getInstance(player).getScoreboard().registerIntervalProcess(
-                "starlight:scoreboard",
+                this.getFullId(),
                 -10,
                 10,
                 SchedulerProvider.ASYNC,
@@ -56,7 +56,7 @@ public final class CustomScoreboard extends BukkitAbstractModule {
     public void disable() {
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            PlayerUIService.getInstance(p).getScoreboard().removeProcess("starlight:scoreboard");
+            PlayerUIService.getInstance(p).getScoreboard().removeProcess(this.getFullId());
         }
     }
 

@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.velocity.framework;
 
-import me.gb2022.modular.ModularApplicationContext;
+import me.gb2022.gluon.ModularApplicationContext;
 import org.atcraftmc.starlight.framework.PluginModuleManager;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.atcraftmc.starlight.util.PluginDependencyInjector;

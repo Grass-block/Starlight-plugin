@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.data.regional;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;

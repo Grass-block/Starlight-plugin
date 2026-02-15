@@ -12,14 +12,15 @@ config:
     port: 8125 #bind port
     backlog: 10 #ref:sun.http.httpserver->backlog
     threads: 3
-  remote-message-service:
-    enable: false
-    identifier: example_server #the unique id("address") in an APM network
-    proxy: false #is server join network as a exchanger(router)
-    host: apm.example.com #address for APM connection
-    port: 25639 #port for APM connection
-    key: 07007爱炉管07007爱炉管07007爱炉管07007爱炉管07007爱炉管07007爱炉管 #fill in data in quark-proxy velocity-end config.
   locale:
     join-delay: 20 #time before recalculate player's locale
     as-control: true
-
+  player-view-customization:
+    ui-template:
+      - "{#white}{desc}"
+      - " "
+      - "{msg#ui-state-{state}}"
+      - "{msg#ui-click}"
+      - " "
+      - "{#gray}id: {id}"
+      - "{#gray}prov: {provider}"

@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.framework;
 
 import me.gb2022.commons.container.Pair;
-import me.gb2022.modular.ModularApplicationContext;
-import me.gb2022.modular.pack.ApplicationPackage;
-import me.gb2022.modular.pack.PackageAttachment;
+import me.gb2022.gluon.ModularApplicationContext;
+import me.gb2022.gluon.pack.ApplicationPackage;
+import me.gb2022.gluon.pack.PackageAttachment;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.Configuration;
 import org.atcraftmc.qlib.language.LanguagePack;

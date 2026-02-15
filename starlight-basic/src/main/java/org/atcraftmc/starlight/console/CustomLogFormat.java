@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.console;
 
 import me.gb2022.apm.local.PluginMessenger;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.atcraftmc.qlib.command.QuarkCommand;

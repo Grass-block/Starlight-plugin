@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.framework;
 
-import me.gb2022.modular.ModularApplicationContext;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceContainer;
-import me.gb2022.modular.service.ServiceManager;
+import me.gb2022.gluon.ModularApplicationContext;
+import me.gb2022.gluon.service.Service;
+import me.gb2022.gluon.service.ServiceContainer;
+import me.gb2022.gluon.service.ServiceManager;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.ConfigContainer;
 

@@ -5,8 +5,8 @@ import me.gb2022.apm.remote.event.EndpointJoinEvent;
 import me.gb2022.apm.remote.event.EndpointLeftEvent;
 import me.gb2022.apm.remote.event.RemoteEventListener;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
 

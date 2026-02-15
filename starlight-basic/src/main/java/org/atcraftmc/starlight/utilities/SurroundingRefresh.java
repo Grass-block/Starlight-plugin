@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

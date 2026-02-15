@@ -6,7 +6,7 @@ import me.gb2022.apm.remote.RemoteQuery;
 import me.gb2022.apm.remote.connector.RemoteConnector;
 import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.channel.MessageChannel;
-import me.gb2022.modular.service.Service;
+import me.gb2022.gluon.service.Service;
 
 import java.util.function.Consumer;
 

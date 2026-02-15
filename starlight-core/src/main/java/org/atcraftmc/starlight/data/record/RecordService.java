@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.data.record;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.Service;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.data.record.registry.RecordData;
 
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.internal;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.CommandEvent;
 import org.atcraftmc.starlight.api.event.CommandTabEvent;

@@ -6,7 +6,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 
 @ApplicationModule(id="self-message")
 @QuarkCommand(name = "self-msg")

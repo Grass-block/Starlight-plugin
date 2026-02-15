@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.core;
 
 import me.gb2022.commons.container.ObjectContainer;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceInject;
-import me.gb2022.modular.service.ServiceLayer;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceLayer;
 import org.atcraftmc.qlib.bukkit.task.TaskManager;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
 import org.atcraftmc.starlight.Starlight;

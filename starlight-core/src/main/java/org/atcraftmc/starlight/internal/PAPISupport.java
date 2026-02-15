@@ -2,8 +2,8 @@ package org.atcraftmc.starlight.internal;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.Starlight;

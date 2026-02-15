@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;

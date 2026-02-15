@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Bukkit;

@@ -73,3 +73,12 @@ config:
       - '{msg#website-hint}'
   drop-item-info:
     template: "{#red}{amount}{#yellow}x{translate;color(aqua)}{id}{;}"
+  chat-announce:
+    send-tip-on-join: true
+    template-tips:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - '{msg#tip-title}'
+      - "  {#gray}%s"
+      - ''
+      - '{msg#more-btn}'
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"

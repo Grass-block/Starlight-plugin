@@ -2,7 +2,7 @@ package org.atcraftmc.quark.lobby;
 
 import me.gb2022.commons.nbt.NBTTagCompound;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 
 import java.util.List;

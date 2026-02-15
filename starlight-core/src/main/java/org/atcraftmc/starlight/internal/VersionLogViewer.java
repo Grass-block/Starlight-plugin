@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 
 import java.io.IOException;
 import java.io.InputStream;

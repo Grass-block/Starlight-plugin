@@ -77,3 +77,6 @@ language:
     ban-op: '{#gray}Banned by{#white}: {source}'
     ban-expire: '{#gray}This ban will expire on {#white}{expire}{#gray}.'
     website-hint: '{#gray}Visit our website: {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}More{#white}]"
+    tip-title: "{#dark-aqua}Tips:"

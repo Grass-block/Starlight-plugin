@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.velocity.basic;
 
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.atcraftmc.starlight.velocity.core.VelocityCommandManager;

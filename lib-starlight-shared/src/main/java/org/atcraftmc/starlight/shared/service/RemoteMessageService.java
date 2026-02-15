@@ -6,7 +6,7 @@ import me.gb2022.apm.remote.RemoteQuery;
 import me.gb2022.apm.remote.connector.RemoteConnector;
 import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.channel.MessageChannel;
-import me.gb2022.modular.service.*;
+import me.gb2022.gluon.service.*;
 import org.atcraftmc.starlight.shared.Configurations;
 
 import java.net.InetSocketAddress;
@@ -28,6 +28,16 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
 
     public RemoteMessageService() {
         this.handle = create();
+    }
+
+    @Override
+    public void enable() throws Exception {
+        this.handle.enable();
+    }
+
+    @Override
+    public void disable() throws Exception {
+        this.handle.disable();
     }
 
     public static IRemoteMessageService create() {

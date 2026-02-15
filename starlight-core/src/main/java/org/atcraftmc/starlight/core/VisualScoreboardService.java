@@ -4,10 +4,10 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO0;
 import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.commons.reflect.method.MethodHandleO3;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceHolder;
-import me.gb2022.modular.service.ServiceInject;
-import me.gb2022.modular.service.ServiceProvider;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
@@ -19,7 +19,6 @@ import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.*;
@@ -43,6 +42,8 @@ public interface VisualScoreboardService extends BukkitService {
     VisualScoreboard visualScoreboard(Player player);
 
     interface VisualScoreboard {
+        void mount();
+
         void renderSidebar(Component title, List<String> columns);
 
         void stopSidebarRendering();
@@ -52,36 +53,113 @@ public interface VisualScoreboardService extends BukkitService {
         void setTabColumn(Player target, int value, Component title);
 
         void clearTabColumn();
+
+        default void destroy() {
+        }
+    }
+
+
+    abstract class AbstractScoreboardService implements VisualScoreboardService {
+        private final Map<UUID, VisualScoreboard> handles = new HashMap<>();
+
+        public abstract VisualScoreboard create(UUID uuid);
+
+        @Override
+        public void enable() {
+            for (var player : Bukkit.getOnlinePlayers()) {
+                this.loadScoreboard(player);
+            }
+
+            BukkitUtil.registerEventListener(this);
+        }
+
+        @Override
+        public void disable() {
+            BukkitUtil.unregisterEventListener(this);
+
+            for (var player : Bukkit.getOnlinePlayers()) {
+                this.unloadScoreboard(player);
+            }
+        }
+
+        @EventHandler
+        public final void onPlayerJoin(PlayerJoinEvent event) {
+            this.loadScoreboard(event.getPlayer());
+        }
+
+        @EventHandler
+        public final void onPlayerQuit(PlayerQuitEvent event) {
+            this.unloadScoreboard(event.getPlayer());
+        }
+
+        public final void loadScoreboard(Player player) {
+            this.unloadScoreboard(player);
+
+            var instance = create(player.getUniqueId());
+
+            this.handles.put(player.getUniqueId(), instance);
+            instance.mount();
+        }
+
+        public final void unloadScoreboard(Player player) {
+            var instance = this.handles.get(player.getUniqueId());
+
+            if (instance == null) {
+                return;
+            }
+
+            instance.destroy();
+        }
+
+        @Override
+        public VisualScoreboard visualScoreboard(Player player) {
+            if (!this.handles.containsKey(player.getUniqueId())) {
+                this.loadScoreboard(player);
+            }
+
+            return this.handles.get(player.getUniqueId());
+        }
     }
 
     final class BukkitVisualScoreboard implements VisualScoreboard {
+        public static final String CRITERIA = "sl-display-visual";
+
         public static final String BUFFER_1 = "sidebar-buffer1";
         public static final String BUFFER_2 = "sidebar-buffer2";
         public static final String PLAYER_LIST = "tab-buffer";
 
-        @SuppressWarnings("Convert2MethodRef")
-        public static final MethodHandleO3<Scoreboard, Player, Component, Component> SET_TEAM = MethodHandle.select((ctx) -> {
-            ctx.attempt(() -> {
-                Compatibility.blackListPlatform(APIProfile.FOLIA);
-                return Class.forName("org.bukkit.scoreboard.Team").getEnclosingMethod();
-            }, (s, p, pr, po) -> TeamAPI.set(s, p, pr, po));
-            ctx.dummy((s, p, pr, po) -> {
-            });
-        });
-
         private final Scoreboard scoreboard;
         private final UUID uuid;
 
-        public BukkitVisualScoreboard(Scoreboard scoreboard, UUID uuid) {
-            this.scoreboard = scoreboard;
+        public BukkitVisualScoreboard(UUID uuid) {
+            this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             this.uuid = uuid;
+        }
+
+        @Override
+        public void mount() {
+            var player = Bukkit.getPlayer(this.uuid);
+            if (player == null || !player.isOnline()) {
+                return;
+            }
+
+            var mgr = Bukkit.getScoreboardManager();
+            var tempBoard = mgr.getNewScoreboard();
+
+            player.setScoreboard(tempBoard);
+            player.setScoreboard(this.scoreboard);
+        }
+
+        @Override
+        public void destroy() {
+            stopSidebarRendering();
         }
 
         private Objective getObjective(String name) {
             var builder = this.scoreboard.getObjective(name);
 
             if (builder == null) {
-                builder = this.scoreboard.registerNewObjective(name, "starlight-display-visual");
+                builder = this.scoreboard.registerNewObjective(name, CRITERIA);
             }
 
             return builder;
@@ -148,7 +226,7 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void setNameTag(Player target, Component prefix, Component postfix) {
-            SET_TEAM.invoke(this.scoreboard, target, prefix, postfix);
+            TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix);
         }
 
         @Override
@@ -159,12 +237,6 @@ public interface VisualScoreboardService extends BukkitService {
                 tab.getScore(target).setScore(value);
                 setDisplayName(tab, title);
             });
-        }
-
-
-        @EventHandler(priority = EventPriority.HIGHEST)
-        public void onPlayerQuit(PlayerQuitEvent event){
-            stopSidebarRendering();
         }
 
         @Override
@@ -194,6 +266,15 @@ public interface VisualScoreboardService extends BukkitService {
                 );
                 ctx.dummy((t) -> {});
             });
+            @SuppressWarnings("Convert2MethodRef")
+            MethodHandleO3<Scoreboard, Player, Component, Component> SET_TEAM = MethodHandle.select((ctx) -> {
+                ctx.attempt(() -> {
+                    Compatibility.blackListPlatform(APIProfile.FOLIA);
+                    return Class.forName("org.bukkit.scoreboard.Team").getEnclosingMethod();
+                }, (s, p, pr, po) -> set(s, p, pr, po));
+                ctx.dummy((s, p, pr, po) -> {
+                });
+            });
 
             static void set(Scoreboard scoreboard, Player target, Component prefix, Component postfix) {
                 var team = "sl@" + target.getName();
@@ -210,46 +291,10 @@ public interface VisualScoreboardService extends BukkitService {
         }
     }
 
-    final class BukkitScoreboardService implements VisualScoreboardService {
-        private final Map<UUID, Scoreboard> scoreboards = new HashMap<>();
-        private final Map<UUID, VisualScoreboard> handles = new HashMap<>();
-
+    final class BukkitScoreboardService extends AbstractScoreboardService {
         @Override
-        public void enable() {
-            BukkitUtil.registerEventListener(this);
-        }
-
-        @Override
-        public void disable() {
-            BukkitUtil.unregisterEventListener(this);
-        }
-
-        @EventHandler
-        public void onPlayerJoin(PlayerJoinEvent event) {
-            this.scoreboards.computeIfAbsent(event.getPlayer().getUniqueId(), (s) -> Bukkit.getScoreboardManager().getNewScoreboard());
-        }
-
-        @EventHandler
-        public void onPlayerLeave(PlayerQuitEvent event) {
-            this.scoreboards.remove(event.getPlayer().getUniqueId());
-        }
-
-        @Override
-        public VisualScoreboard visualScoreboard(Player player) {
-            return this.handles.computeIfAbsent(player.getUniqueId(), (s) -> new BukkitVisualScoreboard(scoreboard(player), s));
-        }
-
-        public Scoreboard scoreboard(Player player) {
-            return this.scoreboards.computeIfAbsent(player.getUniqueId(), (s) -> Bukkit.getScoreboardManager().getNewScoreboard());
-        }
-    }
-
-
-    final class ProtocolLibScoreboardService implements VisualScoreboardService {
-
-        @Override
-        public VisualScoreboard visualScoreboard(Player player) {
-            return null;
+        public VisualScoreboard create(UUID uuid) {
+            return new BukkitVisualScoreboard(uuid);
         }
     }
 }

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.internal;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.api.event.ChatForwardingEvent;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;

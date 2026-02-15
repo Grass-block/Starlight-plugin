@@ -2,33 +2,29 @@ package org.atcraftmc.starlight.chat;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.commons.reflect.method.MethodHandleRO1;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.atcraftmc.qlib.Pipeline;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
+import org.atcraftmc.starlight.PlaceHolders;
 import org.atcraftmc.starlight.api.AnvilRenameEvent;
-import org.atcraftmc.starlight.api.PluginMessages;
-import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.SignChangeEvent;
@@ -45,10 +41,7 @@ import java.util.regex.Pattern;
 @ApplicationModule(id = "chat-component", version = "1.3.0")
 public final class ChatComponent extends BukkitAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
-    private final GloballyPlaceHolder chatPH = BukkitPlaceHolders.chat();
-
-    @Inject("tip")
-    private LanguageItem tip;
+    private final GloballyPlaceHolder chatPH = PlaceHolders.chat();
 
     public static String processIndirectChars(String input) {
         StringBuilder output = new StringBuilder();
@@ -96,16 +89,10 @@ public final class ChatComponent extends BukkitAbstractModule {
 
     @Override
     public void enable() {
-        PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.add(this.tip));
         this.pipeline.addLast("starlight:placeholder-global", (p, m) -> PlaceHolderService.format(m));
         this.pipeline.addLast("starlight:placeholder-player", PlaceHolderService::formatPlayer);
         this.pipeline.addLast("starlight:indirect-chars", (p, m) -> processIndirectChars(m));
         this.pipeline.addLast("starlight:color-chars", (p, m) -> processColorChars(m));
-    }
-
-    @Override
-    public void disable() {
-        PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
     }
 
     @EventHandler
@@ -136,7 +123,7 @@ public final class ChatComponent extends BukkitAbstractModule {
         private MethodHandleRO1<SignChangeEvent, String, Integer> getLine;
 
         @Override
-        public void checkCompatibility() throws me.gb2022.modular.APIIncompatibleException {
+        public void checkCompatibility() throws me.gb2022.commons.compatibility.APIIncompatibleException {
             Compatibility.requireClass(() -> Class.forName("org.bukkit.event.block.SignChangeEvent"));
         }
 

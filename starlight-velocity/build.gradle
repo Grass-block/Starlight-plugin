@@ -36,7 +36,7 @@ dependencies {
     implementation 'org.slf4j:log4j-over-slf4j:2.0.0-alpha1'
     implementation 'com.google.guava:guava:31.0.1-jre'
 
-    implementation gbuildLib("me.gb2022:modular-main")
+    implementation gbuildLib("me.gb2022:gluon-main")
     implementation gbuildLib("org.atcraftmc.qlib:qlib-velocity")
 }
 

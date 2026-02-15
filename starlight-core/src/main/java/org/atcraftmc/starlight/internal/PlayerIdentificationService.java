@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.internal;
 
-import me.gb2022.modular.service.*;
+import me.gb2022.gluon.service.*;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.util.Identifiers;

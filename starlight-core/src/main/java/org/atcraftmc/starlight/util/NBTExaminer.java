@@ -5,6 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
+
 public interface NBTExaminer {
     static String toString(NBTTagCompound tag, int deep) {
         var builder = new StringBuilder();
@@ -32,6 +34,10 @@ public interface NBTExaminer {
             }
             if (b instanceof NBTTagString) {
                 builder.append("[&aS&f]").append(s).append("&7=&f").append(tag.getString(s));
+            }
+            if (b instanceof NBTTagByteArray t) {
+                builder.append("[&dA&f]").append(s);
+                builder.append(Arrays.toString(t.byteArray));
             }
             if (b instanceof NBTTagCompound tc) {
                 builder.append("[&dC&f]").append(s);

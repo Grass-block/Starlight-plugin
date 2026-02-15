@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.core;
 
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceInject;
 
 import java.util.HashMap;
 import java.util.Map;

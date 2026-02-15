@@ -19,7 +19,7 @@ language:
     home-set-success: "{global#sys-operation}Home set successfully."
     home-not-set: "{global#sys-error}You haven't set a home yet. Use {#gold}/sethome{#gray} to set one!"
     home-tp-success: "{global#sys-success}Teleported you home."
-    tip: "{#gray}Use {#gold}/waypoint{#gray} to create your own waypoints or use public waypoints."
+    --tip: "{#gray}Use {#gold}/waypoint{#gray} to create your own waypoints or use public waypoints."
     tip-home: "{#gray}Use {#gold}/sethome{#gray} to add a home, and use {#gold}/home{#gray} to quickly return home."
     list: '{#aqua}Waypoint List: '
     list-item: "{color(#44FFAA)}[%s]{#white}%s: %s,%s,%s{color(white);click(command,/waypoint remove %s)} [{#red}X{#white}]"

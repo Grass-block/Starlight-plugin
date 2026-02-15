@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.framework;
 
-import me.gb2022.modular.module.attachment.AbstractModuleAttachment;
+import me.gb2022.gluon.module.attachment.AbstractModuleAttachment;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;

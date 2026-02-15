@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.display;
 
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.APIIncompatibleException;
-import me.gb2022.modular.Registrations;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;

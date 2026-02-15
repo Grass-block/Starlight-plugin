@@ -1,6 +1,16 @@
-## 26.2.6
+## 26.3.0
 
 - Fixed component builder crashing issue(upstream:qlib-core)
+- Fixed package and module status storage error.
+- [1.21.10] Fixed Scoreboard Objective protocol error
+- Module status is reset due to file change.
+- Implemented framework(upstream -> gluon v1.20.1)
+- Implemented ModuleEvents.
+- Added WorldGuardRegionService
+- Added WorldGuardRegionHUD
+- Added WorldGuardClaimCommand
+- Added WorldGuardWECheck
+- add PlayerViewCustomization
 
 ## 26.2.5
 

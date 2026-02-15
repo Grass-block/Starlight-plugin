@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.velocity.framework;
 
-import me.gb2022.modular.module.AbstractModule;
+import me.gb2022.gluon.module.AbstractModule;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;

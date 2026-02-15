@@ -2,7 +2,7 @@ package org.atcraftmc.quark.lobby;
 
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import me.gb2022.commons.reflect.AutoRegister;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -13,10 +13,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import me.gb2022.modular.APIIncompatibleException;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import me.gb2022.modular.module.ApplicationModule;
-import me.gb2022.modular.module.component.ComponentProvider;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight;
 
 import me.gb2022.commons.Timer;
-import me.gb2022.modular.ModularApplicationContext;
+import me.gb2022.gluon.ModularApplicationContext;
 import me.gb2022.pluginsX.PluginService;
 import net.kyori.adventure.text.ComponentLike;
 import org.apache.logging.log4j.LogManager;

@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.framework.module;
 
-import me.gb2022.modular.FeatureAvailability;
+import me.gb2022.gluon.FeatureAvailability;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

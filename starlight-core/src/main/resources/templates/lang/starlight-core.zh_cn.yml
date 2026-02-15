@@ -126,3 +126,9 @@ language:
       - '{#gray}你已被 {#var} 因 {#var} 封禁。'
       - '{#gray}你的封禁将在 {#var} 结束。'
     default-kick-line: '{#gray}你已被踢出游戏: {#var}'
+  player-view-customization:
+    default-desc: "该界面组件未提供描述。"
+    ui-state-open: "{#white}当前状态: {#green}[开]"
+    ui-state-close: "{#white}当前状态: {#red}[关]"
+    ui-click: "{#gold}[点击切换]"
+    ui-title: "{#dark-aqua}界面渲染设置 {#white}(共 %s 页)"

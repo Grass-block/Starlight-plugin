@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import com.google.gson.JsonParser;
 import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;

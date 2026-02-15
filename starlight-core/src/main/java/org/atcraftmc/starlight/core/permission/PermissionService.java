@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.permission;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.ServiceInject;
-import me.gb2022.modular.service.ServiceLayer;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceLayer;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;

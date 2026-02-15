@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.modular.Registrations;
+import me.gb2022.gluon.Registrations;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import org.ahocorasick.trie.Trie;
@@ -11,7 +11,7 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.api.ChatReportedEvent;
 import org.atcraftmc.starlight.core.TaskService;
-import me.gb2022.modular.module.ApplicationModule;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.util;
 
 import me.gb2022.commons.reflect.DependencyInjector;
-import me.gb2022.modular.pack.ApplicationPackage;
+import me.gb2022.gluon.pack.ApplicationPackage;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;

@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.shared.service;
 
-import me.gb2022.modular.service.ApplicationService;
-import me.gb2022.modular.service.Service;
-import me.gb2022.modular.service.ServiceLayer;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.Service;
+import me.gb2022.gluon.service.ServiceLayer;
+import me.gb2022.gluon.service.ServiceInject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.shared.FilePath;

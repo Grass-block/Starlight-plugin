@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.math.SHA;
-import me.gb2022.modular.service.ApplicationService;
+import me.gb2022.gluon.service.ApplicationService;
 import org.atcraftmc.starlight.framework.BukkitService;
-import me.gb2022.modular.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceInject;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
