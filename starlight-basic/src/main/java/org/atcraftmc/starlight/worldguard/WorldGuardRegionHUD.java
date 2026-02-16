@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ApplicationModule(id = "wg-region-hud")
+@ApplicationModule(id = "wg-region-hud", description = "Create an HUD displaying WorldGuard region info.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class WorldGuardRegionHUD extends BukkitAbstractModule {
     private final Map<UUID, ProtectedRegion> stateCache = new HashMap<>();

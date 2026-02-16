@@ -10,7 +10,8 @@
 - Added WorldGuardRegionHUD
 - Added WorldGuardClaimCommand
 - Added WorldGuardWECheck
-- add PlayerViewCustomization
+- Added PlayerViewCustomization to let player customize their UI.
+- Added discriptions to more modules. 
 
 ## 26.2.5
 
