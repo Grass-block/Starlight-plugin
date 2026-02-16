@@ -31,7 +31,7 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Optional;
 
-@Plugin(id = "starlight-velocity")
+@Plugin(id = "starlight-velocity",version = "26.1.0",authors = "GrassBlock2022")
 public final class StarlightVelocity implements PluginApplication {
     public static final ObjectContainer<StarlightVelocity> INSTANCE = new ObjectContainer<>();
 

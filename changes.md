@@ -2,16 +2,25 @@
 
 - Fixed component builder crashing issue(upstream:qlib-core)
 - Fixed package and module status storage error.
-- [1.21.10] Fixed Scoreboard Objective protocol error
+- [1.21.10] Fixed Scoreboard Objective protocol error.
 - Module status is reset due to file change.
 - Implemented framework(upstream -> gluon v1.20.1)
 - Implemented ModuleEvents.
-- Added WorldGuardRegionService
-- Added WorldGuardRegionHUD
-- Added WorldGuardClaimCommand
-- Added WorldGuardWECheck
+- Added WorldGuardRegionService.
+- Added WorldGuardRegionHUD.
+- Added WorldGuardClaimCommand.
+- Added WorldGuardWECheck.
 - Added PlayerViewCustomization to let player customize their UI.
 - Added discriptions to more modules. 
+
+## Velocity-26.1.0
+
+- Added ProxyChatSync.
+- Added HubCommand.
+- Added LegacyForwardingProtect
+- Added ServerStatementObserver
+- Added ServerTransferMessage
+- Added TabSync
 
 ## 26.2.5
 
