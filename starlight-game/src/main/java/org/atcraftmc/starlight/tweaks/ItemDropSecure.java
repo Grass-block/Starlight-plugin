@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.TaskService;
@@ -68,7 +68,7 @@ public final class ItemDropSecure extends BukkitAbstractModule implements Plugin
         });
     }
 
-    @QuarkCommand(name = "unlock-drop", permission = "+quark.dropunlock", playerOnly = true)
+    @BukkitCommand(name = "unlock-drop", permission = "+quark.dropunlock", playerOnly = true)
     public static final class DropInsecureUnlockCommand extends ModuleCommand<ItemDropSecure> {
         @Override
         public void init(ItemDropSecure module) {

@@ -1,4 +1,9 @@
 language:
+  -module-name:
+    music-player: 音乐播放器
+  music-service:
+    restore-defaults: "{global#sys-info}成功保存样例音乐文件。"
+    trim: "{global#sys-info}已修正 {#var} 个文件的名称格式。"
   music-player:
     playing: "正在播放"
     paused: "暂停"
@@ -10,9 +15,7 @@ language:
     error-resolving: "{global#sys-error}无法解析指定的文件 {#var}。"
     unsupported-format: "{global#sys-error}不支持的文件 {#var}。"
     timeout: "{global#sys-error}无法从内容服务器下载文件 {#var}。"
-    restore-defaults: "{global#sys-info}成功保存样例音乐文件。"
-    trim: "{global#sys-info}已修正 {#var} 个文件的名称格式。"
-    ui-title: "{#dark-aqua}音乐播放 {#white}(共 %s 页)"
+    ui-title: "{#dark-aqua}音乐播放 {#white}(共 {} 页)"
     ui-click: "{#gold}[点击播放]"
     ui-legacy-control-open: "{#purple}启用旧版解析: [开]"
     ui-legacy-control-close: "{#gray}启用旧版解析: [关]"

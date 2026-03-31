@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.framework;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.ProductInfo;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.foundation.platform.PluginUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.InvalidDescriptionException;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.jar.JarFile;
 
 public interface SLPackageManager {
-    Logger LOGGER = LogManager.getLogger("SLPackageManager");
+    Logger LOGGER = SLPluginEnvironment.createLogger("PackageManager");
     String CORE_PKG_ID = "starlight-core";
 
     static List<String> getSubPacksFromServer() {

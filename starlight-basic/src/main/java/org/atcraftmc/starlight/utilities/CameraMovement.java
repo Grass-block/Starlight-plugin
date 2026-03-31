@@ -4,7 +4,7 @@ import me.gb2022.commons.math.LinearInterpolation;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 @ApplicationModule(id = "camera-movement", version = "1.0.0")
-@QuarkCommand(name = "camera", permission = "-starlight.camera", playerOnly = true)
+@BukkitCommand(name = "camera", permission = "-starlight.camera", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class CameraMovement extends SLCommandModule {
 

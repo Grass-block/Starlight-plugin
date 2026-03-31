@@ -11,7 +11,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
@@ -43,7 +43,7 @@ import java.util.*;
 @SuppressWarnings("deprecation")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "player-name-header", description = "Provide a Header before player's name.")
-@QuarkCommand(name = "header", permission = "-starlight.name.header")
+@BukkitCommand(name = "header", permission = "-starlight.name.header")
 @ComponentProvider({PlayerNameHeader.BelowNameColumns.class})
 public final class PlayerNameHeader extends SLCommandModule {
     public static final TableColumn<String> PLAYER_HEADER = TableColumn.string("name_header", 16, "unset");

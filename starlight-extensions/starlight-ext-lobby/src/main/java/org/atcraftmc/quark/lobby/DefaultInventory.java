@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -26,7 +26,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import java.util.List;
 
 @ApplicationModule(version = "1.0")
-@QuarkCommand(name = "default-inventory", playerOnly = true)
+@BukkitCommand(name = "default-inventory", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DefaultInventory extends SLCommandModule {
     public static final String TITLE = ChatColor.LIGHT_PURPLE + "Default Inventory Editor";

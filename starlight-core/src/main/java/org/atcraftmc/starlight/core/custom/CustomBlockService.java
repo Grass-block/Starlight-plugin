@@ -4,7 +4,7 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.Starlight;
@@ -229,7 +229,7 @@ public final class CustomBlockService implements BukkitService {
     }
 
 
-    @QuarkCommand(name = "custom-item", op = true, playerOnly = true)
+    @BukkitCommand(name = "custom-item", op = true, playerOnly = true)
     public final class CustomBlockCommand extends AbstractCommand {
 
         @Override

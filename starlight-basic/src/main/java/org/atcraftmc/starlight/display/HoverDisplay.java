@@ -12,7 +12,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
@@ -198,7 +198,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
         suggestion.suggest(1, stands.keySet());
     }
 
-    @QuarkCommand(name = "hover-display", permission = "-quark.hoverdisplay")
+    @BukkitCommand(name = "hover-display", permission = "-quark.hoverdisplay")
     public static final class HoverDisplayCommand extends ModuleCommand<HoverDisplay> {
         @Override
         public void init(HoverDisplay module) {

@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "freecam", version = "1.0.0")
-@QuarkCommand(name = "freecam", playerOnly = true)
+@BukkitCommand(name = "freecam", playerOnly = true)
 public final class FreeCam extends SLCommandModule {
     private final Map<String, GameMode> gameModes = new HashMap<>();
     private final Map<String, Location> locations = new HashMap<>();

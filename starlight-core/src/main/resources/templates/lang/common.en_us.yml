@@ -20,7 +20,7 @@ language:
   ui:
     next: "{#aqua}Next Page"
     prev: "{#yellow}Previous Page"
-    page: "{#white}Current Page: %s/%s"
+    page: "{#white}Current Page: {}/{}"
     close: "{#red}Close Window"
     confirm: "{#green}Confirm"
     cancel: "{#red}Cancel"

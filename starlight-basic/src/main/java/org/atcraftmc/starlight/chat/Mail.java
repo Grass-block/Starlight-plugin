@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.chat;
 
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.chat.mail.JDBCMailDataService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
@@ -17,7 +17,7 @@ public class Mail extends BukkitAbstractModule {
         this.dataService.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
     }
 
-    @QuarkCommand(name = "mail", permission = "+starlight.mail", subCommands = {})
+    @BukkitCommand(name = "mail", permission = "+starlight.mail", subCommands = {})
     public static final class MailCommand extends ModuleCommand<Mail> {
 
     }

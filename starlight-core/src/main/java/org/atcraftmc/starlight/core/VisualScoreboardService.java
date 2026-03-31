@@ -10,6 +10,8 @@ import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
@@ -127,33 +129,43 @@ public interface VisualScoreboardService extends BukkitService {
         public static final String BUFFER_1 = "sidebar-buffer1";
         public static final String BUFFER_2 = "sidebar-buffer2";
         public static final String PLAYER_LIST = "tab-buffer";
-
-        private final Scoreboard scoreboard;
+        private final Logger logger;
         private final UUID uuid;
+        private Scoreboard scoreboard;
 
         public BukkitVisualScoreboard(UUID uuid) {
-            this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            this.logger = SLPluginEnvironment.createLogger("Scoreboard/" + uuid);
             this.uuid = uuid;
+        }
+
+        public Player handle() {
+            return Bukkit.getPlayer(this.uuid);
         }
 
         @Override
         public void mount() {
-            var player = Bukkit.getPlayer(this.uuid);
-            if (player == null || !player.isOnline()) {
-                return;
-            }
+            TaskService.entity(handle()).run(() -> {
+                this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-            var mgr = Bukkit.getScoreboardManager();
-            var tempBoard = mgr.getNewScoreboard();
+                var player = Bukkit.getPlayer(this.uuid);
+                if (player == null || !player.isOnline()) {
+                    return;
+                }
 
-            player.setScoreboard(tempBoard);
-            player.setScoreboard(this.scoreboard);
+                var mgr = Bukkit.getScoreboardManager();
+                var tempBoard = mgr.getNewScoreboard();
+
+                bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+                player.setScoreboard(tempBoard);
+                player.setScoreboard(this.scoreboard);
+            });
         }
 
         @Override
         public void destroy() {
-            stopSidebarRendering();
+            this.stopSidebarRendering();
         }
+
 
         private Objective getObjective(String name) {
             var builder = this.scoreboard.getObjective(name);
@@ -163,6 +175,10 @@ public interface VisualScoreboardService extends BukkitService {
             }
 
             return builder;
+        }
+
+        private void bindScoreboard(Scoreboard scoreboard) {
+            Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(scoreboard));
         }
 
         private void setDisplayName(Objective objective, Component title) {
@@ -199,39 +215,61 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void renderSidebar(Component title, List<String> columns) {
-            var buffer1 = getObjective(BUFFER_1);
-            var buffer2 = getObjective(BUFFER_2);
+            TaskService.entity(handle()).run(() -> {
+                var buffer1 = getObjective(BUFFER_1);
+                var buffer2 = getObjective(BUFFER_2);
 
-            if (buffer1.getDisplaySlot() == null) {
-                buffer1.unregister();
-                buffer1 = getObjective(BUFFER_1);
-                this.build(buffer1, title, columns);
-                buffer1.setDisplaySlot(DisplaySlot.SIDEBAR);
-                buffer2.setDisplaySlot(null);
-            } else {
-                buffer2.unregister();
-                buffer2 = getObjective(BUFFER_2);
-                this.build(buffer2, title, columns);
-                buffer2.setDisplaySlot(DisplaySlot.SIDEBAR);
-                buffer1.setDisplaySlot(null);
-            }
+                Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(this.scoreboard));
 
-            Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(this.scoreboard));
+                if (buffer1.getDisplaySlot() == null) {
+                    try {
+                        buffer1.unregister();
+                        buffer1 = getObjective(BUFFER_1);
+                        this.build(buffer1, title, columns);
+                        buffer1.setDisplaySlot(DisplaySlot.SIDEBAR);
+                        buffer2.setDisplaySlot(null);
+                    } catch (NullPointerException | IllegalStateException e) {
+                        stopSidebarRendering();
+                    }
+                } else {
+                    try {
+                        buffer2.unregister();
+                        buffer2 = getObjective(BUFFER_2);
+                        this.build(buffer2, title, columns);
+                        buffer2.setDisplaySlot(DisplaySlot.SIDEBAR);
+                        buffer1.setDisplaySlot(null);
+                    } catch (NullPointerException | IllegalStateException e) {
+                        stopSidebarRendering();
+                    }
+                }
+            });
         }
 
         @Override
         public void stopSidebarRendering() {
-            this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
+            TaskService.entity(handle()).run(() -> {
+                this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
+                this.scoreboard.getObjectives().forEach((o) -> {
+                    try {
+                        o.unregister();
+                    } catch (Exception e) {
+                        this.logger.warn("Failed to unregister {}: {}", o.getName(), e.getMessage());
+                    }
+                });
+
+                bindScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+            });
         }
 
         @Override
-        public void setNameTag(Player target, Component prefix, Component postfix) {
-            TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix);
+        public synchronized void setNameTag(Player target, Component prefix, Component postfix) {
+            TaskService.entity(handle()).run(() -> TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix));
         }
 
         @Override
-        public void setTabColumn(Player target, int value, Component title) {
-            TaskService.global().run(() -> {
+        public synchronized void setTabColumn(Player target, int value, Component title) {
+            TaskService.entity(handle()).run(() -> {
                 var tab = getObjective(PLAYER_LIST);
                 tab.setDisplaySlot(DisplaySlot.PLAYER_LIST);
                 tab.getScore(target).setScore(value);
@@ -240,8 +278,8 @@ public interface VisualScoreboardService extends BukkitService {
         }
 
         @Override
-        public void clearTabColumn() {
-            getObjective(PLAYER_LIST).unregister();
+        public synchronized void clearTabColumn() {
+            TaskService.entity(handle()).run(() -> getObjective(PLAYER_LIST).unregister());
         }
 
         interface TeamAPI {

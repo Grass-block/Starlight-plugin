@@ -7,6 +7,7 @@ language:
     platform-patcher: '[核心]平台差异补丁'
     protocol-lib-injector: '[核心]ProtocolLib平台代理'
     version-log-viewer: '[核心]更新日志查看器'
+    player-view-customization: '[核心]玩家界面自定义 %player_allow_flight%'
   custom-block:
     give: '{global#success}成功获取 {#var} *1'
     give-failed: '{global#error}不存在名为 {#var} 的自定义方块。'
@@ -43,7 +44,7 @@ language:
 
     error-internal-exception: "{global#error}执行此命令时出现内部错误，查看控制台获得更多信息。"
   module:
-    list: "{global#sys-operation}以下是全部模块: {#return}%s"
+    list: "{global#sys-operation}以下是全部模块: {#return}{}"
     enable-all: "{global#sys-operation}成功启用所有模块。"
     disable-all: "{global#sys-operation}成功关闭所有模块。"
     reload-all: "{global#sys-operation}成功重载所有模块。"
@@ -55,7 +56,7 @@ language:
     already-op: "{global#sys-error}模块 {#var} 已处于请求的状态。"
     blocked-internal: "{global#sys-error}你无法操作 [内建] 模块 {#var} , 因为这可能导致错误。"
   package:
-    list: "{global#sys-operation}以下是全部扩展包: {#return}%s"
+    list: "{global#sys-operation}以下是全部扩展包: {#return}{}"
     enable-all: "{global#sys-operation}成功启用所有扩展包。"
     disable-all: "{global#sys-operation}成功关闭所有扩展包。"
     reload-all: "{global#sys-operation}成功重载所有扩展包。"
@@ -104,7 +105,7 @@ language:
     set: "{global#sys-info}你的服务端语言已被设为 {#var}, 部分显示可能需要重进才能更新。"
     preset: "{global#sys-info}检测到您的语言为 {#var}. 如语言错误, 请使用{#gold}/locale [语言]{#gray}进行选择。"
   modrinth-version-check:
-    require: "{global#sys-info}有新的版本 {#var}, {click(link,%s)}{#white}[{#green}查看{#white}]{;}"
+    require: "{global#sys-info}有新的版本 {#var}, {click(link,{})}{#white}[{#green}查看{#white}]{;}"
     no-require: "{global#sys-info}您的版本已经为最新版 {#var}，无需进行更新。"
     exception: "{global#sys-info}检查版本时出现错误，请查看控制台。"
     checking: "{global#sys-info}正在检查版本..."
@@ -114,13 +115,13 @@ language:
     done: "{global#sys-info}数据导入完成。"
   libraries:
     list: '{#aqua}已加载的第三方依赖库: '
-    list-item: "{color(#44FFAA)}[%s]"
+    list-item: "{color(#44FFAA)}[{}]"
     list-hover: |-
-      {color(#44FFAA)} %s
-      {#gray}文件名称: {#white}%s
-      {#gray}文件大小: {#white}%s KiB
-      {#gray}下载日期: {#white}%s
-      {#gray}完整路径: {#white}%s
+      {color(#44FFAA)} {}
+      {#gray}文件名称: {#white}{}
+      {#gray}文件大小: {#white}{} KiB
+      {#gray}下载日期: {#white}{}
+      {#gray}完整路径: {#white}{}
   ban-service:
     default-line:
       - '{#gray}你已被 {#var} 因 {#var} 封禁。'
@@ -131,4 +132,4 @@ language:
     ui-state-open: "{#white}当前状态: {#green}[开]"
     ui-state-close: "{#white}当前状态: {#red}[关]"
     ui-click: "{#gold}[点击切换]"
-    ui-title: "{#dark-aqua}界面渲染设置 {#white}(共 %s 页)"
+    ui-title: "{#dark-aqua}界面渲染设置 {#white}(共 {} 页)"

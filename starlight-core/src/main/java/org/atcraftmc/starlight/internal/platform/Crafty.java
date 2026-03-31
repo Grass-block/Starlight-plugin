@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.checkerframework.common.reflection.qual.ForName;
 
 /*
+-- Code from https://github.com/jpenilla/TabTPS --
+
 MIT License
 
 Copyright (c) [year] [author]

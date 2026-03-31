@@ -6,16 +6,19 @@ import me.gb2022.gluon.pack.ContentBuilder;
 import me.gb2022.gluon.pack.PackageManager;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.FilePath;
 import org.atcraftmc.starlight.util.Identifiers;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 public final class PluginPackageManager extends PackageManager {
+    private final Set<String> rejected = new HashSet<>();
+
     public PluginPackageManager(ModularApplicationContext context) {
         super(context);
     }
@@ -59,6 +62,11 @@ public final class PluginPackageManager extends PackageManager {
     }
 
     @Override
+    public boolean defaultPackageStatus(ApplicationPackage pack) {
+        return !this.rejected.contains(pack.meta().id());
+    }
+
+    @Override
     public void initializePackageBuilder(ContentBuilder builder) {
         builder.addAttachment(new PluginPackageAttachment());
     }
@@ -70,5 +78,13 @@ public final class PluginPackageManager extends PackageManager {
         }
 
         return super.isReservedPackage(pack);
+    }
+
+    public void addRejection(String id) {
+        this.rejected.add(id);
+    }
+
+    public void removeRejection(String id) {
+        this.rejected.remove(id);
     }
 }

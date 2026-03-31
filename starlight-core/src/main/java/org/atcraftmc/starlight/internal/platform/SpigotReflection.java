@@ -13,6 +13,8 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /*
+-- Code from https://github.com/jpenilla/TabTPS --
+
 MIT License
 
 Copyright (c) [year] [author]

@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 @ApplicationModule(id = "proxy-motd")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ProxyMotd extends VelocityAbstractModule {
-    public static final Logger LOGGER = LogManager.getLogger("CustomMotd");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("CustomMotd");
 
     private ConfigurationSection setting;
     private Favicon favicon;

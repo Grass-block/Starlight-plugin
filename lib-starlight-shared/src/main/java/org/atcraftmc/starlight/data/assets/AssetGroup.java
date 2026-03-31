@@ -27,7 +27,7 @@ public final class AssetGroup {
         this.provider = provider;
         this.name = name;
         this.cached = cached;
-        this.logger = LogManager.getLogger(name);
+        this.logger = SLPluginEnvironment.createLogger(name);
         this.folder = new File(this.folder());
     }
 

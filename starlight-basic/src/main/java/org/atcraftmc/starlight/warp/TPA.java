@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.warp;
 
 import me.gb2022.commons.container.RequestStorage;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
@@ -113,7 +113,7 @@ public final class TPA extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "tpa", permission = "+quark.tpa")
+    @BukkitCommand(name = "tpa", permission = "+quark.tpa")
     public static final class TPACommand extends AbstractedTPACommand {
 
         @Override
@@ -122,7 +122,7 @@ public final class TPA extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "tpahere", permission = "+quark.tpahere")
+    @BukkitCommand(name = "tpahere", permission = "+quark.tpahere")
     public static final class TPAHereCommand extends AbstractedTPACommand {
 
         @Override

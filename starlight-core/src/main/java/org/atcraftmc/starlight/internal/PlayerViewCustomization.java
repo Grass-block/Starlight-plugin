@@ -9,7 +9,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
@@ -78,7 +78,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             return;
         }
 
-        System.out.println(name_id);
+        //System.out.println(name_id);
 
         var name = container.item(name_id);
         var desc = container.item(desc_id);
@@ -122,7 +122,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
     record ViewSettingInfo(String id, LanguageItem name, LanguageItem desc, String provider) {
     }
 
-    @QuarkCommand(name = "player-ui", permission = "+starlight.command.ui")
+    @BukkitCommand(name = "player-ui", permission = "+starlight.command.ui")
     public static final class PlayerUICommand extends ModuleCommand<PlayerViewCustomization> {
 
         @Override
@@ -325,7 +325,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
                     )
                     .replace("{id}", info.id())
                     .replace("{provider}", info.provider())
-                    .replace("{desc}", info.desc.message(locale))
+                    .replace("{desc}", info.desc.message(locale).render())
                     .replace("\n", "\n{#white}"));
 
 

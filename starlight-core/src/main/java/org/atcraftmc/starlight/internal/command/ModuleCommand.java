@@ -7,7 +7,7 @@ import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.module.ModuleManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@QuarkCommand(name = "module", permission = "-starlight.core.module")
+@BukkitCommand(name = "module", permission = "-starlight.core.module")
 public final class ModuleCommand extends CoreCommand {
     private final ModuleManager handle = Starlight.instance().context().getModuleManager();
 

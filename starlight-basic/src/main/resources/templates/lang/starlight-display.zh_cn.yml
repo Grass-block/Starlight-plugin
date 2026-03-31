@@ -1,5 +1,4 @@
 language:
-  #todo: pick ui channel information
   -module-name:
     action-bar-hud: 快捷栏HUD信息显示
     afk: 挂机检测
@@ -14,6 +13,8 @@ language:
     tab-menu: TAB栏提示信息
     welcome-message: 自定义欢迎信息
     we-session-renderer: WorldEdit选区渲染器
+    player-join-message: 玩家加入提示
+    chat-announce: 聊天栏公告
   player-join-message:
     join: '{global#sys-info}{#gray}玩家 {#white}{#var}{#gray} 加入了服务器，欢迎。'
     leave: '{global#sys-info}玩家 {#white}{#var}{#gray} 离开了服务器。'
@@ -65,9 +66,9 @@ language:
       - "快捷栏基础HUD显示内容,"
       - "提供坐标, 群系和时间显示。"
     time: "{#dark-aqua}世界时间: {#aqua}{#world-time}"
-    position: "{#dark-purple}位置: {#red}%.3f{#gray},{#green}%.3f{#gray},{#aqua}%.3f{#gray}"
-    biome: "{#dark-green}生物群系: {translate;color(green)}biome.%s.%s{;}"
-    face: "{#dark-blue}朝向: {#blue}%.3f(俯仰),%.3f(水平)"
+    position: "{#dark-purple}位置: {#red}{}{#gray},{#green}{}{#gray},{#aqua}{}{#gray}"
+    biome: "{#dark-green}生物群系: {translate;color(green)}biome.{}.{}{;}"
+    face: "{#dark-blue}朝向: {#blue}{}(俯仰),{}(水平)"
   welcome-message:
     title: '{#gold}欢迎!'
     content: '{#white}欢迎来到{#server-name}{#white}服务器,祝你玩得开心!'

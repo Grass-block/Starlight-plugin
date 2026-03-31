@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.core.ui;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.core.ui.builder.UIBuilder;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
@@ -91,7 +91,7 @@ public interface UIManager extends BukkitService {
     }
 
 
-    @QuarkCommand(name = "ui", permission = "-quark.ui")
+    @BukkitCommand(name = "ui", permission = "-quark.ui")
     final class UICommand extends CoreCommand {
         @Override
         public void onCommand(CommandSender sender, String[] args) {

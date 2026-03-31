@@ -6,3 +6,5 @@ config:
     at-template: "{#green}@{player}{#reset}" #the @somebody template in chatline
     at-title-template: "{#green}{player}: {#reset}{message}" #title shown on screen
     sound: true #will sound be send to someone bing AT
+  chat-component:
+    parse-command: false

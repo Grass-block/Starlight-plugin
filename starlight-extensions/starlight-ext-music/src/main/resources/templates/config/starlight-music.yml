@@ -5,6 +5,7 @@ config:
     pitch-offsets:
       "Kiss_The_Rain.mid": -1
   music-player:
+    mount: false #whether to play on entity or on entity location.
     ui: "{#white}{msg#playing} {#yellow}: {#aqua}{name} {#yellow}|{#white} {time}{#gray} / {#white}{total}"
   music-game:
     edit-mount: "world:50,0,0"

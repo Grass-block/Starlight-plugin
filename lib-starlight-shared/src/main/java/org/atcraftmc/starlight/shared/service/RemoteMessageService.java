@@ -7,6 +7,8 @@ import me.gb2022.apm.remote.connector.RemoteConnector;
 import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.channel.MessageChannel;
 import me.gb2022.gluon.service.*;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.Configurations;
 
 import java.net.InetSocketAddress;
@@ -14,11 +16,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 @ApplicationService(id = "remote-message-service", export = true, impl = RemoteMessageService.class, layer = ServiceLayer.FRAMEWORK)
 public final class RemoteMessageService implements Service, IRemoteMessageService {
-    public static final Logger LOGGER = Logger.getLogger("Starlight:RemoteMessageService");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("RemoteMessageService");
     public static final Runnable EMPTY_ACTION = () -> {};
 
     @ServiceInject
@@ -190,22 +191,22 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
 
         @Override
         public void registerEventHandler(Object handler) {
-            LOGGER.warning("register on null handler");
+            //LOGGER.warn("register on null handler");
         }
 
         @Override
         public void registerEventHandler(Class<?> handler) {
-            LOGGER.warning("register on null handler");
+            //LOGGER.warn("register on null handler");
         }
 
         @Override
         public void removeMessageHandler(Object handler) {
-            LOGGER.warning("remove on null handler");
+            //LOGGER.warn("remove on null handler");
         }
 
         @Override
         public void removeMessageHandler(Class<?> handler) {
-            LOGGER.warning("remove on null handler");
+            //LOGGER.warn("remove on null handler");
         }
 
         @Override

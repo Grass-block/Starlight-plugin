@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.commands;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
@@ -108,7 +108,7 @@ public final class ItemBinding extends BukkitAbstractModule implements PluginCom
         }
     }
 
-    @QuarkCommand(name = "item-command", playerOnly = true)
+    @BukkitCommand(name = "item-command", playerOnly = true)
     public static final class ItemCommandCommand extends ModuleCommand<ItemBinding> {
         @Override
         public void init(ItemBinding module) {

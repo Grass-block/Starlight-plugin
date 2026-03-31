@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.customization.CustomItem;
@@ -82,7 +82,7 @@ public final class MenuItem extends BukkitAbstractModule {
         inv.addItem(this.item.createItem(1));
     }
 
-    @QuarkCommand(name = "menu-item", permission = "+starlight.menu.item")
+    @BukkitCommand(name = "menu-item", permission = "+starlight.menu.item")
     public static final class ClaimMenuItemCommand extends ModuleCommand<MenuItem> {
         @Override
         public void execute(CommandExecution context) {

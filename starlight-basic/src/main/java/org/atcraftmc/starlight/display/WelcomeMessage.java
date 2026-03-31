@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.ComponentLike;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.api.PlayerFirstJoinEvent;
@@ -38,7 +38,7 @@ public final class WelcomeMessage extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "welcome-message")
+    @BukkitCommand(name = "welcome-message")
     public static final class WelcomeMessageCommand extends ModuleCommand<WelcomeMessage> {
 
         @Override

@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.chat;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -141,7 +141,7 @@ public final class ChatAt extends BukkitAbstractModule {
     }
 
 
-    @QuarkCommand(name = "at", permission = "+starlight.chat.at")
+    @BukkitCommand(name = "at", permission = "+starlight.chat.at")
     public static final class AtCommand extends ModuleCommand<ChatAt> {
         @Override
         public void suggest(CommandSuggestion suggestion) {

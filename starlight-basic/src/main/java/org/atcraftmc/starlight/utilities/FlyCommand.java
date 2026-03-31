@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
@@ -33,7 +33,7 @@ public final class FlyCommand extends BukkitAbstractModule {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
     }
 
-    @QuarkCommand(name = "flyspeed", permission = "+quark.fly.flyspeed", playerOnly = true)
+    @BukkitCommand(name = "flyspeed", permission = "+quark.fly.flyspeed", playerOnly = true)
     public static final class FlySpeedCommand extends ModuleCommand<FlyCommand> {
         @Override
         public void onCommand(CommandSender sender, String[] args) {
@@ -68,7 +68,7 @@ public final class FlyCommand extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "fly", permission = "-quark.fly.toggle", playerOnly = true)
+    @BukkitCommand(name = "fly", permission = "-quark.fly.toggle", playerOnly = true)
     public static final class FlyToggleCommand extends ModuleCommand<FlyCommand> {
 
         @Override

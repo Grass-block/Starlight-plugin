@@ -20,7 +20,7 @@ language:
   ui:
     next: "{#aqua}下一页"
     prev: "{#yellow}上一页"
-    page: "{#white}当前页面: %s/%s"
+    page: "{#white}当前页面: {}/{}"
     close: "{#red}关闭窗口"
     confirm: "{#green}确认"
     cancel: "{#red}取消"

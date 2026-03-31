@@ -5,9 +5,10 @@ import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.foundation.TextSender;
@@ -28,7 +29,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("removal")
-@QuarkCommand(name = "plugins", aliases = "pl", permission = "-bukkit.plugins")
+@BukkitCommand(name = "plugins", aliases = "pl", permission = "-bukkit.plugins")
 @ApplicationModule(id = "plugin-manager-command", version = "1.1.0")
 public final class PluginManagerCommand extends SLCommandModule {
     private final PluginUtil.ModernPluginManager pluginManager = PluginUtil.INSTANCE;
@@ -39,7 +40,7 @@ public final class PluginManagerCommand extends SLCommandModule {
 
 
     private Component genMessage(String msg, Object... fmt) {
-        return Component.text(ChatColor.translateAlternateColorCodes('&', msg.formatted(fmt)));
+        return Component.text(ChatColor.translateAlternateColorCodes('&', Language.format(msg, fmt).formatted(fmt)));
     }
 
     @Override

@@ -1,6 +1,8 @@
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
+//mklink /H gbuild.gradle E:\Java\GBuild\gbuild.gradle
+
 def GBUILD_WORKSPACE = "E:/Java/GBuild"
 
 //---[repo]---
@@ -67,6 +69,15 @@ project.ext.publish_gbuild = {
     }
 
     project.build.dependsOn 'GBuild Publish'
+}
+
+project.ext.publish_output = {
+    project.tasks.register('Output Publish', Copy) {
+        from jar.archiveFile
+        into file(rootProject.getProjectDir().getAbsolutePath()+"/productions")
+    }
+
+    project.build.dependsOn 'Output Publish'
 }
 
 

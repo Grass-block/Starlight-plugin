@@ -7,13 +7,14 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.event.ClickEvent;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.qlib.platform.PluginPlatform;
+import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -44,7 +45,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-@QuarkCommand(name = "waypoint")
+@BukkitCommand(name = "waypoint")
 @ApplicationModule(id = "waypoint", version = "2.0.4")
 @CommandProvider({Waypoints.WaypointCommand.class})
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.CLIENT_MESSAGE})
@@ -255,7 +256,7 @@ public final class Waypoints extends SLCommandModule {
     public void list(CommandExecution context) {
         var sender = context.requireSenderAsPlayer();
         var locale = LocaleService.locale(sender);
-        var list = this.language.item("list").component(locale);
+        var list = ((ComponentBlock) this.language.item("list").component(locale));
 
         try {
             this.service.listAccessible(sender.getUniqueId()).stream().filter((w) -> !w.getName().endsWith("#home")).forEach((w) -> {
@@ -370,7 +371,7 @@ public final class Waypoints extends SLCommandModule {
     }
 
 
-    @QuarkCommand(name = "waypoint", playerOnly = true, permission = "+starlight.waypoint.command")
+    @BukkitCommand(name = "waypoint", playerOnly = true, permission = "+starlight.waypoint.command")
     public static final class WaypointCommand extends ModuleCommand<Waypoints> {
 
         @Override
@@ -445,7 +446,7 @@ public final class Waypoints extends SLCommandModule {
         }
     }
 
-    @QuarkCommand(name = "sethome", playerOnly = true, permission = "+starlight.waypoint.sethome")
+    @BukkitCommand(name = "sethome", playerOnly = true, permission = "+starlight.waypoint.sethome")
     public static final class SetHomeCommand extends ModuleCommand<Waypoints> {
         public SetHomeCommand(Waypoints waypoint) {
             super(waypoint);
@@ -489,7 +490,7 @@ public final class Waypoints extends SLCommandModule {
         }
     }
 
-    @QuarkCommand(name = "home", playerOnly = true, permission = "+starlight.waypoint.home")
+    @BukkitCommand(name = "home", playerOnly = true, permission = "+starlight.waypoint.home")
     public static final class WarpHomeCommand extends ModuleCommand<Waypoints> {
         public WarpHomeCommand(Waypoints waypoint) {
             super(waypoint);

@@ -3,6 +3,8 @@ package org.atcraftmc.starlight.core.permission;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceLayer;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 @ApplicationService(id = "permission", impl = PermissionService.Impl.class, layer = ServiceLayer.FOUNDATION)
 public interface PermissionService extends BukkitService {
+    Logger LOGGER = SLPluginEnvironment.createLogger("PermissionService");
     PermissionService INSTANCE = new Impl();
 
     @ServiceInject
@@ -38,7 +41,7 @@ public interface PermissionService extends BukkitService {
 
         if (permission == null) {
             if (codec.matches("^[+\\-!].*")) {
-                Starlight.instance().getLogger().warning("created unregistered permission " + codec);
+                LOGGER.info("created unregistered permission {}.", codec);
                 permission = createPermissionObject(codec);
             }
         }

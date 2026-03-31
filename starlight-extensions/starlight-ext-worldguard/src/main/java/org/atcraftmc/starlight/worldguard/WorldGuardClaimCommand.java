@@ -6,7 +6,7 @@ import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -42,7 +42,7 @@ public final class WorldGuardClaimCommand extends BukkitAbstractModule {
         WorldGuardRegionService.COMMAND.unregisterSubCommand("unclaim");
     }
 
-    @QuarkCommand(name = "unclaim")
+    @BukkitCommand(name = "unclaim")
     public static class UnClaimCommand extends StandaloneCommand {
 
         @Override
@@ -97,7 +97,7 @@ public final class WorldGuardClaimCommand extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "claim")
+    @BukkitCommand(name = "claim")
     public static class ClaimCommand extends StandaloneCommand {
         @Override
         public void suggest(CommandSuggestion suggestion) {

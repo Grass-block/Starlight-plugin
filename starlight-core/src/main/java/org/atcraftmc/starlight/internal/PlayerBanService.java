@@ -78,7 +78,7 @@ public interface PlayerBanService extends BukkitService {
     static Component getBanMessage(MinecraftLocale locale, String target, String source, String reason, Date expire) {
         var e2 = new BanMessageFetchEvent(BanList.Type.NAME, locale, target, source, reason, expire);
         var it = Starlight.instance().language().item("starlight-core.ban-service.default-line");
-        e2.setResultMessage(it.message(locale, source, reason, expire));
+        e2.setResultMessage(it.message(locale, source, reason, expire).render());
         var ui = BukkitUtil.callEventUnsafe(e2).getResultMessage();
 
         return TextBuilder.buildComponent(MODIFIED_REASON_HEADER + ui);

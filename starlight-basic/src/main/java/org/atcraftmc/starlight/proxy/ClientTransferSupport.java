@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.proxy;
 
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
@@ -43,7 +43,7 @@ public final class ClientTransferSupport extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "connect")
+    @BukkitCommand(name = "connect")
     public static final class ConnectCommand extends ModuleCommand<ClientTransferSupport> {
         @Override
         public void execute(CommandExecution context) {

@@ -6,7 +6,8 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
@@ -76,11 +77,11 @@ public final class ChatReport extends BukkitAbstractModule {
         var uuid = hash(content);
         this.records.put(uuid, "%s;%s;%s;%s".formatted(time, sender, content, shorted));
 
-        var template = Objects.requireNonNull(config().value("append").string()).formatted(uuid);
+        var template = Language.format(Objects.requireNonNull(config().value("append").string()), uuid).formatted(uuid);
         CustomChatRenderer.renderer(event).postfixNearest(TextBuilder.buildComponent(template));
     }
 
-    @QuarkCommand(name = "chat-report")
+    @BukkitCommand(name = "chat-report")
     public static final class ChatReportCommand extends ModuleCommand<ChatReport> {
         @Override
         public void onCommand(CommandSender sender, String[] args) {

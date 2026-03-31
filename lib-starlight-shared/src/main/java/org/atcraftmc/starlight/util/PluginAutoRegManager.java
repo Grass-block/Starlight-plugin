@@ -7,6 +7,8 @@ import me.gb2022.commons.reflect.AutoRegisterManager;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.AppModule;
 import me.gb2022.gluon.module.ModuleContainer;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.service.IRemoteMessageService;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 
@@ -16,6 +18,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class PluginAutoRegManager extends AutoRegisterManager<Object> {
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("AutoRegManager");
+
+
     public PluginAutoRegManager() {
         init();
         initCustom();
@@ -46,19 +51,19 @@ public class PluginAutoRegManager extends AutoRegisterManager<Object> {
             i.detach(Registrations.PLUGIN_VPN_EVENT, Builder.apmService((l, s) -> s.removeMessageHandler(l)));
             i.attach(Registrations.PLUGIN_VPN_LISTENER, Builder.apmEvent((l, s) -> s.addListener(l)));
             i.detach(Registrations.PLUGIN_VPN_LISTENER, Builder.apmEvent((l, s) -> s.removeListener(l)));
-            i.attach(Registrations.CLIENT_MESSAGE, (l) -> System.out.println("deprecated register: client message API"));
-            i.detach(Registrations.CLIENT_MESSAGE, (l) -> System.out.println("deprecated register: client message API"));
+            i.attach(Registrations.CLIENT_MESSAGE, (l) -> LOGGER.warn("deprecated register: client message API"));
+            i.detach(Registrations.CLIENT_MESSAGE, (l) -> LOGGER.warn("deprecated register: client message API"));
         });
     }
 
     @Override
     public void handleAttachFailed(Object object, String type) {
-        System.out.println(this + " > no module service named " + type);
+        LOGGER.warn("{} > no module service named {}",this, type);
     }
 
     @Override
     public void handleDetachFailed(Object object, String type) {
-        System.out.println("no module service named " + type);
+        LOGGER.warn("{} > no module service named {}",this, type);
     }
 
 

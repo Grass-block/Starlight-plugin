@@ -17,7 +17,7 @@ public interface MessageAccessor {
     }
 
     static String getMessage(LanguageEntry language, MinecraftLocale locale, String s, Object... format) {
-        return language.item(s).message(locale, format);
+        return language.item(s).message(locale, format).render();
     }
 
     static void sendTemplate(LanguageEntry language, CommandSender sender, String ui) {

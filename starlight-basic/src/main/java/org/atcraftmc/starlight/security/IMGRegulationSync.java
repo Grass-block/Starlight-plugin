@@ -51,7 +51,7 @@ public class IMGRegulationSync extends BukkitAbstractModule {
         var calender = Calendar.getInstance();
         calender.set(9999, Calendar.DECEMBER, 31, 23, 59, 59);
 
-        event.setBan(r.getReason() + "\n(" + r.getServer() + ")", op, calender.getTime());
+        event.setBan(r.getReason() + "\n(" + r.getServer() + ")", op.render(), calender.getTime());
     }
 
     private IMGRegulationService.BanRecord getBanRecord(UUID uuid) {

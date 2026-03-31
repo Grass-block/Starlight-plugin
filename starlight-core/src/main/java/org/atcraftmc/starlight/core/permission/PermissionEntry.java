@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.permission;
 
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.permissions.Permissible;
@@ -26,7 +26,7 @@ public interface PermissionEntry {
             set.addAll(List.of(c.getPermission().split(";")));
         }
 
-        set.remove(QuarkCommand.NO_INFO);
+        set.remove(BukkitCommand.NO_INFO);
 
         return set;
     }

@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationModule(id = "particle-font")
-@QuarkCommand(name = "particle-font")
+@BukkitCommand(name = "particle-font")
 public final class ParticleFont extends SLCommandModule {
     public static final Map<String, String> PRESET_DOWNLOADS = Map.of(
             "霞鹜文楷-Lite",

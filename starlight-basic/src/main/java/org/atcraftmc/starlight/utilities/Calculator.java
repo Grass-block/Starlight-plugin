@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -17,7 +17,7 @@ import java.util.Stack;
  * special thanks to ChatGPT.
  */
 @ApplicationModule(id = "calculator", version = "1.0.0")
-@QuarkCommand(name = "calc")
+@BukkitCommand(name = "calc")
 public final class Calculator extends SLCommandModule {
 
     @Inject

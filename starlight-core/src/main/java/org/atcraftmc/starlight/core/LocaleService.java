@@ -6,7 +6,7 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceLayer;
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -255,7 +255,7 @@ public interface LocaleService extends BukkitService {
             if (Objects.equals(custom, "auto")) {
                 TESTED_LOCALE.set(JDBCPlayerData.PLAYER_SHARED, uuid, locale);
                 if (isValidChange) {
-                    ComponentBlock block = preset.component(locale(event.getPlayer()), locale);
+                    ComponentBlock block = ((ComponentBlock) preset.component(locale(event.getPlayer()), locale));
                     TextSender.sendBlock(event.getPlayer(), block);
                     LOCALE_CACHE.put(uuid, locale);
                 }
@@ -285,7 +285,7 @@ public interface LocaleService extends BukkitService {
     }
 
     @SuppressWarnings("deprecation")//because other server still uses getLocale()
-    @QuarkCommand(name = "locale", permission = "+quark.locale", playerOnly = true)
+    @BukkitCommand(name = "locale", permission = "+quark.locale", playerOnly = true)
     final class LanguageDecideCommand extends CoreCommand {
 
         @Override

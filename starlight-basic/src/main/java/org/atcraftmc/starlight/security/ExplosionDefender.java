@@ -7,7 +7,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
@@ -97,7 +97,7 @@ public final class ExplosionDefender extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "explosion-whitelist", permission = "-quark.explosion.whitelist")
+    @BukkitCommand(name = "explosion-whitelist", permission = "-quark.explosion.whitelist")
     public static final class ExplosionWhitelistCommand extends ModuleCommand<ExplosionDefender> {
 
 

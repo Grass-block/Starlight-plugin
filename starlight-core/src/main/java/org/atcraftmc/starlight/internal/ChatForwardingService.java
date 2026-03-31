@@ -78,7 +78,6 @@ public interface ChatForwardingService extends BukkitService {
                 return;
             }
 
-            //todo: possible hidden chat forwarding
             var component = TextBuilder.buildComponent(event.getFormat().formatted(event.getPlayer(), event.getMessage()));
 
             event.setCancelled(true);

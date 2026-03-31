@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.internal.command;
 
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
@@ -28,7 +28,7 @@ public interface InternalCommands {
                 Starlight.instance()
                         .getLogger()
                         .severe("failed to register internal command %s: %s".formatted(cmd.getClass()
-                                                                                               .getAnnotation(QuarkCommand.class)
+                                                                                               .getAnnotation(BukkitCommand.class)
                                                                                                .name(), ExceptionUtil.getMessage(e)));
             }
         }
@@ -43,7 +43,7 @@ public interface InternalCommands {
                 Starlight.instance()
                         .getLogger()
                         .severe("failed to unregister internal command %s: %s".formatted(command.getClass()
-                                                                                                 .getAnnotation(QuarkCommand.class)
+                                                                                                 .getAnnotation(BukkitCommand.class)
                                                                                                  .name(), ExceptionUtil.getMessage(e)));
             }
         }

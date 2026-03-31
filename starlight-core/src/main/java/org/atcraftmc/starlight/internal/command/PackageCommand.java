@@ -7,7 +7,7 @@ import me.gb2022.gluon.pack.PackageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.ProductInfo;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-@QuarkCommand(name = "package", permission = "-starlight.packages")
+@BukkitCommand(name = "package", permission = "-starlight.packages")
 public final class PackageCommand extends CoreCommand {
     private final PackageManager handle = Starlight.instance().context().getPackageManager();
 

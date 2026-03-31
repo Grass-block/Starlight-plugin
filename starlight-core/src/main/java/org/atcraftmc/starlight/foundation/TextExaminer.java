@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.foundation;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.Starlight;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public interface TextExaminer {
         return "{msg#%s=%s}".formatted(id, String.join(";;", Arrays.stream(format).map(Object::toString).collect(Collectors.toSet())));
     }
 
-    static Component searchResult(MinecraftLocale loc, String string, boolean random) {
+    static ComponentLike searchResult(Object player, MinecraftLocale loc, String string, boolean random) {
         var data = string.substring(random ? 6 : 5, string.length() - 1);
 
         var sp = data.split("=");
@@ -32,20 +32,20 @@ public interface TextExaminer {
         }
 
         if (!random) {
-            return TextBuilder.buildComponent(Starlight.lang().item(id[0], id[1], id[2]).message(loc, param));
+            return Starlight.lang().item(id[0], id[1], id[2]).message(loc, param).renderComponent(player);
         }
 
-        return TextBuilder.buildComponent(Starlight.lang().item(id[0], id[1], id[2]).random(loc, param));
+        return Starlight.lang().item(id[0], id[1], id[2]).random(loc, param).renderComponent(player);
     }
 
-    static Component examine(Component component, MinecraftLocale locale) {
+    static Component examine(Component component, Object player, MinecraftLocale locale) {
         var repl = TextReplacementConfig.builder()
                 .match(Language.MESSAGE_PATTERN)
-                .replacement((result, builder) -> searchResult(locale, result.group(), false))
+                .replacement((result, builder) -> searchResult(player, locale, result.group(), false))
                 .build();
         var rand = TextReplacementConfig.builder()
                 .match(Language.RANDOM_MESSAGE_PATTERN)
-                .replacement((result, builder) -> searchResult(locale, result.group(), true))
+                .replacement((result, builder) -> searchResult(player, locale, result.group(), true))
                 .build();
 
         return component.replaceText(rand).replaceText(repl);

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.platform.PluginPlatform;
@@ -14,8 +14,19 @@ import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 
-@QuarkCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {ConfigCommand.class, LanguageCommand.class, ModuleCommand.class, GlobalVarsCommand.class, PackageCommand.class, StarlightPluginCommand.ReloadCommand.class, DebugCommand.class, LibraryCommand.class,})
+@BukkitCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {
+        ConfigCommand.class,
+        LanguageCommand.class,
+        ModuleCommand.class,
+        GlobalVarsCommand.class,
+        PackageCommand.class,
+        StarlightPluginCommand.ReloadCommand.class,
+        DebugCommand.class,
+        LibraryCommand.class,
+        DataGenCommand.class
+})
 public final class StarlightPluginCommand extends CoreCommand {
+
 
     @Override
     public void execute(CommandExecution context) {
@@ -54,7 +65,7 @@ public final class StarlightPluginCommand extends CoreCommand {
         suggestion.matchArgument(0, "update-data", (ctx) -> ctx.suggest(1, QuarkDataImporter.handlers()));
     }
 
-    @QuarkCommand(name = "reload", permission = "-starlight.reload")
+    @BukkitCommand(name = "reload", permission = "-starlight.reload")
     public static final class ReloadCommand extends CoreCommand {
 
         @Override
@@ -70,6 +81,9 @@ public final class StarlightPluginCommand extends CoreCommand {
 
             switch (context.requireEnum(0, "prepare", "action")) {
                 case "prepare" -> {
+                    if (!Starlight.instance().isPluginInitialized()) {
+                        return;
+                    }
                     var loc = LocaleService.locale(context.getSender());
                     Starlight.instance().onDisable();
                     try {

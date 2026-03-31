@@ -7,9 +7,12 @@ import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceProvider;
 import me.gb2022.simpnet.util.BufferUtil;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.execute.CommandExecution;
+import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.config.ConfigEntry;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
@@ -21,6 +24,7 @@ import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
 import org.atcraftmc.starlight.music.resolve.MusicResolver;
 import org.atcraftmc.starlight.shared.FilePath;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.bukkit.Note;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -37,6 +41,8 @@ import java.util.Set;
 
 @ApplicationService(id = "music-service")
 public interface MusicService extends BukkitService {
+    MusicCommand COMMAND = new MusicCommand();
+
     String UNSUPPORTED_FORMAT = "unsupported-format";
     String RESOLVE_ERROR = "error-resolving";
     String NOT_FOUND = "not-found";
@@ -44,7 +50,6 @@ public interface MusicService extends BukkitService {
 
     @ServiceInject
     ServiceHolder<MusicService> INSTANCE = new ServiceHolder<>();
-
     MethodHandleO3<Player, Sound, Float, Float> PLAY_NOTE = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> {
             Class.forName("org.bukkit.SoundCategory");
@@ -52,6 +57,23 @@ public interface MusicService extends BukkitService {
         }, (p, s, power, pitch) -> p.playSound(p, s, SoundCategory.PLAYERS, power, pitch));
         ctx.dummy((p, s, power, pitch) -> p.playSound(p, s, power, pitch));
     });
+    MethodHandleO3<Player, Sound, Float, Float> PLAY_NOTE_LOCATION = MethodHandle.select((ctx) -> {
+        ctx.attempt(() -> {
+            Class.forName("org.bukkit.SoundCategory");
+            return null;
+        }, (p, s, power, pitch) -> p.playSound(p.getLocation(), s, SoundCategory.PLAYERS, power, pitch));
+        ctx.dummy((p, s, power, pitch) -> p.playSound(p.getLocation(), s, power, pitch));
+    });
+
+    @ServiceInject
+    static void start() {
+        Starlight.instance().getCommandManager().register(COMMAND);
+    }
+
+    @ServiceInject
+    static void stop() {
+        Starlight.instance().getCommandManager().unregister(COMMAND);
+    }
 
     @ServiceProvider
     static MusicService create(ConfigEntry config) {
@@ -68,7 +90,7 @@ public interface MusicService extends BukkitService {
         return INSTANCE.get();
     }
 
-    static void playNode(Set<Player> audience, int node, int off, EnumInstrument targetInstrument, float power) {
+    static void playNode(Set<Player> audience, int node, int off, EnumInstrument targetInstrument, float power, boolean mount) {
         int base = node - 23 + off - 6;//wtf
         if (base < 0 || base >= 72) {
             return;
@@ -117,7 +139,11 @@ public interface MusicService extends BukkitService {
         float pitch = (float) Math.pow(2.0, (n.getId() - 12) / 12.0);
 
         for (Player p : audience) {
-            PLAY_NOTE.invoke(p, remapped.bukkit(), power, pitch);
+            if (mount) {
+                PLAY_NOTE.invoke(p, remapped.bukkit(), power, pitch);
+            } else {
+                PLAY_NOTE_LOCATION.invoke(p, remapped.bukkit(), power, pitch);
+            }
         }
     }
 
@@ -154,8 +180,30 @@ public interface MusicService extends BukkitService {
         return select(request.music(), request.pitch(), request.dispatchInstrument(), request.speedMod(), request.interpolation());
     }
 
+    @BukkitCommand(name = "music", permission = "+starlight.music")
+    final class MusicCommand extends StandaloneCommand {
+        @Override
+        public void suggest(CommandSuggestion suggestion) {
+            suggestion.suggest(0, "save-defaults", "trim");
+        }
+
+        @Override
+        public void execute(CommandExecution context) {
+            var language = language("starlight-music:music-service");
+
+            switch (context.requireEnum(0, "save-defaults", "trim")) {
+                case "trim" -> language.item("trim").send(context.getSender(), MusicService.instance().trim());
+                case "save-defaults" -> {
+                    MusicService.instance().saveDefaults();
+                    language.item("restore-defaults").send(context.getSender());
+                }
+            }
+        }
+    }
+
+
     abstract class AbstractService implements MusicService {
-        protected final Logger logger = LogManager.getLogger("Starlight:MusicService");
+        protected final Logger logger = SLPluginEnvironment.createLogger("MusicService");
         protected final AssetGroup folder;
 
         public AbstractService(AssetGroup folder) {

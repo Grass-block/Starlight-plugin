@@ -14,7 +14,7 @@ import me.gb2022.simpnet.util.BufferUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
@@ -22,7 +22,6 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
@@ -30,16 +29,16 @@ import org.atcraftmc.starlight.core.ui.UI;
 import org.atcraftmc.starlight.core.ui.providing.GUIProvider;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
 import org.atcraftmc.starlight.music.session.LegacyMusicSession;
 import org.atcraftmc.starlight.music.session.MusicSession;
+import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,12 +48,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
-@CommandProvider(MusicPlayer.MusicCommand.class)
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_VPN_EVENT})
 @ComponentProvider({MusicPlayer.APMEventHandler.class, MusicPlayer.PlayerEventHandler.class})
 @ApplicationModule(id = "music-player", version = "1.0.3")
@@ -73,8 +68,9 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             }
             return s;
         });
-        template = template.replace("{name}", currentMusic.getName().replace("_", " ")).replace("{time}",
-                                                                                                PlayerUIRenderer.formatTime(currentMusic.getMillsLength() * currentTick / currentMusic.getTickLength())
+        template = template.replace("{name}", currentMusic.getName().replace("_", " ")).replace(
+                "{time}",
+                PlayerUIRenderer.formatTime(currentMusic.getMillsLength() * currentTick / currentMusic.getTickLength())
         ).replace(
                 "{total}",
                 PlayerUIRenderer.formatTime(currentMusic.getMillsLength())
@@ -86,12 +82,16 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
 
     @Override
     public void enable() {
-        this.globalSession = new LegacyMusicSession(this);
+        this.globalSession = new LegacyMusicSession(this, config().value("mount").bool());
         this.globalSession.startSession();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             this.globalSession.addPlayer(player);
         }
+
+        var cmd = new MusicCommand();
+        cmd.initContext(this);
+        MusicService.COMMAND.registerSubCommand(cmd);
     }
 
     @Override
@@ -103,6 +103,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
         }
 
         this.globalSession.destroySession();
+        MusicService.COMMAND.unregisterSubCommand("play");
     }
 
 
@@ -126,12 +127,15 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
         MessageAccessor.broadcast(this.language, false, false, "play", request.actor(), request.music(), request.pitch());
     }
 
-    //todo: 音乐获取指令拆分 管理部分移动到MusicFileService
-    @QuarkCommand(name = "music", permission = "+quark.music.play")
+    //todo: 修正命令和权限NS
+    @BukkitCommand(name = "play", multiNames = {"pause", "resume", "cancel", "gui"}, permission = "+starlight.music.play")
     public static final class MusicCommand extends ModuleCommand<MusicPlayer> {
+
         @Override
         public void suggest(CommandSuggestion suggestion) {
-            MusicCommandDispatcher.suggest(suggestion, 0);
+            if (Objects.equals(suggestion.getName(), "play")) {
+                MusicCommandDispatcher.suggestMusic(suggestion, 0);
+            }
         }
 
         @Override
@@ -139,15 +143,10 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             var service = RemoteMessageService.instance();
             var operator = context.getSender().getName();
 
-            switch (context.requireEnum(0, "play", "pause", "resume", "cancel", "save-defaults", "gui", "trim")) {
+            switch (context.getName()) {
                 case "gui" -> {
-                    var page = context.hasArgumentAt(1) ? context.requireArgumentInteger(1) : 0;
+                    var page = context.hasArgumentAt(0) ? context.requireArgumentInteger(0) : 0;
                     getModule().musicUI.open(context.requireSenderAsPlayer(), page);
-                }
-                case "trim" -> getLanguage().item("trim").send(context.getSender(), MusicService.instance().trim());
-                case "save-defaults" -> {
-                    MusicService.instance().saveDefaults();
-                    MessageAccessor.send(this.getLanguage(), context.getSender(), "restore-defaults");
                 }
                 case "cancel" -> {
                     this.getModule().cancelMusic(operator);
@@ -166,11 +165,12 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
                     this.getModule().playMusic(request);
 
                     service.broadcast("music:control", msg -> {
-                        String data = "play;%s;%s;%d;%s;%f".formatted(request.actor(),
-                                                                      request.music(),
-                                                                      request.pitch(),
-                                                                      request.dispatchInstrument(),
-                                                                      request.speedMod()
+                        String data = "play;%s;%s;%d;%s;%f".formatted(
+                                request.actor(),
+                                request.music(),
+                                request.pitch(),
+                                request.dispatchInstrument(),
+                                request.speedMod()
                         );
                         BufferUtil.writeString(msg, data);
                     });

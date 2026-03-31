@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.foundation.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -14,7 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 @ApplicationModule(id = "position-align")
-@QuarkCommand(name = "align", playerOnly = true, permission = "+starlight.command.align")
+@BukkitCommand(name = "align", playerOnly = true, permission = "+starlight.command.align")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class PositionAlign extends SLCommandModule {
 

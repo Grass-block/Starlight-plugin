@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
@@ -25,7 +25,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import java.util.List;
 
 @ApplicationModule(id="surrounding-refresh")
-@QuarkCommand(name = "refresh-area", permission = "+starlight.world.refresh", playerOnly = true)
+@BukkitCommand(name = "refresh-area", permission = "+starlight.world.refresh", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class SurroundingRefresh extends SLCommandModule {
 

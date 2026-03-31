@@ -19,8 +19,8 @@ language:
     command-error: '{global#sys-error}需要一名玩家。'
     transfer: '{global#sys-info}正在将您发送至玩家 {#var} 的服务器...'
   stpa-command:
-    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept %s)}接受{color(white)}]'
-    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny %s)}拒绝{color(white)}]'
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept {})}接受{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny {})}拒绝{color(white)}]'
     tpahere-request-sender: "{global#sys-info}你向玩家 {#var} 发送了传送到你服务器的的请求。"
     tpahere-request-target: "{global#sys-info}玩家 {#var} 向你发送了传送到他/她的服务器的请求。{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
     tpahere-accept-sender: "{global#sys-info}你同意了传送到 {#var} 的服务器的请求, 正在发送..."
@@ -29,8 +29,8 @@ language:
     tpahere-deny-target: "{global#sys-info}{#var} 拒绝了他/她传送到你服务器的请求。"
     tpahere-no-request: "{global#sys-info}{#var} 没有向你发送传送到他/她的服务器的请求。"
 
-    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept %s)}接受{color(white)}]'
-    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny %s)}拒绝{color(white)}]'
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept {})}接受{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny {})}拒绝{color(white)}]'
     tpa-request-sender: "{global#sys-info}你向玩家 {#var} 发送了传送到他/她的服务器的请求。"
     tpa-request-target: "{global#sys-info}玩家 {#var} 向你发送了传送到你的服务器的请求。{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
     tpa-accept-sender: "{global#sys-info}你同意了 {#var} 传送到你的服务器的请求。"

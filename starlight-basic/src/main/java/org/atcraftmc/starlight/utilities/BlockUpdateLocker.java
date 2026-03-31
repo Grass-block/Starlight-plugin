@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -57,7 +57,7 @@ public final class BlockUpdateLocker extends BukkitAbstractModule {
         event.setCancelled(this.locked);
     }
 
-    @QuarkCommand(name = "block-update-locker", op = true)
+    @BukkitCommand(name = "block-update-locker", op = true)
     public static final class BlockUpdateLockerCommand extends ModuleCommand<BlockUpdateLocker> {
 
         @Override

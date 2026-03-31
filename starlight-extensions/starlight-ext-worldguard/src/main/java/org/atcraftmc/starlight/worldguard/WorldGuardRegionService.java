@@ -13,7 +13,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
@@ -21,6 +21,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @ApplicationService(id = "wg-region-service")
 //todo: rg-extra额外存储
@@ -108,13 +109,17 @@ public interface WorldGuardRegionService extends Service {
         return getSingleRegion(set1);
     }
 
+    static boolean canAccess(ProtectedRegion region, UUID uuid){
+        return region.getMembers().contains(uuid)||region.getOwners().contains(uuid);
+    }
+
     @Override
     default void checkCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("WorldGuard");
         Compatibility.requirePlugin("WorldEdit");
     }
 
-    @QuarkCommand(name = "plot")
+    @BukkitCommand(name = "plot")
     final class PlotCommand extends StandaloneCommand {
     }
 }

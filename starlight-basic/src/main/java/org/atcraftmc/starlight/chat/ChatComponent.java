@@ -97,6 +97,9 @@ public final class ChatComponent extends BukkitAbstractModule {
 
     @EventHandler
     public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        if (!config().value("parse-command").bool()){
+            return;
+        }
         if (LegacyCommandManager.isQLibCommand(event.getMessage().split(" ")[0].replace("/", ""))) {
             return;
         }

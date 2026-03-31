@@ -6,6 +6,7 @@ config:
   default-status:
     module: true # default status of newly registered module
     package: true # default status of newly registered package
+    disabled-packages: [ "starlight-lobby" ] # As protection, some packs are disabled. Remove them 2 enable certain packs.
   dependency:
     maven-repo: ALICLOUD
     # accept any maven repo URLS, or:

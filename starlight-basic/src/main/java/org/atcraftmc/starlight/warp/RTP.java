@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.warp;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.TaskService;
@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @ApplicationModule(id = "rtp")
-@QuarkCommand(name = "random-tp", aliases = "rtp", permission = "+quark.warps.rtp")
+@BukkitCommand(name = "random-tp", aliases = "rtp", permission = "+quark.warps.rtp")
 public final class RTP extends SLCommandModule {
 
     @Inject

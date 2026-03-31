@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.TaskService;
@@ -65,7 +65,7 @@ public class GeyserSkinRedirect extends BukkitAbstractModule implements PluginCo
         suggestion.suggestPlayers(0);
     }
 
-    @QuarkCommand(name = "redirect-be-skin", permission = "-quark.be.redirectskin")
+    @BukkitCommand(name = "redirect-be-skin", permission = "-quark.be.redirectskin")
     public static class RedirectSkinCommand extends ModuleCommand<GeyserSkinRedirect> {
         @Override
         public void init(GeyserSkinRedirect module) {

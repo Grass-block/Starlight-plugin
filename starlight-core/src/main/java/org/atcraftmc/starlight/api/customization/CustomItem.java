@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.api.customization;
 
+import net.kyori.adventure.text.ComponentLike;
 import org.atcraftmc.qlib.bukkit.ComponentSerializer;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -55,7 +56,7 @@ public abstract class CustomItem {
 
         try {
             m.displayName(n);
-            m.lore(c.stream().map(ComponentBlock::asComponent).collect(Collectors.toList()));
+            m.lore(c.stream().map(ComponentLike::asComponent).collect(Collectors.toList()));
         } catch (Throwable e) {
             m.setDisplayName(ComponentSerializer.legacy(n));
             m.setLore(c.stream().map(ComponentSerializer::legacy).collect(Collectors.toList()));

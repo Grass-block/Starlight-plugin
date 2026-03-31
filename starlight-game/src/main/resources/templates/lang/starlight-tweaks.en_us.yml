@@ -9,6 +9,8 @@ language:
     portable-shulker-box: Quick Open Shulker Box
     item-drop-secure: Drop Prevention
     realistic-minecart: Realistic Minecart
+    sit-on-player: Sit on players
+    stair-seat: Stair Seat
   item-drop-secure:
     warn: "{global#warning}You cannot drop this item for security reasons. Use {#gold}/unlock-drop{#gray} or {click(command,/unlock-drop)}{#white}[{#green}Click{#white}]{;} {#gray}to temporarily unlock."
     unlock: "{global#info}You have disabled the drop safety lock. The lock will restore in {#var} seconds."

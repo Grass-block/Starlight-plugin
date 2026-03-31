@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.management;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.foundation.platform.Players;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 @ApplicationModule(id = "ban", version = "1.0.0")
-@QuarkCommand(name = "ban")
+@BukkitCommand(name = "ban")
 public final class Ban extends SLCommandModule {
 
     @Inject

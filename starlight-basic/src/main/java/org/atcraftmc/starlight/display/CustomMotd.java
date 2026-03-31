@@ -13,7 +13,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.QueryPingEvent;
@@ -129,7 +129,7 @@ public final class CustomMotd extends BukkitAbstractModule implements PluginComm
         }
     }
 
-    @QuarkCommand(name = "motd", permission = "-quark.motd.command")
+    @BukkitCommand(name = "motd", permission = "-quark.motd.command")
     public static final class MotdCommand extends ModuleCommand<CustomMotd> {
         @Override
         public void init(CustomMotd module) {

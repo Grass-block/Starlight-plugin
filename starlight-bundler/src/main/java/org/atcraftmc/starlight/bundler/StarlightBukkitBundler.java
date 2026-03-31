@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.bundler;
 import org.atcraftmc.starlight.SLBasicPackage;
 import org.atcraftmc.starlight.SLGamePackage;
 import org.atcraftmc.starlight.SLMusicPackage;
+import org.atcraftmc.starlight.SLWorldGuardPackage;
 import org.atcraftmc.starlight.bundle.BundledPackageProvider;
 import org.atcraftmc.starlight.bundle.BundlerRegistry;
 
@@ -14,5 +15,6 @@ public interface StarlightBukkitBundler {
         provider.add("starlight-base", SLBasicPackage.class);
         provider.add("starlight-game", SLGamePackage.class);
         provider.add("starlight-ext-music", SLMusicPackage.class);
+        provider.add("starlight-ext-worldguard", SLWorldGuardPackage.class);
     }
 }

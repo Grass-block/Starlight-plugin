@@ -6,7 +6,7 @@
 
 An 'Atomic' designed server plugin aimed to cover anything you need.
 
-[Explore docs](https://wiki.atforever.world/quark/) | [Report issue](https://github.com/Grass-block/Quark-Plugin/issues)
+[Explore docs](https://dev.atcraftmc.cn/starlight/) | [Report issue](https://github.com/Grass-block/Quark-Plugin/issues)
 
 ![MCVersion](https://img.shields.io/badge/minecraft-1.17.1_--_1.20.4-3366CC?style=for-the-badge&logoColor=blue&labelColor=29355F)
 ![Java17+](https://img.shields.io/badge/java-17+-009B98?style=for-the-badge&logoColor=blue&labelColor=29355F)
@@ -14,7 +14,7 @@ An 'Atomic' designed server plugin aimed to cover anything you need.
 
 </div>
 
-**This project is still under development and inconsistency.**
+**This project is still under deve lopment and inconsistency.**
 
 > **This project is a continuation of [quark-plugin](https://modrinth.com/plugin/quark-plugin/).<br>**
 > for more information and legacy downloads, please go there, also.

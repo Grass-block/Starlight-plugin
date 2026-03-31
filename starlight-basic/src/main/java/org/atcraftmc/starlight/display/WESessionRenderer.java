@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
@@ -117,7 +117,7 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
         }
     }
 
-    @QuarkCommand(name = "we-selection", aliases = {"render-we", "/render-sel", "/render-selection", "/render", "render-we-selection"})
+    @BukkitCommand(name = "we-selection", aliases = {"render-we", "/render-sel", "/render-selection", "/render", "render-we-selection"})
     public static final class WESessionRenderCommand extends ModuleCommand<WESessionRenderer> {
         @Override
         public void suggest(CommandSuggestion suggestion) {

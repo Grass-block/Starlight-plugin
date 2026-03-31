@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.commands;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.foundation.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
@@ -16,7 +16,7 @@ import org.bukkit.permissions.Permission;
 import java.util.List;
 
 @ApplicationModule(id = "hat")
-@QuarkCommand(name = "hat", permission = "+starlight.hat", playerOnly = true)
+@BukkitCommand(name = "hat", permission = "+starlight.hat", playerOnly = true)
 public final class HatCommand extends SLCommandModule {
 
     @Inject("-starlight.hat.other")

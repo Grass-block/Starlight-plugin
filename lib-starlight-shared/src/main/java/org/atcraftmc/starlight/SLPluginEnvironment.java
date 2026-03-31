@@ -1,12 +1,17 @@
 package org.atcraftmc.starlight;
 
 import me.gb2022.gluon.ModularApplicationContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.platform.api.APIManager;
 import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
+import org.atcraftmc.starlight.util.ForwardingLogger;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
-import org.atcraftmc.qlib.platform.api.APIManager;
 
 public final class SLPluginEnvironment {
+    public static final Logger ROOT_LOGGER = LogManager.getLogger("Starlight");
+
     private static PluginApplication plugin;
     private static PathManager pathManager;
     private static ModularApplicationContext context;
@@ -67,5 +72,9 @@ public final class SLPluginEnvironment {
 
     public static void setDebug(boolean d) {
         debug = d;
+    }
+
+    public static Logger createLogger(String id) {
+        return ForwardingLogger.prefixed(ROOT_LOGGER, id);
     }
 }

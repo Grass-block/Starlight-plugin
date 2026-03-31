@@ -18,8 +18,8 @@ config:
   hub-command:
     server: lobby #default server id.
   tab-sync:
-    format: "{#gold}[{#reset}%s{#gold}]{#gray}%s"
+    format: "{#gold}[{#reset}{}{#gold}]{#gray}{}"
   chat-sync:
-    template: "{#gold}[{#reset}%s{#gold}]{#white}%s: "
+    template: "{#gold}[{#reset}{}{#gold}]{#white}{}: "
   server-transfer-message:
     broadcast-global: true

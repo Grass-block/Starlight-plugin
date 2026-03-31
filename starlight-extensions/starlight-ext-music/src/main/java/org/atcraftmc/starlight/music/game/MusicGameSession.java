@@ -18,7 +18,7 @@ public final class MusicGameSession extends MusicSession {
     private final boolean edit;
 
     public MusicGameSession(PlayerUIRenderer renderer, MusicData data, Location origin, Player audience, boolean edit) {
-        super(renderer);
+        super(renderer,false);
         this.data = data;
         this.origin = origin;
         this.audience = audience;

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.music;
 
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -67,7 +67,7 @@ public class MusicGame extends BukkitAbstractModule implements PlayerUIRenderer 
 
     }
 
-    @QuarkCommand(name = "music-game", permission = "+starlight.music.game")
+    @BukkitCommand(name = "music-game", permission = "+starlight.music.game")
     public static final class MusicGameCommand extends ModuleCommand<MusicGame> {
 
         @Override

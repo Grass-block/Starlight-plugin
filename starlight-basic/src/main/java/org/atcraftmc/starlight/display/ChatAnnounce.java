@@ -7,12 +7,10 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.qlib.language.LocalizedMessageSupplier;
-import org.atcraftmc.qlib.language.MinecraftLocale;
+import org.atcraftmc.qlib.language.*;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SLPluginEnvironment;
@@ -139,11 +137,11 @@ public class ChatAnnounce extends BukkitAbstractModule {
         var loc = PluginPlatform.global().locale(sender);
         var idx = LanguageItem.TEXT_RANDOM.nextInt(0, this.sortedKeys.size());
         var key = this.sortedKeys.get(idx);
-        var msg = this.tips.get(key).message(loc);
+        var msg = this.tips.get(key).message(loc).render();
 
         var temp = this.config().value("template-tips").list(String.class);
         var template = String.join("\n", temp);
-        var ui = this.language().inline(template, loc).formatted(msg);
+        var ui = Language.format(this.language().inline(template, loc), msg).formatted(msg);
 
         PluginPlatform.global().sendMessage(sender, TextBuilder.buildComponent(ui));
     }
@@ -159,23 +157,23 @@ public class ChatAnnounce extends BukkitAbstractModule {
         }
 
         @Override
-        public String message(MinecraftLocale locale, Object... objects) {
+        public RenderedMessage message(MinecraftLocale locale, Object... objects) {
             var k = locale.minecraft().replace("_", "-");
 
             if (this.messages.containsKey(k)) {
-                return this.messages.get(k);
+                return new RenderedMessage(locale, this.messages.get(k));
             }
 
             if (this.messages.containsKey("en-us")) {
-                return this.messages.get("en-us");
+                return new RenderedMessage(MinecraftLocale.EN_US, this.messages.get("en-us"));
             }
 
-            return this.messages.get("zh-cn");
+            return new RenderedMessage(MinecraftLocale.ZH_CN, this.messages.get("zh-cn"));
         }
     }
 
 
-    @QuarkCommand(name = "announce", permission = "+starlight.display.announce")
+    @BukkitCommand(name = "announce", permission = "+starlight.display.announce")
     public static final class AnnounceCommand extends ModuleCommand<ChatAnnounce> {
         @Override
         public void suggest(CommandSuggestion suggestion) {

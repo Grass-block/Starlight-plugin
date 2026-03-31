@@ -1,14 +1,14 @@
 package org.atcraftmc.starlight.bundle;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
 public final class BundledPackageProvider {
-    public static final Logger LOGGER = LogManager.getLogger("SLBundleLoader");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("BundleLoader");
     private final Class<?> handle;
     private final Set<BundledPluginContainer> containers = new HashSet<>();
 

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.reflect.Inject;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.ChatColor;
@@ -74,7 +74,7 @@ public final class VersionLogViewer extends BukkitAbstractModule implements Plug
         }
     }
 
-    @QuarkCommand(name = "view-update")
+    @BukkitCommand(name = "view-update")
     public static final class VersionLogCommand extends CoreCommand {
         public VersionLogCommand(VersionLogViewer module) {
             setExecutor(module);

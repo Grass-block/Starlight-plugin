@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.internal.command;
 
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-@QuarkCommand(name = "globalvars", permission = "-quark.globalvars")
+@BukkitCommand(name = "globalvars", permission = "-quark.globalvars")
 public final class GlobalVarsCommand extends CoreCommand {
     @Override
     public void onCommand(CommandSender sender, String[] args) {

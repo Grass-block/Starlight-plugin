@@ -2,7 +2,9 @@ plugins {
     id 'java'
 }
 
-project.setProperty("version", "26.3.0")
+group="org.atcraftmc.starlight"
+
+project.setProperty("version", "26.4.2")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 apply from: rootDir.getAbsolutePath() + "/info.gradle"
@@ -84,3 +86,5 @@ jar {
         (file.name != 'LICENSE.txt')
     }
 }
+
+publish_gbuild()

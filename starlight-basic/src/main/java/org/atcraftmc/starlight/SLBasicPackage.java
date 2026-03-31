@@ -19,10 +19,6 @@ import org.atcraftmc.starlight.warp.BackToDeath;
 import org.atcraftmc.starlight.warp.RTP;
 import org.atcraftmc.starlight.warp.TPA;
 import org.atcraftmc.starlight.warp.Waypoints;
-import org.atcraftmc.starlight.worldguard.WorldGuardClaimCommand;
-import org.atcraftmc.starlight.worldguard.WorldGuardRegionHUD;
-import org.atcraftmc.starlight.worldguard.WorldGuardRegionService;
-import org.atcraftmc.starlight.worldguard.WorldGuardWECheck;
 
 public final class SLBasicPackage extends MultiPackageProvider {
 
@@ -59,19 +55,6 @@ public final class SLBasicPackage extends MultiPackageProvider {
         p.language("starlight-console", "zh_cn");
     }
 
-    @ApplicationPackageProvider(id = "starlight-worldguard")
-    public static void worldguard(ContentBuilder b) {
-        var p = b.getAttachment(PluginPackageAttachment.class);
-
-        b.service(WorldGuardRegionService.class);
-        b.module(WorldGuardRegionHUD.class);
-        b.module(WorldGuardWECheck.class);
-        b.module(WorldGuardClaimCommand.class);
-
-        p.language("starlight-worldguard", "zh_cn");
-        p.config("starlight-worldguard");
-    }
-
     @ApplicationPackageProvider(id = "starlight-warps")
     public static void warps(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
@@ -106,6 +89,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(ClientEnvironmentSetting.class);
         b.module(MenuItem.class);
         b.module(InventoryProfile.class);
+        b.module(ModernMinecartSync.class);
 
         p.config("starlight-utilities");
         p.language("starlight-utilities", "zh_cn");

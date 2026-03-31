@@ -3,6 +3,7 @@ language:
     tpa: 传送请求
     waypoint: 导航点
     back-to-death: 回到死亡点
+    rtp: 随机传送
   waypoint:
     exist: '{global#sys-error}已存在导航点 {#var}。'
     not-exist: '{global#sys-error}不存在导航点 {#var}。'
@@ -22,14 +23,14 @@ language:
     --tip: "{#gray}使用{#gold}/waypoint{#gray}可以建立你自己的导航或者使用公共导航点。"
     tip-home: "{#gray}使用{#gold}/sethome{#gray}添加一个家，用{#gold}/home{#gray}可以快速回家。"
     list: '{#aqua}导航点列表: '
-    list-item: "{color(#44FFAA)}[%s]{#white}%s: %s,%s,%s{color(white);click(command,/waypoint remove %s)} [{#red}X{#white}]"
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
     list-hover: |-
-      {color(#44FFAA)}名称: {#white}%s
-       世界: {#white}%s
-       坐标: {#white}[{#red}%s{#gray}, {#green}%s{#gray}, {#aqua}%s{#white}]
-       角度: {#purple}[%s,%s]
-       所有者: {#white}%s
-       UUID: {#white}%s
+      {color(#44FFAA)}名称: {#white}{}
+       世界: {#white}{}
+       坐标: {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       角度: {#purple}[{},{}]
+       所有者: {#white}{}
+       UUID: {#white}{}
        {#gold}[点击传送]
   back-to-death:
     back-not-set: "{global#sys-error}你还没死亡过。"
@@ -37,8 +38,8 @@ language:
     back-hint: "{global#sys-info}你的死亡地点已经记录。使用 {#gold}/back{#gray} 或 {click(command,/back)}{#white}[{#aqua}点此传送{#white}]"
     tip-back: "{#gray}使用{#gold}/back{#gray}可以快速回到死亡位置。"
   tpa:
-    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept %s)}接受{color(white)}]'
-    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny %s)}拒绝{color(white)}]'
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}接受{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}拒绝{color(white)}]'
     tpahere-request-sender: "{global#sys-info}你向玩家 {#var} 发送了传送到你的请求。"
     tpahere-request-target: "{global#sys-info}玩家 {#var} 向你发送了传送到他/她的请求。{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
     tpahere-accept-sender: "{global#sys-info}你同意了传送到 {#var} 的请求, 正在传送..."
@@ -47,8 +48,8 @@ language:
     tpahere-deny-target: "{global#sys-info}{#var} 拒绝了他/她传送到你的请求。"
     tpahere-no-request: "{global#sys-info}{#var} 没有向你发送传送到他/她的请求。"
 
-    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept %s)}接受{color(white)}]'
-    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny %s)}拒绝{color(white)}]'
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}接受{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}拒绝{color(white)}]'
     tpa-request-sender: "{global#sys-info}你向玩家 {#var} 发送了传送到他/她的请求。"
     tpa-request-target: "{global#sys-info}玩家 {#var} 向你发送了传送到你的请求。{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
     tpa-accept-sender: "{global#sys-info}你同意了 {#var} 传送到你的请求。"

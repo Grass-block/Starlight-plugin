@@ -5,7 +5,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -88,7 +88,7 @@ public final class Maintenance extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "maintenance", permission = "-quark.maintenance.command")
+    @BukkitCommand(name = "maintenance", permission = "-quark.maintenance.command")
     public static final class MaintenanceCommand extends ModuleCommand<Maintenance> {
 
         @Override

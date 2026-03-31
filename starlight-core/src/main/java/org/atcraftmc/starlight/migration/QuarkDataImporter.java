@@ -6,6 +6,7 @@ import me.gb2022.commons.nbt.NBT;
 import me.gb2022.commons.nbt.NBTTagCompound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.util.Identifiers;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +19,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public interface QuarkDataImporter {
-    Logger LOGGER = LogManager.getLogger("DataImporter");
+    Logger LOGGER = SLPluginEnvironment.createLogger("DataImporter");
 
     UUID IMPORT_DATA_IDENTITY = UUID.fromString("33550336-0000-0000-0000-000000000000");
 

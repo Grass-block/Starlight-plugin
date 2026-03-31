@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -51,7 +51,7 @@ public final class PositionLock extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "lock-position", permission = "+starlight.command.lock")
+    @BukkitCommand(name = "lock-position", permission = "+starlight.command.lock")
     public static final class LockPositionCommand extends ModuleCommand<PositionLock> {
 
         @Override

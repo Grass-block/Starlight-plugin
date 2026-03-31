@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.internal.command;
 
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.GameTestService;
@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.Objects;
 
-@QuarkCommand(name = "debug", permission = "-quark.debug")
+@BukkitCommand(name = "debug", permission = "-quark.debug")
 public final class DebugCommand extends CoreCommand {
     @Override
     public void suggest(CommandSuggestion suggestion) {

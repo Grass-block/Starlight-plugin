@@ -6,7 +6,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.command.select.EntitySelector;
@@ -19,7 +19,7 @@ import org.bukkit.Location;
 
 @ApplicationModule(id = "command-exec")
 @AutoRegister(Registrations.SERVER_EVENT)
-@QuarkCommand(name = "exec", permission = "-starlight.command.exec")
+@BukkitCommand(name = "exec", permission = "-starlight.command.exec")
 public final class Execute extends SLCommandModule {
 
     @Inject

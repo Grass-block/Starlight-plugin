@@ -20,7 +20,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.api.event.worldedit.WEAction;
@@ -220,7 +220,7 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
         event.setMask(wrapper);
     }
 
-    @QuarkCommand(name = "/confirm", permission = "+starlight.worldedit.confirm")
+    @BukkitCommand(name = "/confirm", permission = "+starlight.worldedit.confirm")
     public static final class ConfirmCommand extends ModuleCommand<WorldEditOperationDefender> {
         @Override
         public void execute(CommandExecution context) {

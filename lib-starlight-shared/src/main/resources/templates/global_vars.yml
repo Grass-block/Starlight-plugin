@@ -12,7 +12,7 @@ global-vars:
     tos: https://wiki.tbstmc.xyz/#/server/rule/tems-of-service
     pp: https://wiki.tbstmc.xyz/#/server/rule/privacy-policy
   format:
-    var: '{#white}%s{#gray}'
+    var: '{#white}{}{#gray}'
     var0: '{#white}{0}{#gray}'
     var1: '{#white}{1}{#gray}'
     var2: '{#white}{2}{#gray}'

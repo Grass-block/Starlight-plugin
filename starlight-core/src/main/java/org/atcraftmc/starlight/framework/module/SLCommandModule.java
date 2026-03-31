@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.framework.module;
 
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.framework.ModuleCommandHolder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -54,8 +54,8 @@ public abstract class SLCommandModule extends BukkitAbstractModule implements Pl
         }
 
         @Override
-        public QuarkCommand getDescriptor() {
-            return this.getModule().getClass().getAnnotation(QuarkCommand.class);
+        public BukkitCommand getDescriptor() {
+            return this.getModule().getClass().getAnnotation(BukkitCommand.class);
         }
 
         @Override

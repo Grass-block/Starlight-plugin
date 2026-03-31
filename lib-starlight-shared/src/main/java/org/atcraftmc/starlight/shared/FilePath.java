@@ -1,6 +1,5 @@
 package org.atcraftmc.starlight.shared;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 
@@ -9,7 +8,7 @@ import java.util.Objects;
 import java.util.jar.JarFile;
 
 public interface FilePath {
-    Logger LOGGER = LogManager.getLogger("Starlight:FilePath");
+    Logger LOGGER = SLPluginEnvironment.createLogger("FileManager");
 
     static File tryReleaseAndGetFile(String src, String dest) {
         File f = new File(dest);

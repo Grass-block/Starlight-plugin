@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
@@ -56,7 +56,7 @@ public final class VMGarbageCleaner extends BukkitAbstractModule {
     }
 
 
-    @QuarkCommand(name = "system-gc", permission = "-starlight.management.gc")
+    @BukkitCommand(name = "system-gc", permission = "-starlight.management.gc")
     public static final class GCCommand extends ModuleCommand<VMGarbageCleaner> {
 
         @Override

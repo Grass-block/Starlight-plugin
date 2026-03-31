@@ -1,12 +1,12 @@
 package org.atcraftmc.starlight.internal.command;
 
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.config.PackContainer;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
 
-@QuarkCommand(name = "config", permission = "-quark.config")
+@BukkitCommand(name = "config", permission = "-quark.config")
 public final class ConfigCommand extends PackConfigureCommand {
 
     @Override

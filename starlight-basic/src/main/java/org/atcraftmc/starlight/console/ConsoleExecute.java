@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.console;
 
 import me.gb2022.commons.reflect.Inject;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.bukkit.Bukkit;
@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import me.gb2022.gluon.module.ApplicationModule;
 
-@QuarkCommand(name = "console", permission = "-starlight.console.execute")
+@BukkitCommand(name = "console", permission = "-starlight.console.execute")
 @ApplicationModule(id="console-execute",version = "1.0.0")
 public final class ConsoleExecute extends SLCommandModule {
     @Inject

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.Configuration;
 import org.atcraftmc.qlib.config.YamlUtil;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public interface Configurations {
-    Logger LOGGER = LogManager.getLogger("Starlight/Config");
+    Logger LOGGER = SLPluginEnvironment.createLogger("ConfigManager");
     String RES_TEMPLATE = "/templates/%s.%s";
     String FILE_DIR = "%s/config/%s";
     String FILE_TEMPLATE = "%s/config/%s/template.%s";

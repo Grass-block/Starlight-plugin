@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -68,7 +68,7 @@ public final class ClientEnvironmentSetting extends BukkitAbstractModule {
         void resetPlayerTime(Player player);
     }
 
-    @QuarkCommand(name = "local-weather", permission = "+starlight.client.weather")
+    @BukkitCommand(name = "local-weather", permission = "+starlight.client.weather")
     public static final class LocalWeatherCommand extends ModuleCommand<ClientEnvironmentSetting> {
         @Override
         public void suggest(CommandSuggestion suggestion) {
@@ -90,7 +90,7 @@ public final class ClientEnvironmentSetting extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "local-time", permission = "+starlight.client.time")
+    @BukkitCommand(name = "local-time", permission = "+starlight.client.time")
     public static final class LocalTimeCommand extends ModuleCommand<ClientEnvironmentSetting> {
         @Override
         public void suggest(CommandSuggestion suggestion) {
@@ -147,6 +147,14 @@ public final class ClientEnvironmentSetting extends BukkitAbstractModule {
 
             packet.getLongs().write(0, player.getWorld().getFullTime());
             packet.getLongs().write(1, time == -1 ? player.getWorld().getTime() : (relative ? time : -time));
+
+            try {
+                if (time == -1) {
+                    player.resetPlayerTime();
+                }
+                player.setPlayerTime(time, relative);
+            } catch (Exception ignored) {
+            }
 
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
         }

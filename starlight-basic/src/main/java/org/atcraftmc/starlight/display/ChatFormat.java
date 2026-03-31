@@ -8,6 +8,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.api.CustomChatRenderer;
@@ -66,14 +67,15 @@ public final class ChatFormat extends BukkitAbstractModule {
         }
 
         var wid = this.getDimensionId.invoke(player.getWorld()).replace("_", "-");
-        var world = TextExaminer.examinableText(this.config().value("world").string().formatted(wid));
+        var world = TextExaminer.examinableText(Language.format(this.config().value("world").string(), wid).formatted(wid));
         var template = this.config().value("template").string();
 
         return PlaceHolderService.formatPlayer(player, template.replace("{world}", world));
     }
 
     public String getTime() {
-        return this.config().value("time").string().formatted(SharedObjects.TIME_FORMAT.format(new Date()));
+        return Language.format(this.config().value("time").string(), SharedObjects.TIME_FORMAT.format(new Date()))
+                .formatted(SharedObjects.TIME_FORMAT.format(new Date()));
     }
 
 

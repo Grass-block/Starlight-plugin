@@ -1,35 +1,31 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.TriState;
-import me.gb2022.commons.http.HTTPUtil;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.util.version.ModrinthVersionAPI;
+import org.atcraftmc.starlight.util.version.VersionInfo;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.function.BiConsumer;
 
 @ApplicationModule(id = "modrinth-version-check", internal = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ModrinthVersionCheck extends BukkitAbstractModule implements PluginCommandExecutor {
-    public static final String API = "https://api.modrinth.com/v2/project/starlight-plugin/version";
-    public static final String VERSION_PAGE = "https://modrinth.com/plugin/starlight-plugin/version/%s";
+    String VERSION_PAGE = "https://modrinth.com/plugin/starlight-plugin/version/%s";
 
     @Inject("-starlight.version.announce")
     private Permission updateAnnounce;
@@ -37,11 +33,8 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
     @Inject
     private LanguageEntry language;
 
-    @Inject
-    private Logger logger;
-
     private TriState cachedState;
-    private String cachedVersion;
+    private VersionInfo cachedVersion;
 
     @Override
     public void enable() {
@@ -51,35 +44,25 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
         });
     }
 
-    private int calculateVersion(String version) {
-        return Integer.parseInt(version.replaceAll("\\.", ""), 10);
-    }
-
-    public void check(BiConsumer<TriState, String> callback) {
+    public void check(BiConsumer<TriState, VersionInfo> callback) {
         TaskService.async().run(() -> {
-            try {
-                HttpURLConnection con = HTTPUtil.getHttpURLConnection(API, false);
-                var arr = SharedObjects.JSON_PARSER.parse(new String(con.getInputStream().readAllBytes())).getAsJsonArray();
-                con.disconnect();
+            var latestVersion = ModrinthVersionAPI.checkVersion("");
 
-                var latest = arr.get(0).getAsJsonObject();
-
-                var latestVersion = latest.get("version_number").getAsString();
-                var currentVersion = owner(Plugin.class).getDescription().getVersion();
-
-                this.cachedVersion = latestVersion;
-
-                if (calculateVersion(latestVersion) > calculateVersion(currentVersion)) {
-                    callback.accept(TriState.TRUE, latestVersion);
-                    this.cachedState = TriState.TRUE;
-                    return;
-                }
-                callback.accept(TriState.FALSE, currentVersion);
-                this.cachedState = TriState.FALSE;
-            } catch (IOException e) {
-                callback.accept(TriState.UNKNOWN, null);
-                this.logger.error("failed to check version", e);
+            if (latestVersion == null) {
+                return;
             }
+
+            var currentVersion = VersionInfo.parse(owner(Plugin.class).getDescription().getVersion());
+            this.cachedVersion = latestVersion;
+            var result = currentVersion.compareTo(latestVersion);
+
+            if (result == TriState.FALSE) {
+                callback.accept(TriState.TRUE, latestVersion);
+                this.cachedState = TriState.TRUE;
+                return;
+            }
+            callback.accept(TriState.FALSE, currentVersion);
+            this.cachedState = TriState.FALSE;
         });
     }
 
@@ -96,20 +79,31 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
+        if (args.length == 2) {
+            var v1 = VersionInfo.parse(args[0]);
+            var v2 = VersionInfo.parse(args[1]);
+            var c = switch (v1.compareTo(v2)) {
+                case TRUE -> ">=";
+                case FALSE -> "<";
+                default -> "??";
+            };
+
+            sender.sendMessage("[DEBUG] Compare: '%s' %s '%s'".formatted(v1, c, v2));
+
+            return;
+        }
+
         this.language.item("checking").send(sender);
         this.check((state, version) -> {
             switch (state) {
-                case TRUE -> {
-                    String page = VERSION_PAGE.formatted(this.cachedVersion);
-                    language.item("require").send(sender, version, page);
-                }
+                case TRUE -> language.item("require").send(sender, version, VERSION_PAGE.formatted(this.cachedVersion));
                 case FALSE -> language.item("no-require").send(sender, version);
                 case UNKNOWN -> language.item("exception").send(sender);
             }
         });
     }
 
-    @QuarkCommand(name = "check-version", permission = "-starlight.version.check")
+    @BukkitCommand(name = "check-version", permission = "-starlight.version.check")
     public static final class CheckVersionCommand extends ModuleCommand<ModrinthVersionCheck> {
         public CheckVersionCommand(ModrinthVersionCheck module) {
             setExecutor(module);

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.ui.view;
 
 import net.kyori.adventure.text.Component;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public final class InventoryUIView implements Listener {
     public static final InventoryUIView DUMMY = new InventoryUIView(54, null, Component.text("_dummy"));
 
-    public static final Logger LOGGER = LogManager.getLogger("QuarkCore/UIView");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("QuarkCore/UIView");
     private final Map<String, Object> customData = new HashMap<>();
     private final Player viewer;
     private final Inventory inventory;

@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @ApplicationModule(id="player-ping-command",version = "1.0.0")
-@QuarkCommand(name = "ping", playerOnly = true)
+@BukkitCommand(name = "ping", playerOnly = true)
 public final class PlayerPingCommand extends SLCommandModule {
     @Inject("tip")
     private LanguageItem tip;

@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "chat-filter", version = "1.0.0")
+@ApplicationModule(id = "chat-filter", version = "1.0.0",description = "Filter player's bad words in chat and signs.")
 public final class ChatFilter extends BukkitAbstractModule {
     public static final char WRAP_START = '\ufffa';
     public static final char WRAP_END = '\ufffb';
@@ -71,7 +71,11 @@ public final class ChatFilter extends BukkitAbstractModule {
 
             ahoCorasick.parseText(block[0], emit -> {
                 keywords.add(emit.getKeyword());
-                block[0] = block[0].replace(emit.getKeyword(), coverSource.repeat(emit.getKeyword().length()));
+
+                if(cover){
+                    block[0] = block[0].replace(emit.getKeyword(), coverSource.repeat(emit.getKeyword().length()));
+                }
+
                 return true;
             });
 

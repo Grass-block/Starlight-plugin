@@ -2,8 +2,8 @@ package org.atcraftmc.starlight.data;
 
 import me.gb2022.commons.nbt.NBT;
 import me.gb2022.commons.nbt.NBTTagCompound;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.util.ExceptionUtil;
 
 import java.io.*;
@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public final class FileBackend extends DataBackend {
-    Logger LOGGER = LogManager.getLogger("FileDataBackend");
+    Logger LOGGER = SLPluginEnvironment.createLogger("FileDataBackend");
 
     public FileBackend(File folder) {
         super(folder);

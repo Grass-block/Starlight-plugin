@@ -1,6 +1,7 @@
 language:
   wg-we-check:
-    region-limit: "{global#error}出于安全考虑，您的WE选区所有点应当在同一领地内部。"
+    region-limit: "{global#info}您的WorldEdit操作已提交，此操作只对您当前的领地范围内有效。"
+    region-warn: "{global#warning}您的WorldEdit操作已提交，请确认您的位置在您的领地内。"
   wg-claim:
     no-wg: "{global#error}此世界未启用WorldGuard。"
     no-rg: "{global#error}您没有踩在任何地块上。"

@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationModule(id = "animate-block-command")
-@QuarkCommand(name = "animate-block")
+@BukkitCommand(name = "animate-block")
 public final class AnimateBlockCommand extends SLCommandModule {
     @SuppressWarnings("Convert2MethodRef")
     static MethodHandleO1<FallingBlock, Boolean> SET_PHYSICS = MethodHandle.select((c) -> {

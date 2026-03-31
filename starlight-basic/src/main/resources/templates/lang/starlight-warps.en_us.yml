@@ -3,6 +3,7 @@ language:
     tpa: Teleport Request
     waypoint: Waypoint
     back-to-death: Back to Death Point
+    rtp: Random teleport
   waypoint:
     exist: '{global#sys-error}Waypoint {#var} already exists.'
     not-exist: '{global#sys-error}Waypoint {#var} does not exist.'
@@ -22,14 +23,14 @@ language:
     --tip: "{#gray}Use {#gold}/waypoint{#gray} to create your own waypoints or use public waypoints."
     tip-home: "{#gray}Use {#gold}/sethome{#gray} to add a home, and use {#gold}/home{#gray} to quickly return home."
     list: '{#aqua}Waypoint List: '
-    list-item: "{color(#44FFAA)}[%s]{#white}%s: %s,%s,%s{color(white);click(command,/waypoint remove %s)} [{#red}X{#white}]"
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
     list-hover: |-
-      {color(#44FFAA)}Name: {#white}%s
-       World: {#white}%s
-       Coordinates: {#white}[{#red}%s{#gray}, {#green}%s{#gray}, {#aqua}%s{#white}]
-       Rotation: {#purple}[%s,%s]
-       Owner: {#white}%s
-       UUID: {#white}%s
+      {color(#44FFAA)}Name: {#white}{}
+       World: {#white}{}
+       Coordinates: {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       Rotation: {#purple}[{},{}]
+       Owner: {#white}{}
+       UUID: {#white}{}
        {#gold}[Click to Teleport]
   back-to-death:
     back-not-set: "{global#sys-error}You haven't died yet."
@@ -37,8 +38,8 @@ language:
     back-hint: "{global#sys-info}Your death location has been recorded. Use {#gold}/back{#gray} or {click(command,/back)}{#white}[{#aqua}Click to Teleport{#white}]"
     tip-back: "{#gray}Use {#gold}/back{#gray} to quickly return to your death location."
   tpa:
-    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept %s)}Accept{color(white)}]'
-    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny %s)}Deny{color(white)}]'
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}Accept{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}Deny{color(white)}]'
     tpahere-request-sender: "{global#sys-info}You sent a teleport-to-me request to player {#var}."
     tpahere-request-target: "{global#sys-info}Player {#var} sent you a teleport-to-him/her request. {msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
     tpahere-accept-sender: "{global#sys-info}You accepted {#var}'s teleport-to-me request, teleporting..."
@@ -47,8 +48,8 @@ language:
     tpahere-deny-target: "{global#sys-info}{#var} denied your teleport-to-him/her request."
     tpahere-no-request: "{global#sys-info}{#var} has not sent you a teleport-to-him/her request."
 
-    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept %s)}Accept{color(white)}]'
-    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny %s)}Deny{color(white)}]'
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}Accept{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}Deny{color(white)}]'
     tpa-request-sender: "{global#sys-info}You sent a teleport-to-you request to player {#var}."
     tpa-request-target: "{global#sys-info}Player {#var} sent you a teleport-to-you request. {msg#tpa-accept-btn} {msg#tpa-deny-btn}"
     tpa-accept-sender: "{global#sys-info}You accepted {#var}'s teleport-to-you request."

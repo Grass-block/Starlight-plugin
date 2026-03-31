@@ -6,14 +6,20 @@ apply from: '../starlight-package.build.gradle'
 
 repositories {
     maven { url = 'https://maven.enginehub.org/repo/' }
+    maven { url = "https://repo.viaversion.com" }
+}
+
+repositories {
+
+}
+
+dependencies {
+    compileOnly("com.viaversion:viaversion-api:5.7.1") // Replace VERSION
 }
 
 dependencies {
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
     compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
-
-    compileOnly projectLib("worldguard-bukkit-7.1.0-20220312.223410-2")
-    compileOnly projectLib("worldguard-core-7.1.0-20220312.223410-2")
 }
 
 dependencies {

@@ -2,10 +2,12 @@ package org.atcraftmc.starlight.foundation.platform;
 
 import me.gb2022.commons.container.ObjectContainer;
 import org.apache.commons.lang3.Validate;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.shared.FilePath;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.*;
-import org.atcraftmc.starlight.shared.FilePath;
 import org.yaml.snakeyaml.error.YAMLException;
 
 import java.io.File;
@@ -17,10 +19,11 @@ import java.net.URLClassLoader;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.logging.Logger;
 
 @SuppressWarnings({"removal", "CallToPrintStackTrace"})
 public interface PluginUtil {
+    Logger LOGGER = SLPluginEnvironment.createLogger("BukkitPluginManager");
+
     ModernPluginManager INSTANCE = ModernPluginManager.getInstance();
     ObjectContainer<Starlight> CORE_REF = new ObjectContainer<>();
 
@@ -166,7 +169,7 @@ public interface PluginUtil {
             try {
                 ((URLClassLoader) cl).close();
             } catch (IOException e) {
-                Starlight.instance().getLogger().warning("failed to close resource: " + e.getMessage());
+                LOGGER.warn("failed to close resource: {}", e.getMessage());
             }
         }
 
@@ -221,16 +224,14 @@ public interface PluginUtil {
 
     final class ModernPluginManager {
         private final HashMap<String, File> pluginFileMapping = new HashMap<>();
-        private final Logger logger;
         private final PluginManager handle;
 
-        public ModernPluginManager(Logger logger, PluginManager handle) {
-            this.logger = logger;
+        public ModernPluginManager(PluginManager handle) {
             this.handle = handle;
         }
 
         static ModernPluginManager getInstance() {
-            return new ModernPluginManager(Logger.getLogger("Starlight/ModernPluginManager"), Bukkit.getPluginManager());
+            return new ModernPluginManager(Bukkit.getPluginManager());
         }
 
         public File getFile(String id) {
@@ -256,7 +257,7 @@ public interface PluginUtil {
                 try {
                     this.pluginFileMapping.put(getPluginDescription(f).getName(), f);
                 } catch (InvalidDescriptionException e) {
-                    this.logger.warning("find invalid plugin file: " + f.getName());
+                    LOGGER.warn("find invalid plugin file: {}", f.getName());
                 }
             }
 
@@ -269,13 +270,13 @@ public interface PluginUtil {
             if (file == null) {
                 file = new File(FilePath.server() + "/plugins/" + id);
                 if (!file.exists() || file.length() == 0) {
-                    this.logger.severe("cannot find plugin for %s whatever".formatted(id));
+                    LOGGER.error("cannot find plugin for {} whatever", id);
                     return null;
                 }
 
-                this.logger.severe("find plugin file %s".formatted(id));
+                LOGGER.info("find plugin file {}", id);
             } else {
-                this.logger.severe("found plugin %s".formatted(id));
+                LOGGER.error("found plugin {}", id);
             }
 
             return this.load(file);
@@ -285,7 +286,7 @@ public interface PluginUtil {
             var plugin = Bukkit.getPluginManager().getPlugin(id);
 
             if (plugin == null) {
-                this.logger.severe("cannot find plugin handle of: " + id);
+                LOGGER.error("cannot find plugin handle of: {}", id);
                 return null;
             }
 
@@ -297,7 +298,7 @@ public interface PluginUtil {
             var file = getFile(id);
 
             if (!this.unload(id)) {
-                this.logger.severe("cannot unload plugin: " + id);
+                LOGGER.error("cannot unload plugin: {}", id);
                 return plugin;
             }
             return this.load(file);
@@ -307,7 +308,7 @@ public interface PluginUtil {
             var plugin = Bukkit.getPluginManager().getPlugin(id);
 
             if (plugin == null) {
-                this.logger.severe("cannot find plugin handle of: " + id);
+                LOGGER.error("cannot find plugin handle of: {}", id);
                 throw new NullPointerException("cannot find plugin handle of: " + id);
             }
 
@@ -340,26 +341,26 @@ public interface PluginUtil {
                 }
 
             } catch (InvalidPluginException | InvalidDescriptionException e) {
-                Starlight.instance().getLogger().severe(e.getMessage());
+                LOGGER.error(e.getMessage());
                 return null;
             }
             if (p == null) {
-                this.logger.severe("cannot load plugin '%s' whatever".formatted(id));
+                LOGGER.error("Cannot load plugin '{}}' whatever.", id);
                 return null;
             }
 
             try {
                 p.onLoad();
             } catch (Throwable e) {
-                this.logger.severe("find exception when loading plugin '%s':".formatted(id));
-                e.printStackTrace();
+                LOGGER.error("Find exception when loading plugin '{}':", id);
+                LOGGER.catching(e);
             }
 
             try {
                 this.handle.enablePlugin(p);
             } catch (Throwable e) {
-                this.logger.severe("find exception when enabling plugin '%s':".formatted(id));
-                e.printStackTrace();
+                LOGGER.error("Find exception when enabling plugin '{}':", id);
+                LOGGER.catching(e);
             }
 
             return p;
@@ -373,15 +374,15 @@ public interface PluginUtil {
             var id = plugin.getName();
 
             if (!this.handle.isPluginEnabled(plugin)) {
-                this.logger.warning("disabled plugin unloading request of plugin: '" + id + "'");
+                LOGGER.warn("Disabled plugin unloading request of plugin: '{}'", id);
                 return false;
             }
 
             try {
                 this.handle.disablePlugin(plugin);
             } catch (Exception e) {
-                this.logger.severe("found exception when disabling plugin " + plugin.getName());
-                e.printStackTrace();
+                LOGGER.error("Found exception when disabling plugin: '{}'", plugin.getName());
+                LOGGER.catching(e);
                 return false;
             }
 
@@ -393,7 +394,8 @@ public interface PluginUtil {
 
                 return true;
             } catch (Exception e) {
-                this.logger.severe("found exception when cleaning plugin instance of" + plugin.getName());
+                LOGGER.error("Found exception when cleaning plugin instance of  '{}'", plugin.getName());
+                LOGGER.catching(e);
                 e.printStackTrace();
                 return false;
             }

@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @SuppressWarnings("UnstableApiUsage")
 @ApplicationModule(id = "tick-manager")
-@QuarkCommand(name = "server-tick", permission = "-quark.tick")
+@BukkitCommand(name = "server-tick", permission = "-quark.tick")
 public final class TickManager extends SLCommandModule {
 
     @Inject

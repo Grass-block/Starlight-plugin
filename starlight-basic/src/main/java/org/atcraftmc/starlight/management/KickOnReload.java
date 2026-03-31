@@ -40,11 +40,11 @@ public final class KickOnReload extends BukkitAbstractModule {
 
     public void handle(String command) {
         if (command.equalsIgnoreCase("reload")) {
-            kick((locale) -> this.language().item("reload-hint").message(locale));
+            kick((locale) -> this.language().item("reload-hint").message(locale).render());
         }
         if (command.equalsIgnoreCase("stop")) {
             for (var p : Bukkit.getOnlinePlayers()) {
-                p.kickPlayer(this.language().item("stop-hint").message(LocaleService.locale(p)));
+                p.kickPlayer(this.language().item("stop-hint").message(LocaleService.locale(p)).render());
             }
         }
     }

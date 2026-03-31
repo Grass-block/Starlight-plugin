@@ -2,12 +2,12 @@ package org.atcraftmc.starlight.shared.service;
 
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
-import me.gb2022.gluon.service.ServiceLayer;
 import me.gb2022.gluon.service.ServiceInject;
-import org.apache.logging.log4j.LogManager;
+import me.gb2022.gluon.service.ServiceLayer;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.shared.FilePath;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
@@ -18,7 +18,7 @@ import java.util.*;
 
 @ApplicationService(id = "jdbc", layer = ServiceLayer.FOUNDATION)
 public interface JDBCService extends Service {
-    Logger LOGGER = LogManager.getLogger("AbstractJDBCService");
+    Logger LOGGER = SLPluginEnvironment.createLogger("JDBCService");
     Map<String, JDBCDatabase> REGISTRY = new HashMap<>();
 
     String SL_SHARED = "starlight:shared";

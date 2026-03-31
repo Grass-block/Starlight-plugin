@@ -6,7 +6,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -158,7 +158,7 @@ public final class Mute extends BukkitAbstractModule implements Listener {
     }
 
 
-    @QuarkCommand(name = "unmute", permission = "-quark.unmute")
+    @BukkitCommand(name = "unmute", permission = "-quark.unmute")
     public static final class UnmuteCommand extends ModuleCommand<Mute> {
         @Override
         public void suggest(CommandSuggestion suggestion) {
@@ -174,7 +174,7 @@ public final class Mute extends BukkitAbstractModule implements Listener {
     }
 
 
-    @QuarkCommand(name = "mute", op = true)
+    @BukkitCommand(name = "mute", op = true)
     public static final class MuteCommand extends ModuleCommand<Mute> {
 
         @Override

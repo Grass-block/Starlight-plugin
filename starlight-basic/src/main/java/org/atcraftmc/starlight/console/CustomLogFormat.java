@@ -4,7 +4,7 @@ import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.foundation.platform.APIProfile;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @ApplicationModule(id="custom-log-format",version = "1.0.0", defaultEnable = false)
 @BlacklistPlatform({APIProfile.BUKKIT, APIProfile.SPIGOT, APIProfile.ARCLIGHT, APIProfile.BANNER})
-@QuarkCommand(name = "log-format", permission = "-starlight.console.format")
+@BukkitCommand(name = "log-format", permission = "-starlight.console.format")
 public final class CustomLogFormat extends SLCommandModule {
 
     @Override

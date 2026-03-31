@@ -9,10 +9,10 @@ import org.atcraftmc.qlib.texts.placeholder.PlaceHolder;
 import org.atcraftmc.qlib.texts.placeholder.StringExtraction;
 import org.atcraftmc.starlight.PlaceHolders;
 import org.atcraftmc.starlight.data.GlobalVars;
-import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @ApplicationService(id = "place-holder")
@@ -38,7 +38,13 @@ public interface PlaceHolderService extends Service {
         Map<String, String> map = EXTERNAL_VARS.loadMap();
 
         for (String key : map.keySet()) {
-            GLOBAL_VAR.register(key, map.get(key));
+            var s = map.get(key);
+
+            if (Objects.equals(key, "var")) {
+                s = s.replace("%s", "{}");
+            }
+
+            GLOBAL_VAR.register(key, s);
         }
     }
 

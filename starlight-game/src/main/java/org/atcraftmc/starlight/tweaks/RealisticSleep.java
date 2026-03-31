@@ -5,7 +5,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
@@ -116,7 +116,7 @@ public final class RealisticSleep extends BukkitAbstractModule {
     }
 
 
-    @QuarkCommand(name = "leave-bed", permission = "+starlight.bed.leave", playerOnly = true, aliases = {"wakeup", "leave"})
+    @BukkitCommand(name = "leave-bed", permission = "+starlight.bed.leave", playerOnly = true, aliases = {"wakeup", "leave"})
     public static final class LeaveBedCommand extends ModuleCommand<RealisticSleep> {
         @Override
         public void onCommand(CommandSender sender, String[] args) {

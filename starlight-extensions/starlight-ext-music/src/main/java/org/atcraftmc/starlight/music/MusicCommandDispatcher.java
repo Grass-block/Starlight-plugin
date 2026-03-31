@@ -1,13 +1,20 @@
 package org.atcraftmc.starlight.music;
 
+import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
+import org.atcraftmc.starlight.util.StandaloneCommand;
 
 import java.util.List;
 import java.util.Objects;
 
 public interface MusicCommandDispatcher {
+
+
+
+
+
     static MusicResolveRequest selectMusic(CommandExecution context, int commandOffset) {
         var args = context.getArgs();
 
@@ -30,10 +37,10 @@ public interface MusicCommandDispatcher {
 
         String music;
 
-        if (Objects.equals(args[commandOffset + 1], "random")) {
+        if (Objects.equals(args[commandOffset], "random")) {
             music = MusicService.instance().random();
         } else {
-            music = args[commandOffset + 1];
+            music = args[commandOffset];
         }
 
         if (!MusicService.instance().list().contains(music)) {
@@ -59,10 +66,4 @@ public interface MusicCommandDispatcher {
             ctx.suggest(i, "-i:smart");
         }
     }
-
-    static void suggest(CommandSuggestion suggestion, int base) {
-        suggestion.suggest(base, "play", "pause", "resume", "cancel", "gui", "save-defaults", "trim");
-        suggestion.matchArgument(base, "play", (ctx) -> suggestMusic(ctx, base + 1));
-    }
-
 }

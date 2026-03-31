@@ -3,9 +3,9 @@ package org.atcraftmc.starlight.internal.command;
 import org.bukkit.command.CommandSender;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.foundation.command.CoreCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 
-@QuarkCommand(name = "product")
+@BukkitCommand(name = "product")
 public final class ProductCommand extends CoreCommand {
 
     @Override

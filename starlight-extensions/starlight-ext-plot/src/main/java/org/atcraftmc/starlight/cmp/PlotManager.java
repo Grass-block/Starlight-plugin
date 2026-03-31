@@ -1,13 +1,13 @@
 package org.atcraftmc.starlight.cmp;
 
 import me.gb2022.commons.reflect.Inject;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.bukkit.permissions.Permission;
 
-@QuarkCommand(name = "plot", permission = "+starlight.plot")
+@BukkitCommand(name = "plot", permission = "+starlight.plot")
 public final class PlotManager extends SLCommandModule {
     public static final String[] options = new String[]{"create", "set-spawn", "allow", "disallow", "render", "delete", "list", "tp"};
 

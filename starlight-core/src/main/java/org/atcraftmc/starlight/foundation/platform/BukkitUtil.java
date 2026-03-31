@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.foundation.platform;
 
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRS0;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
 import org.atcraftmc.starlight.core.TaskService;
@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings({"unused", "Convert2MethodRef"})
 public interface BukkitUtil {
-    Logger LOGGER = LogManager.getLogger("BukkitUtil");
+    Logger LOGGER = SLPluginEnvironment.createLogger("BukkitUtil");
 
     MethodHandleRS0<double[]> TPS = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> Bukkit.class.getMethod("getTPS"), () -> Bukkit.getTPS());

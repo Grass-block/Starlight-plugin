@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -166,7 +166,7 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
     }
 
 
-    @QuarkCommand(name = "view-distance", permission = "+quark.viewdistance")
+    @BukkitCommand(name = "view-distance", permission = "+quark.viewdistance")
     public static final class ViewDistanceCommand extends ModuleCommand<DynamicViewDistance> {
         @Override
         public void init(DynamicViewDistance module) {

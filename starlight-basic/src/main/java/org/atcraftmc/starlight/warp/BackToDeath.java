@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -78,7 +78,7 @@ public final class BackToDeath extends BukkitAbstractModule implements PluginCom
         });
     }
 
-    @QuarkCommand(name = "back", playerOnly = true, permission = "+quark.warp.back")
+    @BukkitCommand(name = "back", playerOnly = true, permission = "+quark.warp.back")
     public static final class BackCommand extends ModuleCommand<BackToDeath> {
         @Override
         public void init(BackToDeath module) {

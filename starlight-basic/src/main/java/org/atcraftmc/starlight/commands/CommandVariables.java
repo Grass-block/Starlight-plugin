@@ -6,7 +6,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
@@ -228,7 +228,7 @@ public class CommandVariables extends BukkitAbstractModule implements PluginComm
         }
     }
 
-    @QuarkCommand(name = "variable", permission = "-quark.commands.variable")
+    @BukkitCommand(name = "variable", permission = "-quark.commands.variable")
     public static class VariableCommand extends ModuleCommand<CommandVariables> {
         @Override
         public void init(CommandVariables module) {

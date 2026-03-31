@@ -26,7 +26,7 @@ import java.util.*;
 import java.util.jar.JarFile;
 
 public final class LibraryManager {
-    public static final Logger LOGGER = LogManager.getLogger("LibraryManager");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("LibraryManager");
 
     private final String repositoryURL;
     private final String workingDirectory;
@@ -225,7 +225,7 @@ public final class LibraryManager {
 
                     var unsafe = (Unsafe) f_unsafe.get(null);
                     var baseModule = Object.class.getModule();
-                    var c_current = LibraryManager.class; //todo: use ref if error
+                    var c_current = LibraryManager.class; //suggest: use ref if error
                     var addr = unsafe.objectFieldOffset(Class.class.getDeclaredField("module"));
                     var prev = unsafe.getAndSetObject(c_current, addr, baseModule);
 

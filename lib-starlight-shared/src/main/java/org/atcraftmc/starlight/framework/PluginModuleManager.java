@@ -45,14 +45,14 @@ public class PluginModuleManager extends ModuleManager {
         File file = new File(path);
         if (!file.exists() || file.length() == 0) {
             if (file.getParentFile().mkdirs()) {
-                this.getLogger().info("created package status file folder.");
+                this.logger.info("created package status file folder.");
             }
             try {
                 if (file.createNewFile()) {
-                    this.getLogger().info("created package status file.");
+                    this.logger.info("created package status file.");
                 }
             } catch (IOException e) {
-                this.getLogger().error("failed to create package status file");
+                this.logger.error("failed to create package status file");
                 return file;
             }
             return file;

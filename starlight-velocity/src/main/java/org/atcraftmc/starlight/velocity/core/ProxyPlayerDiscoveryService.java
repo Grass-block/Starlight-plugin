@@ -27,7 +27,7 @@ import java.util.*;
 
 @ApplicationService(id = "proxy-player-track", impl = ProxyPlayerDiscoveryService.ServiceImpl.class, layer = ServiceLayer.USER)
 public interface ProxyPlayerDiscoveryService extends Service {
-    Logger LOGGER = LogManager.getLogger("ProxyDiscoveryService");
+    Logger LOGGER = SLPluginEnvironment.createLogger("ProxyDiscoveryService");
 
     String MSG_PROXY_JOIN = "sync:join";
     String MSG_PROXY_LEAVE = "sync:leave";

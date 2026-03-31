@@ -1,18 +1,18 @@
 package org.atcraftmc.starlight.music.session;
 
-import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.PlayerUIRenderer;
+import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.util.AsyncLock;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class LegacyMusicSession extends MusicSession {
+    private final AsyncLock sleepLock = new AsyncLock();
+    private final AtomicBoolean running = new AtomicBoolean(true);
     private MusicData next;
-    private AsyncLock sleepLock = new AsyncLock();
-    private AtomicBoolean running = new AtomicBoolean(true);
 
-    public LegacyMusicSession(PlayerUIRenderer renderer) {
-        super(renderer);
+    public LegacyMusicSession(PlayerUIRenderer renderer, boolean mount) {
+        super(renderer, mount);
     }
 
     @Override

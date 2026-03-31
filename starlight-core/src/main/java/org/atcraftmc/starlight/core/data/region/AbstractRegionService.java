@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.core.data.region;
 
+import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.core.objects.Region;
@@ -80,7 +81,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
                 }
             }
 
-            System.out.println("%s:[%s/%s - %s/%s] -> %d".formatted(worldId, wx0, wz0, wx1, wz1, result.size()));
+            Debug.log().info("%s:[%s/%s - %s/%s] -> %d".formatted(worldId, wx0, wz0, wx1, wz1, result.size()));
 
             return result;
         } catch (SQLException ex) {

@@ -1,8 +1,9 @@
 package org.atcraftmc.starlight.internal.command;
 
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.platform.PluginPlatform;
+import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Date;
 
-@QuarkCommand(name = "libraries", permission = "-starlight.core.libs")
+@BukkitCommand(name = "libraries", permission = "-starlight.core.libs")
 public final class LibraryCommand extends CoreCommand {
 
     @Override
@@ -25,7 +26,7 @@ public final class LibraryCommand extends CoreCommand {
         var paths = Starlight.instance().getLibraryManager().getLoadedURLs();
         var sender = context.requireSenderAsPlayer();
         var locale = LocaleService.locale(sender);
-        var list = this.getLanguage().item("list").component(locale);
+        var list = ((ComponentBlock) this.getLanguage().item("list").component(locale));
 
         paths.forEach((id, lib) -> {
             File file;

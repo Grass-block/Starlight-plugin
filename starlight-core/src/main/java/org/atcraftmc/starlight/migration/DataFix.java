@@ -1,7 +1,8 @@
 package org.atcraftmc.starlight.migration;
 
 import com.google.common.io.Files;
-import org.atcraftmc.starlight.Starlight;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.FilePath;
 
 import java.io.File;
@@ -10,6 +11,8 @@ import java.util.Objects;
 
 @SuppressWarnings("DuplicatedCode")
 public interface DataFix {
+    Logger LOGGER = SLPluginEnvironment.createLogger("DataFix");
+
     static void moveFolder(String origin, String dest) {
         try {
             String base = FilePath.pluginFolder("quark");
@@ -19,12 +22,12 @@ public interface DataFix {
                 return;
             }
 
-            Starlight.instance().getLogger().info("fixing up folder %s -> %s".formatted(origin, dest));
+            LOGGER.info("fixing up folder {} -> {}", origin, dest);
 
             File folder = new File(base + dest);
             if (!folder.exists()) {
                 if (folder.mkdirs()) {
-                    Starlight.instance().getLogger().info("created new folder %s".formatted(dest));
+                    LOGGER.info("created new folder {}", dest);
                 }
             }
 
@@ -33,15 +36,15 @@ public interface DataFix {
                 try {
                     Files.copy(f, moved);
                 } catch (IOException e) {
-                    //Starlight.getInstance().getLogger().warning("failed to move file %s".formatted(f.getName()));
+                    //Starlight.getInstance().getLogger().warning("failed to move file {}",f.getName()));
                 }
                 if (!f.delete()) {
-                    //Starlight.getInstance().getLogger().warning("failed to remove file %s".formatted(f.getName()));
+                    //Starlight.getInstance().getLogger().warning("failed to remove file {}",f.getName()));
                 }
             }
 
             if (legacyFolder.delete()) {
-                Starlight.instance().getLogger().info("removed folder %s".formatted(origin));
+                LOGGER.info("removed folder {}", origin);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -66,10 +69,10 @@ public interface DataFix {
         try {
             Files.copy(origin, dest);
             if (!origin.delete()) {
-                //Starlight.getInstance().getLogger().warning("failed to remove file %s".formatted(origin.getName()));
+                //Starlight.getInstance().getLogger().warning("failed to remove file {}",origin.getName()));
             }
         } catch (Exception e) {
-            //Starlight.getInstance().getLogger().warning("failed to move file %s".formatted(origin.getName()));
+            //Starlight.getInstance().getLogger().warning("failed to move file {}",origin.getName()));
         }
     }
 
@@ -96,16 +99,16 @@ public interface DataFix {
             return;
         }
 
-        Starlight.instance().getLogger().info("fixing up folder %s -> %s".formatted(origin, dest));
+        LOGGER.info("fixing up folder {} -> {}", origin, dest);
 
         try {
             Files.copy(originFile, destFile);
         } catch (IOException e) {
-            Starlight.instance().getLogger().warning("failed to move file %s".formatted(origin));
+            LOGGER.warn("failed to move file {}", origin);
         }
 
         if (originFile.delete()) {
-            Starlight.instance().getLogger().info("removed file %s".formatted(dest));
+            LOGGER.info("removed file {}", dest);
         }
     }
 }

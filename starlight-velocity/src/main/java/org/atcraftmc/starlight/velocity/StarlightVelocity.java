@@ -9,7 +9,6 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import me.gb2022.commons.container.ObjectContainer;
 import me.gb2022.gluon.ModularApplicationContext;
 import net.kyori.adventure.text.ComponentLike;
-import org.apache.logging.log4j.LogManager;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.LanguageContainer;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -22,6 +21,7 @@ import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginServiceManager;
 import org.atcraftmc.starlight.util.ProductMetadata;
+import org.atcraftmc.starlight.util.SLLogProvider;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
 import org.atcraftmc.starlight.velocity.core.VelocityPlaceHolderService;
 import org.atcraftmc.starlight.velocity.framework.VelocityModuleManager;
@@ -31,8 +31,9 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Optional;
 
-@Plugin(id = "starlight-velocity",version = "26.1.0",authors = "GrassBlock2022")
+@Plugin(id = "starlight-velocity", version = "26.1.0", authors = "GrassBlock2022")
 public final class StarlightVelocity implements PluginApplication {
+    public static final org.apache.logging.log4j.Logger LOGGER = SLPluginEnvironment.createLogger("Starlight-Velocity");
     public static final ObjectContainer<StarlightVelocity> INSTANCE = new ObjectContainer<>();
 
     private final ModularApplicationContext context = createContext(this);
@@ -58,6 +59,8 @@ public final class StarlightVelocity implements PluginApplication {
         var b = PluginApplication.createContext(application);
         b.moduleManager(VelocityModuleManager::new);
         b.serviceManager(PluginServiceManager::new);
+        b.logProvider((c)->new SLLogProvider());
+        b.applicationName("Starlight");
 
         return b.build();
     }
@@ -131,7 +134,7 @@ public final class StarlightVelocity implements PluginApplication {
 
     @Override
     public org.apache.logging.log4j.Logger logger() {
-        return LogManager.getLogger("starlight-velocity");
+        return LOGGER;
     }
 
     @Override

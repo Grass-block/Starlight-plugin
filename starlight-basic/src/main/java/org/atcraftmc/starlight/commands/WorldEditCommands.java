@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.commands;
 
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
@@ -19,7 +19,7 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         Compatibility.requirePlugin("WorldEdit");
     }
 
-    @QuarkCommand(name = "/mirror")
+    @BukkitCommand(name = "/mirror")
     public static final class MirrorCommand extends ModuleCommand<WorldEditCommands> {
         @Override
         public void execute(CommandExecution context) {
@@ -31,7 +31,7 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "/drain-water")
+    @BukkitCommand(name = "/drain-water")
     public static final class DrainWaterCommand extends ModuleCommand<WorldEditCommands> {
         @Override
         public void execute(CommandExecution context) {
@@ -42,7 +42,7 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         }
     }
 
-    @QuarkCommand(name = "/fast-brash")
+    @BukkitCommand(name = "/fast-brash")
     public static final class FastBrushCommand extends ModuleCommand<WorldEditCommands> {
         public static final String[] TREES = {"acacia", "birch", "brownmushroom", "cherry", "chorusplant", "crimsonfungus", "darkoak", "jungle", "junglebush", "largeoak", "largespruce", "mangrove", "oak", "pine", "rand", "randbirch", "randjungle", "randmushroom", "randspruce", "redmushroom", "randspruce",  // Duplicate
                 "shortjungle", "smalljungle", "spruce", "swamp", "tall_mangrove", "tall_birch", "tall_spruce", "warped_fungus"};

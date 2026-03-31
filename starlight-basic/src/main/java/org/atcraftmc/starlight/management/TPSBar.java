@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.math.MathHelper;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.core.TaskService;
@@ -16,7 +16,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
 @ApplicationModule(id = "tps-bar")
-@QuarkCommand(name = "tpsbar", permission = "-starlight.monitor.tpsbar")
+@BukkitCommand(name = "tpsbar", permission = "-starlight.monitor.tpsbar")
 public final class TPSBar extends SLCommandModule {
     public static final TemplateExpansion TEMPLATE_EXPANSION = TemplateExpansion.build((b) -> b.replacement("tps").replacement("mspt"));
 

@@ -15,9 +15,11 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
     private final PlayerUIRenderer renderer;
     private final PlayerList players = new PlayerList();
     private final AtomicReference<MusicTask> current = new AtomicReference<>(null);
+    private final boolean mount;
 
-    public MusicSession(PlayerUIRenderer renderer) {
+    public MusicSession(PlayerUIRenderer renderer, boolean mount) {
         this.renderer = renderer;
+        this.mount = mount;
     }
 
     private String rendererID() {
@@ -61,7 +63,7 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
     @Override
     public void renderNode(MusicTask task, MusicNode node, MusicData music) {
         float power = node.getPower();
-        MusicService.playNode(this.players.getPlayerObjects(), node.getNode(), music.getOffset(), node.getInstrument(), power);
+        MusicService.playNode(this.players.getPlayerObjects(), node.getNode(), music.getOffset(), node.getInstrument(), power, this.mount);
     }
 
     public void playSelected(MusicData current) {

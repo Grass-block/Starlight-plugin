@@ -10,6 +10,11 @@ language:
     position-lock: 位置锁定指令
     surrounding-refresh: 环境方块刷新
     particle-font: 粒子文本绘制
+    freecam: 自由视角
+    fly-command: 飞行控制指令
+    menu-item: 菜单物品触发器
+    client-environment-setting: 客户端环境设置
+    modern-minecart-sync: 新版矿车移动兼容
   particle-font:
     done: '{global#sys-info}渲染完成({#var}, {#var} 个粒子)。'
     no-fonts: '{global#error}无字体，请在{#white}/assets/font{#gray}放入ttf或otf字体。'
@@ -73,11 +78,11 @@ language:
     weather-none: "{global#sys-info}您的客户端天气已设为 [{#white}晴{#gray}]"
     weather-rain: "{global#sys-info}您的客户端天气已设为 [{#white}雨{#gray}]"
     weather-off: "{global#sys-info}您的客户端天气已重置为实际天气。"
-    time-offset: "{global#sys-info}您的客户端时间已设为 [{#white}偏移: %s ticks{#gray}]"
-    time-fixed: "{global#sys-info}您的客户端时间已设为 [{#white}固定: %s ticks{#gray}]"
+    time-offset: "{global#sys-info}您的客户端时间已设为 [{#white}偏移: {} ticks{#gray}]"
+    time-fixed: "{global#sys-info}您的客户端时间已设为 [{#white}固定: {} ticks{#gray}]"
     time-off: "{global#sys-info}您的客户端时间已重置为实际时间。"
   hitokoto:
-    sentence: "{hover(text,文字来自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}%s {#gray}——%s(%s)"
+    sentence: "{hover(text,文字来自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}{} {#gray}——{}({})"
   menu-item:
     item-name: "{#yellow}|| {#aqua}菜单{#yellow} ||"
     item-lore:

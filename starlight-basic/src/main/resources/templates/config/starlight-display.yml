@@ -38,8 +38,8 @@ config:
     below-name: " {msg#custom-scoreboard:play-time}  {msg#custom-scoreboard:ping}"
     below-name-enable: false
   chat-format:
-    world: "common:world:%s"
-    time: "<post>   {#gray}%s"
+    world: "common:world:{}"
+    time: "<post>   {#gray}{}"
     template: '[{#white}{world}{#white}]{0} {color(gold)}> {color(white)}{1} {time}'
   custom-death-message:
     prefix: "{#gray}[{#red}X{#gray}]{#reset}"
@@ -78,7 +78,7 @@ config:
     template-tips:
       - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
       - '{msg#tip-title}'
-      - "  {#gray}%s"
+      - "  {#gray}{}"
       - ''
       - '{msg#more-btn}'
       - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"

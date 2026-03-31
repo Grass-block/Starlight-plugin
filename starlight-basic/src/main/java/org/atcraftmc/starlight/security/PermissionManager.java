@@ -11,20 +11,20 @@ import org.atcraftmc.qlib.bukkit.util.permission.DirectPermissionManager;
 import org.atcraftmc.qlib.bukkit.util.permission.PermissionEventHandler;
 import org.atcraftmc.qlib.bukkit.util.permission.PlayerPermissionManager;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.core.permission.PermissionEntry;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -42,7 +42,7 @@ import java.util.concurrent.ExecutionException;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({PermissionManager.PermissionCommand.class})
-@ApplicationModule(id = "permission-manager", version = "1.0.3")
+@ApplicationModule(id = "permission-manager", version = "1.0.3", defaultEnable = false)
 public final class PermissionManager extends BukkitAbstractModule implements PluginCommandExecutor, PermissionEventHandler {
     private final PlayerPermissionManager service = new DirectPermissionManager(this, Starlight.instance());
     private final Map<String, List<String>> tags = new HashMap<>();
@@ -230,7 +230,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         suggestion.matchArgument(0, "set", (c) -> c.suggest(3, "true", "false", "unset"));
     }
 
-    @QuarkCommand(name = "permission", permission = "-quark.permission.command")
+    @BukkitCommand(name = "permission", permission = "-quark.permission.command")
     public static final class PermissionCommand extends ModuleCommand<PermissionManager> {
         @Override
         public void init(PermissionManager module) {

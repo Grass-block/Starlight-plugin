@@ -9,18 +9,18 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.ProductInfo;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.data.record.BukkitRecordRenderer;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
+import org.atcraftmc.starlight.data.record.BukkitRecordRenderer;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.data.record.registry.DataRenderer;
 import org.atcraftmc.starlight.data.record.registry.RecordField;
@@ -148,7 +148,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
             calendar.add(Calendar.MINUTE, minute);
             calendar.add(Calendar.SECOND, second);
 
-            Players.banPlayer(name, BanList.Type.NAME, reason, calendar.getTime(), ProductInfo.CORE_ID);
+            Players.banPlayer(name, BanList.Type.NAME, reason.render(), calendar.getTime(), ProductInfo.CORE_ID);
         }
     }
 
@@ -176,7 +176,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
     }
 
     interface IPService {
-        Logger LOGGER = LogManager.getLogger("Starlight-Plugin/IPService");
+        Logger LOGGER = SLPluginEnvironment.createLogger("IPService");
 
         String RES_UNKNOWN = "[error]Unknown or LAN address";
         String RES_NET_ERROR = "[error]Network error";
@@ -290,7 +290,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
 
     }
 
-    @QuarkCommand(name = "check-ip", permission = "+starlight.ip.query", playerOnly = true)
+    @BukkitCommand(name = "check-ip", permission = "+starlight.ip.query", playerOnly = true)
     public static final class IPQueryCommand extends ModuleCommand<IPDefender> {
         @Override
         public void init(IPDefender module) {

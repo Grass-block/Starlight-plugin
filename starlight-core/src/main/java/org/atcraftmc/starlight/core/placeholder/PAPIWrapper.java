@@ -1,17 +1,21 @@
 package org.atcraftmc.starlight.core.placeholder;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.bukkit.entity.Player;
 
 public interface PAPIWrapper {
+    Logger LOGGER = SLPluginEnvironment.createLogger("PAPI-TextService");
+
     static PAPIWrapper getInstance() {
         try {
             Class.forName("me.clip.placeholderapi.PlaceholderAPI");
-            Starlight.instance().getLogger().info("using PlaceholderAPI text formatter");
+            LOGGER.info("using PlaceholderAPI text formatter");
             return new Impl();
         } catch (Exception e) {
-            Starlight.instance().getLogger().info("using no-PlaceholderAPI text formatter.");
+            LOGGER.info("using no-PlaceholderAPI text formatter.");
             return new FallbackImpl();
         }
     }

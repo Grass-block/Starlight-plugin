@@ -10,4 +10,4 @@ language:
       - '很抱歉，{#server-name}{#reset}集群保护系统无法认证您的连接。{#return}'
       - '{#gray}请确认您的来源BC/Waterfall代理已经通过本服认证。'
       - '{#gray}如果您确认这是个错误，请向开发者反馈。{#return}{#return}'
-      - '{#dark-gray}您的会话ID：{#dark-gray}%s'
+      - '{#dark-gray}您的会话ID：{#dark-gray}{}'

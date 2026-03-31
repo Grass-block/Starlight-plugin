@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.data.legacy;
 import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.nbt.NBT;
 import me.gb2022.commons.nbt.NBTTagCompound;
-import org.apache.logging.log4j.LogManager;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.data.DataBackend;
 import org.atcraftmc.starlight.data.FileBackend;
 import org.atcraftmc.starlight.data.storage.DataEntry;
@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class DataService implements StorageContext {
-    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger("DataService");
+    public static final org.apache.logging.log4j.Logger LOGGER = SLPluginEnvironment.createLogger("DataService");
     protected final Logger logger = Logger.getLogger("DataService");
     private final ArrayDeque<String> saveRequest = new ArrayDeque<>();
     private final HashMap<String, NBTTagCompound> cache = new HashMap<>();

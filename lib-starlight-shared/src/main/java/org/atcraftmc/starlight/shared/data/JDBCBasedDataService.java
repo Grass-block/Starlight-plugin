@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.Executor;
 
 public abstract class JDBCBasedDataService<I> {
-    public static final Logger LOGGER = LogManager.getLogger("SQL-Compiler");
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("SQL-Compiler");
     protected final String table;
     private final UUID sessionUUID = UUID.randomUUID();
     public Connection connection;

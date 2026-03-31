@@ -20,6 +20,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "custom-scoreboard", version = "0.2")
@@ -38,7 +39,7 @@ public final class CustomScoreboard extends BukkitAbstractModule {
         PlayerUIService.getInstance(player).getScoreboard().registerIntervalProcess(
                 this.getFullId(),
                 -10,
-                10,
+                20,
                 SchedulerProvider.ASYNC,
                 (p, t) -> renderScoreboard(p)
         );
@@ -54,7 +55,6 @@ public final class CustomScoreboard extends BukkitAbstractModule {
 
     @Override
     public void disable() {
-
         for (Player p : Bukkit.getOnlinePlayers()) {
             PlayerUIService.getInstance(p).getScoreboard().removeProcess(this.getFullId());
         }
@@ -63,6 +63,11 @@ public final class CustomScoreboard extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         startRender(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        PlayerUIService.getInstance(event.getPlayer()).getScoreboard().removeProcess(this.getFullId());
     }
 
     private void renderScoreboard(Player player) {

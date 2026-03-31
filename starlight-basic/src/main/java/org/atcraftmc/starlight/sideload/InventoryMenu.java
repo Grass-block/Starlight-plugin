@@ -6,7 +6,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -32,7 +32,7 @@ import java.util.*;
 
 @ApplicationModule(id = "inventory-menu")
 @AutoRegister(Registrations.SERVER_EVENT)
-@QuarkCommand(name = "gui", permission = "-starlight.gui.admin")
+@BukkitCommand(name = "gui", permission = "-starlight.gui.admin")
 public final class InventoryMenu extends SLCommandModule {
     private final Map<String, MenuData> menus = new HashMap<>();
     private final Map<String, Component> components = new HashMap<>();
@@ -318,7 +318,7 @@ public final class InventoryMenu extends SLCommandModule {
         }
     }
 
-    @QuarkCommand(name = "__")
+    @BukkitCommand(name = "__")
     public static final class UIOpenCommand extends AbstractCommand {
         private final String name;
         private final MenuData ref;

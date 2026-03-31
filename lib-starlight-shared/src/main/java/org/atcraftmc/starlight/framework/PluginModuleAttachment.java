@@ -42,7 +42,18 @@ public final class PluginModuleAttachment implements ModuleAttachment {
         var id = this.metadata.key().id();
 
         if (this.displayName != null && this.displayName.handle().hasAny(ns, "-module-name", id)) {
-            return "%s&7(&f%s&7)".formatted(id, this.displayName.message(locale));
+            return "%s&7(&f%s&7)".formatted(id, this.displayName.message(locale).render());
+        } else {
+            return id;
+        }
+    }
+
+    public String displayNameOrId(MinecraftLocale locale) {
+        var ns = this.metadata.key().namespace();
+        var id = this.metadata.key().id();
+
+        if (this.displayName != null && this.displayName.handle().hasAny(ns, "-module-name", id)) {
+            return this.displayName.message(locale).render();
         } else {
             return id;
         }

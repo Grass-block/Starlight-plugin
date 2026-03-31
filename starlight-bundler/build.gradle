@@ -19,6 +19,7 @@ dependencies {
     implementation project(":starlight-basic")
     implementation project(":starlight-game")
     implementation project(":starlight-extensions:starlight-ext-music")
+    implementation project(":starlight-extensions:starlight-ext-worldguard")
     //todo: add lobby
 }
 

@@ -43,7 +43,7 @@ language:
 
     error-internal-exception: "{global#error}An internal error occurred while executing this command. Check the console for more information."
   module:
-    list: "{global#sys-operation}Here are all modules: {#return}%s"
+    list: "{global#sys-operation}Here are all modules: {#return}{}"
     enable-all: "{global#sys-operation}Successfully enabled all modules."
     disable-all: "{global#sys-operation}Successfully disabled all modules."
     reload-all: "{global#sys-operation}Successfully reloaded all modules."
@@ -55,7 +55,7 @@ language:
     already-op: "{global#sys-error}Module {#var} is already in the requested state."
     blocked-internal: "{global#sys-error}You cannot operate the [Built-in] module {#var}, as it may cause errors."
   package:
-    list: "{global#sys-operation}Here are all extension packages: {#return}%s"
+    list: "{global#sys-operation}Here are all extension packages: {#return}{}"
     enable-all: "{global#sys-operation}Successfully enabled all extension packages."
     disable-all: "{global#sys-operation}Successfully disabled all extension packages."
     reload-all: "{global#sys-operation}Successfully reloaded all extension packages."
@@ -104,7 +104,7 @@ language:
     set: "{global#sys-info}Your server language has been set to {#var}. Some displays may require re-login to update."
     preset: "{global#sys-info}Detected your language as {#var}. If incorrect, please use {#gold}/locale [language]{#gray} to select."
   modrinth-version-check:
-    require: "{global#sys-info}A new version {#var} is available. {click(link,%s)}{#white}[{#green}View{#white}]{;}"
+    require: "{global#sys-info}A new version {#var} is available. {click(link,{})}{#white}[{#green}View{#white}]{;}"
     no-require: "{global#sys-info}Your version {#var} is already the latest. No update is required."
     exception: "{global#sys-info}An error occurred while checking versions. Please check the console."
     checking: "{global#sys-info}Checking version..."
@@ -114,13 +114,13 @@ language:
     done: "{global#sys-info}Data import completed."
   libraries:
     list: '{#aqua}Loaded third-party dependency libraries: '
-    list-item: "{color(#44FFAA)}[%s]"
+    list-item: "{color(#44FFAA)}[{}]"
     list-hover: |-
-      {color(#44FFAA)} %s
-      {#gray}File Name: {#white}%s
-      {#gray}File Size: {#white}%s KiB
-      {#gray}Download Date: {#white}%s
-      {#gray}Full Path: {#white}%s
+      {color(#44FFAA)} {}
+      {#gray}File Name: {#white}{}
+      {#gray}File Size: {#white}{} KiB
+      {#gray}Download Date: {#white}{}
+      {#gray}Full Path: {#white}{}
   ban-service:
     default-line:
       - '{#gray}You have been banned from {#var} for {#var}.'

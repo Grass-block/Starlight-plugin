@@ -2,9 +2,10 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.QuarkCommand;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
@@ -12,7 +13,7 @@ import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-@QuarkCommand(name = "system", permission = "-quark.management.system")
+@BukkitCommand(name = "system", permission = "-quark.management.system")
 @ApplicationModule(id = "server-info")
 public final class ServerInfo extends SLCommandModule {
     @Override
@@ -57,7 +58,7 @@ public final class ServerInfo extends SLCommandModule {
         var te = world.getTileEntityCount();
         var te_t = world.getTickableTileEntityCount();
         var players = world.getPlayerCount();
-        var c = "{#dark_aqua}Chunks: {#aqua}%s".formatted(world.getChunkCount());
+        var c = Language.format("{#dark_aqua}Chunks: {#aqua}%s", world.getChunkCount()).formatted(world.getChunkCount());
         var e = "{#dark_green}Entities: {#green}%s{#gray}(Players:{#green}%s{#gray})".formatted(entities, players);
         var be = "{#dark_purple}TileEntities: {#purple}%s{#gray}(Tick: {#purple}%s{#gray})".formatted(te, te_t);
 
