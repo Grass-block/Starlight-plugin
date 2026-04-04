@@ -3,6 +3,17 @@
 ### 26.4.3
 
 - Added default-state function.
+- Fixed UI task error when player unexpectedly quit.
+- Added Box-Outline command for WorldEditCommands
+- Fixed Region-Get NPE in Worldguard-WE-Check.
+- Added package `starlight-lobby`:
+    - Added `lobby-back-to-spawn`
+    - Added `lobby-default-inventory`
+    - Added `lobby-map-protect`
+    - Added `lobby-player-protect`
+- Rejected package will no longer be registered.
+- Fixed motd image cover issue.
+- More text now supported bungee format.
 
 ### 26.4.2
 

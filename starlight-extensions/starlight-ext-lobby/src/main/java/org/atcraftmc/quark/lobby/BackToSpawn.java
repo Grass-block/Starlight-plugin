@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "back-to-spawn")
+@ApplicationModule(id = "lobby-back-to-spawn")
 public final class BackToSpawn extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {

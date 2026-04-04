@@ -3,6 +3,8 @@ package org.atcraftmc.starlight.core.view.process;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
 import org.atcraftmc.starlight.core.view.ViewRendererCallback;
+import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -30,7 +32,13 @@ public final class TaskScheduleProcess extends ViewRenderProcess {
                 this.id + "-" + player.getUniqueId(),
                 0,
                 this.interval,
-                (t) -> this.renderer.render(player, t)
+                (t) -> {
+                    try {
+                        this.renderer.render(player, t);
+                    } catch (InvalidPlayerHandleException e) {
+                        t.cancel();
+                    }
+                }
         );
     }
 

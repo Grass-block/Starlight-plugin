@@ -18,6 +18,7 @@ import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.BukkitService;
+import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -138,8 +139,14 @@ public interface VisualScoreboardService extends BukkitService {
             this.uuid = uuid;
         }
 
-        public Player handle() {
-            return Bukkit.getPlayer(this.uuid);
+        public Player handle() throws InvalidPlayerHandleException {
+            var p = Bukkit.getPlayer(uuid);
+
+            if (p == null) {
+                throw new InvalidPlayerHandleException(uuid);
+            }
+
+            return p;
         }
 
         @Override

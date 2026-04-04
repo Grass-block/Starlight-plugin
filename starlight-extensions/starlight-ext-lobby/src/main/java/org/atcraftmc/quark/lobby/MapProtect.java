@@ -1,9 +1,15 @@
 package org.atcraftmc.quark.lobby;
 
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.starlight.core.permission.PermissionService;
+import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,14 +19,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import me.gb2022.gluon.module.ApplicationModule;
-import me.gb2022.gluon.module.component.ComponentProvider;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.core.permission.PermissionService;
 
-@ApplicationModule(version = "1.0.3")
+@ApplicationModule(version = "1.0.3", id = "lobby-map-protect")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(MapProtect.PaperPreAttackEventEXT.class)
 public final class MapProtect extends BukkitAbstractModule {
@@ -28,17 +28,13 @@ public final class MapProtect extends BukkitAbstractModule {
         if (player.getGameMode() == GameMode.CREATIVE) {
             return true;
         }
-        if (player.hasPermission("quark.lobby.break")) {
-            return true;
-        }
-
-        return false;
+        return player.hasPermission("starlight.lobby.break");
     }
 
     @Override
     public void enable() {
-        PermissionService.createPermission("!quark.lobby.break");
-        PermissionService.createPermission("!quark.lobby.interact");
+        PermissionService.createPermission("!starlight.lobby.break");
+        PermissionService.createPermission("!starlight.lobby.interact");
     }
 
     @EventHandler
@@ -51,7 +47,7 @@ public final class MapProtect extends BukkitAbstractModule {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if(event.getEntity() instanceof Player) {
+        if (event.getEntity() instanceof Player) {
             return;
         }
         if (!(event.getDamager() instanceof Player player)) {
@@ -83,7 +79,7 @@ public final class MapProtect extends BukkitAbstractModule {
             return;
         }
 
-        if (event.getPlayer().hasPermission("quark.lobby.interact")) {
+        if (event.getPlayer().hasPermission("starlight.lobby.interact")) {
             return;
         }
         event.setCancelled(true);
@@ -99,7 +95,7 @@ public final class MapProtect extends BukkitAbstractModule {
             return;
         }
 
-        if (event.getPlayer().hasPermission("quark.lobby.interact")) {
+        if (event.getPlayer().hasPermission("starlight.lobby.interact")) {
             return;
         }
         event.setCancelled(true);
@@ -115,13 +111,13 @@ public final class MapProtect extends BukkitAbstractModule {
 
         @EventHandler
         public void onPlayerAttack(PrePlayerAttackEntityEvent event) {
-            if(event.getAttacked() instanceof Player) {
+            if (event.getAttacked() instanceof Player) {
                 return;
             }
             if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
                 return;
             }
-            if (event.getPlayer().hasPermission("quark.lobby.break")) {
+            if (event.getPlayer().hasPermission("starlight.lobby.break")) {
                 return;
             }
             event.setCancelled(true);

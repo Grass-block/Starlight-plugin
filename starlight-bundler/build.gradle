@@ -20,7 +20,7 @@ dependencies {
     implementation project(":starlight-game")
     implementation project(":starlight-extensions:starlight-ext-music")
     implementation project(":starlight-extensions:starlight-ext-worldguard")
-    //todo: add lobby
+    implementation project(":starlight-extensions:starlight-ext-lobby")
 }
 
 jar {
@@ -31,6 +31,7 @@ tasks.named('build').get().dependsOn(':starlight-core:build')
 tasks.named('build').get().dependsOn(':starlight-basic:build')
 tasks.named('build').get().dependsOn(':starlight-game:build')
 tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-music:build')
+tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-lobby:build')
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

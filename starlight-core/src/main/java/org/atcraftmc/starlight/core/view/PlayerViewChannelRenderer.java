@@ -17,11 +17,16 @@ public final class PlayerViewChannelRenderer {
     private final UUID player;
     private Consumer<Player> cleanupAction = (p) -> {};
 
-
     public PlayerViewChannelRenderer(String id, PlayerView holder) {
         this.id = id;
         this.holder = holder;
         this.player = holder.pointer().getUniqueId();
+    }
+
+    public void destroy() {
+        for (var id:new ArrayList<>(this.renderers.keySet())) {
+            this.removeProcess(id);
+        }
     }
 
     public void setCleanupAction(Consumer<Player> cleanupAction) {

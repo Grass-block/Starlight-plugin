@@ -53,11 +53,12 @@ public final class WorldGuardWECheck extends BukkitAbstractModule {
     @Subscribe(priority = EventHandler.Priority.VERY_EARLY)
     public void onEditSession(EditSessionEvent event) {
         var player = ((Player) event.getActor());
-        var session = WorldEdit.getInstance().getSessionManager().get(player);
 
         if (player == null) {
             return;
         }
+
+        var session = WorldEdit.getInstance().getSessionManager().get(player);
 
         var bp = Objects.requireNonNull(Bukkit.getPlayer(player.getUniqueId()));
         var bw = bp.getWorld();

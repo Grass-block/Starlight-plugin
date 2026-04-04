@@ -1,0 +1,6 @@
+lobby-default-inventory:
+  0:
+    ==: org.bukkit.inventory.ItemStack
+    v: 2975
+    type: STONE
+    amount: 1

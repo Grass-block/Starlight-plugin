@@ -62,6 +62,11 @@ public final class PluginPackageManager extends PackageManager {
     }
 
     @Override
+    public boolean isRejectedPackage(ApplicationPackage pack) {
+        return this.rejected.contains(pack.meta().id());
+    }
+
+    @Override
     public boolean defaultPackageStatus(ApplicationPackage pack) {
         return !this.rejected.contains(pack.meta().id());
     }

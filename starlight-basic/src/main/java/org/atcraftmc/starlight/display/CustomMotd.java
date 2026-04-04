@@ -67,7 +67,7 @@ public final class CustomMotd extends BukkitAbstractModule implements PluginComm
 
     public void refreshIcon() {
         try {
-            this.cachedServerIcon = Bukkit.loadServerIcon(Configurations.file("motd.png", true));
+            this.cachedServerIcon = Bukkit.loadServerIcon(Configurations.file("motd.png", false));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

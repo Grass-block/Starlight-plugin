@@ -8,6 +8,7 @@ import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -28,7 +29,6 @@ public final class PlayerView {
         this.scoreboard = new PlayerViewChannelRenderer("starlight:scoreboard", this);
         this.actionbar_v2 = new PlayerViewChannelRenderer("starlight:action-bar", this);
 
-
         BukkitUtil.callEvent(new PlayerViewInitEvent(pointer, this), (e) -> {
             var setting = e.getSetting();
 
@@ -38,6 +38,11 @@ public final class PlayerView {
         });
 
         this.scoreboard.setCleanupAction((p) -> VisualScoreboardService.instance().visualScoreboard(pointer).stopSidebarRendering());
+    }
+
+    public void destroy() {
+        this.scoreboard.destroy();
+        this.actionbar_v2.destroy();
     }
 
     public void update() {
@@ -54,7 +59,13 @@ public final class PlayerView {
     }
 
     public Player pointer() {
-        return Bukkit.getPlayer(this.pointer);
+        var p = Bukkit.getPlayer(pointer);
+
+        if (p == null) {
+            throw new InvalidPlayerHandleException(pointer);
+        }
+
+        return p;
     }
 
     public boolean isChannelRejected(String source) {
@@ -172,7 +183,11 @@ public final class PlayerView {
                     return;
                 }
 
-                selected.renderer().render(this.holder.pointer(), t);
+                try {
+                    selected.renderer().render(this.holder.pointer(), t);
+                } catch (NullPointerException e) {
+                    t.cancel();
+                }
             });
         }
 

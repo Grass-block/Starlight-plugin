@@ -2,7 +2,6 @@ package org.atcraftmc.starlight.shared;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.Configuration;
@@ -23,7 +22,7 @@ public interface Configurations {
     String FILE_TEMPLATE = "%s/config/%s/template.%s";
     String FILE_CUSTOM = "%s/config/%s/%s";
 
-    static ConfigurationSection values(String template, String file) {
+    static YamlConfiguration values(String template, String file) {
         var f = FilePath.tryReleaseAndGetFile(template, file);
 
         var configDOM = YamlConfiguration.loadConfiguration(f);
@@ -170,6 +169,16 @@ public interface Configurations {
         var template = "/templates/%s.yml".formatted(name);
 
         return values(template, file).getConfigurationSection(name);
+    }
+
+    static void saveStandalone(ConfigurationSection config) {
+        var id = Objects.requireNonNull(config.getRoot()).getKeys(false).iterator().next();
+
+        try {
+            ((YamlConfiguration) Objects.requireNonNull(config.getRoot())).save(file(id+".yml", false));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     static File file(String name, boolean cover) {
