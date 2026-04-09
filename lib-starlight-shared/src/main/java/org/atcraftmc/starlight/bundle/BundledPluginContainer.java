@@ -52,4 +52,8 @@ public final class BundledPluginContainer implements SLPluginConcept {
     public String name() {
         return this.id;
     }
+
+    public Class<?> getHandle() {
+        return handle;
+    }
 }

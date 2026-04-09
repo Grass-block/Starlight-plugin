@@ -19,7 +19,7 @@ import java.util.Comparator;
 
 
 @ApplicationModule(id = "wg-claim")
-public final class WorldGuardClaimCommand extends BukkitAbstractModule {
+public final class WGClaimCommand extends BukkitAbstractModule {
 
     static LanguageItem lang(String id) {
         return SLPluginEnvironment.getPlugin().language().item("starlight-worldguard:wg-claim:" + id);
@@ -42,7 +42,7 @@ public final class WorldGuardClaimCommand extends BukkitAbstractModule {
         WorldGuardRegionService.COMMAND.unregisterSubCommand("unclaim");
     }
 
-    @BukkitCommand(name = "unclaim")
+    @BukkitCommand(name = "unclaim", permission = "+starlight.worldguard.claim")
     public static class UnClaimCommand extends StandaloneCommand {
 
         @Override
@@ -97,7 +97,7 @@ public final class WorldGuardClaimCommand extends BukkitAbstractModule {
         }
     }
 
-    @BukkitCommand(name = "claim")
+    @BukkitCommand(name = "claim", permission = "+starlight.worldguard.claim")
     public static class ClaimCommand extends StandaloneCommand {
         @Override
         public void suggest(CommandSuggestion suggestion) {

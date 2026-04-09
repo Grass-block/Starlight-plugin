@@ -1,84 +1,203 @@
 package org.atcraftmc.starlight.worldguard;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.flags.StringFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import me.gb2022.commons.container.ObjectContainer;
 import me.gb2022.gluon.service.ApplicationService;
-import org.atcraftmc.starlight.core.ui.TextRenderer;
-import org.atcraftmc.starlight.core.ui.UI;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.inventory.ItemStack;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.framework.BukkitService;
+import org.atcraftmc.starlight.worldguard.data.JsonDataHandle;
+import org.atcraftmc.starlight.worldguard.data.RegionKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.server.ServerCommandEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.time.Duration;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.concurrent.ExecutionException;
 
-@ApplicationService(id = "wg-extra-info")
-public interface WorldGuardExtraInfoService {
+@ApplicationService(id = "wg-extra-info", impl = WorldGuardExtraInfoService.Impl.class)
+public interface WorldGuardExtraInfoService extends BukkitService {
+    String WG_FLAG_NAME = "--starlight-data";
+    String WG_FLAG_DEFAULT = "{}";
+    StringFlag INITIAL_FLAG = new StringFlag(WG_FLAG_NAME, WG_FLAG_DEFAULT);
 
+    @ServiceInject
+    ServiceHolder<WorldGuardExtraInfoService> INSTANCE = new ServiceHolder<>();
+    ObjectContainer<StringFlag> WG_MAIN_FLAG = new ObjectContainer<>();
 
-    final class Storage extends JDBCBasedDataService<PlotDisplayInfo> {
-        public Storage() {
-            super("plot_info");
+    static WorldGuardExtraInfoService getInstance() {
+        return INSTANCE.get();
+    }
+
+    static StringFlag getMainFlag() {
+        return WG_MAIN_FLAG.get();
+    }
+
+    static void validateFlag() {
+        var registry = WorldGuard.getInstance().getFlagRegistry();
+
+        Flag<?> f1 = registry.get(WorldGuardExtraInfoService.WG_FLAG_NAME);
+
+        if (f1 == null) {
+            registry.register(INITIAL_FLAG);
+            WG_MAIN_FLAG.set(INITIAL_FLAG);
+        } else {
+            WG_MAIN_FLAG.set(((StringFlag) f1));
+        }
+
+        Starlight.LOGGER.info("WorldGuard data validating result: {}", WG_MAIN_FLAG.get());
+    }
+
+    void suggestFlush(RegionKey id);
+
+    JsonDataHandle getDataHandle(RegionKey id);
+
+    final class Impl implements WorldGuardExtraInfoService, RemovalListener<RegionKey, JsonDataHandle> {
+        private final Cache<RegionKey, JsonDataHandle> handleCache = CacheBuilder.newBuilder()
+                .expireAfterAccess(Duration.ofMinutes(3))
+                .removalListener(this)
+                .build();
+
+        private static void writeAttachmentData(ProtectedRegion region, JsonObject data) {
+            region.setFlag(getMainFlag(), data.toString());
+        }
+
+        private static JsonObject readAttachmentData(ProtectedRegion region) {
+            var s = Objects.requireNonNullElse(region.getFlag(getMainFlag()), "{}");
+            return JsonParser.parseString(s).getAsJsonObject();
+        }
+
+        private static void write(RegionKey key, JsonDataHandle handle) {
+            var region = WorldGuardRegionService.getRegion(key);
+
+            if (region.isEmpty()) {
+                return;
+            }
+
+            writeAttachmentData(region.get(), handle.getHandle());
         }
 
         @Override
-        public PreparedStatement attemptCreateTable(Connection connection) throws SQLException {
-            var sql = """
-                    CREATE TABLE IF NOT EXISTS `plot_info` (
-                        uuid char(36) primary key,
-                        id varchar(128) not null,
-                        name varchar(128) not null,
-                        icon varchar(64) not null,
-                        note varchar(512) not null,
-                        spawn_x int,
-                        spawn_y int,
-                        spawn_z int,
-                        tag varchar(1024) not null,
-                        hidden bool
-                    );
-                    """;
+        public void enable() {
+            BukkitUtil.registerEventListener(this);
 
-            return connection.prepareStatement(sql);
+            TaskService.global().timer("starlight:region-auto-save", 100, 100, () -> this.handleCache.asMap().forEach((k, v) -> {
+                if (v.isDirty() && v.isFree()) {
+                    write(k, v);
+                    v.setDirty(false);
+                }
+            }));
         }
-    }
+
+        @Override
+        public void disable() {
+            TaskService.global().cancel("starlight:region-auto-save");
+
+            BukkitUtil.unregisterEventListener(this);
+            this.handleCache.asMap().forEach((k, v) -> flush(k));
+            this.handleCache.invalidateAll();
+        }
 
 
-    record PlotDisplayInfo(String icon, String name, String desc, Set<String> tags) {
+        @Override
+        public void onRemoval(RemovalNotification<RegionKey, JsonDataHandle> notification) {
+            var key = notification.getKey();
+            var handle = notification.getValue();
 
-        public void icon(ProtectedRegion rg, UI.ElementBuilder element, String template) {
-            var icon = Objects.requireNonNullElse(Material.matchMaterial(this.icon), Material.GRASS_BLOCK);
-            var players = rg.getOwners().getUniqueIds()
-                    .stream()
-                    .map(Bukkit::getOfflinePlayer)
-                    .map(OfflinePlayer::getName).collect(Collectors.toSet());
-            var owners = "[empty]";
-
-            if (!players.isEmpty()) {
-                owners = "[" + String.join(", ", players) + "]";
+            if (key == null || handle == null) {
+                return;
             }
-            var ui = template
-                    .replace("{name}", this.name)
-                    .replace("{id}", rg.getId())
-                    .replace("{owner}", owners);
 
+            if (!handle.isFree()) {
+                this.handleCache.put(key, handle);
+                return;
+            }
 
-            element.icon(new ItemStack(icon));
-            element.lore(TextRenderer.literal(ui));
-            element.name(TextRenderer.literal(this.name));
+            write(key, handle);
         }
 
+        @Override
+        public void suggestFlush(RegionKey id) {
+            var data = this.handleCache.getIfPresent(id);
+
+            if (data == null) {
+                return;
+            }
+
+            write(id, data);
+        }
+
+        @Override
+        public JsonDataHandle getDataHandle(RegionKey id) {
+            try {
+                return this.handleCache.get(id, () -> new JsonDataHandle(this, id, getData(id)));
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        @EventHandler
+        public void onServerCommand(ServerCommandEvent event) {
+            if (!(event.getCommand().contains("wg reload"))) {
+                return;
+            }
+
+            this.disable();
+        }
+
+
+        @EventHandler(priority = EventPriority.LOWEST)
+        public void onWorldUnload(WorldUnloadEvent event) {
+            var w = event.getWorld();
+            var m = this.handleCache.asMap();
+
+            for (var k : new HashSet<>(m.keySet())) {
+                if (!k.world().equals(w)) {
+                    continue;
+                }
+
+                flush(k);
+            }
+        }
+
+        private void flush(RegionKey k) {
+            var d = this.handleCache.getIfPresent(k);
+            this.handleCache.invalidate(k);
+
+            if (d == null) {
+                return;
+            }
+
+            d.waitUntilFree();
+
+            write(k, d);
+        }
+
+        private JsonObject getData(RegionKey id) {
+            var region = WorldGuardRegionService.getRegion(id);
+            if (region.isEmpty()) {
+                return new JsonObject();
+            }
+
+            return readAttachmentData(region.get());
+        }
     }
 
 
-    final class Impl implements WorldGuardExtraInfoService{
-        public Set<PlotDisplayInfo> list(UUID uuid) {
-            return Set.of();
-        }
-    }
 }

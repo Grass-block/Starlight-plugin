@@ -1,0 +1,16 @@
+#identifier
+name: starlight-ext-worldguard
+version: '${version}'
+
+#api
+main: org.atcraftmc.starlight.SLWorldGuardPackage
+api-version: 1.14
+folia-supported: true
+load: POSTWORLD
+depend: [ "starlight-core","WorldGuard" ]
+
+#description
+authors: [ "GrassBlock2022","TBSTMC" ]
+website: https://atcraftmc.cn
+description: worldguard extension.
+prefix: Starlight/Worldguard

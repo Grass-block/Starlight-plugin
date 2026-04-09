@@ -14,17 +14,7 @@ import org.atcraftmc.starlight.foundation.command.CoreCommand;
 import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 
-@BukkitCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {
-        ConfigCommand.class,
-        LanguageCommand.class,
-        ModuleCommand.class,
-        GlobalVarsCommand.class,
-        PackageCommand.class,
-        StarlightPluginCommand.ReloadCommand.class,
-        DebugCommand.class,
-        LibraryCommand.class,
-        DataGenCommand.class
-})
+@BukkitCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {ConfigCommand.class, LanguageCommand.class, ModuleCommand.class, GlobalVarsCommand.class, PackageCommand.class, StarlightPluginCommand.ReloadCommand.class, DebugCommand.class, LibraryCommand.class, DataGenCommand.class})
 public final class StarlightPluginCommand extends CoreCommand {
 
 
@@ -85,16 +75,14 @@ public final class StarlightPluginCommand extends CoreCommand {
                         return;
                     }
                     var loc = LocaleService.locale(context.getSender());
-                    Starlight.instance().onDisable();
-                    try {
-                        PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
-                    } catch (Exception ignored) {
-                    }
-                    InternalCommands.register();
-
+                    prepareReload();
                     TextSender.sendMessage(context.getSender(), this.getLanguage().item("prepared").component(loc));
                 }
                 case "action" -> {
+                    if (Starlight.instance().isPluginInitialized()) {
+                        prepareReload();
+                    }
+
                     if (APIProfileTest.isMixedServer()) {
                         this.getLanguage().item("platform-unsupported").send(context.getSender());
                         return;
@@ -107,6 +95,15 @@ public final class StarlightPluginCommand extends CoreCommand {
                     Starlight.reload(context.getSender());
                 }
             }
+        }
+
+        private void prepareReload() {
+            Starlight.instance().onDisable();
+            try {
+                PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
+            } catch (Exception ignored) {
+            }
+            InternalCommands.register();
         }
     }
 }

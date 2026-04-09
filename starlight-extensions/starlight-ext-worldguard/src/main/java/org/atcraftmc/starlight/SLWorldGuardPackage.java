@@ -4,10 +4,8 @@ import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
-import org.atcraftmc.starlight.worldguard.WorldGuardClaimCommand;
-import org.atcraftmc.starlight.worldguard.WorldGuardRegionHUD;
-import org.atcraftmc.starlight.worldguard.WorldGuardRegionService;
-import org.atcraftmc.starlight.worldguard.WorldGuardWECheck;
+import org.atcraftmc.starlight.util.EarlyLoading;
+import org.atcraftmc.starlight.worldguard.*;
 
 public final class SLWorldGuardPackage extends MultiPackageProvider {
 
@@ -16,11 +14,19 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
         b.service(WorldGuardRegionService.class);
-        b.module(WorldGuardRegionHUD.class);
+        b.service(WorldGuardExtraInfoService.class);
+
+        b.module(WGRegionHUD.class);
         b.module(WorldGuardWECheck.class);
-        b.module(WorldGuardClaimCommand.class);
+        b.module(WGClaimCommand.class);
+        b.module(WGCustomName.class);
 
         p.language("starlight-worldguard", "zh_cn");
         p.config("starlight-worldguard");
+    }
+
+    @EarlyLoading
+    public static void preload() {
+        WorldGuardExtraInfoService.validateFlag();
     }
 }

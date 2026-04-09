@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.bundle;
 
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.atcraftmc.starlight.util.EarlyLoadingManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
@@ -44,21 +45,6 @@ public final class BundledPackageProvider {
             return;
         }
 
-        for (var method : this.handle.getDeclaredMethods()) {
-            method.setAccessible(true);
-
-            if (!method.isAnnotationPresent(BundlerRegistry.class)) {
-                continue;
-            }
-
-            try {
-                method.invoke(null, this);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                LOGGER.info("failed to load package {}", method.getName());
-                LOGGER.catching(e);
-            }
-        }
-
         for (var c : this.containers) {
             c.enable();
         }
@@ -71,6 +57,29 @@ public final class BundledPackageProvider {
 
         for (var c : this.containers) {
             c.disable();
+        }
+    }
+
+    public void preload() {
+        if(this.handle != null) {
+            for (var method : this.handle.getDeclaredMethods()) {
+                method.setAccessible(true);
+
+                if (!method.isAnnotationPresent(BundlerRegistry.class)) {
+                    continue;
+                }
+
+                try {
+                    method.invoke(null, this);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    LOGGER.info("failed to load package {}", method.getName());
+                    LOGGER.catching(e);
+                }
+            }
+        }
+
+        for (var c : this.containers) {
+            EarlyLoadingManager.scan(c.getHandle(), this);
         }
     }
 

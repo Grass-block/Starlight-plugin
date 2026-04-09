@@ -116,11 +116,49 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public VisualScoreboard visualScoreboard(Player player) {
+            if (player == null) {
+                return EmptyVisualScoreboard.INSTANCE;
+            }
+
             if (!this.handles.containsKey(player.getUniqueId())) {
                 this.loadScoreboard(player);
             }
 
             return this.handles.get(player.getUniqueId());
+        }
+    }
+
+    final class EmptyVisualScoreboard implements VisualScoreboard {
+        public static final EmptyVisualScoreboard INSTANCE = new EmptyVisualScoreboard();
+
+        @Override
+        public void mount() {
+
+        }
+
+        @Override
+        public void renderSidebar(Component title, List<String> columns) {
+
+        }
+
+        @Override
+        public void stopSidebarRendering() {
+
+        }
+
+        @Override
+        public void setNameTag(Player target, Component prefix, Component postfix) {
+
+        }
+
+        @Override
+        public void setTabColumn(Player target, int value, Component title) {
+
+        }
+
+        @Override
+        public void clearTabColumn() {
+
         }
     }
 

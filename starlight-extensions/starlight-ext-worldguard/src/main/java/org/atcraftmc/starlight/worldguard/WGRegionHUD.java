@@ -5,6 +5,8 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.apache.commons.lang3.function.TriFunction;
+import org.atcraftmc.qlib.Pipeline;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
@@ -14,6 +16,7 @@ import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -26,7 +29,8 @@ import java.util.stream.Collectors;
 
 @ApplicationModule(id = "wg-region-hud", description = "Create an HUD displaying WorldGuard region info.")
 @AutoRegister(Registrations.SERVER_EVENT)
-public final class WorldGuardRegionHUD extends BukkitAbstractModule {
+public final class WGRegionHUD extends BukkitAbstractModule {
+    public static final Pipeline<Formatter> PIPELINE = new Pipeline<>();
     private final Map<UUID, ProtectedRegion> stateCache = new HashMap<>();
 
     @Override
@@ -35,13 +39,7 @@ public final class WorldGuardRegionHUD extends BukkitAbstractModule {
         Compatibility.requirePlugin("WorldEdit");
     }
 
-    private String render(Player player) {
-        var region = this.stateCache.get(player.getUniqueId());
-
-        if (region == null) {
-            return "";
-        }
-
+    public String format(ProtectedRegion region, World world, String s) {
         var owners = "{msg#ui-empty-owners}";
         var players = region.getOwners().getUniqueIds()
                 .stream()
@@ -52,10 +50,24 @@ public final class WorldGuardRegionHUD extends BukkitAbstractModule {
             owners = "[" + String.join(", ", players) + "]";
         }
 
-        var template = config().value("template").string()
-                .replace("{name}", region.getId())//todo: extra id
+        return s.replace("{name}", region.getId())
                 .replace("{owner}", owners)
                 .replace("{id}", region.getId());
+    }
+
+    private String render(Player player) {
+        var region = this.stateCache.get(player.getUniqueId());
+
+        if (region == null) {
+            return "";
+        }
+
+
+        var template = config().value("template").string();
+
+        for (var p : PIPELINE.list()) {
+            template = p.apply(region, player.getWorld(), template);
+        }
 
         return this.language().inline(template, LocaleService.locale(player));
     }
@@ -99,9 +111,10 @@ public final class WorldGuardRegionHUD extends BukkitAbstractModule {
         this.stateCache.put(player.getUniqueId(), currentState);
     }
 
-
     @Override
     public void enable() {
+        PIPELINE.addLast("starlight:default", this::format);
+
         TaskService.global().timer("starlight:worldguard-hud:main", 5, 5, () -> {
             for (var player : Bukkit.getOnlinePlayers()) {
                 tick(player);
@@ -110,12 +123,14 @@ public final class WorldGuardRegionHUD extends BukkitAbstractModule {
     }
 
     @Override
-    public void disable() throws Exception {
+    public void disable() {
         TaskService.global().cancel("starlight:worldguard-hud:main");
 
         for (var player : Bukkit.getOnlinePlayers()) {
             stopRender(player);
         }
+
+        PIPELINE.clear();
     }
 
     @EventHandler
@@ -128,5 +143,9 @@ public final class WorldGuardRegionHUD extends BukkitAbstractModule {
     public void onPlayerQuit(PlayerQuitEvent event) {
         stopRender(event.getPlayer());
         this.stateCache.remove(event.getPlayer().getUniqueId());
+    }
+
+
+    interface Formatter extends TriFunction<ProtectedRegion, World, String, String> {
     }
 }

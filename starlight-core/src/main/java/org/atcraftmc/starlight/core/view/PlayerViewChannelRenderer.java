@@ -24,7 +24,7 @@ public final class PlayerViewChannelRenderer {
     }
 
     public void destroy() {
-        for (var id:new ArrayList<>(this.renderers.keySet())) {
+        for (var id : new ArrayList<>(this.renderers.keySet())) {
             this.removeProcess(id);
         }
     }
@@ -78,6 +78,9 @@ public final class PlayerViewChannelRenderer {
         list.removeIf((p) -> this.holder.isChannelRejected(p.id()));
 
         if (list.isEmpty()) {
+            if (player == null) {
+                return;
+            }
             this.cleanupAction.accept(player);
             return;
         }

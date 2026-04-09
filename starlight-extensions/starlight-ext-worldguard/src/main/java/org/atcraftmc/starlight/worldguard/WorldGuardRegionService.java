@@ -17,6 +17,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
+import org.atcraftmc.starlight.worldguard.data.RegionKey;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -42,6 +43,18 @@ public interface WorldGuardRegionService extends Service {
     @ServiceInject
     static void stop() {
         Starlight.instance().getCommandManager().unregister(COMMAND);
+    }
+
+    static Optional<ProtectedRegion> getRegion(RegionKey key) {
+        var container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        var wgWorld = BukkitAdapter.adapt(key.world());
+        var rm = container.get(wgWorld);
+
+        if (rm == null) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(rm.getRegion(key.id()));
     }
 
     static boolean canAccess(Player player, org.bukkit.entity.Player ep) {
@@ -109,8 +122,8 @@ public interface WorldGuardRegionService extends Service {
         return getSingleRegion(set1);
     }
 
-    static boolean canAccess(ProtectedRegion region, UUID uuid){
-        return region.getMembers().contains(uuid)||region.getOwners().contains(uuid);
+    static boolean canAccess(ProtectedRegion region, UUID uuid) {
+        return region.getMembers().contains(uuid) || region.getOwners().contains(uuid);
     }
 
     @Override

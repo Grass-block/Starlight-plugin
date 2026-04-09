@@ -1,5 +1,13 @@
 ## V5: Now - Gluon engine
 
+### 26.5.0
+
+- Added wg-extra data storage.
+- Added worldguard package as external.
+- Fixed formatting issue with null arguments.
+- Changed the color of worldguard HUD.
+- Fixed task-register error on reloading.
+
 ### 26.4.3
 
 - Added default-state function.
@@ -376,4 +384,4 @@ compatibility: 0.64.10+
 
 - Fixed ServiceRegistry unregister failure.
 - Fixed CommandFunction and PermissionManager
-- PermissionManager now start to use external assets to load
+- PermissionManager now start to use external assets to loa

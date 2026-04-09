@@ -141,15 +141,24 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
 
     //----[plugin]----
-    @Override
-    public void onLoad() {
+    private void loadEnv(){
         try {
             hackDataFolder();
-            SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"), BukkitAPI.API_MANAGER);
-            BukkitAPI.init();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"), BukkitAPI.API_MANAGER);
+        BukkitAPI.init();
+    }
+
+
+    @Override
+    public void onLoad() {
+        loadEnv();
+
+        if (this.bundledPackageProvider.isPresent()) {
+            this.bundledPackageProvider.preload();
+            LOGGER.info("Completed early-loading process.");
         }
     }
 
@@ -157,7 +166,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     public void onEnable() {
         Timer.restartTiming();
 
-        onLoad();
+        loadEnv();
 
         for (String s : ProductInfo.logo(this).split("\n")) {
             Bukkit.getConsoleSender().sendMessage(s);

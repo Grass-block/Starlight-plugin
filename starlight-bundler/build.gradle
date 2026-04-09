@@ -32,6 +32,7 @@ tasks.named('build').get().dependsOn(':starlight-basic:build')
 tasks.named('build').get().dependsOn(':starlight-game:build')
 tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-music:build')
 tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-lobby:build')
+tasks.named('build').get().dependsOn(':starlight-extensions:starlight-ext-worldguard:build')
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

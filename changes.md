@@ -1,5 +1,13 @@
 ## V5: Now - Gluon engine
 
+### 26.5.0
+
+- Added wg-extra data storage.
+- Added worldguard package as external.
+- Fixed formatting issue with null arguments.
+- Changed the color of worldguard HUD.
+- Fixed task-register error on reloading.
+
 ### 26.4.3
 
 - Added default-state function.

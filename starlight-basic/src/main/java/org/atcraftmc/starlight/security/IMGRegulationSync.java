@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-@ApplicationModule(id = "img-regulation-sync")
+@ApplicationModule(id = "img-regulation-sync", defaultEnable = false)
 @AutoRegister(Registrations.SERVER_EVENT)
 public class IMGRegulationSync extends BukkitAbstractModule {
     private final Cache<UUID, IMGRegulationService.BanRecord> cache = CacheBuilder.newBuilder()
