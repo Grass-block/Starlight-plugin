@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.api;
 
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
-@SLEvent
+@BukkitEvent
 public final class PlayerFirstJoinEvent extends CustomEvent {
     private final Player player;
 

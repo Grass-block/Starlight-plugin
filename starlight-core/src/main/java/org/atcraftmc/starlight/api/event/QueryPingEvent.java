@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.util.CachedServerIcon;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 
-@SLEvent
+@BukkitEvent
 public final class QueryPingEvent extends CustomEvent {
     private CachedServerIcon serverIcon = Bukkit.getServerIcon();
     private String motd = Bukkit.getMotd();

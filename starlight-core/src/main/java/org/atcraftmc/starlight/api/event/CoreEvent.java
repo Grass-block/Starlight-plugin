@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.api.event;
 import org.atcraftmc.starlight.Starlight;
 import org.bukkit.event.HandlerList;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 
 public abstract class CoreEvent extends CustomEvent {
     private final Starlight instance;
@@ -16,7 +16,7 @@ public abstract class CoreEvent extends CustomEvent {
         return instance;
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class Launch extends CoreEvent {
         public Launch(Starlight instance) {
             super(instance);
@@ -27,7 +27,7 @@ public abstract class CoreEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class PostLaunch extends CoreEvent {
         public PostLaunch(Starlight instance) {
             super(instance);
@@ -38,7 +38,7 @@ public abstract class CoreEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class Dispose extends CoreEvent {
         public Dispose(Starlight instance) {
             super(instance);
@@ -49,7 +49,7 @@ public abstract class CoreEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class PostDispose extends CoreEvent {
         public PostDispose(Starlight instance) {
             super(instance);
@@ -60,7 +60,7 @@ public abstract class CoreEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static class Reload extends CoreEvent {
         public Reload() {
             super(null);
@@ -71,7 +71,7 @@ public abstract class CoreEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static class PostReload extends CoreEvent {
         public PostReload() {
             super(null);

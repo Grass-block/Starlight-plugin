@@ -15,7 +15,7 @@ public abstract class CustomEvent extends Event {
     public static final Map<Class<? extends CustomEvent>, HandlerList> HANDLER_LISTS = new HashMap<>();
 
     protected CustomEvent() {
-        SLEvent annotation = this.getClass().getAnnotation(SLEvent.class);
+        BukkitEvent annotation = this.getClass().getAnnotation(BukkitEvent.class);
         boolean async = annotation.async();
 
         try {

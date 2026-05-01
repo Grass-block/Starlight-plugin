@@ -4,11 +4,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 
 import java.util.List;
 
-@SLEvent
+@BukkitEvent
 public final class CommandTabEvent extends CustomEvent implements Cancellable {
     private final CommandSender sender;
     private final String[] args;

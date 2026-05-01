@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.util.dependency;
 import me.gb2022.commons.container.OrderedHashMap;
 import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.SLPluginConcept;
@@ -31,6 +30,7 @@ public final class LibraryManager {
     private final String repositoryURL;
     private final String workingDirectory;
     private final OrderedHashMap<String, URL> loadedURLs = new OrderedHashMap<>();
+    private final Set<String> loggedURLs = new HashSet<>();
     private final Set<String> loadFailedClasses = new HashSet<>();
     private final boolean loadFully;
 
@@ -44,7 +44,7 @@ public final class LibraryManager {
         lm.resolveDependencies(p.getMetadata().getDependencies());
         lm.injectLibraries(p);
         if (lm.loadFully) {
-            lm.loadFullJar(p.classLoader(), p.getFile());
+            lm.loadFullJar(p.classLoader(), p.getFile(), true);
         }
     }
 
@@ -64,7 +64,7 @@ public final class LibraryManager {
         }
     }
 
-    public void loadFullJar(@NotNull ClassLoader loader, File jar) {
+    public void loadFullJar(@NotNull ClassLoader loader, File jar, boolean log) {
         var classes = new HashSet<String>();
 
         try (JarFile jarFile = new JarFile(jar)) {
@@ -89,7 +89,7 @@ public final class LibraryManager {
                     loadClass(className, loader, classes);
                 } catch (ClassNotFoundException e) {
                     this.loadFailedClasses.add(className);
-                    if(SLPluginEnvironment.isDebug()){
+                    if (SLPluginEnvironment.isDebug()) {
                         LOGGER.info("Failed to load class with dep missing: {}({})", className, e.getMessage());
                     }
                 } catch (Throwable e) {
@@ -101,7 +101,9 @@ public final class LibraryManager {
             throw new RuntimeException(e);
         }
 
-        LOGGER.info("Loaded library {} ({} classes).", jar.getName(), classes.size());
+        if (log) {
+            LOGGER.info("Loaded library {} ({} classes).", jar.getName(), classes.size());
+        }
     }
 
     public InputStream getPOMDocumentIS(GradleDependency dependency) throws Exception {
@@ -236,16 +238,23 @@ public final class LibraryManager {
 
 
                 var f = new File(url.toURI());
+                var log = !this.loggedURLs.contains(url.toString());
+
                 if (this.loadFully) {
-                    loadFullJar(cl, f);
+                    loadFullJar(cl, f, log);
                 } else {
-                    LOGGER.info("Loaded library(URL): {}({}KiB)", f.getName(), f.length() / 1024);
+                    if (log) {
+                        LOGGER.info("Loaded library(URL): {}({}KiB)", f.getName(), f.length() / 1024);
+                    }
                 }
+
+                this.loggedURLs.add(url.toString());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
+        LOGGER.info("Loaded {} extra libs.", this.loadedURLs.size());
     }
 
 

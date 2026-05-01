@@ -138,6 +138,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(PermissionManager.class); //todo [DFU] import permission data
         b.module(WorldEditOperationDefender.class);
         b.module(GuestMode.class);
+        b.module(EndProtect.class);
 
         p.config("starlight-security");
         p.language("starlight-security", "zh_cn");

@@ -6,10 +6,13 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.starlight.api.event.ui.PlayerUIMountEvent;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.view.PlayerView;
+import org.atcraftmc.starlight.core.view.UITrackingStateCallback;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -20,8 +23,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 @ApplicationModule(id = "action-bar-hud", description = "Create a HUD display on actionbar title.")
-@AutoRegister(Registrations.SERVER_EVENT)
-public final class ActionBarHUD extends BukkitAbstractModule {
+@AutoRegister({Registrations.SERVER_EVENT,PlayerUIService.TRACKING})
+public final class ActionBarHUD extends BukkitAbstractModule implements UITrackingStateCallback {
     @Inject
     private LanguageEntry language;
 
@@ -46,7 +49,8 @@ public final class ActionBarHUD extends BukkitAbstractModule {
         return PlaceHolderService.formatPlayer(player, template);
     }
 
-    private void startRender(Player player) {
+    @Override
+    public void startRender(Player player, PlayerView ui) {
         PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
                 this.getFullId(),
                 -10,
@@ -59,32 +63,8 @@ public final class ActionBarHUD extends BukkitAbstractModule {
         );
     }
 
-    private void stopRender(Player player) {
+    @Override
+    public void stopRender(Player player, PlayerView ui) {
         PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.getFullId());
-    }
-
-
-    @Override
-    public void enable() {
-        for (var player : Bukkit.getOnlinePlayers()) {
-            startRender(player);
-        }
-    }
-
-    @Override
-    public void disable() throws Exception {
-        for (var player : Bukkit.getOnlinePlayers()) {
-            stopRender(player);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        startRender(event.getPlayer());
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        stopRender(event.getPlayer());
     }
 }

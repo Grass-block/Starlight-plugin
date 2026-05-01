@@ -1,6 +1,8 @@
 package org.atcraftmc.starlight.framework.module;
 
 import me.gb2022.gluon.Registrations;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.view.UITrackingStateCallback;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.bukkit.event.Listener;
@@ -12,6 +14,8 @@ public final class BukkitAutoRegManager extends PluginAutoRegManager {
         Builder.build(this, (i) -> {
             i.attach(Registrations.SERVER_EVENT, (o) -> BukkitUtil.registerEventListener(((Listener) o)));
             i.detach(Registrations.SERVER_EVENT, (o) -> BukkitUtil.unregisterEventListener(((Listener) o)));
+            i.attach(PlayerUIService.TRACKING, (o) -> PlayerUIService.TRACKER.attachCallback(((UITrackingStateCallback) o)));
+            i.detach(PlayerUIService.TRACKING, (o) -> PlayerUIService.TRACKER.detachCallback(((UITrackingStateCallback) o)));
         });
     }
 }

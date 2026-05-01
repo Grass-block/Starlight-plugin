@@ -2,10 +2,10 @@ package org.atcraftmc.starlight.api;
 
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 
-@SLEvent
+@BukkitEvent
 public final class ChatReportedEvent extends CustomEvent {
     private final String sender;
     private final String content;

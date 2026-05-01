@@ -2,12 +2,12 @@ package org.atcraftmc.starlight.api.event;
 
 import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
 import org.bukkit.event.HandlerList;
 
-@SLEvent
+@BukkitEvent
 public final class PlayerViewInitEvent extends CustomEvent {
     private final Player player;
     private final PlayerView view;

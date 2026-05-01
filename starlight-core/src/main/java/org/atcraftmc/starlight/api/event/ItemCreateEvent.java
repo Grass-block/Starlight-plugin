@@ -2,11 +2,11 @@ package org.atcraftmc.starlight.api.event;
 
 
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.entity.Item;
 import org.bukkit.event.HandlerList;
 
-@SLEvent
+@BukkitEvent
 public final class ItemCreateEvent extends CustomEvent {
     private final Item item;
 

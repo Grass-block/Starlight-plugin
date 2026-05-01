@@ -89,6 +89,15 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
                 .build();
     }
 
+    public static void prepareReload(){
+        Starlight.instance().onDisable();
+        try {
+            PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
+        } catch (Exception ignored) {
+        }
+        InternalCommands.register();
+    }
+
     public static void reload(CommandSender audience) {
         BukkitUtil.callEventUnsafe(new CoreEvent.Reload());
 
@@ -433,7 +442,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             throw new RuntimeException("cannot find plugin!");
         }
 
-        getLibraryManager().loadFullJar(this.getClassLoader(), jar);
+        getLibraryManager().loadFullJar(this.getClassLoader(), jar, true);
     }
 
 

@@ -38,4 +38,7 @@ dependencies {
 
     compileOnly "org.apache.logging.log4j:log4j-api:2.8.1"
     compileOnly 'com.google.guava:guava:31.0.1-jre'
+
+    compileOnly 'com.baomidou:mybatis-plus:3.5.15'
+    compileOnly 'com.zaxxer:HikariCP:7.0.2'
 }

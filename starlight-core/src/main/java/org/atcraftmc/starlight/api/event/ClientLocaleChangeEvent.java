@@ -4,9 +4,9 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 
-@SLEvent(async = false)
+@BukkitEvent(async = false)
 public final class ClientLocaleChangeEvent extends CustomEvent {
     private final Player player;
     private final MinecraftLocale locale;

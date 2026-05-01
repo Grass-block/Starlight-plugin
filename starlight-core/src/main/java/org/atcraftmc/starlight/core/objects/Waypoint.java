@@ -1,11 +1,23 @@
 package org.atcraftmc.starlight.core.objects;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import org.atcraftmc.starlight.data.jdbc.type.LegacyStringListHandler;
+import org.atcraftmc.starlight.data.jdbc.type.LegacyUUIDTypeHandler;
+
 import java.util.Set;
 import java.util.UUID;
 
+@TableName(value = "_waypoint_", autoResultMap = true)
 public final class Waypoint {
-    private final UUID uuid;
-    private final UUID owner;
+    @TableId(type = IdType.INPUT)
+    private String uuid;
+
+    @TableField(typeHandler = LegacyUUIDTypeHandler.class)
+    private UUID owner;
+
     private String name;
     private String world;
     private double x;
@@ -13,10 +25,13 @@ public final class Waypoint {
     private double z;
     private float yaw;
     private float pitch;
+    @TableField(typeHandler = LegacyStringListHandler.class)
     private Set<String> allowed;
 
+    public Waypoint() {}
+
     public Waypoint(UUID uuid, String name, String world, double x, double y, double z, float yaw, float pitch, UUID owner, Set<String> allowed) {
-        this.uuid = uuid;
+        this.uuid = uuid.toString();
         this.name = name;
         this.world = world;
         this.x = x;
@@ -30,7 +45,7 @@ public final class Waypoint {
 
     // Getters and Setters
     public UUID getUuid() {
-        return uuid;
+        return UUID.fromString(this.uuid);
     }
 
     public String getName() {

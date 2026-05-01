@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 
-@SLEvent(async = false)
+@BukkitEvent(async = false)
 public final class WESessionEditEvent extends CustomEvent implements Cancellable {
     private final Player player;
     private Extent mask;

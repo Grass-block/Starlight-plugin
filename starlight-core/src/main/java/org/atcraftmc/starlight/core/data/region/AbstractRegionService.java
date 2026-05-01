@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.data.region;
 
 import me.gb2022.gluon.Debug;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
 import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.core.objects.Region;
 import org.atcraftmc.starlight.core.objects.WorldAABB;
@@ -95,7 +95,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
         try {
             return _add(region);
         } catch (SQLException e) {
-            if (!JDBCService.isUniqueViolation(e)) {
+            if (!JDBCUtil.isUniqueViolation(e)) {
                 throw new RuntimeException(e);
             }
 

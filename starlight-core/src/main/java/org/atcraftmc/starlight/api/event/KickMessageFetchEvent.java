@@ -2,15 +2,11 @@ package org.atcraftmc.starlight.api.event;
 
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
-import org.bukkit.BanEntry;
-import org.bukkit.BanList;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
-import java.util.Date;
-
-@SLEvent(async = false)
+@BukkitEvent(async = false)
 public final class KickMessageFetchEvent extends CustomEvent {
     private final Player player;
     private final String reason;

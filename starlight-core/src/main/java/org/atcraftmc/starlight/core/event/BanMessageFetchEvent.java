@@ -5,7 +5,7 @@ import org.bukkit.event.HandlerList;
 
 import java.util.Date;
 
-@SLEvent
+@BukkitEvent
 public class BanMessageFetchEvent extends CustomEvent {
     private final BanList.Type type;
     private String message;

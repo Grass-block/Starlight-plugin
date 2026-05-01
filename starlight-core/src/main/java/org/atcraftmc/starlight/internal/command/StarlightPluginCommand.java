@@ -4,7 +4,6 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -75,12 +74,12 @@ public final class StarlightPluginCommand extends CoreCommand {
                         return;
                     }
                     var loc = LocaleService.locale(context.getSender());
-                    prepareReload();
+                    Starlight.prepareReload();
                     TextSender.sendMessage(context.getSender(), this.getLanguage().item("prepared").component(loc));
                 }
                 case "action" -> {
                     if (Starlight.instance().isPluginInitialized()) {
-                        prepareReload();
+                        Starlight.prepareReload();
                     }
 
                     if (APIProfileTest.isMixedServer()) {
@@ -95,15 +94,6 @@ public final class StarlightPluginCommand extends CoreCommand {
                     Starlight.reload(context.getSender());
                 }
             }
-        }
-
-        private void prepareReload() {
-            Starlight.instance().onDisable();
-            try {
-                PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
-            } catch (Exception ignored) {
-            }
-            InternalCommands.register();
         }
     }
 }

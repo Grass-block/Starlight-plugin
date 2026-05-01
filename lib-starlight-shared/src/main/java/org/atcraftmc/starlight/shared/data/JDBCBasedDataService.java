@@ -1,6 +1,5 @@
 package org.atcraftmc.starlight.shared.data;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.service.JDBCService;

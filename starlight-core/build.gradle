@@ -69,6 +69,7 @@ dependencies {
 
     compileOnly 'com.h2database:h2:2.3.232'
     compileOnly 'org.mongodb:bson:5.6.0'
+    compileOnly 'com.baomidou:mybatis-plus:3.5.15'
 }
 
 //platform api reference

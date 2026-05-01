@@ -29,6 +29,7 @@ import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
+import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -206,7 +207,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             try {
                 return _add(uuid, setting);
             } catch (SQLException e) {
-                if (!JDBCService.isUniqueViolation(e)) {
+                if (!JDBCUtil.isUniqueViolation(e)) {
                     throw new RuntimeException(e);
                 }
 

@@ -19,6 +19,7 @@ dependencies {
     compileOnly gbuildLib('me.gb2022.commons:commons-compatibility')
 
     compileOnly 'org.mongodb:bson:5.6.0'
+    compileOnly 'com.baomidou:mybatis-plus:3.5.15'
 
     compileOnly gbuildLib('org.atcraftmc.qlib:qlib-bukkit')
     compileOnly gbuildLib('me.gb2022.apm:apm-remote')

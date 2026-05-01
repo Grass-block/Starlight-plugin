@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.shared.service;
 
+import org.atcraftmc.starlight.data.jdbc.service.TagMap;
 import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public final class TagMapService extends JDBCBasedDataService<String> {
+public final class TagMapService extends JDBCBasedDataService<String> implements TagMap {
     private WrappedConnection payloadHandlerA;
     private WrappedConnection payloadHandlerB;
     private WrappedConnection payloadHandlerC;
@@ -67,7 +68,7 @@ public final class TagMapService extends JDBCBasedDataService<String> {
         };
     }
 
-
+    @Override
     public Set<String> get(UUID uuid) throws SQLException {
         var result = new HashSet<String>();
 
@@ -88,6 +89,7 @@ public final class TagMapService extends JDBCBasedDataService<String> {
         return result;
     }
 
+    @Override
     public boolean has(UUID uuid, String data) throws SQLException {
         var sql = "SELECT uuid FROM _tagmap_ WHERE uuid = ? AND _payload_ LIKE ?";
 
@@ -101,6 +103,7 @@ public final class TagMapService extends JDBCBasedDataService<String> {
         }
     }
 
+    @Override
     public boolean hasEntry(UUID uuid) throws SQLException {
         var sql = "SELECT uuid FROM _tagmap_ WHERE uuid = ?";
 
@@ -113,6 +116,7 @@ public final class TagMapService extends JDBCBasedDataService<String> {
         }
     }
 
+    @Override
     public void add(UUID uuid, String data) throws SQLException {
         if (has(uuid, data)) {
             return;
@@ -140,6 +144,7 @@ public final class TagMapService extends JDBCBasedDataService<String> {
         }
     }
 
+    @Override
     public void delete(UUID uuid, String data) throws SQLException {
         var sql = """
                 UPDATE _tagmap_

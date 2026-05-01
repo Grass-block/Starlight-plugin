@@ -185,6 +185,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
             }
 
             d.waitUntilFree();
+            d.invalidate();
 
             write(k, d);
         }

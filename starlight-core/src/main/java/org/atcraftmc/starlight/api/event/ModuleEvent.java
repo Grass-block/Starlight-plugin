@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.api.event;
 import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 
 public abstract class ModuleEvent extends CustomEvent {
@@ -17,7 +17,7 @@ public abstract class ModuleEvent extends CustomEvent {
         return meta;
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class PreEnable extends ModuleEvent {
         public PreEnable(ModuleContainer meta) {
             super(meta);
@@ -28,7 +28,7 @@ public abstract class ModuleEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class Enable extends ModuleEvent {
         private final ObjectOperationResult result;
 
@@ -46,7 +46,7 @@ public abstract class ModuleEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class PreDisable extends ModuleEvent {
         public PreDisable(ModuleContainer meta) {
             super(meta);
@@ -57,7 +57,7 @@ public abstract class ModuleEvent extends CustomEvent {
         }
     }
 
-    @SLEvent
+    @BukkitEvent
     public static final class Disable extends ModuleEvent {
         private final ObjectOperationResult result;
 

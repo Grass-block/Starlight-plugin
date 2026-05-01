@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.api;
 
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.AnvilInventory;
 
-@SLEvent(async = false)
+@BukkitEvent(async = false)
 public final class AnvilRenameEvent extends CustomEvent {
     private final AnvilInventory inventory;
     private final String content;

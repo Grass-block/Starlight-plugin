@@ -19,11 +19,22 @@ public final class JsonDataHandle {
     private final RegionKey id;
     private final JsonObject handle;
     private boolean dirty = false;
+    private boolean valid = true;
 
     public JsonDataHandle(WorldGuardExtraInfoService service, RegionKey id, JsonObject handle) {
         this.service = service;
         this.id = id;
         this.handle = handle;
+    }
+
+    public void invalidate() {
+        this.valid = false;
+    }
+
+    private void checkValid() {
+        if(!this.valid) {
+            throw new IllegalStateException("DataHandle is no longer valid");
+        }
     }
 
     public Optional<ProtectedRegion> getTargetRegion() {
@@ -40,16 +51,19 @@ public final class JsonDataHandle {
 
     //string
     public void setString(String entry, String value) {
+        checkValid();
         this.dirty = true;
         this.handle.addProperty(entry, value);
     }
 
     public void setStringAndFlush(String entry, String value) {
+        checkValid();
         this.setString(entry, value);
         this.flush();
     }
 
     public String getString(String entry, String defaultValue) {
+        checkValid();
         if (!this.handle.has(entry)) {
             setString(entry, defaultValue);
         }

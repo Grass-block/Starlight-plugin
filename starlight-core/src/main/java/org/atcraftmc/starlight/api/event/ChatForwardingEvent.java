@@ -2,13 +2,13 @@ package org.atcraftmc.starlight.api.event;
 
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-@SLEvent
+@BukkitEvent
 public final class ChatForwardingEvent extends CustomEvent implements Cancellable {
     private final CommandSender sender;
     private final CommandSender viewer;

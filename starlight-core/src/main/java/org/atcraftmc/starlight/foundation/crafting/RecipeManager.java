@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.foundation.crafting;
 
+import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.inventory.Recipe;
-import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
-import org.atcraftmc.starlight.core.TaskService;
 
 public interface RecipeManager {
     static void register(Recipe... recipes) {

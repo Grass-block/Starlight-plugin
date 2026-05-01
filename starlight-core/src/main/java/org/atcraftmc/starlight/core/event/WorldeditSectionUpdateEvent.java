@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.atcraftmc.starlight.core.SimpleRegion;
 
-@SLEvent(async = false)
+@BukkitEvent(async = false)
 public class WorldeditSectionUpdateEvent extends CustomEvent {
     private final Player player;
     private final SimpleRegion region;

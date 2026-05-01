@@ -1,13 +1,13 @@
 package org.atcraftmc.starlight.api.event;
 
 import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.SLEvent;
+import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 
 import java.util.Date;
 import java.util.UUID;
 
-@SLEvent
+@BukkitEvent
 public final class PlayerExtraBanCheckEvent extends CustomEvent {
     private final UUID uuid;
     private boolean banned = false;

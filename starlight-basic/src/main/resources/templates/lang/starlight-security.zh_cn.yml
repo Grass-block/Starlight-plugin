@@ -39,4 +39,6 @@ language:
     edit-limited: "{global#error}您正在编辑的区域已超出限制(半径{#var}), 超出部分已被自动截断。"
     select-limited-warn: "{global#warning}您正在选择的区域(大小{#var}/{#var}/{#var})已超出限制({#var}), 请注意您的操作。"
     select-limited: "{global#error}您正在选择的区域(大小{#var}/{#var}/{#var})已超出限制({#var})并被取消。"
+  end-protect:
+    cristal-prevent: "{global#warning}为避免末影龙意外复活损毁地图，此处禁止放置末影水晶。"
 
