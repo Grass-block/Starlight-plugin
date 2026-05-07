@@ -1,0 +1,13 @@
+language:
+  -module-name:
+    chat-sync: Synchronisation de chat en cluster
+    geyser-skin-redirect: Remappage de skin Geyser
+    legacy-forwarding-protect: Protection de cluster BungeeCord
+    client-transfer-support: Support du mod de transfert client
+    proxy-ping: Correction des métriques Ping du cluster
+  bungee-connection-protect:
+    kick-message:
+      - 'Désolé, le système de protection du cluster {#server-name}{#reset} n''a pas pu authentifier votre connexion.{#return}'
+      - '{#gray}Veuillez vérifier que votre proxy BC/Waterfall source a été authentifié par ce serveur.'
+      - '{#gray}Si vous pensez qu''il s''agit d''une erreur, veuillez contacter le développeur.{#return}{#return}'
+      - '{#dark-gray}Votre ID de session : {#dark-gray}{}'

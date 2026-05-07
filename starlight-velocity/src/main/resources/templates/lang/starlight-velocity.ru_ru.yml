@@ -1,0 +1,50 @@
+language:
+  player-action-restriction:
+    restricted: '{global#sys-warning}Ваши взаимодействия ограничены до завершения необходимой проверки.'
+  global-vars:
+    sys-info: "{#aqua}Система{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}Система{#dark_aqua} > {#gray}"
+    sys-error: "{#red}Система{#dark_aqua} > {#gray}"
+    sys-success: "{#green}Система{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}Система{#dark_aqua} > {#gray}"
+  server-transfer-message:
+    join-proxy: '{global#sys-info}{#gray}Игрок {#white}{#var}{#gray} присоединился к серверу. Добро пожаловать.'
+    join-server: '{global#sys-info}{#gray}Игрок {#white}{#var}{#gray} (из {#var}) присоединился к серверу. Добро пожаловать.'
+    leave-proxy: '{global#sys-info}Игрок {#white}{#var}{#gray} покинул сервер.'
+    leave-server: '{global#sys-info}Игрок {#white}{#var}{#gray} (в {#var}) покинул сервер.'
+    join-message: '{global#sys-info}Добро пожаловать ({#var}) на сервер {#server-name}{#gray}. Приятной игры!'
+    transfer-message: '{global#sys-info}Вы были отправлены на сервер {#var}. Используйте {#gold}/hub,/lobby{#gray} чтобы вернуться в лобби.'
+  stp-command:
+    player-not-found: '{global#sys-info}Игрок {#var} не найден.'
+    command-error: '{global#sys-error}Требуется игрок.'
+    transfer: '{global#sys-info}Отправка вас на сервер игрока {#var}...'
+  stpa-command:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept {})}Принять{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny {})}Отклонить{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}Вы отправили запрос игроку {#var} на телепортацию на ваш сервер."
+    tpahere-request-target: "{global#sys-info}Игрок {#var} отправил вам запрос на телепортацию на свой сервер.{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}Вы приняли запрос на телепортацию на сервер {#var}. Отправка..."
+    tpahere-accept-target: "{global#sys-info}{#var} принял ваш запрос на телепортацию на ваш сервер."
+    tpahere-deny-sender: "{global#sys-info}Вы отклонили запрос на телепортацию на сервер {#var}."
+    tpahere-deny-target: "{global#sys-info}{#var} отклонил ваш запрос на телепортацию на ваш сервер."
+    tpahere-no-request: "{global#sys-info}{#var} не отправлял вам запрос на телепортацию на свой сервер."
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept {})}Принять{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny {})}Отклонить{color(white)}]'
+    tpa-request-sender: "{global#sys-info}Вы отправили запрос игроку {#var} на телепортацию на его/её сервер."
+    tpa-request-target: "{global#sys-info}Игрок {#var} отправил вам запрос на телепортацию на ваш сервер.{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}Вы приняли запрос {#var} на телепортацию на ваш сервер."
+    tpa-accept-target: "{global#sys-info}{#var} принял ваш запрос на телепортацию на его/её сервер. Отправка..."
+    tpa-deny-sender: "{global#sys-info}Вы отклонили запрос {#var} на телепортацию на ваш сервер."
+    tpa-deny-target: "{global#sys-info}{#var} отклонил ваш запрос на телепортацию на его/её сервер."
+    tpa-no-request: "{global#sys-info}{#var} не отправлял вам запрос на телепортацию на ваш сервер."
+
+    invite-request-sender: "{global#sys-info}Вы отправили приглашение всем игрокам сервера присоединиться к вашему серверу."
+    invite-request-target: "{global#sys-info}Игрок {#var} приглашает вас присоединиться к его/её серверу.{msg#tpahere-accept-btn}"
+
+    player-not-found: '{global#error}Игрок не существует...'
+  server-statement-observer:
+    online: "{global#sys-info}Сервер {#var} в сети. Вы можете зайти и играть."
+    offline: "{global#sys-info}Сервер {#var} не в сети. Возможно, это плановое отключение или обслуживание."
+  mod-server-support:
+    message: "{global#sys-error}Вам нужен определённый модпак для входа на этот сервер!"

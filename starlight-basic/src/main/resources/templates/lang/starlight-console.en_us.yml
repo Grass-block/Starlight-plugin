@@ -1,0 +1,18 @@
+language:
+  -module-name:
+    clear-console: Console Cleaner
+    console-execute: Console Proxy Execution
+    custom-log-format: '[BETA] Custom Log Format'
+    log-color-patch: '[BETA] Log Color Patch'
+    stop-confirm: Stop Confirmation
+  console-execute:
+    execute: "{global#sys-operation}Submitted command line: {#var}"
+  clear-console:
+    execute: "{global#sys-operation}Console command buffer cleared."
+  stop-confirm:
+    hint: "{#red} Are you sure you want to stop the server? This may terminate the service. If sure, use {#yellow}/stop confirm"
+  custom-log-format:
+    enable: "{global#sys-operation}{#gray}Custom server log format enabled."
+    disable: "{global#sys-operation}{#gray}Custom server log format disabled."
+    reload: "{global#sys-operation}{#gray}Custom server log format reloaded."
+    restore: "{global#sys-operation}{#gray}Custom server log format reset."

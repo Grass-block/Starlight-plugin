@@ -1,0 +1,18 @@
+language:
+  -module-name:
+    clear-console: コンソールクリアツール
+    console-execute: コンソールプロキシ実行
+    custom-log-format: '[BETA]カスタムログ形式'
+    log-color-patch: '[BETA]ログ色修正'
+    stop-confirm: 停止確認
+  console-execute:
+    execute: "{global#sys-operation}コマンドラインを送信しました: {#var}"
+  clear-console:
+    execute: "{global#sys-operation}コンソールコマンドバッファをクリアしました。"
+  stop-confirm:
+    hint: "{#red} サーバーを停止してもよろしいですか？サービスが終了する可能性があります。確実な場合は{#yellow}/stop confirmを使用してください。"
+  custom-log-format:
+    enable: "{global#sys-operation}{#gray}カスタムサーバーログ形式が有効になりました。"
+    disable: "{global#sys-operation}{#gray}カスタムサーバーログ形式が無効になりました。"
+    reload: "{global#sys-operation}{#gray}カスタムサーバーログ形式を再読み込みしました。"
+    restore: "{global#sys-operation}{#gray}カスタムサーバーログ形式をリセットしました。"

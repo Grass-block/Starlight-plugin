@@ -1,0 +1,135 @@
+language:
+  -module-name:
+    custom-language-pack-loader: '[コア]カスタムプラグイン言語ローダー'
+    installation-check: '[コア]インストール整合性チェック'
+    modrinth-version-check: '[コア]Modrinthアップデートサービス'
+    papi-support: '[コア]PlaceHolderAPI相互作用サポート'
+    platform-patcher: '[コア]プラットフォーム差異パッチ'
+    protocol-lib-injector: '[コア]ProtocolLibプラットフォームプロキシ'
+    version-log-viewer: '[コア]更新ログビューアー'
+    player-view-customization: '[コア]プレイヤーUIカスタマイズ %player_allow_flight%'
+  custom-block:
+    give: '{global#success}{#var} を入手しました *1'
+    give-failed: '{global#error}{#var} という名前のカスタムブロックは存在しません。'
+  global-vars:
+    sys-info: "{#aqua}システム{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}システム{#dark_aqua} > {#gray}"
+    sys-error: "{#red}システム{#dark_aqua} > {#gray}"
+    sys-success: "{#green}システム{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}システム{#dark_aqua} > {#gray}"
+    hint: "{#gray}[{#white}!{#gray}]{#gray}"
+    success: "{#gray}[{#green}!{#gray}]{#gray}"
+    info: "{#gray}[{#aqua}!{#gray}]{#gray}"
+    warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
+    error: "{#gray}[{#red}!{#gray}]{#gray}"
+    operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+  command:
+    exception: "{global#sys-error}構文エラー、またはコマンド実行中に内部エラーが発生しました。"
+    lack-permission: "{global#sys-error}申し訳ありませんが、このコマンドを実行する権限({#var})がありません。"
+    player-only: "{global#sys-error}このコマンドはプレイヤーのみ実行できます。"
+    sync-commands: "{global#sys-operation}コマンド同期が完了しました。"
+
+    error-missing: "{global#error}構文エラー: {#var} に引数が不足しています。"
+    error-argument-type-int: "{global#error}構文エラー: {#var} には整数が必要ですが、{#var} が入力されました。"
+    error-argument-type-float: "{global#error}構文エラー: {#var} には浮動小数点数が必要ですが、{#var} が入力されました。"
+    error-argument-type-double: "{global#error}構文エラー: {#var} には倍精度浮動小数点数が必要ですが、{#var} が入力されました。"
+    error-argument-type-enum: "{global#error}構文エラー: {#var} には {#var} のいずれかが必要ですが、{#var} が入力されました。"
+    error-require-player: "{global#error}構文エラー: {#var} にはプレイヤーが必要ですが、({#var}) は存在しません。"
+    error-argument-bound: "{global#error}構文エラー: {#var} の値は {#var}-{#var} の範囲内である必要がありますが、{#var} です。"
+
+    error-lack-permission: "{global#error}権限不足: 権限 {#var} が不足しています。"
+    error-lack-any-permission: "{global#error}権限不足: {#var} のいずれかの権限が不足しています。"
+    error-lack-all-permission: "{global#error}権限不足: {#var} のすべての権限が不足しています。"
+    error-sender-is-not-player: "{global#error}対象エラー: プレイヤーである必要があります。"
+
+    error-internal-exception: "{global#error}コマンド実行中に内部エラーが発生しました。コンソールで詳細を確認してください。"
+  module:
+    list: "{global#sys-operation}以下は全モジュールです: {#return}{}"
+    enable-all: "{global#sys-operation}すべてのモジュールを有効化しました。"
+    disable-all: "{global#sys-operation}すべてのモジュールを無効化しました。"
+    reload-all: "{global#sys-operation}すべてのモジュールを再読み込みしました。"
+    enable: "{global#sys-operation}モジュール {#var} を有効化しました。"
+    disable: "{global#sys-operation}モジュール {#var} を無効化しました。"
+    reload: "{global#sys-operation}モジュール {#var} を再読み込みしました。"
+    not-found: "{global#sys-error}モジュール {#var} が見つかりません。"
+    internal-error: "{global#sys-error}モジュール {#var} の操作中に内部エラーが発生しました。"
+    already-op: "{global#sys-error}モジュール {#var} は既に要求された状態です。"
+    blocked-internal: "{global#sys-error}[内蔵] モジュール {#var} は操作できません。エラーの原因となる可能性があります。"
+  package:
+    list: "{global#sys-operation}以下は全拡張パックです: {#return}{}"
+    enable-all: "{global#sys-operation}すべての拡張パックを有効化しました。"
+    disable-all: "{global#sys-operation}すべての拡張パックを無効化しました。"
+    reload-all: "{global#sys-operation}すべての拡張パックを再読み込みしました。"
+    enable: "{global#sys-operation}拡張パック {#var} を有効化しました。"
+    disable: "{global#sys-operation}拡張パック {#var} を無効化しました。"
+    reload: "{global#sys-operation}拡張パック {#var} を再読み込みしました。"
+    not-found: "{global#sys-error}拡張パック {#var} が見つかりません。"
+    internal-error: "{global#sys-error}拡張パック {#var} の操作中に内部エラーが発生しました。"
+    already-op: "{global#sys-error}拡張パック {#var} は既に要求された状態です。"
+    blocked-internal: "{global#sys-error}[内蔵] パック {#var} は操作できません。エラーの原因となる可能性があります。"
+  config:
+    reload-all: "{global#sys-operation}すべての設定ファイルを再読み込みしました。"
+    restore-all: "{global#sys-operation}すべての設定ファイルをリセットしました。"
+    sync-all: "{global#sys-operation}すべての設定ファイルを同期しました。"
+    reload: "{global#sys-operation}設定ファイル {#var} を再読み込みしました。"
+    restore: "{global#sys-operation}設定ファイル {#var} をリセットしました。"
+    sync: "{global#sys-operation}設定ファイル {#var} を同期しました。"
+  global-var:
+    reload: "{global#sys-operation}グローバル変数を再読み込みしました。"
+    restore: "{global#sys-operation}グローバル変数をリセットしました。"
+    sync: "{global#sys-operation}グローバル変数を同期しました。"
+  language:
+    restore-all: "{global#sys-operation}すべての言語ファイルをリセットしました。"
+    reload-all: "{global#sys-operation}すべての言語ファイルを再読み込みしました。"
+    sync-all: "{global#sys-operation}すべての言語ファイルを同期しました。"
+    restore: "{global#sys-operation}言語ファイル {#var} をリセットしました。"
+    reload: "{global#sys-operation}言語ファイル {#var} を再読み込みしました。"
+    sync: "{global#sys-operation}言語ファイル {#var} を同期しました。"
+  auth:
+    password-set: "{global#sys-info}パスワードが {#white}{#var}{#gray} に設定されました。大切に保管してください。もちろん、/password で変更できます。"
+  about:
+    version: "{global#sys-info}現在のバージョン: {#var}"
+  reload:
+    platform-unsupported: "{global#sys-error}現在のプラットフォームは再読み込みをサポートしていません。{#gold}/reload{#white} を使用してください。"
+    fastboot-unsupported: "{global#sys-error}FastBoot(クイックスタート)は再読み込みをサポートしていません。{#gold}/reload{#gray} を使用するか、FastBootを無効にしてください。"
+    complete: "{global#sys-operation}Starlight とすべての登録済み拡張パックを再読み込みしました。"
+    prepared: "{global#sys-operation}再読み込み準備段階に入りました。jarファイルロックが解除され、置換操作が可能になりました。完了後、/starlight reload action でホットアップデートを有効化してください。"
+    reload-logic-updated: "{global#sys-operation}コアコンポーネントの変更により、最初に /starlight reload prepare で再読み込み準備段階に入る必要があります。"
+  folia-compat:
+    disabled: "{global#sys-error}この機能はFoliaに対応するAPIがないため使用できません。"
+    reload-warn: "{global#sys-error}Foliaでの再読み込みはすべてのプラグインとコマンドが正常に読み込まれなくなる原因となります。サーバーを再起動してください！"
+  version-log-viewer:
+    view: "{global#sys-info}以下は Starlight バージョン {#var} の更新ログです:"
+    not-found: "{global#sys-error}Starlight バージョン {#var} の更新ログが見つかりません。"
+  locale:
+    set: "{global#sys-info}サーバー言語が {#var} に設定されました。一部の表示は再ログイン後に更新される場合があります。"
+    preset: "{global#sys-info}言語が {#var} として検出されました。誤っている場合は {#gold}/locale [言語]{#gray} で選択してください。"
+  modrinth-version-check:
+    require: "{global#sys-info}新しいバージョン {#var} が利用可能です。{click(link,{})}{#white}[{#green}表示{#white}]{;}"
+    no-require: "{global#sys-info}バージョン {#var} は既に最新です。更新の必要はありません。"
+    exception: "{global#sys-info}バージョンチェック中にエラーが発生しました。コンソールを確認してください。"
+    checking: "{global#sys-info}バージョンをチェックしています..."
+  data-update:
+    start: "{global#sys-info}項目 {#var} のデータインポート/アップグレードを開始しました。コンソールメッセージに注意してください。"
+    none: "{global#sys-error}{#var} に関連するデータインポート項目が見つかりません。"
+    done: "{global#sys-info}データインポートが完了しました。"
+  ban-service:
+    default-line:
+      - '{#gray}{#var} により {#var} のためBANされました。'
+      - '{#gray}BANは {#var} に終了します。'
+    default-kick-line: '{#gray}ゲームからキックされました: {#var}'
+  player-view-customization:
+    default-desc: "このUIコンポーネントには説明がありません。"
+    ui-state-open: "{#white}現在の状態: {#green}[オン]"
+    ui-state-close: "{#white}現在の状態: {#red}[オフ]"
+    ui-click: "{#gold}[クリックで切り替え]"
+    ui-title: "{#dark-aqua}UIレンダリング設定 {#white}(全 {} ページ)"
+  libraries:
+    list: '{#aqua}読み込まれたサードパーティ依存ライブラリ: '
+    list-item: "{color(#44FFAA)}[{}]"
+    list-hover: |-
+      {color(#44FFAA)} {}
+      {#gray}ファイル名: {#white}{}
+      {#gray}ファイルサイズ: {#white}{} KiB
+      {#gray}ダウンロード日: {#white}{}
+      {#gray}フルパス: {#white}{}

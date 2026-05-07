@@ -1,0 +1,29 @@
+language:
+  -module-name:
+    music-player: 音樂播放器
+  music-service:
+    restore-defaults: "{global#sys-info}成功儲存範例音樂檔案。"
+    trim: "{global#sys-info}已修正 {#var} 個檔案的名稱格式。"
+  music-player:
+    playing: "正在播放"
+    paused: "暫停"
+    play: "{global#sys-info}玩家{#var}播放了音樂{#var}(修正值:{#var})"
+    pause: "{global#sys-info}玩家{#var}已{#yellow}暫停{#gray}當前播放。"
+    resume: "{global#sys-info}玩家{#var}已{#blue}恢復{#gray}當前播放。"
+    cancel: "{global#sys-info}玩家{#var}已{#red}取消{#gray}當前播放。"
+    not-found: "{global#sys-error}無法找到指定的檔案 {#var}。"
+    error-resolving: "{global#sys-error}無法解析指定的檔案 {#var}。"
+    unsupported-format: "{global#sys-error}不支援的檔案 {#var}。"
+    timeout: "{global#sys-error}無法從內容伺服器下載檔案 {#var}。"
+    ui-title: "{#dark-aqua}音樂播放 {#white}(共 {} 頁)"
+    ui-click: "{#gold}[點擊播放]"
+    ui-legacy-control-open: "{#purple}啟用舊版解析: [開]"
+    ui-legacy-control-close: "{#gray}啟用舊版解析: [關]"
+    ui-cancel: "{#red}停止播放"
+  music-game:
+    m-puncher-diamond-name: "{#white}音樂擊打棒{#gray}[{#aqua}藍{#gray}]"
+    m-puncher-diamond-lore: "{#gray}用於擊打藍色音符的節奏棒..."
+    m-puncher-gold-name: "{#white}音樂擊打棒{#gray}[{#gold}金{#gray}]"
+    m-puncher-gold-lore: "{#gray}用於擊打金色音符的節奏棒..."
+    m-puncher-iron-name: "{#white}音樂擊打棒{#gray}[{#white}白{#gray}]"
+    m-puncher-iron-lore: "{#gray}用於擊打白色音符的節奏棒..."

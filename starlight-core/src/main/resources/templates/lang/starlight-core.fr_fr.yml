@@ -1,0 +1,135 @@
+language:
+  -module-name:
+    custom-language-pack-loader: '[Core] Chargeur de Langue de Plugin Personnalisé'
+    installation-check: '[Core] Vérification d''Intégrité de l''Installation'
+    modrinth-version-check: '[Core] Service de Mise à Jour Modrinth'
+    papi-support: '[Core] Support d''Interaction PlaceHolderAPI'
+    platform-patcher: '[Core] Correctif de Différences de Plateforme'
+    protocol-lib-injector: '[Core] Proxy de Plateforme ProtocolLib'
+    version-log-viewer: '[Core] Visualiseur de Journal de Mise à Jour'
+    player-view-customization: '[Core] Personnalisation de l''Interface Joueur %player_allow_flight%'
+  custom-block:
+    give: '{global#success}{#var} obtenu avec succès *1'
+    give-failed: '{global#error}Le bloc personnalisé nommé {#var} n''existe pas.'
+  global-vars:
+    sys-info: "{#aqua}Système{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}Système{#dark_aqua} > {#gray}"
+    sys-error: "{#red}Système{#dark_aqua} > {#gray}"
+    sys-success: "{#green}Système{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}Système{#dark_aqua} > {#gray}"
+    hint: "{#gray}[{#white}!{#gray}]{#gray}"
+    success: "{#gray}[{#green}!{#gray}]{#gray}"
+    info: "{#gray}[{#aqua}!{#gray}]{#gray}"
+    warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
+    error: "{#gray}[{#red}!{#gray}]{#gray}"
+    operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+  command:
+    exception: "{global#sys-error}Erreur de syntaxe ou une erreur interne est survenue lors de l''exécution de cette commande."
+    lack-permission: "{global#sys-error}Désolé, vous n''avez pas la permission ({#var}) d''exécuter cette commande."
+    player-only: "{global#sys-error}Cette commande ne peut être exécutée que par un joueur."
+    sync-commands: "{global#sys-operation}Synchronisation des commandes terminée."
+
+    error-missing: "{global#error}Erreur de syntaxe : Argument manquant à {#var}."
+    error-argument-type-int: "{global#error}Erreur de syntaxe : Entier attendu à {#var}, reçu {#var}."
+    error-argument-type-float: "{global#error}Erreur de syntaxe : Flottant attendu à {#var}, reçu {#var}."
+    error-argument-type-double: "{global#error}Erreur de syntaxe : Double attendu à {#var}, reçu {#var}."
+    error-argument-type-enum: "{global#error}Erreur de syntaxe : L''une des valeurs {#var} attendue à {#var}, reçu {#var}."
+    error-require-player: "{global#error}Erreur de syntaxe : Joueur attendu à {#var}, mais ({#var}) n''existe pas."
+    error-argument-bound: "{global#error}Erreur de syntaxe : La valeur à {#var} doit être entre {#var}-{#var}, reçu {#var}."
+
+    error-lack-permission: "{global#error}Permission insuffisante : Permission {#var} manquante."
+    error-lack-any-permission: "{global#error}Permission insuffisante : L''une des permissions dans {#var} est manquante."
+    error-lack-all-permission: "{global#error}Permission insuffisante : Toutes les permissions dans {#var} sont manquantes."
+    error-sender-is-not-player: "{global#error}Erreur de cible : Vous devez être un joueur."
+
+    error-internal-exception: "{global#error}Une erreur interne est survenue lors de l''exécution de cette commande. Consultez la console pour plus d''informations."
+  module:
+    list: "{global#sys-operation}Voici tous les modules : {#return}{}"
+    enable-all: "{global#sys-operation}Tous les modules ont été activés avec succès."
+    disable-all: "{global#sys-operation}Tous les modules ont été désactivés avec succès."
+    reload-all: "{global#sys-operation}Tous les modules ont été rechargés avec succès."
+    enable: "{global#sys-operation}Module {#var} activé avec succès."
+    disable: "{global#sys-operation}Module {#var} désactivé avec succès."
+    reload: "{global#sys-operation}Module {#var} rechargé avec succès."
+    not-found: "{global#sys-error}Module {#var} introuvable."
+    internal-error: "{global#sys-error}Une erreur interne est survenue lors de l''opération sur le module {#var}."
+    already-op: "{global#sys-error}Le module {#var} est déjà dans l''état demandé."
+    blocked-internal: "{global#sys-error}Vous ne pouvez pas opérer le module [Intégré] {#var}, car cela pourrait causer des erreurs."
+  package:
+    list: "{global#sys-operation}Voici tous les packs d''extension : {#return}{}"
+    enable-all: "{global#sys-operation}Tous les packs d''extension ont été activés avec succès."
+    disable-all: "{global#sys-operation}Tous les packs d''extension ont été désactivés avec succès."
+    reload-all: "{global#sys-operation}Tous les packs d''extension ont été rechargés avec succès."
+    enable: "{global#sys-operation}Pack d''extension {#var} activé avec succès."
+    disable: "{global#sys-operation}Pack d''extension {#var} désactivé avec succès."
+    reload: "{global#sys-operation}Pack d''extension {#var} rechargé avec succès."
+    not-found: "{global#sys-error}Pack d''extension {#var} introuvable."
+    internal-error: "{global#sys-error}Une erreur interne est survenue lors de l''opération sur le pack d''extension {#var}."
+    already-op: "{global#sys-error}Le pack d''extension {#var} est déjà dans l''état demandé."
+    blocked-internal: "{global#sys-error}Vous ne pouvez pas opérer le pack [Intégré] {#var}, car cela pourrait causer des erreurs."
+  config:
+    reload-all: "{global#sys-operation}Tous les fichiers de configuration ont été rechargés."
+    restore-all: "{global#sys-operation}Tous les fichiers de configuration ont été restaurés."
+    sync-all: "{global#sys-operation}Tous les fichiers de configuration ont été synchronisés."
+    reload: "{global#sys-operation}Le fichier de configuration {#var} a été rechargé."
+    restore: "{global#sys-operation}Le fichier de configuration {#var} a été restauré."
+    sync: "{global#sys-operation}Le fichier de configuration {#var} a été synchronisé."
+  global-var:
+    reload: "{global#sys-operation}Variables globales rechargées avec succès."
+    restore: "{global#sys-operation}Variables globales restaurées avec succès."
+    sync: "{global#sys-operation}Variables globales synchronisées avec succès."
+  language:
+    restore-all: "{global#sys-operation}Tous les fichiers de langue ont été restaurés."
+    reload-all: "{global#sys-operation}Tous les fichiers de langue ont été rechargés."
+    sync-all: "{global#sys-operation}Tous les fichiers de langue ont été synchronisés."
+    restore: "{global#sys-operation}Le fichier de langue {#var} a été restauré."
+    reload: "{global#sys-operation}Le fichier de langue {#var} a été rechargé."
+    sync: "{global#sys-operation}Le fichier de langue {#var} a été synchronisé."
+  auth:
+    password-set: "{global#sys-info}Votre mot de passe a été défini sur {#white}{#var}{#gray}. Veuillez le conserver en sécurité. Vous pouvez le changer avec /password."
+  about:
+    version: "{global#sys-info}Version actuelle : {#var}"
+  reload:
+    platform-unsupported: "{global#sys-error}La plateforme actuelle ne prend pas en charge le rechargement. Veuillez utiliser {#gold}/reload{#white}"
+    fastboot-unsupported: "{global#sys-error}FastBoot (Démarrage Rapide) ne prend pas en charge le rechargement. Veuillez utiliser {#gold}/reload{#gray} ou désactiver FastBoot."
+    complete: "{global#sys-operation}Starlight et tous les packs d''extension enregistrés ont été rechargés avec succès."
+    prepared: "{global#sys-operation}Phase de préparation au rechargement atteinte ; le verrouillage du fichier JAR a été libéré pour permettre les opérations de remplacement. Après achèvement, veuillez utiliser /starlight reload action pour activer la mise à jour à chaud."
+    reload-logic-updated: "{global#sys-operation}En raison de changements dans les composants principaux, vous devez maintenant utiliser /starlight reload prepare pour entrer d''abord en phase de préparation au rechargement."
+  folia-compat:
+    disabled: "{global#sys-error}Cette fonctionnalité est indisponible car Folia ne dispose pas de l''API compatible correspondante."
+    reload-warn: "{global#sys-error}Le rechargement sur Folia empêchera tous les plugins et commandes de se charger correctement. Vous devriez redémarrer le serveur !"
+  version-log-viewer:
+    view: "{global#sys-info}Voici le journal de mise à jour pour la version {#var} de Starlight :"
+    not-found: "{global#sys-error}Journal de mise à jour pour la version {#var} de Starlight introuvable."
+  locale:
+    set: "{global#sys-info}La langue de votre serveur a été définie sur {#var}. Certains affichages peuvent nécessiter une reconnexion pour se mettre à jour."
+    preset: "{global#sys-info}Votre langue a été détectée comme {#var}. Si elle est incorrecte, veuillez utiliser {#gold}/locale [langue]{#gray} pour sélectionner."
+  modrinth-version-check:
+    require: "{global#sys-info}Une nouvelle version {#var} est disponible. {click(link,{})}{#white}[{#green}Voir{#white}]{;}"
+    no-require: "{global#sys-info}Votre version {#var} est déjà la plus récente. Aucune mise à jour n''est nécessaire."
+    exception: "{global#sys-info}Une erreur est survenue lors de la vérification des versions. Veuillez consulter la console."
+    checking: "{global#sys-info}Vérification de la version..."
+  data-update:
+    start: "{global#sys-info}L''importation/mise à niveau des données pour l''élément {#var} a commencé. Veuillez surveiller les messages de la console."
+    none: "{global#sys-error}Aucun élément d''importation de données lié à {#var} n''a été trouvé."
+    done: "{global#sys-info}Importation des données terminée."
+  ban-service:
+    default-line:
+      - '{#gray}Vous avez été banni de {#var} pour {#var}.'
+      - '{#gray}Votre bannissement prendra fin le {#var}.'
+    default-kick-line: '{#gray}Vous avez été expulsé du jeu : {#var}'
+  player-view-customization:
+    default-desc: "Ce composant d''interface n''a pas de description."
+    ui-state-open: "{#white}État Actuel : {#green}[ACTIVÉ]"
+    ui-state-close: "{#white}État Actuel : {#red}[DÉSACTIVÉ]"
+    ui-click: "{#gold}[Cliquer pour Basculer]"
+    ui-title: "{#dark-aqua}Paramètres de Rendu d''Interface {#white}({} pages au total)"
+  libraries:
+    list: '{#aqua}Bibliothèques tierces chargées : '
+    list-item: "{color(#44FFAA)}[{}]"
+    list-hover: |-
+      {color(#44FFAA)} {}
+      {#gray}Nom du Fichier : {#white}{}
+      {#gray}Taille du Fichier : {#white}{} Kio
+      {#gray}Date de Téléchargement : {#white}{}
+      {#gray}Chemin Complet : {#white}{}

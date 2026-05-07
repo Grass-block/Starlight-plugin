@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    action-bar-hud: 快捷欄HUD資訊顯示
+    afk: 掛機檢測
+    chat-format: 聊天行格式化
+    custom-death-message: 自訂死亡資訊格式
+    custom-kick-message: 自訂踢出資訊
+    custom-motd: 自訂MOTD資訊
+    custom-scoreboard: 自訂計分板提示資訊
+    drop-item-info: 掉落物高亮資訊
+    hover-display: 懸浮文本
+    player-name-header: 玩家頭銜
+    tab-menu: TAB欄提示資訊
+    welcome-message: 自訂歡迎資訊
+    we-session-renderer: WorldEdit選區渲染器
+    player-join-message: 玩家加入提示
+    chat-announce: 聊天欄公告
+  player-join-message:
+    join: '{global#sys-info}{#gray}玩家 {#white}{#var}{#gray} 加入了伺服器，歡迎。'
+    leave: '{global#sys-info}玩家 {#white}{#var}{#gray} 離開了伺服器。'
+    welcome-message: '{global#sys-info}歡迎您({#var})來到 {#server-name}{#gray} 伺服器, 祝您玩得開心。'
+  tab-menu:
+    welcome-header: '歡迎來到{#aqua}{#server-name}{#reset}伺服器!'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    ping: '{#gray}Ping: {#white}{#ping}'
+    player: '{#gray}當前在線: {#white}{#player}'
+    max-player: '{#gray}最大: {#white}{#max-player}'
+    date: '{#gray}日期/時間: {#white}{#date}'
+    website: '{#gray}官網: {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    --view-setting-title: "{#aqua}[側欄]基礎側邊欄顯示"
+    --view-setting-desc:
+      - "側邊欄基礎HUD顯示內容，"
+      - "提供基礎遊戲資訊監控。"
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}日期: {#white}{#date-day}'
+    time: '{#gray}時間: {#white}{#date-time}'
+    player: '{#gray}玩家: {#white}{player}'
+    rank: '{#gray}身份: {#white}{#rank}'
+    play-time: '{#gray}遊戲時間: {#white}{#play-time}'
+    world-time: '{#gray}世界時間: {#white}{#world-time}'
+    player-count: '{#gray}在線玩家: {#white}{#player}'
+    ping: '{#gray}當前延遲(參考): {#white}{#ping}'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}QQ群:{#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}將 {#var} 的頭銜設定為 {#var}。'
+    clear-header: '{global#sys-operation}將 {#var} 的頭銜清除。'
+    announce: '{global#sys-info}玩家 {#var} 獲得了頭銜 {#var}。'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}WorldEdit選區渲染模式已設為 [{#white}持久{#gray}]"
+    mode-update: "{global#sys-info}WorldEdit選區渲染模式已設為 [{#white}更新時{#gray}]"
+    mode-off: "{global#sys-info}WorldEdit選區渲染模式已設為 [{#white}關{#gray}]"
+    render: "{global#sys-success}您的WorldEdit選區已渲染（高亮）。"
+  afk:
+    left: "{global#info}玩家{#var}暫時離開了。"
+    left-self: "{global#info}你暫時離開了。"
+    back: "{global#info}玩家{#var}在暫時離開{#var}後回來了。"
+    back-self: "{global#info}你在暫時離開{#var}後回來了"
+  action-bar-hud:
+    --view-setting-title: "{#green}[快捷欄]基礎HUD資訊顯示"
+    --view-setting-desc:
+      - "快捷欄基礎HUD顯示內容,"
+      - "提供座標, 群系和時間顯示。"
+    time: "{#dark-aqua}世界時間: {#aqua}{#world-time}"
+    position: "{#dark-purple}位置: {#red}{}{#gray},{#green}{}{#gray},{#aqua}{}{#gray}"
+    biome: "{#dark-green}生物群系: {translate;color(green)}biome.{}.{}{;}"
+    face: "{#dark-blue}朝向: {#blue}{}(俯仰),{}(水平)"
+  welcome-message:
+    title: '{#gold}歡迎!'
+    content: '{#white}歡迎來到{#server-name}{#white}伺服器,祝你玩得開心!'
+    callback: '{#gray}(本訊息可用{#gold}/welcome-message{#gray}再次呼出)'
+  custom-motd:
+    motd-command: '{global#info}伺服器MOTD資訊: '
+    icon-refresh: '{global#success}成功刷新MOTD圖片快取。'
+    text-refresh: '{global#success}成功刷新MOTD文字快取。'
+  custom-kick-message:
+    header: '{#white}您已被踢出 {#server-name}{#white} 伺服器'
+    ban-header: '{#white}您已被 {#server-name}{#reset} 封禁'
+    ban-name: '{#gray}很抱歉,您的玩家檔案名稱已被此伺服器封禁.'
+    ban-ip: '{#gray}很抱歉,您的IP位址已被此伺服器封禁.'
+    ban-hint: '{#gray}如果您確認這是個錯誤, 請聯繫伺服器管理員.'
+    ban-reason: '{#gray}封禁原因{#white}: {reason}'
+    ban-op: '{#gray}操作者{#white}: {source}'
+    ban-expire: '{#gray}此封禁將在 {#white}{expire}{#gray} 結束.'
+    website-hint: '{#gray}訪問官網: {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}更多{#white}]"
+    tip-title: "{#dark-aqua}小技巧:"

@@ -1,0 +1,14 @@
+language:
+  -module-name:
+    elevator: Bloc d'ascenseur
+  elevator:
+    item-name: '{#aqua}Ascenseur'
+    item-lore:
+      - '{#gray}Un bloc d''ascenseur tout à fait ordinaire.'
+      - '{#gray}Si vous les {#white}placez verticalement et dégagez l''espace{#gray},'
+      - '{#gray}et que vous {#white}sautez ou vous accroupissez{#gray} dessus,'
+      - '{#gray}il pourrait se passer quelque chose d''{#white}intéressant{#gray}...'
+    --tip:
+      - "{#gray}Fabriquez des blocs d'ascenseur avec des lingots d'or, de la redstone et des pistons, sautez ou accroupissez-vous dessus pour monter/descendre rapidement."
+      - "{#gray}Pour que l'ascenseur fonctionne, les 2 blocs au-dessus doivent être de l'air."
+      - "{#gray}Vous pouvez consulter la recette {click(link,https://example.org){#white}[{#aqua}ici{#white}]{#gray}."

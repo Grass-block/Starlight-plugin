@@ -1,0 +1,43 @@
+language:
+  -module-name:
+    advanced-permission-control: Advanced Permission Control
+    explosion-defender: Explosion Defender
+    img-regulation-sync: IMG Regulation Sync
+    ip-defender: IP Address Detection
+    permission-manager: Simple Permission Control
+    we-operation-defender: WorldEdit Operation Monitor
+    guest-mode: Guest Mode
+  guest-mode:
+    guest: '{global#warning}This world has guest mode enabled. Please apply for member permissions.'
+  ip-defender:
+    detect: '{global#info}Your IP location is {#var}. (This information is only visible to you.)'
+    warn: '{global#warning}Your IP location is {#var}, which differs from your last location. Your IP change has been logged.'
+    check: '{global#sys-info}Your IP location is {#var}. (This information is only visible to you.)'
+    auto-ban-reason: 'Due to your IP change, we suspect a security issue with your account.'
+  explosion-defender:
+    exploded: '{global#warning}A {#var} explosion occurred at {#var},{#var},{#var} in world {#var}.'
+    region-list: '{global#sys-operation}Below are all explosion whitelist regions: '
+    region-add: '{global#sys-operation}Added explosion whitelist region {#var}.'
+    region-add-failed: '{global#sys-error}Explosion whitelist region {#var} already exists.'
+    region-remove: '{global#sys-operation}{#gray}Removed explosion whitelist region {#var}.'
+    region-remove-failed: '{global#sys-error}Explosion whitelist region {#var} not found.'
+  permission-manager:
+    cmd-group-set: "{global#sys-operation}Changed player {#var}'s permission group to {#var}."
+    cmd-perm-set: "{global#sys-operation}Changed player {#var}'s permission node {#var} value to {#var}."
+    cmd-player-not-found: "{global#sys-operation}Cannot find the specified player."
+    cmd-tag-add: "{global#sys-operation}Added permission tag {#var} to player {#var}."
+    cmd-tag-remove: "{global#sys-operation}Removed permission tag {#var} from player {#var}."
+  advanced-permission-control:
+    no-perm: '{global#error}You don''t have permission to do this! (Missing permission node {#var})'
+  img-regulation-sync:
+    ban-operator: '{#gold}[IMG Joint Ban System]'
+  we-operation-defender:
+    confirm-required: "{global#warning}Your WorldEdit operation area is too large. Please do not move and use {#white}//{#gray}confirm within {#var} seconds to confirm this operation."
+    action-not-found: "{global#error}No WorldEdit operation found to confirm."
+    action-confirmed: "{global#success}Operation confirmed and submitted. Please wait for the server result: {#var}"
+    edit-limited-warn: "{global#warning}The area you are editing exceeds the limit (radius {#var}). Please be careful."
+    edit-limited: "{global#error}The area you are editing exceeds the limit (radius {#var}). The excess has been automatically truncated."
+    select-limited-warn: "{global#warning}The area you are selecting (size {#var}/{#var}/{#var}) exceeds the limit ({#var}). Please be careful."
+    select-limited: "{global#error}The area you are selecting (size {#var}/{#var}/{#var}) exceeds the limit ({#var}) and has been cancelled."
+  end-protect:
+    cristal-prevent: "{global#warning}To prevent the Ender Dragon from accidentally resurrecting and damaging the map, placing End Crystals here is prohibited."

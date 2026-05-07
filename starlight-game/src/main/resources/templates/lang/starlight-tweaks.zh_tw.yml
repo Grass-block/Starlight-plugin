@@ -1,0 +1,37 @@
+language:
+  -module-name:
+    crop-click-harvest: 作物採集
+    dispenser-interaction: 發射器交互修改
+    double-door-sync: 雙開門同步
+    vein-miner: 連鎖採集
+    realistic-sleep: 真實睡眠
+    portable-functional-blocks: 手持工作方塊
+    portable-shulker-box: 快速開啟潛影盒
+    item-drop-secure: 物品防丟
+    realistic-minecart: 真實礦車
+    sit-on-player: 騎你頭上
+    stair-seat: 樓梯椅子
+  item-drop-secure:
+    warn: "{global#warning}由於安全原因你無法丟掉這個物品, 使用{#gold}/unlock-drop{#gray} 或 {click(command,/unlock-drop)}{#white}[{#green}點擊{#white}]{;} {#gray}來臨時解鎖。"
+    unlock: "{global#info}你已解除物品丟棄安全鎖。鎖定將於{#var}秒後恢復。"
+    unlock-end: "{global#info}物品丟棄安全鎖已經恢復。"
+  vein-miner:
+    --tip: "{#gray}潛行挖掘可以一次採集相連放置的礦石，木頭和樹葉，當然，這也會消耗更多耐久。"
+  realistic-sleep:
+    sleep-day: '{global#sys-info}你正在非正常睡覺時間睡覺，請使用 {#gold}/leave-bed{#gray} 或者 {click(command,/leave-bed)}{#white}[{#green}點擊此處{#white}]{reset}{#gray}來離開床。'
+    leave-bed: '{global#sys-info}你已離開床。你可以隨時再次睡覺。'
+    --tip: "{#gray}白天躺在床上可以恢復血量，在夜晚則可以幫助全服玩家跳過時間。"
+  dispenser-interaction:
+    --tip: "{#gray}當收到信號時，發射器會嘗試放置方塊；如果正在發射的物品是工具，則會嘗試用工具破壞面前的方塊。"
+  portable-functional-blocks:
+    --tip: "{#gray}部分工作方塊（如鍛造台，工作台等）可以直接在手上對空氣右鍵開啟。"
+  stair-seat:
+    --tip: "{#gray}對著樓梯方塊右鍵可以坐下。"
+  realistic-minecart:
+    run-mode-run: "{#aqua}運行"
+    run-mode-boost: "{#green}加速"
+    run-mode-break: "{#purple}減速"
+    run-mode-stop: "{#gray}停車"
+    acceleration: "加速度: "
+    speed: "速度: "
+    level: "檔位: "

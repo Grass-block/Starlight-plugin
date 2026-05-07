@@ -1,0 +1,13 @@
+language:
+  -module-name:
+    chat-sync: Синхронизация чата кластера
+    geyser-skin-redirect: Переназначение скинов Geyser
+    legacy-forwarding-protect: Защита кластера BungeeCord
+    client-transfer-support: Поддержка мода передачи клиента
+    proxy-ping: Исправление метрик Ping кластера
+  bungee-connection-protect:
+    kick-message:
+      - 'Извините, система защиты кластера {#server-name}{#reset} не смогла аутентифицировать ваше подключение.{#return}'
+      - '{#gray}Пожалуйста, убедитесь, что ваш исходный прокси BC/Waterfall был аутентифицирован этим сервером.'
+      - '{#gray}Если вы считаете, что это ошибка, свяжитесь с разработчиком.{#return}{#return}'
+      - '{#dark-gray}Ваш ID сессии: {#dark-gray}{}'

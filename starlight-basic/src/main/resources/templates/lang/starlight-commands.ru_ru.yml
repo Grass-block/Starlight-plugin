@@ -1,0 +1,36 @@
+language:
+  -module-name:
+    command-tab-fix: Исправление автодополнения команд
+    entity-motion: Команда движения сущностей
+    command-exec: Команда прокси-исполнения сущностей
+    item-command: Триггер команд предметов
+    world-edit-commands: Дополнение команд WorldEdit
+    self-message: Отправить сообщение
+    hat: Надеть шляпу
+    animate-block-command: Анимация блоков
+  entity-motion:
+    hint: "{global#sys-success}Установлено движение для {#var} сущностей: {#var}({#var},{#var},{#var})"
+  command-exec:
+    hint: "{global#sys-success}Выполнена команда для {#var} сущностей: {#var}"
+  item-command:
+    bind: "{global#sys-info}Предмет {#var} привязан к командной строке {#var}."
+    unbind: "{global#sys-info}Привязка команды для предмета {#var} очищена."
+    bind-fail: "{global#sys-error}Нельзя привязать команду к пустой руке."
+    --tip: "{#gray}Используйте {#gold}/item-command{#gray}, чтобы привязать команды к предмету,\nиспользуйте предмет для быстрого выполнения команды."
+  animate-block-command:
+    size-invalid: "{global#error}Размер по оси {#var} выделения неверен. Проверьте порядок координат и попробуйте снова."
+    size-too-big: "{global#error}Выделение слишком большое. Все три оси должны быть меньше {#var} блоков."
+    no-result: "{global#warning}Нет блоков для воспроизведения анимации. Задача отменена."
+    success: "{global#success}Анимация успешно создана (содержит {#var} блоков)."
+    --tip: "{#gray}Используйте {#gold}/animate-block{#gray}, чтобы заставить блоки двигаться. {click(command,/custom-item animate-helper 1);underline}[Жезл]{;}{#gray} поможет создавать пути."
+    item-name: '{#purple}Жезл создания анимации'
+    item-lore:
+        - '{#gray}Этот инструмент поможет быстро создавать пути анимации.'
+        - '{#gray}После выбора региона с помощью {#white}WorldEdit{#gray},'
+        - '{#gray}левый клик — отметить командные блоки, правый клик — отметить целевые позиции'
+        - '{#gray}для быстрого создания путей анимации.'
+  hats:
+    empty: "{global#error}Вы ничего не держите в руке."
+    not-found: "{global#error}Указанный игрок не существует."
+    failed: "{global#error}Слот шлема игрока не пуст."
+    success: "{global#info}Шляпа успешно заменена."

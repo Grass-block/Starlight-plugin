@@ -1,0 +1,11 @@
+language:
+  -module-name:
+    lobby-default-inventory: デフォルトインベントリ
+    lobby-back-to-spawn: 自動スポーン地点に戻る
+    lobby-map-protect: マップ保護
+    lobby-player-protect: プレイヤー保護
+  lobby-default-inventory:
+    edit-start: "{global#info}デフォルトインベントリエディターを開きました。"
+    edit-complete: "{global#info}デフォルトインベントリが更新されました。"
+    cover: "{global#info}デフォルトインベントリ設定があなたのインベントリに適用されました。"
+    editor-title: "{#dark-purple}デフォルトインベントリエディター"

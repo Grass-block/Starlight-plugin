@@ -1,0 +1,43 @@
+language:
+  -module-name:
+    advanced-permission-control: 額外權限控制
+    explosion-defender: 爆炸防護
+    img-regulation-sync: 無線廣播電視總台封禁接入
+    ip-defender: IP位址檢測
+    permission-manager: 簡易權限控制
+    we-operation-defender: WorldEdit操作監測
+    guest-mode: 訪客模式
+  guest-mode:
+    guest: '{global#warning}當前世界已開啟訪客模式, 請申請成員權限。'
+  ip-defender:
+    detect: '{global#info}檢測到您的IP屬地為{#var} 。(該資訊只對您可見)'
+    warn: '{global#warning}檢測到您的IP屬地為{#var},與上次的位置發生變化,您的ip變化已被記錄。'
+    check: '{global#sys-info}您的IP屬地為{#var} 。(該資訊只對您可見)'
+    auto-ban-reason: '由於您的IP變化,我們懷疑您的帳戶出現了安全問題。'
+  explosion-defender:
+    exploded: '{global#warning}在 {#var} 世界中的 {#var},{#var},{#var} 發生了 {#var} 爆炸。'
+    region-list: '{global#sys-operation}以下是全部爆炸白名區域: '
+    region-add: '{global#sys-operation}已新增爆炸白名區域{#var}。'
+    region-add-failed: '{global#sys-error}爆炸白名區域{#var}已經存在。'
+    region-remove: '{global#sys-operation}{#gray}已移除爆炸白名區域{#var}。'
+    region-remove-failed: '{global#sys-error}未找到爆炸白名區域{#var}。'
+  permission-manager:
+    cmd-group-set: "{global#sys-operation}已將玩家 {#var} 所屬的權限組變更為 {#var}。"
+    cmd-perm-set: "{global#sys-operation}已將玩家 {#var} 的權限節點 {#var} 的值改為 {#var}。"
+    cmd-player-not-found: "{global#sys-operation}無法找到指定的玩家。"
+    cmd-tag-add: "{global#sys-operation}已向玩家 {#var} 新增權限標籤 {#var}。"
+    cmd-tag-remove: "{global#sys-operation}已向玩家 {#var} 移除權限標籤 {#var}。"
+  advanced-permission-control:
+    no-perm: '{global#error}你沒有權限這樣做!(缺失權限節點{#var})'
+  img-regulation-sync:
+    ban-operator: '{#gold}[IMG總台聯合封禁系統]'
+  we-operation-defender:
+    confirm-required: "{global#warning}你的WorldEdit操作區域過大，請不要移動並在{#var}秒內使用{#white}//{#gray}confirm確認此操作無誤。"
+    action-not-found: "{global#error}未找到需要確認的WorldEdit操作。"
+    action-confirmed: "{global#success}操作已確認並提交，請等待伺服器返回結果: {#var}"
+    edit-limited-warn: "{global#warning}您正在編輯的區域已超出限制(半徑{#var}), 請注意您的操作。"
+    edit-limited: "{global#error}您正在編輯的區域已超出限制(半徑{#var}), 超出部分已被自動截斷。"
+    select-limited-warn: "{global#warning}您正在選擇的區域(大小{#var}/{#var}/{#var})已超出限制({#var}), 請注意您的操作。"
+    select-limited: "{global#error}您正在選擇的區域(大小{#var}/{#var}/{#var})已超出限制({#var})並被取消。"
+  end-protect:
+    cristal-prevent: "{global#warning}為避免終界龍意外復活損毀地圖，此處禁止放置終界水晶。"

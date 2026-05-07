@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    block-update-locker: Verrouillage des mises à jour de blocs
+    calculator: Calculatrice
+    camera-movement: Chemin de caméra personnalisé
+    dynamic-view-distance: Distance d'affichage personnalisée
+    hitokoto: "Hitokoto"
+    player-ping-command: Requête de ping du joueur
+    position-align: Commande d'alignement de position
+    position-lock: Commande de verrouillage de position
+    surrounding-refresh: Rafraîchissement des blocs environnants
+    particle-font: Rendu de texte en particules
+    freecam: Caméra libre
+    fly-command: Commandes de contrôle de vol
+    menu-item: Déclencheur d'objet de menu
+    client-environment-setting: Paramètres d'environnement du client
+    modern-minecart-sync: Compatibilité de déplacement des wagonnets modernes
+  particle-font:
+    done: '{global#sys-info}Rendu terminé ({#var}, {#var} particules).'
+    no-fonts: '{global#error}Aucune police trouvée. Veuillez placer des polices ttf ou otf dans {#white}/assets/font{#gray}.'
+    trim: '{global#sys-info}Format de {#var} nom(s) de fichier ajusté avec succès.'
+  position-lock:
+    lock: '{global#sys-info}Votre position a été verrouillée.'
+    unlock: '{global#sys-info}Votre position a été déverrouillée.'
+    lock-player: '{global#sys-operation}Vous avez verrouillé la position de {#var}.'
+    unlock-player: '{global#sys-operation}Vous avez déverrouillé la position de {#var}.'
+  position-align:
+    align: "{global#sys-success}Vos coordonnées ont été ajustées à [{#var},{#var},{#var}] [{#var}|{#var}]."
+  calculator:
+    calc: "[{#blue}Calcul{#white}]{#gray} {#var} = {#var}"
+    --tip: "{#gray}Utilisez {#gold}/calc [expression]{#gray} pour des calculs simples."
+  player-ping-command:
+    ping-msg: "{global#sys-info}Votre ping est de : {#var} {#gray}ms"
+    --tip: "{#gray}Utilisez {#gold}/ping{#gray} pour vérifier votre ping !"
+  block-update-locker:
+    lock: "{global#sys-info}Mises à jour de blocs verrouillées."
+    unlock: "{global#sys-info}Mises à jour de blocs déverrouillées."
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}Distance d'affichage du joueur {#var} définie à {#var} tronçons."
+    reset-target: "{global#sys-operation}Paramètre de distance d'affichage du joueur {#var} réinitialisé."
+    set-self: "{global#sys-info}Votre distance d'affichage a été définie à {#var} tronçons."
+    reset-self: "{global#sys-info}Votre distance d'affichage a été réinitialisée."
+    --tip:
+      - "{#gray}Vous pouvez utiliser {#gold}/view-distance [joueur] [distance] {#gray}pour définir votre distance de rendu du serveur."
+      - "{#gray}Si vous ressentez du lag (ping élevé), essayez de réduire votre distance de rendu du serveur."
+  camera-movement:
+    cam-start: '{global#sys-info}Chemin de caméra démarré ({#var} ticks)'
+    cam-end: '{global#sys-info}Chemin de caméra terminé.'
+  freecam:
+    start: "{global#info}Caméra libre activée."
+    reset: "{global#info}Caméra libre désactivée."
+    --tip: "{#gray}Utilisez {#gold}/freecam{#gray} pour activer/désactiver la caméra libre pour une meilleure exploration."
+    anti-cheat: "{global#sys-error}Pour garantir l'équité du jeu, veuillez ne pas utiliser de commandes en mode caméra libre."
+  fly-command:
+    cmd-speed-set: "{global#info}La vitesse de vol a été définie sur {#var}."
+    toggle: "{global#info}Mode de vol basculé"
+    --tip: "{#gray}Utilisez {#gold}/flyspeed [valeur]{#gray} pour ajuster votre vitesse de vol."
+  surrounding-refresh:
+    to-big: '{global#error}Le rayon est trop grand.'
+    not-found: '{global#error}Joueur cible {#var} introuvable.'
+    success: '{global#success}Envoi d''une demande de rafraîchissement de zone à {#var}.'
+    refresh-target: '{global#info}Actualisation des blocs dans un rayon de {#var} autour de vous. Cela peut causer du lag, veuillez ne pas bouger.'
+    refresh-complete: '{global#info}Données des blocs autour de vous actualisées avec succès.'
+    --tip: "{#gray}Si vous rencontrez des blocs fantômes, utilisez {#gold}/refresh-area [rayon]{#gray} pour actualiser rapidement les blocs proches de vous."
+  force-sprint:
+    --tip: "{#gray}Utilisez {#gold}/sprint{#gray} pour activer/désactiver rapidement le sprint automatique."
+    enable: "{global#info}Sprint automatique activé."
+    disable: "{global#info}Sprint automatique désactivé."
+  item-custom-name:
+    bind: "{global#sys-info}Objet {#var} lié à la clé de langue personnalisée {#var}."
+    unbind: "{global#sys-info}Clé de langue personnalisée dissociée de l'objet {#var}."
+    bind-fail: "{global#sys-error}Impossible de lier une clé de langue personnalisée à une main vide."
+  tick-manager:
+    freeze: "{global#warn}Serveur gelé."
+    unfreeze: "{global#info}Serveur dégelé."
+    step: "{global#info}Le serveur a exécuté {#var} ticks."
+  client-environment-setting:
+    weather-none: "{global#sys-info}La météo de votre client a été définie sur [{#white}Clair{#gray}]"
+    weather-rain: "{global#sys-info}La météo de votre client a été définie sur [{#white}Pluie{#gray}]"
+    weather-off: "{global#sys-info}La météo de votre client a été réinitialisée à la météo réelle."
+    time-offset: "{global#sys-info}L'heure de votre client a été définie sur [{#white}Décalage : {} ticks{#gray}]"
+    time-fixed: "{global#sys-info}L'heure de votre client a été définie sur [{#white}Fixe : {} ticks{#gray}]"
+    time-off: "{global#sys-info}L'heure de votre client a été réinitialisée à l'heure réelle."
+  hitokoto:
+    sentence: "{hover(text,Citation de {#red}[{#white}Hitokoto{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}Hitokoto{#red}] {#white}{} {#gray}— {}({})"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}Menu{#yellow} ||"
+    item-lore:
+      - '{#gray}Un petit objet utilisé pour ouvrir le {#white}menu des fonctionnalités du serveur{#gray},'
+      - '{#gray}cliquez n''importe où pour ouvrir rapidement l''interface du menu ;'
+      - '{#gray}bien sûr, si vous {#white}perdez accidentellement cet objet{#gray},'
+      - '{#gray}vous pouvez également utiliser la commande "/menu-item" pour en obtenir un autre.'

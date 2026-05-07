@@ -1,0 +1,36 @@
+language:
+  -module-name:
+    command-tab-fix: 指令補全過濾修復
+    entity-motion: 實體動量指令
+    command-exec: 實體代理執行指令
+    item-command: 物品指令觸發器
+    world-edit-commands: WorldEdit指令補充
+    self-message: 傳送資訊
+    hat: 戴帽子
+    animate-block-command: 方塊動畫
+  entity-motion:
+    hint: "{global#sys-success}已為{#var}個實體設定動量: {#var}({#var},{#var},{#var})"
+  command-exec:
+    hint: "{global#sys-success}已為{#var}個實體執行指令: {#var}"
+  item-command:
+    bind: "{global#sys-info}已將物品 {#var} 綁定到指令行 {#var}。"
+    unbind: "{global#sys-info}已將清除物品 {#var} 的指令行綁定。"
+    bind-fail: "{global#sys-error}無法將指令行綁定到空手。"
+    --tip: "{#gray}使用{#gold}/item-command{#gray}可以將指令綁定在你的物品上，\n使用物品即可快速執行該指令。"
+  animate-block-command:
+    size-invalid: "{global#error}選區的{#var}軸大小有誤, 請檢查座標順序後重試。"
+    size-too-big: "{global#error}選區過大，三軸大小應小於{#var}個方塊。"
+    no-result: "{global#warning}沒有方塊以播放動畫，任務取消。"
+    success: "{global#success}成功建立動畫(包含{#var}方塊)。"
+    --tip: "{#gray}使用{#gold}/animate-block{#gray}可以讓方塊動起來，{click(command,/custom-item animate-helper 1);underline}[法杖]{;}{#gray}可以幫助您建立路徑。"
+    item-name: '{#purple}動畫建立法杖'
+    item-lore:
+        - '{#gray}此工具可方便您快速建立動畫路徑。'
+        - '{#gray}使用{#white}WorldEdit{#gray}標記選區後，'
+        - '{#gray}利用左鍵標記指令方塊，右鍵標記目標位置'
+        - '{#gray}可以快速建立動畫路徑。'
+  hats:
+    empty: "{global#error}你沒有拿著任何東西。"
+    not-found: "{global#error}指定的玩家不存在。"
+    failed: "{global#error}玩家的頭盔欄位不為空。"
+    success: "{global#info}成功替換帽子。"

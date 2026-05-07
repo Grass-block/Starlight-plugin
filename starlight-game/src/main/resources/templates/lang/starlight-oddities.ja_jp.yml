@@ -1,0 +1,14 @@
+language:
+  -module-name:
+    elevator: エレベーターブロック
+  elevator:
+    item-name: '{#aqua}エレベーター'
+    item-lore:
+      - '{#gray}ごく普通のエレベーターブロック。'
+      - '{#gray}それを{#white}垂直に設置して空間を空ける{#gray}と、'
+      - '{#gray}その上で{#white}ジャンプまたはスニーク{#gray}すると、'
+      - '{#gray}もしかすると{#white}面白いこと{#gray}が起こるかも...'
+    --tip:
+      - "{#gray}金インゴット、レッドストーン、ピストンでエレベーターブロックを作成し、その上でジャンプまたはスニークすると素早く上下できます。"
+      - "{#gray}エレベーターが正常に機能するには、上の2ブロックが空気である必要があります。"
+      - "{#gray}レシピは {click(link,https://example.org){#white}[{#aqua}こちら{#white}]{#gray}で確認できます。"

@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    action-bar-hud: Отображение HUD в панели действий
+    afk: Обнаружение AFK
+    chat-format: Форматирование строк чата
+    custom-death-message: Пользовательский формат сообщения о смерти
+    custom-kick-message: Пользовательское сообщение об исключении
+    custom-motd: Пользовательская информация MOTD
+    custom-scoreboard: Пользовательская информация табло
+    drop-item-info: Подсветка выпавших предметов
+    hover-display: Текст при наведении
+    player-name-header: Титул игрока
+    tab-menu: Информация меню TAB
+    welcome-message: Пользовательское приветствие
+    we-session-renderer: Отрисовка выделения WorldEdit
+    player-join-message: Уведомление о входе игрока
+    chat-announce: Объявления в чате
+  player-join-message:
+    join: '{global#sys-info}{#gray}Игрок {#white}{#var}{#gray} присоединился к серверу. Добро пожаловать.'
+    leave: '{global#sys-info}Игрок {#white}{#var}{#gray} покинул сервер.'
+    welcome-message: '{global#sys-info}Добро пожаловать({#var}) на сервер {#server-name}{#gray}, приятной игры.'
+  tab-menu:
+    welcome-header: 'Добро пожаловать на сервер {#aqua}{#server-name}{#reset}!'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    ping: '{#gray}Пинг: {#white}{#ping}'
+    player: '{#gray}Онлайн: {#white}{#player}'
+    max-player: '{#gray}Макс: {#white}{#max-player}'
+    date: '{#gray}Дата/Время: {#white}{#date}'
+    website: '{#gray}Сайт: {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    --view-setting-title: "{#aqua}[Боковая панель] Базовое отображение боковой панели"
+    --view-setting-desc:
+      - "Базовое содержимое HUD боковой панели,"
+      - "предоставляющее мониторинг основной игровой информации."
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}Дата: {#white}{#date-day}'
+    time: '{#gray}Время: {#white}{#date-time}'
+    player: '{#gray}Игрок: {#white}{player}'
+    rank: '{#gray}Ранг: {#white}{#rank}'
+    play-time: '{#gray}Время игры: {#white}{#play-time}'
+    world-time: '{#gray}Мировое время: {#white}{#world-time}'
+    player-count: '{#gray}Онлайн: {#white}{#player}'
+    ping: '{#gray}Пинг (справ.): {#white}{#ping}'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}QQ группа: {#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}Титул {#var} установлен на {#var}.'
+    clear-header: '{global#sys-operation}Титул {#var} очищен.'
+    announce: '{global#sys-info}Игрок {#var} получил титул {#var}.'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}Режим отрисовки выделения WorldEdit установлен на [{#white}Постоянный{#gray}]"
+    mode-update: "{global#sys-info}Режим отрисовки выделения WorldEdit установлен на [{#white}При обновлении{#gray}]"
+    mode-off: "{global#sys-info}Режим отрисовки выделения WorldEdit установлен на [{#white}Выкл{#gray}]"
+    render: "{global#sys-success}Ваше выделение WorldEdit отрисовано (подсвечено)."
+  afk:
+    left: "{global#info}Игрок {#var} временно отошёл."
+    left-self: "{global#info}Вы временно отошли."
+    back: "{global#info}Игрок {#var} вернулся после отсутствия {#var}."
+    back-self: "{global#info}Вы вернулись после отсутствия {#var}."
+  action-bar-hud:
+    --view-setting-title: "{#green}[Панель действий] Базовое отображение HUD"
+    --view-setting-desc:
+      - "Базовое содержимое HUD панели действий,"
+      - "отображающее координаты, биом и время."
+    time: "{#dark-aqua}Мировое время: {#aqua}{#world-time}"
+    position: "{#dark-purple}Позиция: {#red}{}{#gray},{#green}{}{#gray},{#aqua}{}{#gray}"
+    biome: "{#dark-green}Биом: {translate;color(green)}biome.{}.{}{;}"
+    face: "{#dark-blue}Направление: {#blue}{}(Тангаж),{}(Рыскание)"
+  welcome-message:
+    title: '{#gold}Добро пожаловать!'
+    content: '{#white}Добро пожаловать на сервер {#server-name}{#white}, приятной игры!'
+    callback: '{#gray}(Это сообщение можно вызвать снова с помощью {#gold}/welcome-message{#gray})'
+  custom-motd:
+    motd-command: '{global#info}MOTD сервера: '
+    icon-refresh: '{global#success}Кэш изображений MOTD успешно обновлён.'
+    text-refresh: '{global#success}Кэш текста MOTD успешно обновлён.'
+  custom-kick-message:
+    header: '{#white}Вы были исключены с сервера {#server-name}{#white}'
+    ban-header: '{#white}Вы были забанены на {#server-name}{#reset}'
+    ban-name: '{#gray}Извините, ваше имя игрока забанено на этом сервере.'
+    ban-ip: '{#gray}Извините, ваш IP-адрес забанен на этом сервере.'
+    ban-hint: '{#gray}Если вы считаете это ошибкой, свяжитесь с администратором сервера.'
+    ban-reason: '{#gray}Причина бана{#white}: {reason}'
+    ban-op: '{#gray}Забанил{#white}: {source}'
+    ban-expire: '{#gray}Этот бан истекает {#white}{expire}{#gray}.'
+    website-hint: '{#gray}Посетите наш сайт: {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}Ещё{#white}]"
+    tip-title: "{#dark-aqua}Совет:"

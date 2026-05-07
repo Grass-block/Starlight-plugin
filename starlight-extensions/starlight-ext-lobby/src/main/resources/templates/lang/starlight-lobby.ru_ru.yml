@@ -1,0 +1,11 @@
+language:
+  -module-name:
+    lobby-default-inventory: Инвентарь по умолчанию
+    lobby-back-to-spawn: Авто возврат на спавн
+    lobby-map-protect: Защита карты
+    lobby-player-protect: Защита игроков
+  lobby-default-inventory:
+    edit-start: "{global#info}Вы открыли редактор инвентаря по умолчанию."
+    edit-complete: "{global#info}Инвентарь по умолчанию обновлён."
+    cover: "{global#info}Конфигурация инвентаря по умолчанию применена к вашему инвентарю."
+    editor-title: "{#dark-purple}Редактор инвентаря по умолчанию"

@@ -1,0 +1,37 @@
+language:
+  -module-name:
+    crop-click-harvest: 作物収穫
+    dispenser-interaction: ディスペンサー動作変更
+    double-door-sync: 両開きドア同期
+    vein-miner: 連鎖採掘
+    realistic-sleep: リアル睡眠
+    portable-functional-blocks: 携帯作業ブロック
+    portable-shulker-box: シュルカーボックス高速展開
+    item-drop-secure: アイテム落下防止
+    realistic-minecart: リアル鉱車
+    sit-on-player: プレイヤーの上に乗る
+    stair-seat: 階段チェア
+  item-drop-secure:
+    warn: "{global#warning}セキュリティ上の理由でこのアイテムを捨てることができません。{#gold}/unlock-drop{#gray} または {click(command,/unlock-drop)}{#white}[{#green}クリック{#white}]{;} {#gray}で一時的にロック解除できます。"
+    unlock: "{global#info}アイテム落下防止ロックを解除しました。ロックは{#var}秒後に復帰します。"
+    unlock-end: "{global#info}アイテム落下防止ロックが復帰しました。"
+  vein-miner:
+    --tip: "{#gray}スニーク中に採掘すると、接続された鉱石、木材、葉を一度に収穫できます。もちろん、より多くの耐久値が消費されます。"
+  realistic-sleep:
+    sleep-day: '{global#sys-info}通常の睡眠時間外に寝ています。{#gold}/leave-bed{#gray} または {click(command,/leave-bed)}{#white}[{#green}ここをクリック{#white}]{reset}{#gray}でベッドから出てください。'
+    leave-bed: '{global#sys-info}ベッドから出ました。いつでも再び眠ることができます。'
+    --tip: "{#gray}日中にベッドに横たわると体力が回復し、夜間はサーバー全体の時間をスキップするのに役立ちます。"
+  dispenser-interaction:
+    --tip: "{#gray}信号を受信すると、ディスペンサーはブロックの設置を試みます。発射されるアイテムがツールの場合、面前のブロックを破壊しようとします。"
+  portable-functional-blocks:
+    --tip: "{#gray}一部の作業ブロック（鍛冶台、作業台など）は、手に持って空中で右クリックすると直接開くことができます。"
+  stair-seat:
+    --tip: "{#gray}階段ブロックに右クリックで座ることができます。"
+  realistic-minecart:
+    run-mode-run: "{#aqua}走行"
+    run-mode-boost: "{#green}加速"
+    run-mode-break: "{#purple}減速"
+    run-mode-stop: "{#gray}停止"
+    acceleration: "加速度: "
+    speed: "速度: "
+    level: "ギア: "

@@ -1,0 +1,29 @@
+language:
+  -module-name:
+    music-player: Lecteur de musique
+  music-service:
+    restore-defaults: "{global#sys-info}Fichiers musicaux d'exemple sauvegardés avec succès."
+    trim: "{global#sys-info}Corrigé le format de nom de {#var} fichiers."
+  music-player:
+    playing: "En cours de lecture"
+    paused: "En pause"
+    play: "{global#sys-info}Le joueur {#var} a joué la musique {#var} (correction: {#var})"
+    pause: "{global#sys-info}Le joueur {#var} a {#yellow}mis en pause{#gray} la lecture en cours."
+    resume: "{global#sys-info}Le joueur {#var} a {#blue}repris{#gray} la lecture en cours."
+    cancel: "{global#sys-info}Le joueur {#var} a {#red}annulé{#gray} la lecture en cours."
+    not-found: "{global#sys-error}Impossible de trouver le fichier spécifié {#var}."
+    error-resolving: "{global#sys-error}Impossible de résoudre le fichier spécifié {#var}."
+    unsupported-format: "{global#sys-error}Fichier non supporté {#var}."
+    timeout: "{global#sys-error}Impossible de télécharger le fichier {#var} depuis le serveur de contenu."
+    ui-title: "{#dark-aqua}Lecteur de musique {#white}(Total {} pages)"
+    ui-click: "{#gold}[Cliquez pour jouer]"
+    ui-legacy-control-open: "{#purple}Activer le mode legacy: [ON]"
+    ui-legacy-control-close: "{#gray}Activer le mode legacy: [OFF]"
+    ui-cancel: "{#red}Arrêter la lecture"
+  music-game:
+    m-puncher-diamond-name: "{#white}Batteur musical{#gray}[{#aqua}Bleu{#gray}]"
+    m-puncher-diamond-lore: "{#gray}Un bâton rythmique pour frapper les notes bleues..."
+    m-puncher-gold-name: "{#white}Batteur musical{#gray}[{#gold}Or{#gray}]"
+    m-puncher-gold-lore: "{#gray}Un bâton rythmique pour frapper les notes dorées..."
+    m-puncher-iron-name: "{#white}Batteur musical{#gray}[{#white}Blanc{#gray}]"
+    m-puncher-iron-lore: "{#gray}Un bâton rythmique pour frapper les notes blanches..."

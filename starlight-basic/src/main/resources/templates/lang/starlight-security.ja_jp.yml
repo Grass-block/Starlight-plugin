@@ -1,0 +1,43 @@
+language:
+  -module-name:
+    advanced-permission-control: 追加権限制御
+    explosion-defender: 爆発保護
+    img-regulation-sync: IMG規制同期
+    ip-defender: IPアドレス検出
+    permission-manager: 簡易権限制御
+    we-operation-defender: WorldEdit操作監視
+    guest-mode: ゲストモード
+  guest-mode:
+    guest: '{global#warning}このワールドではゲストモードが有効になっています。メンバー権限を申請してください。'
+  ip-defender:
+    detect: '{global#info}あなたのIP地域は{#var}です。（この情報はあなたにのみ表示されます）'
+    warn: '{global#warning}あなたのIP地域は{#var}で、前回の地域と異なります。IP変更が記録されました。'
+    check: '{global#sys-info}あなたのIP地域は{#var}です。（この情報はあなたにのみ表示されます）'
+    auto-ban-reason: 'IPアドレスの変更により、アカウントのセキュリティ問題が疑われます。'
+  explosion-defender:
+    exploded: '{global#warning}ワールド {#var} の {#var},{#var},{#var} で {#var} 爆発が発生しました。'
+    region-list: '{global#sys-operation}以下はすべての爆発ホワイトリスト地域です: '
+    region-add: '{global#sys-operation}爆発ホワイトリスト地域{#var}を追加しました。'
+    region-add-failed: '{global#sys-error}爆発ホワイトリスト地域{#var}は既に存在します。'
+    region-remove: '{global#sys-operation}{#gray}爆発ホワイトリスト地域{#var}を削除しました。'
+    region-remove-failed: '{global#sys-error}爆発ホワイトリスト地域{#var}が見つかりません。'
+  permission-manager:
+    cmd-group-set: "{global#sys-operation}プレイヤー {#var} の権限グループを {#var} に変更しました。"
+    cmd-perm-set: "{global#sys-operation}プレイヤー {#var} の権限ノード {#var} の値を {#var} に変更しました。"
+    cmd-player-not-found: "{global#sys-operation}指定されたプレイヤーが見つかりません。"
+    cmd-tag-add: "{global#sys-operation}プレイヤー {#var} に権限タグ {#var} を追加しました。"
+    cmd-tag-remove: "{global#sys-operation}プレイヤー {#var} から権限タグ {#var} を削除しました。"
+  advanced-permission-control:
+    no-perm: '{global#error}この操作を行う権限がありません！（権限ノード{#var}が不足しています）'
+  img-regulation-sync:
+    ban-operator: '{#gold}[IMG共同禁止システム]'
+  we-operation-defender:
+    confirm-required: "{global#warning}WorldEdit操作範囲が大きすぎます。移動せずに{#var}秒以内に{#white}//{#gray}confirmで操作を確認してください。"
+    action-not-found: "{global#error}確認が必要なWorldEdit操作が見つかりません。"
+    action-confirmed: "{global#success}操作が確認され送信されました。サーバーの結果をお待ちください: {#var}"
+    edit-limited-warn: "{global#warning}編集中の領域が制限を超えています（半径{#var}）。操作に注意してください。"
+    edit-limited: "{global#error}編集中の領域が制限を超えています（半径{#var}）。超過部分は自動的に切り捨てられました。"
+    select-limited-warn: "{global#warning}選択中の領域（サイズ{#var}/{#var}/{#var}）が制限（{#var}）を超えています。注意してください。"
+    select-limited: "{global#error}選択中の領域（サイズ{#var}/{#var}/{#var}）が制限（{#var}）を超えたためキャンセルされました。"
+  end-protect:
+    cristal-prevent: "{global#warning}エンダードラゴンが誤って復活しマップが損傷するのを防ぐため、ここにエンドクリスタルを設置することは禁止されています。"

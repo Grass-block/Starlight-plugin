@@ -1,0 +1,43 @@
+language:
+  -module-name:
+    advanced-permission-control: Расширенный контроль прав
+    explosion-defender: Защита от взрывов
+    img-regulation-sync: Синхронизация регулирования IMG
+    ip-defender: Определение IP-адреса
+    permission-manager: Простой контроль прав
+    we-operation-defender: Мониторинг операций WorldEdit
+    guest-mode: Гостевой режим
+  guest-mode:
+    guest: '{global#warning}В этом мире включён гостевой режим. Пожалуйста, запросите права участника.'
+  ip-defender:
+    detect: '{global#info}Ваше IP-местоположение: {#var}. (Эта информация видна только вам.)'
+    warn: '{global#warning}Ваше IP-местоположение: {#var}, отличается от предыдущего. Смена IP была зарегистрирована.'
+    check: '{global#sys-info}Ваше IP-местоположение: {#var}. (Эта информация видна только вам.)'
+    auto-ban-reason: 'Из-за смены IP-адреса мы подозреваем проблему с безопасностью вашего аккаунта.'
+  explosion-defender:
+    exploded: '{global#warning}Взрыв {#var} произошёл в {#var},{#var},{#var} в мире {#var}.'
+    region-list: '{global#sys-operation}Все регионы белого списка взрывов: '
+    region-add: '{global#sys-operation}Регион белого списка взрывов {#var} добавлен.'
+    region-add-failed: '{global#sys-error}Регион белого списка взрывов {#var} уже существует.'
+    region-remove: '{global#sys-operation}{#gray}Регион белого списка взрывов {#var} удалён.'
+    region-remove-failed: '{global#sys-error}Регион белого списка взрывов {#var} не найден.'
+  permission-manager:
+    cmd-group-set: "{global#sys-operation}Группа прав игрока {#var} изменена на {#var}."
+    cmd-perm-set: "{global#sys-operation}Значение узла прав {#var} игрока {#var} изменено на {#var}."
+    cmd-player-not-found: "{global#sys-operation}Не удалось найти указанного игрока."
+    cmd-tag-add: "{global#sys-operation}Тег прав {#var} добавлен игроку {#var}."
+    cmd-tag-remove: "{global#sys-operation}Тег прав {#var} удалён у игрока {#var}."
+  advanced-permission-control:
+    no-perm: '{global#error}У вас нет прав для этого! (Отсутствует узел прав {#var})'
+  img-regulation-sync:
+    ban-operator: '{#gold}[Совместная система бана IMG]'
+  we-operation-defender:
+    confirm-required: "{global#warning}Область операции WorldEdit слишком велика. Не двигайтесь и используйте {#white}//{#gray}confirm в течение {#var} секунд для подтверждения."
+    action-not-found: "{global#error}Не найдено операции WorldEdit для подтверждения."
+    action-confirmed: "{global#success}Операция подтверждена и отправлена. Ожидайте результат сервера: {#var}"
+    edit-limited-warn: "{global#warning}Редактируемая область превышает лимит (радиус {#var}). Будьте осторожны."
+    edit-limited: "{global#error}Редактируемая область превышает лимит (радиус {#var}). Избыток был автоматически обрезан."
+    select-limited-warn: "{global#warning}Выбираемая область (размер {#var}/{#var}/{#var}) превышает лимит ({#var}). Будьте осторожны."
+    select-limited: "{global#error}Выбираемая область (размер {#var}/{#var}/{#var}) превышает лимит ({#var}) и была отменена."
+  end-protect:
+    cristal-prevent: "{global#warning}Чтобы предотвратить случайное воскрешение Дракона Края и повреждение карты, размещение кристаллов Края здесь запрещено."

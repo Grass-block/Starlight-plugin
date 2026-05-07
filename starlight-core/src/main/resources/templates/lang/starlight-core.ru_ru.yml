@@ -1,0 +1,135 @@
+language:
+  -module-name:
+    custom-language-pack-loader: '[Ядро] Пользовательский Загрузчик Языков Плагинов'
+    installation-check: '[Ядро] Проверка Целостности Установки'
+    modrinth-version-check: '[Ядро] Служба Обновлений Modrinth'
+    papi-support: '[Ядро] Поддержка Взаимодействия с PlaceHolderAPI'
+    platform-patcher: '[Ядро] Патч Различий Платформ'
+    protocol-lib-injector: '[Ядро] Прокси Платформы ProtocolLib'
+    version-log-viewer: '[Ядро] Просмотр Журнала Обновлений'
+    player-view-customization: '[Ядро] Настройка Интерфейса Игрока %player_allow_flight%'
+  custom-block:
+    give: '{global#success}Успешно получено {#var} *1'
+    give-failed: '{global#error}Пользовательский блок с именем {#var} не существует.'
+  global-vars:
+    sys-info: "{#aqua}Система{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}Система{#dark_aqua} > {#gray}"
+    sys-error: "{#red}Система{#dark_aqua} > {#gray}"
+    sys-success: "{#green}Система{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}Система{#dark_aqua} > {#gray}"
+    hint: "{#gray}[{#white}!{#gray}]{#gray}"
+    success: "{#gray}[{#green}!{#gray}]{#gray}"
+    info: "{#gray}[{#aqua}!{#gray}]{#gray}"
+    warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
+    error: "{#gray}[{#red}!{#gray}]{#gray}"
+    operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+  command:
+    exception: "{global#sys-error}Синтаксическая ошибка или внутренняя ошибка при выполнении этой команды."
+    lack-permission: "{global#sys-error}Извините, у вас нет разрешения ({#var}) на выполнение этой команды."
+    player-only: "{global#sys-error}Эта команда может быть выполнена только игроком."
+    sync-commands: "{global#sys-operation}Синхронизация команд завершена."
+
+    error-missing: "{global#error}Синтаксическая ошибка: Отсутствует аргумент в {#var}."
+    error-argument-type-int: "{global#error}Синтаксическая ошибка: Ожидалось целое число в {#var}, получено {#var}."
+    error-argument-type-float: "{global#error}Синтаксическая ошибка: Ожидалось число с плавающей точкой в {#var}, получено {#var}."
+    error-argument-type-double: "{global#error}Синтаксическая ошибка: Ожидалось двойной точности в {#var}, получено {#var}."
+    error-argument-type-enum: "{global#error}Синтаксическая ошибка: Ожидалось одно из {#var} в {#var}, получено {#var}."
+    error-require-player: "{global#error}Синтаксическая ошибка: Ожидался игрок в {#var}, но ({#var}) не существует."
+    error-argument-bound: "{global#error}Синтаксическая ошибка: Значение в {#var} должно быть в диапазоне {#var}-{#var}, получено {#var}."
+
+    error-lack-permission: "{global#error}Недостаточно прав: Отсутствует разрешение {#var}."
+    error-lack-any-permission: "{global#error}Недостаточно прав: Отсутствует любое из разрешений в {#var}."
+    error-lack-all-permission: "{global#error}Недостаточно прав: Отсутствуют все разрешения в {#var}."
+    error-sender-is-not-player: "{global#error}Ошибка цели: Вы должны быть игроком."
+
+    error-internal-exception: "{global#error}Произошла внутренняя ошибка при выполнении этой команды. Проверьте консоль для получения дополнительной информации."
+  module:
+    list: "{global#sys-operation}Вот все модули: {#return}{}"
+    enable-all: "{global#sys-operation}Все модули успешно включены."
+    disable-all: "{global#sys-operation}Все модули успешно отключены."
+    reload-all: "{global#sys-operation}Все модули успешно перезагружены."
+    enable: "{global#sys-operation}Модуль {#var} успешно включён."
+    disable: "{global#sys-operation}Модуль {#var} успешно отключён."
+    reload: "{global#sys-operation}Модуль {#var} успешно перезагружен."
+    not-found: "{global#sys-error}Модуль {#var} не найден."
+    internal-error: "{global#sys-error}Произошла внутренняя ошибка при работе с модулем {#var}."
+    already-op: "{global#sys-error}Модуль {#var} уже находится в запрошенном состоянии."
+    blocked-internal: "{global#sys-error}Вы не можете управлять [Встроенным] модулем {#var}, так как это может вызвать ошибки."
+  package:
+    list: "{global#sys-operation}Вот все пакеты расширений: {#return}{}"
+    enable-all: "{global#sys-operation}Все пакеты расширений успешно включены."
+    disable-all: "{global#sys-operation}Все пакеты расширений успешно отключены."
+    reload-all: "{global#sys-operation}Все пакеты расширений успешно перезагружены."
+    enable: "{global#sys-operation}Пакет расширений {#var} успешно включён."
+    disable: "{global#sys-operation}Пакет расширений {#var} успешно отключён."
+    reload: "{global#sys-operation}Пакет расширений {#var} успешно перезагружен."
+    not-found: "{global#sys-error}Пакет расширений {#var} не найден."
+    internal-error: "{global#sys-error}Произошла внутренняя ошибка при работе с пакетом расширений {#var}."
+    already-op: "{global#sys-error}Пакет расширений {#var} уже находится в запрошенном состоянии."
+    blocked-internal: "{global#sys-error}Вы не можете управлять [Встроенным] пакетом {#var}, так как это может вызвать ошибки."
+  config:
+    reload-all: "{global#sys-operation}Все файлы конфигурации перезагружены."
+    restore-all: "{global#sys-operation}Все файлы конфигурации восстановлены."
+    sync-all: "{global#sys-operation}Все файлы конфигурации синхронизированы."
+    reload: "{global#sys-operation}Файл конфигурации {#var} перезагружен."
+    restore: "{global#sys-operation}Файл конфигурации {#var} восстановлен."
+    sync: "{global#sys-operation}Файл конфигурации {#var} синхронизирован."
+  global-var:
+    reload: "{global#sys-operation}Глобальные переменные успешно перезагружены."
+    restore: "{global#sys-operation}Глобальные переменные успешно восстановлены."
+    sync: "{global#sys-operation}Глобальные переменные успешно синхронизированы."
+  language:
+    restore-all: "{global#sys-operation}Все языковые файлы восстановлены."
+    reload-all: "{global#sys-operation}Все языковые файлы перезагружены."
+    sync-all: "{global#sys-operation}Все языковые файлы синхронизированы."
+    restore: "{global#sys-operation}Языковой файл {#var} восстановлен."
+    reload: "{global#sys-operation}Языковой файл {#var} перезагружен."
+    sync: "{global#sys-operation}Языковой файл {#var} синхронизирован."
+  auth:
+    password-set: "{global#sys-info}Ваш пароль установлен как {#white}{#var}{#gray}. Пожалуйста, сохраните его в безопасности. Вы можете изменить его с помощью /password."
+  about:
+    version: "{global#sys-info}Текущая версия: {#var}"
+  reload:
+    platform-unsupported: "{global#sys-error}Текущая платформа не поддерживает перезагрузку. Используйте {#gold}/reload{#white}"
+    fastboot-unsupported: "{global#sys-error}FastBoot (Быстрый Запуск) не поддерживает перезагрузку. Используйте {#gold}/reload{#gray} или отключите FastBoot."
+    complete: "{global#sys-operation}Starlight и все зарегистрированные пакеты расширений успешно перезагружены."
+    prepared: "{global#sys-operation}Выполнен вход в стадию подготовки перезагрузки; блокировка JAR-файла снята для разрешения операций замены. После завершения используйте /starlight reload action для активации горячего обновления."
+    reload-logic-updated: "{global#sys-operation}Из-за изменений в основных компонентах теперь вам нужно сначала использовать /starlight reload prepare для входа в стадию подготовки перезагрузки."
+  folia-compat:
+    disabled: "{global#sys-error}Эта функция недоступна, так как у Folia отсутствует соответствующий совместимый API."
+    reload-warn: "{global#sys-error}Перезагрузка на Folia приведёт к тому, что все плагины и команды не смогут загрузиться правильно. Вам следует перезапустить сервер!"
+  version-log-viewer:
+    view: "{global#sys-info}Вот журнал обновлений для версии Starlight {#var}:"
+    not-found: "{global#sys-error}Журнал обновлений для версии Starlight {#var} не найден."
+  locale:
+    set: "{global#sys-info}Язык вашего сервера установлен на {#var}. Некоторые отображения могут потребовать повторного входа для обновления."
+    preset: "{global#sys-info}Определён ваш язык как {#var}. Если неверно, используйте {#gold}/locale [язык]{#gray} для выбора."
+  modrinth-version-check:
+    require: "{global#sys-info}Доступна новая версия {#var}. {click(link,{})}{#white}[{#green}Просмотр{#white}]{;}"
+    no-require: "{global#sys-info}Ваша версия {#var} уже является последней. Обновление не требуется."
+    exception: "{global#sys-info}Произошла ошибка при проверке версий. Проверьте консоль."
+    checking: "{global#sys-info}Проверка версии..."
+  data-update:
+    start: "{global#sys-info}Начат импорт/обновление данных для элемента {#var}. Следите за сообщениями консоли."
+    none: "{global#sys-error}Элементы импорта данных, связанные с {#var}, не найдены."
+    done: "{global#sys-info}Импорт данных завершён."
+  ban-service:
+    default-line:
+      - '{#gray}Вы были забанены на {#var} за {#var}.'
+      - '{#gray}Ваш бан закончится {#var}.'
+    default-kick-line: '{#gray}Вы были кикнуты из игры: {#var}'
+  player-view-customization:
+    default-desc: "Этот компонент интерфейса не имеет описания."
+    ui-state-open: "{#white}Текущее Состояние: {#green}[ВКЛ]"
+    ui-state-close: "{#white}Текущее Состояние: {#red}[ВЫКЛ]"
+    ui-click: "{#gold}[Нажмите для Переключения]"
+    ui-title: "{#dark-aqua}Настройки Рендеринга Интерфейса {#white}(Всего {} страниц)"
+  libraries:
+    list: '{#aqua}Загруженные сторонние библиотеки: '
+    list-item: "{color(#44FFAA)}[{}]"
+    list-hover: |-
+      {color(#44FFAA)} {}
+      {#gray}Имя Файла: {#white}{}
+      {#gray}Размер Файла: {#white}{} КиБ
+      {#gray}Дата Загрузки: {#white}{}
+      {#gray}Полный Путь: {#white}{}

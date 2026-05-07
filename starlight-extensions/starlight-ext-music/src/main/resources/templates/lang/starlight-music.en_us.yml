@@ -1,0 +1,29 @@
+language:
+  -module-name:
+    music-player: Music Player
+  music-service:
+    restore-defaults: "{global#sys-info}Sample music files saved successfully."
+    trim: "{global#sys-info}Fixed the name format of {#var} files."
+  music-player:
+    playing: "Now Playing"
+    paused: "Paused"
+    play: "{global#sys-info}Player {#var} played music {#var} (correction: {#var})"
+    pause: "{global#sys-info}Player {#var} has {#yellow}paused{#gray} the current playback."
+    resume: "{global#sys-info}Player {#var} has {#blue}resumed{#gray} the current playback."
+    cancel: "{global#sys-info}Player {#var} has {#red}cancelled{#gray} the current playback."
+    not-found: "{global#sys-error}Could not find the specified file {#var}."
+    error-resolving: "{global#sys-error}Could not resolve the specified file {#var}."
+    unsupported-format: "{global#sys-error}Unsupported file {#var}."
+    timeout: "{global#sys-error}Could not download file {#var} from the content server."
+    ui-title: "{#dark-aqua}Music Player {#white}(Total {} Pages)"
+    ui-click: "{#gold}[Click to Play]"
+    ui-legacy-control-open: "{#purple}Enable Legacy Mode: [ON]"
+    ui-legacy-control-close: "{#gray}Enable Legacy Mode: [OFF]"
+    ui-cancel: "{#red}Stop Playback"
+  music-game:
+    m-puncher-diamond-name: "{#white}Music Beater{#gray}[{#aqua}Blue{#gray}]"
+    m-puncher-diamond-lore: "{#gray}A rhythm stick for striking blue notes..."
+    m-puncher-gold-name: "{#white}Music Beater{#gray}[{#gold}Gold{#gray}]"
+    m-puncher-gold-lore: "{#gray}A rhythm stick for striking gold notes..."
+    m-puncher-iron-name: "{#white}Music Beater{#gray}[{#white}White{#gray}]"
+    m-puncher-iron-lore: "{#gray}A rhythm stick for striking white notes..."

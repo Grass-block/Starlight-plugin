@@ -1,0 +1,50 @@
+language:
+  player-action-restriction:
+    restricted: '{global#sys-warning}Your interactions have been restricted until you complete the necessary verification.'
+  global-vars:
+    sys-info: "{#aqua}System{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}System{#dark_aqua} > {#gray}"
+    sys-error: "{#red}System{#dark_aqua} > {#gray}"
+    sys-success: "{#green}System{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}System{#dark_aqua} > {#gray}"
+  server-transfer-message:
+    join-proxy: '{global#sys-info}{#gray}Player {#white}{#var}{#gray} has joined the server. Welcome.'
+    join-server: '{global#sys-info}{#gray}Player {#white}{#var}{#gray} (from {#var}) has joined the server. Welcome.'
+    leave-proxy: '{global#sys-info}Player {#white}{#var}{#gray} has left the server.'
+    leave-server: '{global#sys-info}Player {#white}{#var}{#gray} (to {#var}) has left the server.'
+    join-message: '{global#sys-info}Welcome ({#var}) to {#server-name}{#gray} server. Have fun!'
+    transfer-message: '{global#sys-info}You have been sent to the {#var} server. Use {#gold}/hub,/lobby{#gray} to return to the lobby.'
+  stp-command:
+    player-not-found: '{global#sys-info}Player {#var} not found.'
+    command-error: '{global#sys-error}A player is required.'
+    transfer: '{global#sys-info}Sending you to player {#var}''s server...'
+  stpa-command:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept {})}Accept{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny {})}Deny{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}You sent a request to player {#var} to teleport to your server."
+    tpahere-request-target: "{global#sys-info}Player {#var} sent you a request to teleport to their server.{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}You accepted the request to teleport to {#var}''s server. Sending..."
+    tpahere-accept-target: "{global#sys-info}{#var} accepted your request for them to teleport to your server."
+    tpahere-deny-sender: "{global#sys-info}You denied the request to teleport to {#var}''s server."
+    tpahere-deny-target: "{global#sys-info}{#var} denied your request for them to teleport to your server."
+    tpahere-no-request: "{global#sys-info}{#var} has not sent you a request to teleport to their server."
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept {})}Accept{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny {})}Deny{color(white)}]'
+    tpa-request-sender: "{global#sys-info}You sent a request to player {#var} to teleport to their server."
+    tpa-request-target: "{global#sys-info}Player {#var} sent you a request to teleport to your server.{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}You accepted {#var}''s request to teleport to your server."
+    tpa-accept-target: "{global#sys-info}{#var} accepted your request to teleport to their server. Sending..."
+    tpa-deny-sender: "{global#sys-info}You denied {#var}''s request to teleport to your server."
+    tpa-deny-target: "{global#sys-info}{#var} denied your request to teleport to their server."
+    tpa-no-request: "{global#sys-info}{#var} has not sent you a request for them to teleport to your server."
+
+    invite-request-sender: "{global#sys-info}You have sent an invitation to all players on the server to join your server."
+    invite-request-target: "{global#sys-info}Player {#var} invites you to join their server.{msg#tpahere-accept-btn}"
+
+    player-not-found: '{global#error}Player not found...'
+  server-statement-observer:
+    online: "{global#sys-info}Server {#var} is now online. You can go and play."
+    offline: "{global#sys-info}Server {#var} is now offline. It may be a scheduled shutdown or maintenance."
+  mod-server-support:
+    message: "{global#sys-error}You need a specific modpack to join this server!"

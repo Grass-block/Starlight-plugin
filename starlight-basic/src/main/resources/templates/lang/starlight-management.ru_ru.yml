@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    ban: Команды бана
+    chat-filter: Фильтр чата
+    chat-report: Жалоба на чат
+    kick-on-reload: Авто-кик при перезагрузке
+    maintenance: Режим обслуживания
+    mute: Мут чата
+    plugin-manager-command: Командный менеджер плагинов
+    server-info: Команды информации о сервере
+    tps-bar: Визуальная панель TPS
+    vm-garbage-cleaner: Автоматическая очистка памяти
+  ban:
+    msg-ban-complete: "{global#sys-success}Игрок {#var} забанен до {#var}, причина: {#var}."
+    broadcast: "{global#sys-info}Игрок {#var} забанен администратором {#var} за {#var} до {#var}."
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}Запущена очистка памяти..."
+    gc-end: "{global#sys-operation}Очистка памяти завершена, освобождено %d МБ."
+  maintenance:
+    start: "{global#sys-operation}Обслуживание начато."
+    end: "{global#sys-operation}Обслуживание завершено."
+    allow: "{global#sys-operation}Разрешён вход {#var}({#var}) во время обслуживания."
+    disallow: "{global#sys-operation}Запрещён вход {#var}({#var}) во время обслуживания."
+    kick-message:
+      - 'Сервер в настоящее время находится на обслуживании, вы не можете войти.'
+      - 'Обслуживание может занять некоторое время, пожалуйста, подождите. Приносим искренние извинения за неудобства.'
+  mute:
+    message-banned: '{global#sys-info}Вы в муте. Мут будет снят в {#var}.'
+    add: '{global#sys-info}Игрок {#var} успешно замучен до {#var}, причина: {#var}.'
+    add-target: '{global#sys-info}Вы были замучены администратором {#var} за {#var} до {#var}!'
+    remove: '{global#sys-info}Мут игрока {#var} успешно снят.'
+    remove-target: '{global#sys-info}Ваш мут снят администратором {#var}!'
+    message-unmuted: '{global#sys-error}Ошибка: Игрок {#var} не в муте!'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}Сервер перезагружается. Для обеспечения корректной работы вы были временно исключены."
+      - "{#white}Пожалуйста, подключитесь снова через некоторое время.{#return}"
+    stop-hint:
+      - "{#white}Сервер был остановлен из-за сбоя или обслуживания."
+      - "{#white}Приносим извинения за неудобства.{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}Список плагинов: {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}Название{#white}: {}[{}]"
+    info-version: "{#gold}Версия{#white}: {}"
+    info-author: "{#gold}Автор{#white}: {}"
+    info-desc: "{#gold}Описание{#white}: {}"
+    info-api: "{#gold}Версия API{#white}: {}"
+    info-depend: "{#gold}Зависимости{#white}: {}"
+    info-soft-depend: "{#gold}Мягкие зависимости{#white}: {}"
+    info-main: "{#gold}Главный класс{#white}: {}"
+    info-libs: "{#gold}Библиотеки{#white}:"
+    file-not-found: "{global#error}Файл плагина {#var} не найден."
+    plugin-not-found: "{global#error}Плагин {#var} не найден."
+    load-failed: "{global#error}Не удалось загрузить плагин {#var}."
+    unload-failed: "{global#error}Не удалось выгрузить плагин {#var}."
+    enable: "{global#operation}Плагин {#var} успешно включён."
+    disable: "{global#operation}Плагин {#var} успешно отключён."
+    restart: "{global#operation}Плагин {#var} успешно перезапущен."
+    load: "{global#operation}Плагин {#var} успешно загружен."
+    unload: "{global#operation}Плагин {#var} успешно выгружен."
+    reload: "{global#operation}Плагин {#var} успешно перезагружен."
+  tps-bar:
+    on: "{global#operation}Панель TPS отображена."
+    off: "{global#operation}Панель TPS скрыта."
+  chat-filter:
+    reload: "{global#sys-success}Файл правил успешно перезагружен."
+    save: "{global#sys-success}Файл правил по умолчанию успешно сохранён."
+    reported-warn: "{global#sys-warning}Ваше сообщение ({#var}) было помечено системой как нарушение после жалобы. Пожалуйста, следите за своим поведением."
+    outcome-warn: "{global#sys-success}Сообщение ({#var}) игрока ({#var}), на которого поступила жалоба, было признано нарушением и вынесено предупреждение. Спасибо за поддержание порядка в сообществе."
+    outcome-punished: "{global#sys-success}Сообщение ({#var}) игрока ({#var}), на которого поступила жалоба, было признано нарушением и применён мут. Спасибо за поддержание порядка в сообществе."
+  chat-report:
+    not-exist: "{global#sys-error}Запись чата, на которую вы пытаетесь пожаловаться, не существует или уже была рассмотрена."
+    not-self: "{global#sys-error}Вы не можете жаловаться на свои собственные сообщения."
+    success: "{global#sys-success}Вы отправили жалобу на чат игрока {#var} ({#var})."
+    --tip: '{#gray}Если игрок отправляет сообщение с неподобающим содержанием, вы можете нажать "[!]" после текста чата, чтобы пожаловаться.'

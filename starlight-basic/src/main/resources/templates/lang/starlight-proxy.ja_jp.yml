@@ -1,0 +1,13 @@
+language:
+  -module-name:
+    chat-sync: クラスターチャット同期
+    geyser-skin-redirect: Geyserスキンリマッピング
+    legacy-forwarding-protect: BungeeCordクラスター保護
+    client-transfer-support: クライアント転送MOD対応
+    proxy-ping: クラスターPing指標修正
+  bungee-connection-protect:
+    kick-message:
+      - '申し訳ありません、{#server-name}{#reset}クラスター保護システムがあなたの接続を認証できませんでした。{#return}'
+      - '{#gray}ソースのBC/Waterfallプロキシがこのサーバーで認証されているか確認してください。'
+      - '{#gray}これがエラーだと思われる場合は、開発者にご連絡ください。{#return}{#return}'
+      - '{#dark-gray}あなたのセッションID: {#dark-gray}{}'

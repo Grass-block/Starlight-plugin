@@ -1,0 +1,27 @@
+language:
+  wg-we-check:
+    region-limit: "{global#info}Votre opération WorldEdit a été soumise. Cette opération n'est effective que dans votre région actuelle."
+    region-warn: "{global#warning}Votre opération WorldEdit a été soumise. Veuillez confirmer que vous êtes dans votre région."
+  wg-custom-name:
+    no-wg: "{global#error}WorldGuard n'est pas activé dans ce monde."
+    no-rg: "{global#error}Vous n'êtes sur aucune parcelle."
+    rg-not-self: "{global#error}Cette parcelle ({#var}) ne vous appartient pas."
+    rg-rename: "{global#info}Vous avez renommé la parcelle en {#var}."
+    cmd-error: "{global#error}Erreur lors de l'opération du système de gestion des régions. Veuillez contacter un administrateur."
+  wg-claim:
+    no-wg: "{global#error}WorldGuard n'est pas activé dans ce monde."
+    no-rg: "{global#error}Vous n'êtes sur aucune parcelle."
+    rg-claimed: "{global#error}Cette parcelle ({#var}) a déjà été réclamée."
+    rg-claimed-self: "{global#error}Cette parcelle ({#var}) a déjà été réclamée et vous appartient."
+    rg-not-self: "{global#error}Cette parcelle ({#var}) ne vous appartient pas."
+    rg-claim: "{global#info}Félicitations ! Vous avez réclamé la parcelle {#var}."
+    rg-unclaim: "{global#info}Vous avez abandonné la parcelle {#var}."
+    cmd-error: "{global#error}Erreur lors de l'opération du système de gestion des régions. Veuillez contacter un administrateur."
+  wg-region-hud:
+    --view-setting-title: "{#green}[Barre d'outils] Affichage HUD des régions"
+    --view-setting-desc:
+      - "Afficher les informations de la région WorldGuard actuelle à l'emplacement HUD."
+    ui-name: "Région:"
+    ui-owner: "Propriétaire:"
+    ui-id: "ID Région:"
+    ui-empty-owners: "[ Aucun, utilisez /plot claim pour réclamer ]"

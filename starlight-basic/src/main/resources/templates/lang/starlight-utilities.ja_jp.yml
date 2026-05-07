@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    block-update-locker: ブロック更新ロック
+    calculator: 計算機
+    camera-movement: カスタムカメラパス
+    dynamic-view-distance: カスタム描画距離
+    hitokoto: 「一言」
+    player-ping-command: プレイヤー遅延照会
+    position-align: 位置調整コマンド
+    position-lock: 位置ロックコマンド
+    surrounding-refresh: 周辺ブロック更新
+    particle-font: パーティクルテキスト描画
+    freecam: フリーカメラ
+    fly-command: 飛行制御コマンド
+    menu-item: メニューアイテムトリガー
+    client-environment-setting: クライアント環境設定
+    modern-minecart-sync: 新方式トロッコ移動互換
+  particle-font:
+    done: '{global#sys-info}レンダリング完了({#var}, {#var} パーティクル)。'
+    no-fonts: '{global#error}フォントがありません。{#white}/assets/font{#gray}にTTFまたはOTFフォントを配置してください。'
+    trim: '{global#sys-info}{#var} 個のファイル名形式を調整しました。'
+  position-lock:
+    lock: '{global#sys-info}位置がロックされました。'
+    unlock: '{global#sys-info}位置のロックが解除されました。'
+    lock-player: '{global#sys-operation}{#var} の位置をロックしました。'
+    unlock-player: '{global#sys-operation}{#var} の位置ロックを解除しました。'
+  position-align:
+    align: "{global#sys-success}座標を [{#var},{#var},{#var}] [{#var}|{#var}] に調整しました。"
+  calculator:
+    calc: "[{#blue}計算{#white}]{#gray} {#var} = {#var}"
+    --tip: "{#gray}{#gold}/calc [式]{#gray}で簡単な計算ができます。"
+  player-ping-command:
+    ping-msg: "{global#sys-info}あなたの遅延は: {#var} {#gray}ms"
+    --tip: "{#gray}{#gold}/ping{#gray}で現在の遅延を確認できます！"
+  block-update-locker:
+    lock: "{global#sys-info}ブロック更新をロックしました。"
+    unlock: "{global#sys-info}ブロック更新のロックを解除しました。"
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}プレイヤー {#var} の描画距離を {#var} チャンクに設定しました。"
+    reset-target: "{global#sys-operation}プレイヤー {#var} の描画距離設定をリセットしました。"
+    set-self: "{global#sys-info}あなたの描画距離が {#var} チャンクに設定されました。"
+    reset-self: "{global#sys-info}あなたの描画距離がリセットされました。"
+    --tip:
+      - "{#gray}{#gold}/view-distance [プレイヤー名] [距離] {#gray}でサーバー描画距離を設定できます。"
+      - "{#gray}ラグ（高遅延）を感じる場合、サーバー描画距離を下げてみてください。"
+  camera-movement:
+    cam-start: '{global#sys-info}カメラパス開始({#var} ticks)'
+    cam-end: '{global#sys-info}カメラパス終了。'
+  freecam:
+    start: "{global#info}フリーカメラが有効になりました。"
+    reset: "{global#info}フリーカメラが無効になりました。"
+    --tip: "{#gray}{#gold}/freecam{#gray}でフリーカメラを切り替えて、より良い探索ができます。"
+    anti-cheat: "{global#sys-error}公平性を保つため、フリーカメラモード中はコマンドを使用しないでください。"
+  fly-command:
+    cmd-speed-set: "{global#info}飛行速度が {#var} に設定されました。"
+    toggle: "{global#info}飛行モードが切り替わりました"
+    --tip: "{#gray}{#gold}/flyspeed [値]{#gray}で飛行速度を調整できます。"
+  surrounding-refresh:
+    to-big: '{global#error}半径が大きすぎます。'
+    not-found: '{global#error}対象プレイヤー {#var} が見つかりません。'
+    success: '{global#success}{#var} にエリア更新リクエストを送信しています。'
+    refresh-target: '{global#info}半径 {#var} の範囲のブロックを更新しています。ラグが発生する可能性がありますので、移動しないでください。'
+    refresh-complete: '{global#info}周囲のブロックデータを更新しました。'
+    --tip: "{#gray}ゴーストブロックに遭遇した場合、{#gold}/refresh-area [半径]{#gray}で近くのブロックをすばやく更新できます。"
+  force-sprint:
+    --tip: "{#gray}{#gold}/sprint{#gray}で自動ダッシュをすばやく切り替えできます。"
+    enable: "{global#info}自動ダッシュが有効になりました。"
+    disable: "{global#info}自動ダッシュが無効になりました。"
+  item-custom-name:
+    bind: "{global#sys-info}アイテム {#var} をカスタム言語キー {#var} にバインドしました。"
+    unbind: "{global#sys-info}アイテム {#var} のカスタム言語キーバインドを解除しました。"
+    bind-fail: "{global#sys-error}空の手にカスタム言語キーをバインドすることはできません。"
+  tick-manager:
+    freeze: "{global#warn}サーバーが凍結されました。"
+    unfreeze: "{global#info}サーバーの凍結が解除されました。"
+    step: "{global#info}サーバーが {#var} ticks実行されました。"
+  client-environment-setting:
+    weather-none: "{global#sys-info}クライアントの天気を [{#white}晴れ{#gray}] に設定しました"
+    weather-rain: "{global#sys-info}クライアントの天気を [{#white}雨{#gray}] に設定しました"
+    weather-off: "{global#sys-info}クライアントの天気を実際の天気にリセットしました。"
+    time-offset: "{global#sys-info}クライアントの時刻を [{#white}オフセット: {} ticks{#gray}] に設定しました"
+    time-fixed: "{global#sys-info}クライアントの時刻を [{#white}固定: {} ticks{#gray}] に設定しました"
+    time-off: "{global#sys-info}クライアントの時刻を実際の時刻にリセットしました。"
+  hitokoto:
+    sentence: "{hover(text,一言は {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/)より)}{#red}[{#white}一言{#red}] {#white}{} {#gray}——{}({})"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}メニュー{#yellow} ||"
+    item-lore:
+      - '{#gray}{#white}サーバー機能メニュー{#gray}を開くための小さなアイテムです。'
+      - '{#gray}任意のクリックでメニュー画面をすばやく開くことができます。'
+      - '{#gray}もちろん、{#white}このアイテムを紛失した{#gray}場合でも、'
+      - '{#gray}コマンド"/menu-item"で再入手できます。'

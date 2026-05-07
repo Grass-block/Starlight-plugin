@@ -1,0 +1,9 @@
+language:
+  -module-name:
+    chat-at: チャットメンション
+    chat-component: リッチテキストチャット対応
+    mail: メール
+  chat-component:
+    --tip:
+      - '{#gray}チャット、看板、コマンド（一部対応）で、リッチテキストタグを使用してテキストに効果を追加できます。'
+      - '{#gray}{click(link,wiki.atcraftmc.cn)}[こちら]{;}{#gray}をクリックして詳細をご覧ください。'

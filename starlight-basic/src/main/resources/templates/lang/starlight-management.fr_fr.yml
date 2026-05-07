@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    ban: Commandes de bannissement
+    chat-filter: Filtre de chat
+    chat-report: Signalement de chat
+    kick-on-reload: Expulsion automatique au rechargement
+    maintenance: Mode maintenance
+    mute: Mise en sourdine du chat
+    plugin-manager-command: Gestionnaire de plugins en ligne de commande
+    server-info: Commandes d'information du serveur
+    tps-bar: Barre visuelle TPS
+    vm-garbage-cleaner: Nettoyage automatique de la mémoire
+  ban:
+    msg-ban-complete: "{global#sys-success}Joueur {#var} banni jusqu'au {#var}, motif : {#var}."
+    broadcast: "{global#sys-info}Le joueur {#var} a été banni par {#var} pour {#var} jusqu'au {#var}."
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}Nettoyage de la mémoire démarré..."
+    gc-end: "{global#sys-operation}Nettoyage de la mémoire terminé, %d Mo libérés."
+  maintenance:
+    start: "{global#sys-operation}Maintenance démarrée."
+    end: "{global#sys-operation}Maintenance terminée."
+    allow: "{global#sys-operation}Autorisé {#var}({#var}) à entrer pendant la maintenance."
+    disallow: "{global#sys-operation}Autorisation d'entrée pendant la maintenance retirée pour {#var}({#var})."
+    kick-message:
+      - 'Le serveur est actuellement en maintenance, vous ne pouvez pas entrer pour le moment.'
+      - 'La maintenance peut prendre un certain temps, veuillez patienter. Nous sommes sincèrement désolés pour le dérangement.'
+  mute:
+    message-banned: '{global#sys-info}Vous êtes mis en sourdine. Votre sourdine sera levée le {#var}.'
+    add: '{global#sys-info}Joueur {#var} mis en sourdine jusqu''au {#var}, motif : {#var}.'
+    add-target: '{global#sys-info}Vous avez été mis en sourdine par {#var} pour {#var} jusqu''au {#var} !'
+    remove: '{global#sys-info}Sourdine du joueur {#var} levée avec succès.'
+    remove-target: '{global#sys-info}Votre sourdine a été levée par l''administrateur {#var} !'
+    message-unmuted: '{global#sys-error}Erreur : Le joueur {#var} n''est pas mis en sourdine !'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}Le serveur est en cours de rechargement. Pour assurer un fonctionnement correct, vous avez été temporairement expulsé."
+      - "{#white}Veuillez vous reconnecter sous peu.{#return}"
+    stop-hint:
+      - "{#white}Le serveur a été arrêté en raison d'un problème ou d'une maintenance."
+      - "{#white}Nous nous excusons pour le dérangement.{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}Liste des plugins : {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}Nom{#white}: {}[{}]"
+    info-version: "{#gold}Version{#white}: {}"
+    info-author: "{#gold}Auteur{#white}: {}"
+    info-desc: "{#gold}Description{#white}: {}"
+    info-api: "{#gold}Version API{#white}: {}"
+    info-depend: "{#gold}Dépendances{#white}: {}"
+    info-soft-depend: "{#gold}Dépendances facultatives{#white}: {}"
+    info-main: "{#gold}Classe principale{#white}: {}"
+    info-libs: "{#gold}Bibliothèques{#white}:"
+    file-not-found: "{global#error}Fichier du plugin {#var} introuvable."
+    plugin-not-found: "{global#error}Plugin {#var} introuvable."
+    load-failed: "{global#error}Échec du chargement du plugin {#var}."
+    unload-failed: "{global#error}Échec du déchargement du plugin {#var}."
+    enable: "{global#operation}Plugin {#var} activé avec succès."
+    disable: "{global#operation}Plugin {#var} désactivé avec succès."
+    restart: "{global#operation}Plugin {#var} redémarré avec succès."
+    load: "{global#operation}Plugin {#var} chargé avec succès."
+    unload: "{global#operation}Plugin {#var} déchargé avec succès."
+    reload: "{global#operation}Plugin {#var} rechargé avec succès."
+  tps-bar:
+    on: "{global#operation}Barre TPS affichée."
+    off: "{global#operation}Barre TPS masquée."
+  chat-filter:
+    reload: "{global#sys-success}Fichier de règles rechargé avec succès."
+    save: "{global#sys-success}Fichier de règles par défaut enregistré avec succès."
+    reported-warn: "{global#sys-warning}Votre message ({#var}) a été signalé et marqué comme infraction par le système. Veuillez surveiller votre comportement."
+    outcome-warn: "{global#sys-success}Le message ({#var}) du joueur signalé ({#var}) a été marqué comme infraction et un avertissement a été émis. Merci de contribuer au maintien de l'ordre communautaire."
+    outcome-punished: "{global#sys-success}Le message ({#var}) du joueur signalé ({#var}) a été marqué comme infraction et une sourdine a été appliquée. Merci de contribuer au maintien de l'ordre communautaire."
+  chat-report:
+    not-exist: "{global#sys-error}L'entrée de chat que vous essayez de signaler n'existe pas, ou elle a peut-être déjà été signalée."
+    not-self: "{global#sys-error}Vous ne pouvez pas signaler vos propres messages de chat."
+    success: "{global#sys-success}Vous avez soumis un signalement de chat contre {#var} ({#var})."
+    --tip: '{#gray}Si un joueur envoie un message contenant un contenu inapproprié, vous pouvez cliquer sur le "[!]" après le texte du chat pour le signaler.'

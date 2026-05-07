@@ -1,0 +1,11 @@
+language:
+  -module-name:
+    lobby-default-inventory: Default Inventory
+    lobby-back-to-spawn: Auto Return to Spawn
+    lobby-map-protect: Map Protection
+    lobby-player-protect: Player Protection
+  lobby-default-inventory:
+    edit-start: "{global#info}You opened the default inventory editor."
+    edit-complete: "{global#info}The default inventory has been updated."
+    cover: "{global#info}The default inventory configuration has been applied to your inventory."
+    editor-title: "{#dark-purple}Default Inventory Editor"

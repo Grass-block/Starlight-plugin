@@ -1,0 +1,14 @@
+language:
+  -module-name:
+    elevator: 電梯方塊
+  elevator:
+    item-name: '{#aqua}電梯'
+    item-lore:
+      - '{#gray}一個平平無奇的電梯方塊。'
+      - '{#gray}如果{#white}垂直地放置它們並清空空間{#gray}，'
+      - '{#gray}在上面{#white}跳躍或潛行{#gray}的話，'
+      - '{#gray}沒準會發生{#white}有趣的事情{#gray}...'
+    --tip:
+      - "{#gray}使用金錠，紅石和活塞來合成電梯方塊，在他們上方跳躍或潛行可以快速上下。"
+      - "{#gray}為了電梯正常識別，電梯上方2格內部必須為空氣。"
+      - "{#gray}您可在 {click(link,https://example.org){#white}[{#aqua}此處{#white}]{#gray}查詢配方。"

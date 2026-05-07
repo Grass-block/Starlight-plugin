@@ -1,0 +1,29 @@
+language:
+  -module-name:
+    music-player: Музыкальный плеер
+  music-service:
+    restore-defaults: "{global#sys-info}Образцы музыкальных файлов успешно сохранены."
+    trim: "{global#sys-info}Исправлен формат имени {#var} файлов."
+  music-player:
+    playing: "Воспроизводится"
+    paused: "Пауза"
+    play: "{global#sys-info}Игрок {#var} воспроизвёл музыку {#var} (коррекция: {#var})"
+    pause: "{global#sys-info}Игрок {#var} {#yellow}поставил на паузу{#gray} текущее воспроизведение."
+    resume: "{global#sys-info}Игрок {#var} {#blue}возобновил{#gray} текущее воспроизведение."
+    cancel: "{global#sys-info}Игрок {#var} {#red}отменил{#gray} текущее воспроизведение."
+    not-found: "{global#sys-error}Не удалось найти указанный файл {#var}."
+    error-resolving: "{global#sys-error}Не удалось разрешить указанный файл {#var}."
+    unsupported-format: "{global#sys-error}Неподдерживаемый файл {#var}."
+    timeout: "{global#sys-error}Не удалось загрузить файл {#var} с сервера контента."
+    ui-title: "{#dark-aqua}Музыкальный плеер {#white}(Всего {} страниц)"
+    ui-click: "{#gold}[Нажмите для воспроизведения]"
+    ui-legacy-control-open: "{#purple}Включить старый режим: [ВКЛ]"
+    ui-legacy-control-close: "{#gray}Включить старый режим: [ВЫКЛ]"
+    ui-cancel: "{#red}Остановить воспроизведение"
+  music-game:
+    m-puncher-diamond-name: "{#white}Музыкальная колотушка{#gray}[{#aqua}Синий{#gray}]"
+    m-puncher-diamond-lore: "{#gray}Ритмическая палочка для удара по синим нотам..."
+    m-puncher-gold-name: "{#white}Музыкальная колотушка{#gray}[{#gold}Золотой{#gray}]"
+    m-puncher-gold-lore: "{#gray}Ритмическая палочка для удара по золотым нотам..."
+    m-puncher-iron-name: "{#white}Музыкальная колотушка{#gray}[{#white}Белый{#gray}]"
+    m-puncher-iron-lore: "{#gray}Ритмическая палочка для удара по белым нотам..."

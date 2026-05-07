@@ -1,0 +1,9 @@
+language:
+  -module-name:
+    chat-at: Mention de chat
+    chat-component: Support de chat en texte enrichi
+    mail: Courrier
+  chat-component:
+    --tip:
+      - '{#gray}Dans le chat, les pancartes et les commandes (partiellement supporté), vous pouvez utiliser des balises de texte enrichi pour ajouter des effets au texte.'
+      - '{#gray}Cliquez {click(link,wiki.atcraftmc.cn)}[ici]{;}{#gray} pour en savoir plus.'

@@ -1,0 +1,37 @@
+language:
+  -module-name:
+    crop-click-harvest: Récolte des cultures
+    dispenser-interaction: Interaction de distributeur modifiée
+    double-door-sync: Synchronisation doubles portes
+    vein-miner: Minage en chaîne
+    realistic-sleep: Sommeil réaliste
+    portable-functional-blocks: Blocs fonctionnels portables
+    portable-shulker-box: Ouverture rapide de boîte de Shulker
+    item-drop-secure: Sécurité de jet d'objet
+    realistic-minecart: Wagonnet réaliste
+    sit-on-player: S'asseoir sur un joueur
+    stair-seat: Siège d'escalier
+  item-drop-secure:
+    warn: "{global#warning}Vous ne pouvez pas jeter cet objet pour des raisons de sécurité, utilisez {#gold}/unlock-drop{#gray} ou {click(command,/unlock-drop)}{#white}[{#green}Cliquez{#white}]{;} {#gray} pour déverrouiller temporairement."
+    unlock: "{global#info}Vous avez déverrouillé la sécurité de jet. Le verrouillage sera rétabli dans {#var} secondes."
+    unlock-end: "{global#info}La sécurité de jet d'objet a été rétablie."
+  vein-miner:
+    --tip: "{#gray}Miner en s'accroupissant permet de récolter les minerais, bois et feuilles connectés en une fois, mais cela consomme plus de durabilité."
+  realistic-sleep:
+    sleep-day: '{global#sys-info}Vous dormez en dehors des heures normales, utilisez {#gold}/leave-bed{#gray} ou {click(command,/leave-bed)}{#white}[{#green}Cliquez ici{#white}]{reset}{#gray} pour quitter le lit.'
+    leave-bed: '{global#sys-info}Vous avez quitté le lit. Vous pouvez dormir à nouveau quand vous voulez.'
+    --tip: "{#gray}S'allonger dans un lit pendant la journée régénère la santé, et la nuit aide tous les joueurs à passer le temps."
+  dispenser-interaction:
+    --tip: "{#gray}Lorsqu'il reçoit un signal, le distributeur tente de placer un bloc ; si l'objet est un outil, il tente de détruire le bloc devant lui."
+  portable-functional-blocks:
+    --tip: "{#gray}Certains blocs fonctionnels (table de forge, établi, etc.) peuvent être ouverts directement en main avec un clic droit dans l'air."
+  stair-seat:
+    --tip: "{#gray}Faites un clic droit sur un bloc d'escalier pour vous asseoir."
+  realistic-minecart:
+    run-mode-run: "{#aqua}Marche"
+    run-mode-boost: "{#green}Accélération"
+    run-mode-break: "{#purple}Décélération"
+    run-mode-stop: "{#gray}Arrêt"
+    acceleration: "Accélération : "
+    speed: "Vitesse : "
+    level: "Rapport : "

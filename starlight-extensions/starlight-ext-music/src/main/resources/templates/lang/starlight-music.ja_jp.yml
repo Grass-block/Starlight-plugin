@@ -1,0 +1,29 @@
+language:
+  -module-name:
+    music-player: ミュージックプレイヤー
+  music-service:
+    restore-defaults: "{global#sys-info}サンプル音楽ファイルを保存しました。"
+    trim: "{global#sys-info}{#var} 個のファイルの名前形式を修正しました。"
+  music-player:
+    playing: "再生中"
+    paused: "一時停止"
+    play: "{global#sys-info}プレイヤー{#var}が音楽{#var}を再生しました(補正値:{#var})"
+    pause: "{global#sys-info}プレイヤー{#var}が現在の再生を{#yellow}一時停止{#gray}しました。"
+    resume: "{global#sys-info}プレイヤー{#var}が現在の再生を{#blue}再開{#gray}しました。"
+    cancel: "{global#sys-info}プレイヤー{#var}が現在の再生を{#red}キャンセル{#gray}しました。"
+    not-found: "{global#sys-error}指定されたファイル {#var} が見つかりません。"
+    error-resolving: "{global#sys-error}指定されたファイル {#var} を解析できません。"
+    unsupported-format: "{global#sys-error}サポートされていないファイル {#var} です。"
+    timeout: "{global#sys-error}コンテンツサーバーからファイル {#var} をダウンロードできません。"
+    ui-title: "{#dark-aqua}ミュージックプレイヤー {#white}(全 {} ページ)"
+    ui-click: "{#gold}[クリックして再生]"
+    ui-legacy-control-open: "{#purple}旧バージョン解析を有効: [ON]"
+    ui-legacy-control-close: "{#gray}旧バージョン解析を有効: [OFF]"
+    ui-cancel: "{#red}再生停止"
+  music-game:
+    m-puncher-diamond-name: "{#white}音楽ビーター{#gray}[{#aqua}青{#gray}]"
+    m-puncher-diamond-lore: "{#gray}青い音符を叩くためのリズムスティック..."
+    m-puncher-gold-name: "{#white}音楽ビーター{#gray}[{#gold}金{#gray}]"
+    m-puncher-gold-lore: "{#gray}金色の音符を叩くためのリズムスティック..."
+    m-puncher-iron-name: "{#white}音楽ビーター{#gray}[{#white}白{#gray}]"
+    m-puncher-iron-lore: "{#gray}白い音符を叩くためのリズムスティック..."

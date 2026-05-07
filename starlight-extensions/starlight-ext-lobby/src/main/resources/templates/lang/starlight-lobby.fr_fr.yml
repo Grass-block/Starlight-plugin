@@ -1,0 +1,11 @@
+language:
+  -module-name:
+    lobby-default-inventory: Inventaire par défaut
+    lobby-back-to-spawn: Retour auto au spawn
+    lobby-map-protect: Protection de la carte
+    lobby-player-protect: Protection des joueurs
+  lobby-default-inventory:
+    edit-start: "{global#info}Vous avez ouvert l'éditeur d'inventaire par défaut."
+    edit-complete: "{global#info}L'inventaire par défaut a été mis à jour."
+    cover: "{global#info}La configuration d'inventaire par défaut a été appliquée à votre inventaire."
+    editor-title: "{#dark-purple}Éditeur d'inventaire par défaut"

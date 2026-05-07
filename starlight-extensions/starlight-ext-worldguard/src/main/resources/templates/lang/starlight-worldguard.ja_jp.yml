@@ -1,0 +1,27 @@
+language:
+  wg-we-check:
+    region-limit: "{global#info}WorldEditの操作が送信されました。この操作は現在の領地内でのみ有効です。"
+    region-warn: "{global#warning}WorldEditの操作が送信されました。領地内にいることを確認してください。"
+  wg-custom-name:
+    no-wg: "{global#error}このワールドではWorldGuardが有効になっていません。"
+    no-rg: "{global#error}どの区画にも立っていません。"
+    rg-not-self: "{global#error}この区画({#var})はあなたの領地ではありません。"
+    rg-rename: "{global#info}区画のカスタム名を {#var} に変更しました。"
+    cmd-error: "{global#error}領地管理システムの操作中にエラーが発生しました。管理者に連絡してください。"
+  wg-claim:
+    no-wg: "{global#error}このワールドではWorldGuardが有効になっていません。"
+    no-rg: "{global#error}どの区画にも立っていません。"
+    rg-claimed: "{global#error}この区画({#var})は既に取得されています。"
+    rg-claimed-self: "{global#error}この区画({#var})は既に取得されており、あなたの領地です。"
+    rg-not-self: "{global#error}この区画({#var})はあなたの領地ではありません。"
+    rg-claim: "{global#info}おめでとうございます！区画 {#var} を取得しました。"
+    rg-unclaim: "{global#info}区画 {#var} を放棄しました。"
+    cmd-error: "{global#error}領地管理システムの操作中にエラーが発生しました。管理者に連絡してください。"
+  wg-region-hud:
+    --view-setting-title: "{#green}[ホットバー]領地HUD情報表示"
+    --view-setting-desc:
+      - "HUD位置に現在のWorldGuard領地情報を表示します。"
+    ui-name: "エリア:"
+    ui-owner: "所有者:"
+    ui-id: "エリアID:"
+    ui-empty-owners: "[ なし、/plot claimで取得可能 ]"

@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    ban: BANコマンド
+    chat-filter: チャットフィルター
+    chat-report: チャット通報
+    kick-on-reload: リロード時自動キック
+    maintenance: メンテナンスモード
+    mute: チャットミュート
+    plugin-manager-command: コマンドラインプラグインマネージャー
+    server-info: サーバー情報コマンド
+    tps-bar: TPS可視化バー
+    vm-garbage-cleaner: 自動ガベージコレクション
+  ban:
+    msg-ban-complete: "{global#sys-success}プレイヤー {#var} を {#var} までBANしました、理由: {#var}。"
+    broadcast: "{global#sys-info}プレイヤー {#var} が {#var} により実行者 {#var} によって {#var} までBANされました。"
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}メモリ回収を開始..."
+    gc-end: "{global#sys-operation}メモリ回収完了、%d MBを解放しました。"
+  maintenance:
+    start: "{global#sys-operation}メンテナンスを開始しました。"
+    end: "{global#sys-operation}メンテナンスが終了しました。"
+    allow: "{global#sys-operation}{#var}({#var}) のメンテナンス中の入室を許可しました。"
+    disallow: "{global#sys-operation}{#var}({#var}) のメンテナンス中の入室許可を取り消しました。"
+    kick-message:
+      - 'サーバーはメンテナンス中のため、現在入室できません。'
+      - 'メンテナンスには時間がかかりますので、しばらくお待ちください。ご不便をおかけして申し訳ございません。'
+  mute:
+    message-banned: '{global#sys-info}あなたはミュートされています。ミュートは {#var} に解除されます。'
+    add: '{global#sys-info}プレイヤー {#var} を {#var} までミュートしました、理由: {#var}。'
+    add-target: '{global#sys-info}あなたは {#var} により {#var} のため {#var} までミュートされました！'
+    remove: '{global#sys-info}プレイヤー {#var} のミュートを解除しました。'
+    remove-target: '{global#sys-info}管理者 {#var} によりミュートが解除されました！'
+    message-unmuted: '{global#sys-error}エラー: プレイヤー {#var} はミュートされていません！'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}サーバーがリロード中です。正常な動作のため、一時的にキックされました。"
+      - "{#white}しばらくしてから再接続してください。{#return}"
+    stop-hint:
+      - "{#white}障害またはメンテナンスのため、サーバーは現在停止しています。"
+      - "{#white}ご不便をおかけして申し訳ございません。{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}プラグイン一覧: {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}名前{#white}: {}[{}]"
+    info-version: "{#gold}バージョン{#white}: {}"
+    info-author: "{#gold}作者{#white}: {}"
+    info-desc: "{#gold}概要{#white}: {}"
+    info-api: "{#gold}APIバージョン{#white}: {}"
+    info-depend: "{#gold}依存{#white}: {}"
+    info-soft-depend: "{#gold}ソフト依存{#white}: {}"
+    info-main: "{#gold}メインクラス{#white}: {}"
+    info-libs: "{#gold}ライブラリ{#white}:"
+    file-not-found: "{global#error}プラグインファイル {#var} が見つかりません。"
+    plugin-not-found: "{global#error}プラグイン {#var} が見つかりません。"
+    load-failed: "{global#error}プラグイン {#var} の読み込みに失敗しました。"
+    unload-failed: "{global#error}プラグイン {#var} のアンロードに失敗しました。"
+    enable: "{global#operation}プラグイン {#var} を有効化しました。"
+    disable: "{global#operation}プラグイン {#var} を無効化しました。"
+    restart: "{global#operation}プラグイン {#var} を再起動しました。"
+    load: "{global#operation}プラグイン {#var} を読み込みました。"
+    unload: "{global#operation}プラグイン {#var} をアンロードしました。"
+    reload: "{global#operation}プラグイン {#var} をリロードしました。"
+  tps-bar:
+    on: "{global#operation}TPSバーを表示しました。"
+    off: "{global#operation}TPSバーを非表示にしました。"
+  chat-filter:
+    reload: "{global#sys-success}ルールファイルをリロードしました。"
+    save: "{global#sys-success}デフォルトルールファイルを保存しました。"
+    reported-warn: "{global#sys-warning}あなたのメッセージ({#var})がプレイヤーにより通報され、システムが違反と判定しました。言動にご注意ください。"
+    outcome-warn: "{global#sys-success}通報したプレイヤー({#var})のメッセージ({#var})が違反と判定され、警告処理されました。コミュニティ秩序の維持にご協力いただきありがとうございます。"
+    outcome-punished: "{global#sys-success}通報したプレイヤー({#var})のメッセージ({#var})が違反と判定され、ミュート処理されました。コミュニティ秩序の維持にご協力いただきありがとうございます。"
+  chat-report:
+    not-exist: "{global#sys-error}通報するチャット履歴エントリが存在しません。既に通報されている可能性があります。"
+    not-self: "{global#sys-error}自分のチャットメッセージを通報することはできません。"
+    success: "{global#sys-success}{#var} のチャット通報({#var})を送信しました。"
+    --tip: '{#gray}不適切な内容を含むメッセージを見つけた場合、チャットテキストの後ろにある "[!]" をクリックして通報できます。'

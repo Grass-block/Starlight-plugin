@@ -1,0 +1,43 @@
+language:
+  -module-name:
+    advanced-permission-control: Contrôle avancé des permissions
+    explosion-defender: Protection contre les explosions
+    img-regulation-sync: Synchronisation de régulation IMG
+    ip-defender: Détection d''adresse IP
+    permission-manager: Contrôle simple des permissions
+    we-operation-defender: Surveillance des opérations WorldEdit
+    guest-mode: Mode invité
+  guest-mode:
+    guest: '{global#warning}Ce monde a le mode invité activé. Veuillez demander les permissions de membre.'
+  ip-defender:
+    detect: '{global#info}Votre emplacement IP est {#var}. (Cette information n''est visible que par vous.)'
+    warn: '{global#warning}Votre emplacement IP est {#var}, différent de votre dernier emplacement. Le changement d''IP a été enregistré.'
+    check: '{global#sys-info}Votre emplacement IP est {#var}. (Cette information n''est visible que par vous.)'
+    auto-ban-reason: 'En raison du changement d''IP, nous soupçonnons un problème de sécurité avec votre compte.'
+  explosion-defender:
+    exploded: '{global#warning}Une explosion {#var} s''est produite à {#var},{#var},{#var} dans le monde {#var}.'
+    region-list: '{global#sys-operation}Voici toutes les régions en liste blanche d''explosion : '
+    region-add: '{global#sys-operation}Région en liste blanche d''explosion {#var} ajoutée.'
+    region-add-failed: '{global#sys-error}La région en liste blanche d''explosion {#var} existe déjà.'
+    region-remove: '{global#sys-operation}{#gray}Région en liste blanche d''explosion {#var} supprimée.'
+    region-remove-failed: '{global#sys-error}Région en liste blanche d''explosion {#var} introuvable.'
+  permission-manager:
+    cmd-group-set: "{global#sys-operation}Groupe de permissions du joueur {#var} changé en {#var}."
+    cmd-perm-set: "{global#sys-operation}Valeur du nœud de permission {#var} du joueur {#var} changée en {#var}."
+    cmd-player-not-found: "{global#sys-operation}Impossible de trouver le joueur spécifié."
+    cmd-tag-add: "{global#sys-operation}Balise de permission {#var} ajoutée au joueur {#var}."
+    cmd-tag-remove: "{global#sys-operation}Balise de permission {#var} retirée du joueur {#var}."
+  advanced-permission-control:
+    no-perm: '{global#error}Vous n''avez pas la permission de faire cela ! (Nœud de permission manquant {#var})'
+  img-regulation-sync:
+    ban-operator: '{#gold}[Système de bannissement conjoint IMG]'
+  we-operation-defender:
+    confirm-required: "{global#warning}La zone de votre opération WorldEdit est trop grande. Ne bougez pas et utilisez {#white}//{#gray}confirm dans {#var} secondes pour confirmer cette opération."
+    action-not-found: "{global#error}Aucune opération WorldEdit trouvée à confirmer."
+    action-confirmed: "{global#success}Opération confirmée et soumise. Veuillez attendre le résultat du serveur : {#var}"
+    edit-limited-warn: "{global#warning}La zone que vous modifiez dépasse la limite (rayon {#var}). Soyez prudent."
+    edit-limited: "{global#error}La zone que vous modifiez dépasse la limite (rayon {#var}). L''excédent a été automatiquement tronqué."
+    select-limited-warn: "{global#warning}La zone que vous sélectionnez (taille {#var}/{#var}/{#var}) dépasse la limite ({#var}). Soyez prudent."
+    select-limited: "{global#error}La zone que vous sélectionnez (taille {#var}/{#var}/{#var}) dépasse la limite ({#var}) et a été annulée."
+  end-protect:
+    cristal-prevent: "{global#warning}Pour empêcher l''Ender Dragon de ressusciter accidentellement et d''endommager la carte, placer des cristaux de l''End ici est interdit."

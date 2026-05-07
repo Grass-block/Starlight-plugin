@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    block-update-locker: Блокировка обновлений блоков
+    calculator: Калькулятор
+    camera-movement: Пользовательский путь камеры
+    dynamic-view-distance: Пользовательская дальность прорисовки
+    hitokoto: "Хитокото"
+    player-ping-command: Запрос пинга игрока
+    position-align: Команда выравнивания позиции
+    position-lock: Команда блокировки позиции
+    surrounding-refresh: Обновление окружающих блоков
+    particle-font: Отрисовка текста частицами
+    freecam: Свободная камера
+    fly-command: Команды управления полётом
+    menu-item: Триггер предмета меню
+    client-environment-setting: Настройки окружения клиента
+    modern-minecart-sync: Совместимость движения современных вагонеток
+  particle-font:
+    done: '{global#sys-info}Отрисовка завершена ({#var}, {#var} частиц).'
+    no-fonts: '{global#error}Нет шрифтов. Поместите шрифты ttf или otf в {#white}/assets/font{#gray}.'
+    trim: '{global#sys-info}Формат {#var} имён(и) файлов успешно скорректирован.'
+  position-lock:
+    lock: '{global#sys-info}Ваша позиция заблокирована.'
+    unlock: '{global#sys-info}Ваша позиция разблокирована.'
+    lock-player: '{global#sys-operation}Вы заблокировали позицию {#var}.'
+    unlock-player: '{global#sys-operation}Вы разблокировали позицию {#var}.'
+  position-align:
+    align: "{global#sys-success}Ваши координаты скорректированы до [{#var},{#var},{#var}] [{#var}|{#var}]."
+  calculator:
+    calc: "[{#blue}Выч.{#white}]{#gray} {#var} = {#var}"
+    --tip: "{#gray}Используйте {#gold}/calc [выражение]{#gray} для простых вычислений."
+  player-ping-command:
+    ping-msg: "{global#sys-info}Ваш пинг: {#var} {#gray}мс"
+    --tip: "{#gray}Используйте {#gold}/ping{#gray} чтобы узнать свой пинг!"
+  block-update-locker:
+    lock: "{global#sys-info}Обновления блоков заблокированы."
+    unlock: "{global#sys-info}Обновления блоков разблокированы."
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}Дальность прорисовки игрока {#var} установлена на {#var} чанков."
+    reset-target: "{global#sys-operation}Настройка дальности прорисовки игрока {#var} сброшена."
+    set-self: "{global#sys-info}Ваша дальность прорисовки установлена на {#var} чанков."
+    reset-self: "{global#sys-info}Ваша дальность прорисовки сброшена."
+    --tip:
+      - "{#gray}Вы можете использовать {#gold}/view-distance [игрок] [расстояние] {#gray}чтобы настроить дальность прорисовки сервера."
+      - "{#gray}Если вы испытываете лаги (высокий пинг), попробуйте уменьшить дальность прорисовки сервера."
+  camera-movement:
+    cam-start: '{global#sys-info}Путь камеры начат ({#var} тиков)'
+    cam-end: '{global#sys-info}Путь камеры завершён.'
+  freecam:
+    start: "{global#info}Свободная камера включена."
+    reset: "{global#info}Свободная камера выключена."
+    --tip: "{#gray}Используйте {#gold}/freecam{#gray} чтобы включить/выключить свободную камеру для лучшего исследования."
+    anti-cheat: "{global#sys-error}Для обеспечения честной игры, пожалуйста, не используйте команды в режиме свободной камеры."
+  fly-command:
+    cmd-speed-set: "{global#info}Скорость полёта установлена на {#var}."
+    toggle: "{global#info}Режим полёта переключён"
+    --tip: "{#gray}Используйте {#gold}/flyspeed [значение]{#gray} чтобы настроить скорость полёта."
+  surrounding-refresh:
+    to-big: '{global#error}Слишком большой радиус.'
+    not-found: '{global#error}Целевой игрок {#var} не найден.'
+    success: '{global#success}Отправка запроса на обновление области игроку {#var}.'
+    refresh-target: '{global#info}Обновление блоков в радиусе {#var} вокруг вас. Это может вызвать лаги, пожалуйста, не двигайтесь.'
+    refresh-complete: '{global#info}Данные блоков вокруг вас успешно обновлены.'
+    --tip: "{#gray}Если вы столкнулись с фантомными блоками, используйте {#gold}/refresh-area [радиус]{#gray} чтобы быстро обновить блоки рядом с вами."
+  force-sprint:
+    --tip: "{#gray}Используйте {#gold}/sprint{#gray} чтобы быстро переключить авто-спринт."
+    enable: "{global#info}Авто-спринт включён."
+    disable: "{global#info}Авто-спринт выключен."
+  item-custom-name:
+    bind: "{global#sys-info}Предмет {#var} привязан к пользовательскому языковому ключу {#var}."
+    unbind: "{global#sys-info}Пользовательский языковой ключ отвязан от предмета {#var}."
+    bind-fail: "{global#sys-error}Невозможно привязать пользовательский языковой ключ к пустой руке."
+  tick-manager:
+    freeze: "{global#warn}Сервер заморожен."
+    unfreeze: "{global#info}Сервер разморожен."
+    step: "{global#info}Сервер выполнил {#var} тиков."
+  client-environment-setting:
+    weather-none: "{global#sys-info}Погода вашего клиента установлена на [{#white}Ясно{#gray}]"
+    weather-rain: "{global#sys-info}Погода вашего клиента установлена на [{#white}Дождь{#gray}]"
+    weather-off: "{global#sys-info}Погода вашего клиента сброшена до реальной погоды."
+    time-offset: "{global#sys-info}Время вашего клиента установлено на [{#white}Смещение: {} тиков{#gray}]"
+    time-fixed: "{global#sys-info}Время вашего клиента установлено на [{#white}Фикс.: {} тиков{#gray}]"
+    time-off: "{global#sys-info}Время вашего клиента сброшено до реального времени."
+  hitokoto:
+    sentence: "{hover(text,Цитата из {#red}[{#white}Хитокото{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}Хитокото{#red}] {#white}{} {#gray}— {}({})"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}Меню{#yellow} ||"
+    item-lore:
+      - '{#gray}Небольшой предмет для открытия {#white}меню функций сервера{#gray},'
+      - '{#gray}нажмите в любом месте чтобы быстро открыть интерфейс меню;'
+      - '{#gray}конечно, если вы {#white}случайно потеряете этот предмет{#gray},'
+      - '{#gray}вы также можете использовать команду "/menu-item" чтобы получить ещё один.'

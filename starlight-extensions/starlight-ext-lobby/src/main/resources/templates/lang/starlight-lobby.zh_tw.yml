@@ -1,0 +1,11 @@
+language:
+  -module-name:
+    lobby-default-inventory: 預設物品欄
+    lobby-back-to-spawn: 自動回到重生點
+    lobby-map-protect: 地圖保護
+    lobby-player-protect: 玩家保護
+  lobby-default-inventory:
+    edit-start: "{global#info}你打開了預設物品欄編輯器。"
+    edit-complete: "{global#info}預設物品欄已更新。"
+    cover: "{global#info}預設物品欄配置已覆蓋到您的物品欄。"
+    editor-title: "{#dark-purple}預設物品欄編輯器"

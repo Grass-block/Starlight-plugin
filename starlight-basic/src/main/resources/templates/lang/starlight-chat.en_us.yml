@@ -1,0 +1,9 @@
+language:
+  -module-name:
+    chat-at: Chat Mention
+    chat-component: Rich Text Chat Support
+    mail: Mail
+  chat-component:
+    --tip:
+      - '{#gray}In chat, signs and commands (partially supported), you can use rich text tags to add more effects to text.'
+      - '{#gray}Click {click(link,wiki.atcraftmc.cn)}[here]{;}{#gray} to learn more.'

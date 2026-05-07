@@ -1,0 +1,18 @@
+language:
+  -module-name:
+    clear-console: Очистка консоли
+    console-execute: Прокси-исполнение консоли
+    custom-log-format: '[BETA] Пользовательский формат логов'
+    log-color-patch: '[BETA] Исправление цвета логов'
+    stop-confirm: Подтверждение остановки
+  console-execute:
+    execute: "{global#sys-operation}Отправлена командная строка: {#var}"
+  clear-console:
+    execute: "{global#sys-operation}Буфер команд консоли очищен."
+  stop-confirm:
+    hint: "{#red} Вы уверены, что хотите остановить сервер? Это может прервать обслуживание. Если уверены, используйте {#yellow}/stop confirm"
+  custom-log-format:
+    enable: "{global#sys-operation}{#gray}Пользовательский формат логов сервера включён."
+    disable: "{global#sys-operation}{#gray}Пользовательский формат логов сервера отключён."
+    reload: "{global#sys-operation}{#gray}Пользовательский формат логов сервера перезагружен."
+    restore: "{global#sys-operation}{#gray}Пользовательский формат логов сервера сброшен."

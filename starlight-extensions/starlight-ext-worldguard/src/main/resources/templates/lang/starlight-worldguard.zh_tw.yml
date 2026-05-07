@@ -1,0 +1,27 @@
+language:
+  wg-we-check:
+    region-limit: "{global#info}您的WorldEdit操作已提交，此操作只對您當前的領地範圍內有效。"
+    region-warn: "{global#warning}您的WorldEdit操作已提交，請確認您的位置在您的領地內。"
+  wg-custom-name:
+    no-wg: "{global#error}此世界未啟用WorldGuard。"
+    no-rg: "{global#error}您沒有踩在任何地塊上。"
+    rg-not-self: "{global#error}這塊地皮({#var})不是您的領地。"
+    rg-rename: "{global#info}您已成功修改地皮自定義名稱為 {#var}。"
+    cmd-error: "{global#error}操作領地管理系統時出錯，請聯繫管理員。"
+  wg-claim:
+    no-wg: "{global#error}此世界未啟用WorldGuard。"
+    no-rg: "{global#error}您沒有踩在任何地塊上。"
+    rg-claimed: "{global#error}這塊地皮({#var})已被領取。"
+    rg-claimed-self: "{global#error}這塊地皮({#var})已被領取且是您的領地。"
+    rg-not-self: "{global#error}這塊地皮({#var})不是您的領地。"
+    rg-claim: "{global#info}恭喜！您已成功領取地皮 {#var}。"
+    rg-unclaim: "{global#info}您已成功放棄地皮 {#var}。"
+    cmd-error: "{global#error}操作領地管理系統時出錯，請聯繫管理員。"
+  wg-region-hud:
+    --view-setting-title: "{#green}[快捷欄]領地HUD資訊顯示"
+    --view-setting-desc:
+      - "在HUD位置顯示當前WorldGuard領地資訊。"
+    ui-name: "區域:"
+    ui-owner: "所有者:"
+    ui-id: "區域id:"
+    ui-empty-owners: "[ 無, 可使用/plot claim佔領 ]"

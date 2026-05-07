@@ -1,0 +1,36 @@
+language:
+  -module-name:
+    command-tab-fix: コマンド補完フィルター修正
+    entity-motion: エンティティモーションコマンド
+    command-exec: エンティティプロキシ実行コマンド
+    item-command: アイテムコマンドトリガー
+    world-edit-commands: WorldEditコマンド補足
+    self-message: メッセージ送信
+    hat: 帽子をかぶる
+    animate-block-command: ブロックアニメーション
+  entity-motion:
+    hint: "{global#sys-success}{#var}体のエンティティにモーションを設定しました: {#var}({#var},{#var},{#var})"
+  command-exec:
+    hint: "{global#sys-success}{#var}体のエンティティにコマンドを実行しました: {#var}"
+  item-command:
+    bind: "{global#sys-info}アイテム {#var} をコマンドライン {#var} にバインドしました。"
+    unbind: "{global#sys-info}アイテム {#var} のコマンドバインディングを解除しました。"
+    bind-fail: "{global#sys-error}空の手にコマンドラインをバインドできません。"
+    --tip: "{#gray}{#gold}/item-command{#gray}を使用してアイテムにコマンドをバインドできます。\nアイテムを使用するだけでコマンドを素早く実行できます。"
+  animate-block-command:
+    size-invalid: "{global#error}選択範囲の{#var}軸のサイズが無効です。座標の順序を確認して再試行してください。"
+    size-too-big: "{global#error}選択範囲が大きすぎます。3軸とも{#var}ブロック未満にしてください。"
+    no-result: "{global#warning}アニメーションを再生するブロックがありません。タスクをキャンセルしました。"
+    success: "{global#success}アニメーションが正常に作成されました（{#var}ブロックを含む）。"
+    --tip: "{#gray}{#gold}/animate-block{#gray}を使用してブロックを動かせます。{click(command,/custom-item animate-helper 1);underline}[杖]{;}{#gray}を使うとパス作成が簡単になります。"
+    item-name: '{#purple}アニメーション作成の杖'
+    item-lore:
+        - '{#gray}このツールで簡単にアニメーションパスを作成できます。'
+        - '{#gray}{#white}WorldEdit{#gray}で領域を選択した後、'
+        - '{#gray}左クリックでコマンドブロックをマーク、右クリックで目標位置をマーク'
+        - '{#gray}してアニメーションパスを素早く作成できます。'
+  hats:
+    empty: "{global#error}何も持っていません。"
+    not-found: "{global#error}指定されたプレイヤーは存在しません。"
+    failed: "{global#error}プレイヤーのヘルメットスロットが空ではありません。"
+    success: "{global#info}帽子を正常に交換しました。"

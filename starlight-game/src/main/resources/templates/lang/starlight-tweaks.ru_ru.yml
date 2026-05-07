@@ -1,0 +1,37 @@
+language:
+  -module-name:
+    crop-click-harvest: Сбор урожая
+    dispenser-interaction: Изменение взаимодействия раздатчика
+    double-door-sync: Синхронизация двойных дверей
+    vein-miner: Цепная добыча
+    realistic-sleep: Реалистичный сон
+    portable-functional-blocks: Портативные рабочие блоки
+    portable-shulker-box: Быстрое открытие шалкерового ящика
+    item-drop-secure: Защита от выбрасывания предметов
+    realistic-minecart: Реалистичная вагонетка
+    sit-on-player: Сидеть на игроке
+    stair-seat: Сидение на ступеньках
+  item-drop-secure:
+    warn: "{global#warning}Вы не можете выбросить этот предмет по соображениям безопасности, используйте {#gold}/unlock-drop{#gray} или {click(command,/unlock-drop)}{#white}[{#green}Нажмите{#white}]{;} {#gray} для временной разблокировки."
+    unlock: "{global#info}Вы сняли защиту от выбрасывания. Блокировка восстановится через {#var} сек."
+    unlock-end: "{global#info}Защита от выбрасывания предметов восстановлена."
+  vein-miner:
+    --tip: "{#gray}Добыча в режиме крадучись позволяет собирать соединённые руды, дерево и листья за раз, но это расходует больше прочности."
+  realistic-sleep:
+    sleep-day: '{global#sys-info}Вы спите в необычное время, используйте {#gold}/leave-bed{#gray} или {click(command,/leave-bed)}{#white}[{#green}Нажмите здесь{#white}]{reset}{#gray} чтобы покинуть кровать.'
+    leave-bed: '{global#sys-info}Вы покинули кровать. Вы можете снова лечь спать в любое время.'
+    --tip: "{#gray}Лежание в кровати днём восстанавливает здоровье, а ночью помогает всем игрокам пропустить время."
+  dispenser-interaction:
+    --tip: "{#gray}При получении сигнала раздатчик попытается разместить блок; если выбрасываемый предмет — инструмент, он попытается разрушить блок перед собой."
+  portable-functional-blocks:
+    --tip: "{#gray}Некоторые рабочие блоки (кузнечный стол, верстак и т.д.) можно открыть прямо в руке, нажав ПКМ в воздухе."
+  stair-seat:
+    --tip: "{#gray}Нажмите ПКМ по блоку ступенек, чтобы сесть."
+  realistic-minecart:
+    run-mode-run: "{#aqua}Движение"
+    run-mode-boost: "{#green}Ускорение"
+    run-mode-break: "{#purple}Торможение"
+    run-mode-stop: "{#gray}Остановка"
+    acceleration: "Ускорение: "
+    speed: "Скорость: "
+    level: "Передача: "

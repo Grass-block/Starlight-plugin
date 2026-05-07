@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    ban: Ban Commands
+    chat-filter: Chat Filter
+    chat-report: Chat Report
+    kick-on-reload: Auto-Kick on Reload
+    maintenance: Maintenance Mode
+    mute: Chat Mute
+    plugin-manager-command: Command-Line Plugin Manager
+    server-info: Server Information Commands
+    tps-bar: TPS Visual Bar
+    vm-garbage-cleaner: Automatic Garbage Collection
+  ban:
+    msg-ban-complete: "{global#sys-success}Banned player {#var} until {#var}, reason: {#var}."
+    broadcast: "{global#sys-info}Player {#var} was banned by {#var} for {#var} until {#var}."
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}Memory collection started..."
+    gc-end: "{global#sys-operation}Memory collection completed, freed %d MB."
+  maintenance:
+    start: "{global#sys-operation}Maintenance started."
+    end: "{global#sys-operation}Maintenance ended."
+    allow: "{global#sys-operation}Allowed {#var}({#var}) to enter during maintenance."
+    disallow: "{global#sys-operation}Disallowed {#var}({#var}) from entering during maintenance."
+    kick-message:
+      - 'The server is currently under maintenance, you cannot enter at this time.'
+      - 'Maintenance may take a while, please be patient. We sincerely apologize for the inconvenience.'
+  mute:
+    message-banned: '{global#sys-info}You are muted. Your mute will be lifted at {#var}.'
+    add: '{global#sys-info}Successfully muted player {#var} until {#var}, reason: {#var}.'
+    add-target: '{global#sys-info}You have been muted by {#var} for {#var} until {#var}!'
+    remove: '{global#sys-info}Successfully unmuted player {#var}.'
+    remove-target: '{global#sys-info}You have been unmuted by admin {#var}!'
+    message-unmuted: '{global#sys-error}Error: Player {#var} is not muted!'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}The server is reloading. To ensure proper operation, you have been temporarily kicked."
+      - "{#white}Please rejoin shortly.{#return}"
+    stop-hint:
+      - "{#white}The server has been shut down due to failure or maintenance."
+      - "{#white}We apologize for the inconvenience.{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}Plugin list: {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}Name{#white}: {}[{}]"
+    info-version: "{#gold}Version{#white}: {}"
+    info-author: "{#gold}Author{#white}: {}"
+    info-desc: "{#gold}Description{#white}: {}"
+    info-api: "{#gold}API Version{#white}: {}"
+    info-depend: "{#gold}Dependencies{#white}: {}"
+    info-soft-depend: "{#gold}Soft Dependencies{#white}: {}"
+    info-main: "{#gold}Main Class{#white}: {}"
+    info-libs: "{#gold}Libraries{#white}:"
+    file-not-found: "{global#error}Plugin file {#var} not found."
+    plugin-not-found: "{global#error}Plugin {#var} not found."
+    load-failed: "{global#error}Failed to load plugin {#var}."
+    unload-failed: "{global#error}Failed to unload plugin {#var}."
+    enable: "{global#operation}Successfully enabled plugin {#var}."
+    disable: "{global#operation}Successfully disabled plugin {#var}."
+    restart: "{global#operation}Successfully restarted plugin {#var}."
+    load: "{global#operation}Successfully loaded plugin {#var}."
+    unload: "{global#operation}Successfully unloaded plugin {#var}."
+    reload: "{global#operation}Successfully reloaded plugin {#var}."
+  tps-bar:
+    on: "{global#operation}TPS bar displayed."
+    off: "{global#operation}TPS bar hidden."
+  chat-filter:
+    reload: "{global#sys-success}Successfully reloaded rule file."
+    save: "{global#sys-success}Successfully saved default rule file."
+    reported-warn: "{global#sys-warning}Your message ({#var}) has been reported and flagged as a violation by the system. Please mind your behavior."
+    outcome-warn: "{global#sys-success}The reported player ({#var})'s message ({#var}) has been flagged as a violation and warned. Thank you for helping maintain community order."
+    outcome-punished: "{global#sys-success}The reported player ({#var})'s message ({#var}) has been flagged as a violation and muted. Thank you for helping maintain community order."
+  chat-report:
+    not-exist: "{global#sys-error}The chat record entry you are trying to report does not exist, or it may have already been reported."
+    not-self: "{global#sys-error}You cannot report your own chat messages."
+    success: "{global#sys-success}You have submitted a chat report against {#var} ({#var})."
+    --tip: '{#gray}If a player sends a message containing inappropriate content, you can click the "[!]" after the chat text to report it.'

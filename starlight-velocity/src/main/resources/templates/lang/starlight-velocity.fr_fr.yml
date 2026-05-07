@@ -1,0 +1,50 @@
+language:
+  player-action-restriction:
+    restricted: '{global#sys-warning}Vos interactions ont été restreintes jusqu''à ce que vous complétiez la vérification nécessaire.'
+  global-vars:
+    sys-info: "{#aqua}Système{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}Système{#dark_aqua} > {#gray}"
+    sys-error: "{#red}Système{#dark_aqua} > {#gray}"
+    sys-success: "{#green}Système{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}Système{#dark_aqua} > {#gray}"
+  server-transfer-message:
+    join-proxy: '{global#sys-info}{#gray}Le joueur {#white}{#var}{#gray} a rejoint le serveur. Bienvenue.'
+    join-server: '{global#sys-info}{#gray}Le joueur {#white}{#var}{#gray} (de {#var}) a rejoint le serveur. Bienvenue.'
+    leave-proxy: '{global#sys-info}Le joueur {#white}{#var}{#gray} a quitté le serveur.'
+    leave-server: '{global#sys-info}Le joueur {#white}{#var}{#gray} (vers {#var}) a quitté le serveur.'
+    join-message: '{global#sys-info}Bienvenue ({#var}) sur le serveur {#server-name}{#gray}. Amusez-vous bien !'
+    transfer-message: '{global#sys-info}Vous avez été envoyé vers le serveur {#var}. Utilisez {#gold}/hub,/lobby{#gray} pour revenir au lobby.'
+  stp-command:
+    player-not-found: '{global#sys-info}Joueur {#var} introuvable.'
+    command-error: '{global#sys-error}Un joueur est requis.'
+    transfer: '{global#sys-info}Envoi vers le serveur du joueur {#var}...'
+  stpa-command:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept {})}Accepter{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny {})}Refuser{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}Vous avez envoyé une demande au joueur {#var} pour qu'il se téléporte sur votre serveur."
+    tpahere-request-target: "{global#sys-info}Le joueur {#var} vous a envoyé une demande pour se téléporter sur votre serveur.{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}Vous avez accepté la demande de vous téléporter sur le serveur de {#var}. Envoi en cours..."
+    tpahere-accept-target: "{global#sys-info}{#var} a accepté votre demande pour qu'il se téléporte sur votre serveur."
+    tpahere-deny-sender: "{global#sys-info}Vous avez refusé la demande de vous téléporter sur le serveur de {#var}."
+    tpahere-deny-target: "{global#sys-info}{#var} a refusé votre demande pour qu'il se téléporte sur votre serveur."
+    tpahere-no-request: "{global#sys-info}{#var} ne vous a pas envoyé de demande pour se téléporter sur votre serveur."
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept {})}Accepter{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny {})}Refuser{color(white)}]'
+    tpa-request-sender: "{global#sys-info}Vous avez envoyé une demande au joueur {#var} pour vous téléporter sur son serveur."
+    tpa-request-target: "{global#sys-info}Le joueur {#var} vous a envoyé une demande pour se téléporter sur votre serveur.{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}Vous avez accepté la demande de {#var} de se téléporter sur votre serveur."
+    tpa-accept-target: "{global#sys-info}{#var} a accepté votre demande de vous téléporter sur son serveur. Envoi en cours..."
+    tpa-deny-sender: "{global#sys-info}Vous avez refusé la demande de {#var} de se téléporter sur votre serveur."
+    tpa-deny-target: "{global#sys-info}{#var} a refusé votre demande de vous téléporter sur son serveur."
+    tpa-no-request: "{global#sys-info}{#var} ne vous a pas envoyé de demande pour se téléporter sur votre serveur."
+
+    invite-request-sender: "{global#sys-info}Vous avez envoyé une invitation à tous les joueurs du serveur pour rejoindre votre serveur."
+    invite-request-target: "{global#sys-info}Le joueur {#var} vous invite à rejoindre son serveur.{msg#tpahere-accept-btn}"
+
+    player-not-found: '{global#error}Joueur introuvable...'
+  server-statement-observer:
+    online: "{global#sys-info}Le serveur {#var} est en ligne. Vous pouvez y jouer."
+    offline: "{global#sys-info}Le serveur {#var} est hors ligne. Il s''agit peut-être d''un arrêt planifié ou d''une maintenance."
+  mod-server-support:
+    message: "{global#sys-error}Vous avez besoin d''un modpack spécifique pour rejoindre ce serveur !"

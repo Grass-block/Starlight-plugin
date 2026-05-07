@@ -1,0 +1,50 @@
+language:
+  player-action-restriction:
+    restricted: '{global#sys-warning}必要な確認が完了するまで、あなたの操作は制限されています。'
+  global-vars:
+    sys-info: "{#aqua}システム{#dark_aqua} > {#gray}"
+    sys-warning: "{#yellow}システム{#dark_aqua} > {#gray}"
+    sys-error: "{#red}システム{#dark_aqua} > {#gray}"
+    sys-success: "{#green}システム{#dark_aqua} > {#gray}"
+    sys-operation: "{#light-purple}システム{#dark_aqua} > {#gray}"
+  server-transfer-message:
+    join-proxy: '{global#sys-info}{#gray}プレイヤー {#white}{#var}{#gray} がサーバーに参加しました。ようこそ。'
+    join-server: '{global#sys-info}{#gray}プレイヤー {#white}{#var}{#gray} ({#var}から) がサーバーに参加しました。ようこそ。'
+    leave-proxy: '{global#sys-info}プレイヤー {#white}{#var}{#gray} がサーバーを退出しました。'
+    leave-server: '{global#sys-info}プレイヤー {#white}{#var}{#gray} ({#var}へ) がサーバーを退出しました。'
+    join-message: '{global#sys-info}ようこそ({#var}) {#server-name}{#gray} サーバーへ。楽しんでください。'
+    transfer-message: '{global#sys-info}あなたを {#var} サーバーに送信しました。{#gold}/hub,/lobby{#gray}でロビーに戻ります。'
+  stp-command:
+    player-not-found: '{global#sys-info}プレイヤー {#var} が見つかりません。'
+    command-error: '{global#sys-error}プレイヤーが必要です。'
+    transfer: '{global#sys-info}プレイヤー {#var} のサーバーに送信中...'
+  stpa-command:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/stpahere accept {})}承諾{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/stpahere deny {})}拒否{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}プレイヤー {#var} にあなたのサーバーへのテレポートリクエストを送信しました。"
+    tpahere-request-target: "{global#sys-info}プレイヤー {#var} があなたに自分のサーバーへのテレポートリクエストを送信しました。{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}{#var} のサーバーへのテレポートリクエストを承諾しました。送信中..."
+    tpahere-accept-target: "{global#sys-info}{#var} があなたのサーバーへのテレポートリクエストを承諾しました。"
+    tpahere-deny-sender: "{global#sys-info}{#var} のサーバーへのテレポートリクエストを拒否しました。"
+    tpahere-deny-target: "{global#sys-info}{#var} があなたのサーバーへのテレポートリクエストを拒否しました。"
+    tpahere-no-request: "{global#sys-info}{#var} からあなたへのテレポートリクエストはありません。"
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/stpa accept {})}承諾{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/stpa deny {})}拒否{color(white)}]'
+    tpa-request-sender: "{global#sys-info}プレイヤー {#var} に彼ら/彼女らのサーバーへのテレポートリクエストを送信しました。"
+    tpa-request-target: "{global#sys-info}プレイヤー {#var} があなたにあなたのサーバーへのテレポートリクエストを送信しました。{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}{#var} のあなたのサーバーへのテレポートリクエストを承諾しました。"
+    tpa-accept-target: "{global#sys-info}{#var} が彼ら/彼女らのサーバーへのテレポートリクエストを承諾しました。送信中..."
+    tpa-deny-sender: "{global#sys-info}{#var} のあなたのサーバーへのテレポートリクエストを拒否しました。"
+    tpa-deny-target: "{global#sys-info}{#var} が彼ら/彼女らのサーバーへのテレポートリクエストを拒否しました。"
+    tpa-no-request: "{global#sys-info}{#var} からあなたのサーバーへのテレポートリクエストはありません。"
+
+    invite-request-sender: "{global#sys-info}サーバー全体のプレイヤーにあなたのサーバーへの招待を送信しました。"
+    invite-request-target: "{global#sys-info}プレイヤー {#var} があなたを彼ら/彼女らのサーバーに招待しています。{msg#tpahere-accept-btn}"
+
+    player-not-found: '{global#error}プレイヤーが存在しません...'
+  server-statement-observer:
+    online: "{global#sys-info}サーバー {#var} がオンラインになりました。プレイできます。"
+    offline: "{global#sys-info}サーバー {#var} がオフラインになりました。計画的なシャットダウンまたはメンテナンスの可能性があります。"
+  mod-server-support:
+    message: "{global#sys-error}このサーバーに参加するには特定のMODパックが必要です！"

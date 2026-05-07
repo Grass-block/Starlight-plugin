@@ -1,0 +1,13 @@
+language:
+  -module-name:
+    chat-sync: 叢集聊天同步
+    geyser-skin-redirect: Geyser皮膚重映射
+    legacy-forwarding-protect: Bungeecord叢集保護
+    client-transfer-support: 用戶端跳轉mod支援
+    proxy-ping: 叢集Ping指標修正
+  bungee-connection-protect:
+    kick-message:
+      - '很抱歉，{#server-name}{#reset}叢集保護系統無法認證您的連線。{#return}'
+      - '{#gray}請確認您的來源BC/Waterfall代理已經通過本服認證。'
+      - '{#gray}如果您確認這是個錯誤，請向開發者回饋。{#return}{#return}'
+      - '{#dark-gray}您的工作階段ID：{#dark-gray}{}'

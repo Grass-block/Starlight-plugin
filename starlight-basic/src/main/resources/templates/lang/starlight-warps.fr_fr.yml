@@ -1,0 +1,73 @@
+language:
+  -module-name:
+    tpa: Demande de téléportation
+    waypoint: Point de navigation
+    back-to-death: Retour au point de mort
+    rtp: Téléportation aléatoire
+  waypoint:
+    exist: '{global#sys-error}Le point de navigation {#var} existe déjà.'
+    not-exist: '{global#sys-error}Le point de navigation {#var} n''existe pas.'
+    add-success: '{global#sys-operation}Point de navigation {#var} ajouté avec succès.'
+    remove: '{global#sys-operation}Point de navigation {#var} supprimé avec succès.'
+    remove-failed: '{global#sys-error}Permissions insuffisantes : vous n''êtes pas le propriétaire de {#var} et vous n''avez pas le groupe de permissions starlight.waypoint.admin.'
+    no-access: '{global#sys-error}Permissions insuffisantes : vous n''êtes pas le propriétaire/visiteur autorisé de {#var} et vous n''avez pas le groupe starlight.waypoint.admin.'
+    tp-success: '{global#sys-success}Vous avez été téléporté au point de navigation {#var}.'
+    allow: '{global#sys-success}Accès au point de navigation {#var} accordé au joueur {#var}.'
+    allow-all: '{global#sys-success}Accès au point de navigation {#var} accordé à tous les joueurs.'
+    disallow: '{global#sys-success}Accès au point de navigation {#var} révoqué pour le joueur {#var}.'
+    disallow-all: '{global#sys-success}Accès au point de navigation {#var} révoqué pour tous les joueurs.'
+    home-exist-warn: "{global#sys-warning}Vous avez déjà défini un domicile. Pour le remplacer, utilisez {#gold}/sethome -f"
+    home-set-success: "{global#sys-operation}Défini avec succès."
+    home-not-set: "{global#sys-error}Vous n''avez pas encore défini de domicile, utilisez {#gold}/sethome{#gray} pour en définir un !"
+    home-tp-success: "{global#sys-success}Vous avez été téléporté à votre domicile."
+    --tip: "{#gray}Utilisez {#gold}/waypoint{#gray} pour créer vos propres points de navigation ou utiliser les points publics."
+    tip-home: "{#gray}Utilisez {#gold}/sethome{#gray} pour ajouter un domicile, et {#gold}/home{#gray} pour y retourner rapidement."
+    list: '{#aqua}Liste des points de navigation : '
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
+    list-hover: |-
+      {color(#44FFAA)}Nom : {#white}{}
+       Monde : {#white}{}
+       Coordonnées : {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       Angle : {#purple}[{},{}]
+       Propriétaire : {#white}{}
+       UUID : {#white}{}
+       {#gold}[Cliquer pour se téléporter]
+  back-to-death:
+    back-not-set: "{global#sys-error}Vous n''êtes pas encore mort."
+    back-tp-success: "{global#sys-success}Vous avez été téléporté à votre dernier lieu de mort."
+    back-hint: "{global#sys-info}Votre lieu de mort a été enregistré. Utilisez {#gold}/back{#gray} ou {click(command,/back)}{#white}[{#aqua}Cliquer pour téléporter{#white}]"
+    tip-back: "{#gray}Utilisez {#gold}/back{#gray} pour retourner rapidement à votre lieu de mort."
+  tpa:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}Accepter{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}Refuser{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}Vous avez envoyé une demande de téléportation vers vous au joueur {#var}."
+    tpahere-request-target: "{global#sys-info}Le joueur {#var} vous a envoyé une demande de téléportation vers lui/elle.{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}Vous avez accepté la demande de téléportation vers {#var}, téléportation en cours..."
+    tpahere-accept-target: "{global#sys-info}{#var} a accepté sa demande de téléportation vers vous."
+    tpahere-deny-sender: "{global#sys-info}Vous avez refusé la demande de téléportation vers {#var}."
+    tpahere-deny-target: "{global#sys-info}{#var} a refusé sa demande de téléportation vers vous."
+    tpahere-no-request: "{global#sys-info}{#var} ne vous a pas envoyé de demande de téléportation vers lui/elle."
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}Accepter{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}Refuser{color(white)}]'
+    tpa-request-sender: "{global#sys-info}Vous avez envoyé une demande de téléportation au joueur {#var}."
+    tpa-request-target: "{global#sys-info}Le joueur {#var} vous a envoyé une demande de téléportation vers vous.{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}Vous avez accepté la demande de téléportation de {#var} vers vous."
+    tpa-accept-target: "{global#sys-info}{#var} a accepté votre demande de téléportation, téléportation en cours..."
+    tpa-deny-sender: "{global#sys-info}Vous avez refusé la demande de téléportation de {#var} vers vous."
+    tpa-deny-target: "{global#sys-info}{#var} a refusé votre demande de téléportation."
+    tpa-no-request: "{global#sys-info}{#var} ne vous a pas envoyé de demande de téléportation vers vous."
+
+    send: '{global#info}Vous avez envoyé une demande de téléportation au joueur {#var}.'
+    undo: '{global#info}Vous avez annulé la demande de téléportation au joueur {#var}.'
+    accept: '{global#success}Vous avez accepté la demande de téléportation du joueur {#var}.'
+    deny: '{global#info}Vous avez refusé la demande de téléportation du joueur {#var}.'
+    send-announce: '{global#info}Le joueur {#var} vous a envoyé une demande de téléportation. {msg#accept-btn} {msg#deny-btn}'
+    denied: '{global#error}{#var} a refusé votre demande de téléportation.'
+    accepted: '{global#success}{#var} a accepté votre demande de téléportation, téléportation en cours...'
+    player-not-found: '{global#error}Joueur introuvable...'
+    list: '{global#info}Voici vos demandes de téléportation en attente : {#return} {#var}'
+  rtp:
+    start: '{global#info}Tentative de téléportation aléatoire, recherche dans {#var} ticks...'
+    success: '{global#success}Téléportation aléatoire réussie ! (Destination : [{#var},{#var},{#var}])'
+    failed: '{global#error}Impossible de trouver une destination dans le nombre de tentatives autorisé, échec de la téléportation.'

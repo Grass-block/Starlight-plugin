@@ -1,0 +1,79 @@
+language:
+  -module-name:
+    ban: 封禁指令
+    chat-filter: 屏蔽詞
+    chat-report: 聊天舉報
+    kick-on-reload: 重載自動踢出
+    maintenance: 維護模式
+    mute: 聊天禁言
+    plugin-manager-command: 命令行插件管理器
+    server-info: 伺服器資訊指令
+    tps-bar: TPS視覺化條
+    vm-garbage-cleaner: 自動化垃圾清理
+  ban:
+    msg-ban-complete: "{global#sys-success}已封禁玩家 {#var} 至 {#var},原因: {#var}。"
+    broadcast: "{global#sys-info}玩家{#var} 因 {#var} 被操作者 {#var} 封禁至 {#var}。"
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}記憶體回收開始..."
+    gc-end: "{global#sys-operation}記憶體回收完成, 釋放 %d MB。"
+  maintenance:
+    start: "{global#sys-operation}維護開始。"
+    end: "{global#sys-operation}維護結束。"
+    allow: "{global#sys-operation}已允許 {#var}({#var})在維護期間進入伺服器。"
+    disallow: "{global#sys-operation}已不再允許 {#var}({#var})在維護期間進入伺服器。"
+    kick-message:
+      - '由於伺服器正在維護,您暫時無法進入。'
+      - '維護需要一段時間,請您耐心等待,我們對此十分抱歉。'
+  mute:
+    message-banned: '{global#sys-info}你被禁言了, 您的禁言將在 {#var} 解除。'
+    add: '{global#sys-info}成功將玩家 {#var} 禁言至 {#var}, 原因是 {#var}。'
+    add-target: '{global#sys-info}你被 {#var} 因 {#var} 禁言至 {#var}!'
+    remove: '{global#sys-info}成功將玩家 {#var} 解除禁言。'
+    remove-target: '{global#sys-info}你被管理員 {#var} 解除禁言!'
+    message-unmuted: '{global#sys-error}錯誤: 玩家 {#var} 未被禁言!'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}伺服器正在重載。為保證遊戲正常運行, 您已被暫時踢出。"
+      - "{#white}請在稍後重新加入。{#return}"
+    stop-hint:
+      - "{#white}因故障或維護需要，伺服器現已關閉。"
+      - "{#white}很抱歉給您帶來不便。{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}以下是所有插件: {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}名稱{#white}: {}[{}]"
+    info-version: "{#gold}版本{#white}: {}"
+    info-author: "{#gold}作者{#white}: {}"
+    info-desc: "{#gold}簡介{#white}: {}"
+    info-api: "{#gold}API版本{#white}: {}"
+    info-depend: "{#gold}前置{#white}: {}"
+    info-soft-depend: "{#gold}軟前置{#white}: {}"
+    info-main: "{#gold}啟動類{#white}: {}"
+    info-libs: "{#gold}依賴庫{#white}:"
+    file-not-found: "{global#error}未找到插件檔案 {#var}。"
+    plugin-not-found: "{global#error}未找到插件 {#var}。"
+    load-failed: "{global#error}未能成功載入插件 {#var}。"
+    unload-failed: "{global#error}未能成功卸載插件 {#var}。"
+    enable: "{global#operation}成功啟用插件 {#var}。"
+    disable: "{global#operation}成功停用插件 {#var}。"
+    restart: "{global#operation}成功重啟插件 {#var}。"
+    load: "{global#operation}成功載入插件 {#var}。"
+    unload: "{global#operation}成功卸載插件 {#var}。"
+    reload: "{global#operation}成功重載插件 {#var}。"
+  tps-bar:
+    on: "{global#operation}已顯示TPS條。"
+    off: "{global#operation}已隱藏TPS條。"
+  chat-filter:
+    reload: "{global#sys-success}成功重載規則檔案。"
+    save: "{global#sys-success}成功儲存預設規則檔案。"
+    reported-warn: "{global#sys-warning}您的訊息({#var})已被玩家舉報並被系統認定為違規，請注意您的言行舉止。"
+    outcome-warn: "{global#sys-success}您舉報的玩家({#var})的訊息({#var})已被系統認定為違規並警告處理。感謝您對社群秩序的維護。"
+    outcome-punished: "{global#sys-success}您舉報的玩家({#var})的訊息({#var})已被系統認定為違規並禁言處理。感謝您對社群秩序的維護。"
+  chat-report:
+    not-exist: "{global#sys-error}您要舉報的聊天記錄條目不存在, 或許它已經被舉報過了。"
+    not-self: "{global#sys-error}您不能舉報自己的聊天資訊。"
+    success: "{global#sys-success}您已提交對 {#var} 的聊天舉報 ({#var})。"
+    --tip: '{#gray}如果一位玩家發送的資訊包含了不合適的內容，你可以點擊聊天文本後面的"[!]"進行舉報。'
