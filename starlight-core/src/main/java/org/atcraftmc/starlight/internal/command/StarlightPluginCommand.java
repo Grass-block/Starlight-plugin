@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -29,20 +30,20 @@ public final class StarlightPluginCommand extends CoreCommand {
 
 
                 if (!QuarkDataImporter.has(id)) {
-                    l.item("data-update:none").send(context.getSender(), id);
+                    l.item("data-update:none").send(QLib.audience(context.getSender()), id);
                     return;
                 }
 
-                l.item("data-update:start").send(context.getSender(), id);
+                l.item("data-update:start").send(QLib.audience(context.getSender()), id);
 
                 TaskService.async().run(() -> {
                     QuarkDataImporter.runDataUpdater(id);
-                    l.item("data-update:done").send(context.getSender());
+                    l.item("data-update:done").send(QLib.audience(context.getSender()));
                 });
             }
             case "sync-commands" -> {
                 LegacyCommandManager.sync();
-                l.item("command:sync-commands").send(context.getSender());
+                l.item("command:sync-commands").send(QLib.audience(context.getSender()));
             }
         }
     }
@@ -65,7 +66,7 @@ public final class StarlightPluginCommand extends CoreCommand {
         @Override
         public void execute(CommandExecution context) {
             if (!context.hasArgumentAt(0)) {
-                this.getLanguage().item("reload-logic-updated").send(context.getSender());
+                this.getLanguage().item("reload-logic-updated").send(QLib.audience(context.getSender()));
             }
 
             switch (context.requireEnum(0, "prepare", "action")) {
@@ -83,11 +84,11 @@ public final class StarlightPluginCommand extends CoreCommand {
                     }
 
                     if (APIProfileTest.isMixedServer()) {
-                        this.getLanguage().item("platform-unsupported").send(context.getSender());
+                        this.getLanguage().item("platform-unsupported").send(QLib.audience(context.getSender()));
                         return;
                     }
                     if (Starlight.instance().isFastBoot()) {
-                        this.getLanguage().item("fastboot-unsupported").send(context.getSender());
+                        this.getLanguage().item("fastboot-unsupported").send(QLib.audience(context.getSender()));
                         return;
                     }
 

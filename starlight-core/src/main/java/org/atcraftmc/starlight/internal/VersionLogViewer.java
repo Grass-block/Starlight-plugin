@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.reflect.Inject;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -57,11 +58,11 @@ public final class VersionLogViewer extends BukkitAbstractModule implements Plug
         List<String> info = this.versions.get(version);
 
         if (info == null) {
-            this.language.item("not-found").send(sender, version);
+            this.language.item("not-found").send(QLib.audience(sender), version);
             return;
         }
 
-        this.language.item("view").send(sender, version);
+        this.language.item("view").send(QLib.audience(sender), version);
         for (String s : info) {
             sender.sendMessage(s);
         }

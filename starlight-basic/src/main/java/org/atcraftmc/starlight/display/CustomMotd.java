@@ -13,6 +13,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
@@ -74,7 +75,7 @@ public final class CustomMotd extends BukkitAbstractModule implements PluginComm
     }
 
     public Component getMessage() {
-        return ConfigDataModel.motd(this.setting);
+        return QLib.textBuilder().buildComponent(ConfigDataModel.motd(this.setting));
     }
 
     @EventHandler

@@ -11,6 +11,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.Language;
@@ -183,7 +184,7 @@ public final class PlayerNameHeader extends SLCommandModule {
         if (template == null) {
             return Component.text(player.getName());
         }
-        return TextBuilder.buildComponent(PlaceHolderService.format(template.replace("{player}", player.getName())
+        return QLib.textBuilder().buildComponent(PlaceHolderService.format(template.replace("{player}", player.getName())
                                                                             .replace("{header}", header + TextBuilder.EMPTY_COMPONENT)));
     }
 
@@ -193,13 +194,13 @@ public final class PlayerNameHeader extends SLCommandModule {
         if (template.length == 1) {
             return Component.text("");
         }
-        return TextBuilder.buildComponent(PlaceHolderService.format(template[template.length - 1].replace("{header}", header)));
+        return QLib.textBuilder().buildComponent(PlaceHolderService.format(template[template.length - 1].replace("{header}", header)));
     }
 
     public Component getPlayerPrefix(Player player) {
         var header = getHeader(player);
         var template = Objects.requireNonNull(this.config().value("template").string()).split("\\{player}");
-        return TextBuilder.buildComponent(PlaceHolderService.format(template[0].replace("{header}", header)));
+        return QLib.textBuilder().buildComponent(PlaceHolderService.format(template[0].replace("{header}", header)));
     }
 
 
@@ -216,7 +217,7 @@ public final class PlayerNameHeader extends SLCommandModule {
             String ui = MessageAccessor.buildTemplate(this.parent.language(), locale, template);
             ui = PlaceHolderService.formatPlayer(player, ui);
 
-            return TextBuilder.buildComponent(ui);
+            return QLib.textBuilder().buildComponent(ui);
         }
 
         @Override

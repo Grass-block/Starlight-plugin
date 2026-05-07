@@ -18,6 +18,10 @@ public final class SLGamePackage extends MultiPackageProvider {
         i.config("starlight-tweaks");
         i.language("starlight-tweaks", "zh_cn");
         i.language("starlight-tweaks", "en_us");
+        i.language("starlight-tweaks", "fr_fr");
+        i.language("starlight-tweaks", "ja_jp");
+        i.language("starlight-tweaks", "ru_ru");
+        i.language("starlight-tweaks", "zh_tw");
 
         b.module(CropClickHarvest.class);
         b.module(DispenserInteraction.class);
@@ -39,6 +43,10 @@ public final class SLGamePackage extends MultiPackageProvider {
         i.config("starlight-oddities");
         i.language("starlight-oddities", "zh_cn");
         i.language("starlight-oddities", "en_us");
+        i.language("starlight-oddities", "fr_fr");
+        i.language("starlight-oddities", "ja_jp");
+        i.language("starlight-oddities", "ru_ru");
+        i.language("starlight-oddities","zh_tw");
 
         b.module(Elevator.class);
     }

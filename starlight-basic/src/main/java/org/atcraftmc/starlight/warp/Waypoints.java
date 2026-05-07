@@ -7,6 +7,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.event.ClickEvent;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -156,12 +157,12 @@ public final class Waypoints extends SLCommandModule {
 
         try {
             if (!this.service.existName(name)) {
-                this.language.item("not-exist").send(player, name);
+                this.language.item("not-exist").send(QLib.audience(player), name);
                 return;
             }
 
             if (!this.service.hasAccess(player.getUniqueId(), name) && !player.hasPermission(adminPermission)) {
-                this.language.item("no-access").send(player, name);
+                this.language.item("no-access").send(QLib.audience(player), name);
                 return;
             }
 
@@ -172,7 +173,7 @@ public final class Waypoints extends SLCommandModule {
 
             Players.teleport(player, location).thenAccept((b) -> {
                 BukkitSound.WARP.play(player);
-                this.language.item("tp-success").send(player, name);
+                this.language.item("tp-success").send(QLib.audience(player), name);
             });
 
         } catch (SQLException e) {
@@ -185,7 +186,7 @@ public final class Waypoints extends SLCommandModule {
         var lang = this.language;
         try {
             if (this.service.existName(name)) {
-                lang.item("exist").send(context.getSender(), name);
+                lang.item("exist").send(QLib.audience(context.getSender()), name);
                 return;
             }
 
@@ -224,7 +225,7 @@ public final class Waypoints extends SLCommandModule {
 
             this.service.add(wp);
 
-            lang.item("add-success").send(context.getSender(), name);
+            lang.item("add-success").send(QLib.audience(context.getSender()), name);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -238,16 +239,16 @@ public final class Waypoints extends SLCommandModule {
 
         try {
             if (!this.service.existName(name)) {
-                lang.item("not-exist").send(player, name);
+                lang.item("not-exist").send(QLib.audience(player), name);
                 return;
             }
             if (!this.service.hasControl(player.getUniqueId(), name) && !player.hasPermission(this.adminPermission)) {
-                lang.item("remove-failed").send(player, name);
+                lang.item("remove-failed").send(QLib.audience(player), name);
                 return;
             }
 
             this.service.delete(name);
-            lang.item("remove").send(player, name);
+            lang.item("remove").send(QLib.audience(player), name);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -293,20 +294,20 @@ public final class Waypoints extends SLCommandModule {
             throw new RuntimeException(e);
         }
 
-        sender.sendMessage(PluginPlatform.global().globalFormatMessage("{#line}"));
+        sender.sendMessage(QLib.textEngine().renderString("{#line}"));
         TextSender.sendMessage(sender, list);
-        sender.sendMessage(PluginPlatform.global().globalFormatMessage("{#line}"));
+        sender.sendMessage(QLib.textEngine().renderString("{#line}"));
     }
 
     private Optional<Waypoint> getForEdit(CommandExecution context, String name, Player player, UUID owner) throws SQLException {
         var lang = this.language;
 
         if (!this.service.existName(name)) {
-            lang.item("not-exist").send(context.getSender(), name);
+            lang.item("not-exist").send(QLib.audience(context.getSender()), name);
             return Optional.empty();
         }
         if (!this.service.hasControl(owner, name) && !player.hasPermission(this.adminPermission)) {
-            lang.item("no-permission").send(context.getSender(), name);
+            lang.item("no-permission").send(QLib.audience(context.getSender()), name);
             return Optional.empty();
         }
 
@@ -326,10 +327,10 @@ public final class Waypoints extends SLCommandModule {
                 if (!Objects.equals(d1, "all")) {
                     var p = Objects.requireNonNull(context.requireOfflinePlayer(2));
                     wp.getAllowed().add(Objects.requireNonNull(p.getUniqueId()).toString());
-                    lang.item("allow").send(context.getSender(), p.getName(), name);
+                    lang.item("allow").send(QLib.audience(context.getSender()), p.getName(), name);
                 } else {
                     wp.getAllowed().add("all");
-                    lang.item("allow-all").send(context.getSender(), name);
+                    lang.item("allow-all").send(QLib.audience(context.getSender()), name);
                 }
 
                 try {
@@ -353,10 +354,10 @@ public final class Waypoints extends SLCommandModule {
                 if (!Objects.equals(context.requireArgumentAt(2), "all")) {
                     var p = Objects.requireNonNull(context.requireOfflinePlayer(2));
                     wp.getAllowed().remove(Objects.requireNonNull(p.getUniqueId()).toString());
-                    lang.item("disallow").send(context.getSender(), p.getName(), name);
+                    lang.item("disallow").send(QLib.audience(context.getSender()), p.getName(), name);
                 } else {
                     wp.getAllowed().remove("all");
-                    lang.item("disallow-all").send(context.getSender(), name);
+                    lang.item("disallow-all").send(QLib.audience(context.getSender()), name);
                 }
 
                 try {

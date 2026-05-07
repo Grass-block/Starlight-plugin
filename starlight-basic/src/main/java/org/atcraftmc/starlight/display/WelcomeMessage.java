@@ -4,6 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.ComponentLike;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -31,7 +32,7 @@ public final class WelcomeMessage extends BukkitAbstractModule {
         try {
             var msg = this.language().inline(Language.generateTemplate(this.config(), "ui"), LocaleService.locale(player));
             msg = msg.replace("{player}", player.getName());
-            ComponentLike component = TextBuilder.buildComponent(msg);
+            ComponentLike component = QLib.textBuilder().buildComponent(msg);
             TextSender.sendMessage(player, component);
         } catch (Exception e) {
             e.printStackTrace();

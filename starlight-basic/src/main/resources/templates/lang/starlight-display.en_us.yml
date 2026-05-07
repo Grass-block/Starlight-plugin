@@ -29,6 +29,10 @@ language:
     date: '{#gray}Date/Time: {#white}{#date}'
     website: '{#gray}Website: {#aqua}{#underline}{#server-website}'
   custom-scoreboard:
+    --view-setting-title: "{#aqua}[Sidebar] Basic Sidebar Display"
+    --view-setting-desc:
+      - "Basic sidebar HUD display content,"
+      - "providing basic game information monitoring."
     title: '{#aqua}{#server-name}{#reset}'
     date: '{#gray}Date: {#white}{#date-day}'
     time: '{#gray}Time: {#white}{#date-time}'

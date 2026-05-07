@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.math.MathHelper;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.platform.PluginPlatform;
@@ -34,7 +35,7 @@ public final class TPSBar extends SLCommandModule {
             var line = TEMPLATE_EXPANSION.expand(config().value("line").string(), tps, mspt);
 
             if (!this.bar.getPlayers().isEmpty()) {
-                this.bar.setTitle(PluginPlatform.global().globalFormatMessage(line));
+                this.bar.setTitle(QLib.textEngine().renderString(line));
                 if (msptValue < 15) {
                     this.bar.setColor(BarColor.GREEN);
                 } else if (msptValue < 35) {

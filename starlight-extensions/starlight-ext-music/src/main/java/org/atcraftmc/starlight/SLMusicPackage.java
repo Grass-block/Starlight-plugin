@@ -18,5 +18,10 @@ public final class SLMusicPackage extends MultiPackageProvider {
 
         i.config("starlight-music");
         i.language("starlight-music", "zh_cn");
+        i.language("starlight-music", "en_us");
+        i.language("starlight-music", "fr_fr");
+        i.language("starlight-music", "ja_jp");
+        i.language("starlight-music", "ru_ru");
+        i.language("starlight-music", "zh_tw");
     }
 }

@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.foundation.platform;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRS0;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
@@ -207,7 +208,7 @@ public interface BukkitUtil {
         ItemStack stack = new ItemStack(material, amount);
         ItemMeta meta = stack.getItemMeta();
         if (meta != null) {
-            meta.displayName(TextBuilder.buildComponent(name));
+            meta.displayName(QLib.textBuilder().buildComponent(name));
         }
         stack.setItemMeta(meta);
         return stack;

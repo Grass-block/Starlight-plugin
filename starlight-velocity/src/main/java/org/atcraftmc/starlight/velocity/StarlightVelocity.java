@@ -110,7 +110,7 @@ public final class StarlightVelocity implements PluginApplication {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        SLPluginEnvironment.init(this.context, this, "starlight-velocity", new PathManager("starlight-velocity"), new APIManager());
+        SLPluginEnvironment.init(this.context, this, "starlight-velocity", new PathManager("starlight-velocity"));
         this.context.registerPackage(this, SLVInternalPackage.class);
         Runtime.getRuntime().addShutdownHook(new Thread(this::onServerStop));
     }

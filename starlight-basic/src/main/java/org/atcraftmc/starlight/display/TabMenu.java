@@ -11,6 +11,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.Starlight;
@@ -103,8 +104,8 @@ public final class TabMenu extends BukkitAbstractModule {
             });
         }
 
-        var h = TextBuilder.buildComponent(header);
-        var f = TextBuilder.buildComponent(footer);
+        var h = QLib.textBuilder().buildComponent(header);
+        var f = QLib.textBuilder().buildComponent(footer);
 
         SET_TAB.invoke(player, h, f);
     }

@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.security;
 
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -40,7 +41,7 @@ public final class EndProtect extends BukkitAbstractModule {
 
         if (x >= -10 && x <= 10 && z >= -10 && z <= 10) {
             event.setCancelled(true);
-            language().item("cristal-prevent").send(event.getPlayer());
+            language().item("cristal-prevent").send(QLib.audience(event.getPlayer()));
         }
     }
 }

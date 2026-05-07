@@ -5,6 +5,7 @@ import me.gb2022.commons.reflect.method.MethodHandleRO0;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceLayer;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -296,7 +297,8 @@ public interface LocaleService extends BukkitService {
             }
 
             setCustomLanguage(context.requireSenderAsPlayer(), data);
-            Starlight.lang().item("starlight-core.locale.set").send(context.getSender(), data);
+
+            Starlight.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), data);
             BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), locale(context.getSender())));
         }
 

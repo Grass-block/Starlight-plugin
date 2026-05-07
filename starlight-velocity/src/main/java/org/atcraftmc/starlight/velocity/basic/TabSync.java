@@ -72,7 +72,7 @@ public final class TabSync extends VelocityAbstractModule {
         var entryId = player.getUniqueId();
 
         var displayName = ServerDisplayName.getDisplayName(serverInfo.getName());
-        var tabEntryName = TextBuilder.buildComponent(template.formatted(displayName, player.getUsername()));
+        var tabEntryName = QLib.textBuilder().buildComponent(template.formatted(displayName, player.getUsername()));
 
         var entry = list.getEntry(entryId);
 

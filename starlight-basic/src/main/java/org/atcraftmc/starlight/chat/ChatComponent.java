@@ -11,10 +11,11 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.atcraftmc.qlib.Pipeline;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
+import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.PlaceHolders;
 import org.atcraftmc.starlight.api.AnvilRenameEvent;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
@@ -110,7 +111,7 @@ public final class ChatComponent extends BukkitAbstractModule {
         for (var f : pipeline.list()) {
             msg = f.apply(event.getPlayer(), msg);
         }
-        event.setMessage(TextBuilder.build(msg, false).toString());
+        event.setMessage(QLib.textBuilder().build(msg, false).toString());
     }
 
     public String processColorChars(String input) {
@@ -164,7 +165,7 @@ public final class ChatComponent extends BukkitAbstractModule {
                     text = text.replace(res, "{#&" + res.substring(1) + "}");
                 }
 
-                this.setLine.invoke(event, i, TextBuilder.buildComponent(text, false));
+                this.setLine.invoke(event, i, QLib.textBuilder().buildComponent(text, false));
             }
         }
     }
@@ -183,7 +184,7 @@ public final class ChatComponent extends BukkitAbstractModule {
             msg = PlaceHolderService.format(msg);
             msg = PlaceHolderService.formatPlayer(event.getPlayer(), msg);
             msg = processIndirectChars(msg);
-            event.message(TextBuilder.buildComponent(msg, true));
+            event.message(QLib.textBuilder().buildComponent(msg, true));
         }
 
         @EventHandler
@@ -208,7 +209,7 @@ public final class ChatComponent extends BukkitAbstractModule {
                     msg = PlaceHolderService.formatPlayer(((Player) event.getViewers().get(0)), msg);
                     msg = processIndirectChars(msg);
 
-                    InventoryUI.SET_DISPLAY_NAME.invoke(meta, TextBuilder.buildComponent(msg, false));
+                    InventoryUI.SET_DISPLAY_NAME.invoke(meta, QLib.textBuilder().buildComponent(msg, false));
                 });
             });
         }

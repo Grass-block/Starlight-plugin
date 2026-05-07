@@ -4,6 +4,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -63,7 +64,7 @@ public final class WGCustomName extends BukkitAbstractModule {
             var regionManager = container.get(BukkitAdapter.adapt(world));
 
             if (regionManager == null) {
-                lang("no-wg").send(context.getSender());
+                lang("no-wg").send(QLib.audience(context.getSender()));
                 return;
             }
 
@@ -73,17 +74,17 @@ public final class WGCustomName extends BukkitAbstractModule {
             var target = regions.getRegions().stream().max(Comparator.comparingInt(ProtectedRegion::getPriority)).orElse(null);
 
             if (target == null) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (target.getId().equalsIgnoreCase("__global__")) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (!target.getOwners().getUniqueIds().contains(player.getUniqueId())) {
-                lang("rg-not-self").send(context.getSender(), target.getId());
+                lang("rg-not-self").send(QLib.audience(context.getSender()), target.getId());
                 return;
             }
 
@@ -92,7 +93,7 @@ public final class WGCustomName extends BukkitAbstractModule {
 
             WorldGuardExtraInfoService.getInstance().getDataHandle(k).editSafe((h) -> h.setString("custom-name", line));
 
-            lang("rg-rename").send(context.getSender(), line);
+            lang("rg-rename").send(QLib.audience(context.getSender()), line);
         }
     }
 }

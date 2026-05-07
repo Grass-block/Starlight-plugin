@@ -7,6 +7,7 @@ import me.gb2022.gluon.pack.PackageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -57,7 +58,7 @@ public final class PackageCommand extends CoreCommand {
     }
 
     private void sendMessage(CommandSender sender, String id, Object... fmt) {
-        this.getLanguage().item(id).send(sender, fmt);
+        this.getLanguage().item(id).send(QLib.audience(sender), fmt);
     }
 
     @Override
@@ -78,11 +79,11 @@ public final class PackageCommand extends CoreCommand {
             case "list" -> list(sender, !context.hasArgumentAt(1) ? "" : context.requireArgumentAt(1));
             case "enable-all" -> {
                 this.handle.enableAll();
-                this.getLanguage().item("enable-all").send(sender);
+                this.getLanguage().item("enable-all").send(QLib.audience(sender));
             }
             case "disable-all" -> {
                 this.handle.disableAll();
-                this.getLanguage().item("disable-all").send(sender);
+                this.getLanguage().item("disable-all").send(QLib.audience(sender));
             }
             case "enable" -> sendMessage(sender, messageId(this.handle.enable(id), "enable"), id);
             case "disable" -> sendMessage(sender, messageId(this.handle.disable(id), "disable"), id);
@@ -121,7 +122,7 @@ public final class PackageCommand extends CoreCommand {
             }
         }
 
-        this.getLanguage().item("list").send(sender, sb.toString());
+        this.getLanguage().item("list").send(QLib.audience(sender), sb.toString());
     }
 
     private Component buildModuleInfo(ApplicationPackage pkg) {
@@ -145,7 +146,7 @@ public final class PackageCommand extends CoreCommand {
                 .sorted(Comparator.comparing(m -> m.holder(SLPluginConcept.class).name()))
                 .filter((m) -> m.meta().id().contains(prefix))
                 .toList();
-        getLanguage().item("list").send(sender, "");
+        getLanguage().item("list").send(QLib.audience(sender), "");
         for (var meta : nodes) {
             Component msg = buildModuleInfo(meta);
             TextSender.sendMessage(sender, msg);

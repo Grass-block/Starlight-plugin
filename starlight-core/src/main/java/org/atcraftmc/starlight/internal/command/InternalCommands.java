@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
@@ -54,7 +55,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(ServerCommandEvent event) {
             if (event.getCommand().startsWith("reload")) {
-                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(event.getSender());
+                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getSender()));
                 //event.setCancelled(true);
             }
         }
@@ -62,7 +63,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(PlayerCommandPreprocessEvent event) {
             if (event.getMessage().startsWith("/reload")) {
-                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(event.getPlayer());
+                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getPlayer()));
                 //event.setCancelled(true);
             }
         }

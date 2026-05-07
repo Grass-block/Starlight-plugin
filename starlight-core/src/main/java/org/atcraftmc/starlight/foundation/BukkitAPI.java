@@ -7,7 +7,6 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.title.Title;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.atcraftmc.qlib.bukkit.BukkitAPIManager;
 import org.atcraftmc.qlib.platform.api.APIComponent;
 import org.atcraftmc.qlib.platform.api.APIManager;
 import org.bukkit.entity.Player;
@@ -17,7 +16,7 @@ import java.time.Duration;
 
 @SuppressWarnings("Convert2MethodRef")
 public interface BukkitAPI {
-    APIManager API_MANAGER = new BukkitAPIManager();
+    APIManager API_MANAGER = new APIManager();
 
     APIComponent<MethodHandleO3<Player, ComponentLike, ComponentLike, Vector3i>> TITLE = API_MANAGER.registerAPI("qlib:player:title");
     APIComponent<MethodHandleO1<Player, ComponentLike>> ACTIONBAR_TITLE = API_MANAGER.registerAPI("qlib:player:actiobar-title");

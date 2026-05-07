@@ -6,6 +6,7 @@ import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -59,7 +60,7 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var regionManager = container.get(BukkitAdapter.adapt(world));
 
             if (regionManager == null) {
-                lang("no-wg").send(context.getSender());
+                lang("no-wg").send(QLib.audience(context.getSender()));
                 return;
             }
 
@@ -69,17 +70,17 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var target = regions.getRegions().stream().max(Comparator.comparingInt(ProtectedRegion::getPriority)).orElse(null);
 
             if (target == null) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (target.getId().equalsIgnoreCase("__global__")) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (!target.getOwners().getUniqueIds().contains(player.getUniqueId())) {
-                lang("rg-not-self").send(context.getSender(), target.getId());
+                lang("rg-not-self").send(QLib.audience(context.getSender()), target.getId());
                 return;
             }
 
@@ -89,9 +90,9 @@ public final class WGClaimCommand extends BukkitAbstractModule {
 
             try {
                 regionManager.save();
-                lang("rg-unclaim").send(context.getSender(), target.getId());
+                lang("rg-unclaim").send(QLib.audience(context.getSender()), target.getId());
             } catch (StorageException e) {
-                lang("cmd-error").send(context.getSender());
+                lang("cmd-error").send(QLib.audience(context.getSender()));
                 e.printStackTrace();
             }
         }
@@ -113,7 +114,7 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var regionManager = container.get(BukkitAdapter.adapt(world));
 
             if (regionManager == null) {
-                lang("no-wg").send(context.getSender());
+                lang("no-wg").send(QLib.audience(context.getSender()));
                 return;
             }
 
@@ -123,22 +124,22 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var target = regions.getRegions().stream().max(Comparator.comparingInt(ProtectedRegion::getPriority)).orElse(null);
 
             if (target == null) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (target.getId().equalsIgnoreCase("__global__")) {
-                lang("no-rg").send(context.getSender());
+                lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (target.getOwners().getUniqueIds().contains(player.getUniqueId())) {
-                lang("rg-claimed-self").send(context.getSender(), target.getId());
+                lang("rg-claimed-self").send(QLib.audience(context.getSender()), target.getId());
                 return;
             }
 
             if (!target.getOwners().getUniqueIds().isEmpty()) {
-                lang("rg-claimed").send(context.getSender(), target.getId());
+                lang("rg-claimed").send(QLib.audience(context.getSender()), target.getId());
                 return;
             }
 
@@ -148,9 +149,9 @@ public final class WGClaimCommand extends BukkitAbstractModule {
 
             try {
                 regionManager.save();
-                lang("rg-claim").send(context.getSender(), target.getId());
+                lang("rg-claim").send(QLib.audience(context.getSender()), target.getId());
             } catch (StorageException e) {
-                lang("cmd-error").send(context.getSender());
+                lang("cmd-error").send(QLib.audience(context.getSender()));
                 e.printStackTrace();
             }
         }

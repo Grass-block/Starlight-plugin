@@ -9,12 +9,12 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
@@ -330,7 +330,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
                     .replace("\n", "\n{#white}"));
 
 
-            builder.lore(TextRenderer.literal(TextBuilder.buildComponent(this.reference.language().inline(template, locale))));
+            builder.lore(TextRenderer.literal(QLib.textBuilder().buildComponent(this.reference.language().inline(template, locale))));
             builder.operation(UI.SOUND_CLICK);
             builder.operation(UI.command((p) -> "player-ui channel " + info.id()));
             builder.operation((v, player, action) -> TaskService.entity(player).delay(1, () -> v.setData(renderData(v, page))));

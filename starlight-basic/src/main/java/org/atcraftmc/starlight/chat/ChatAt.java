@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.chat;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -115,7 +116,7 @@ public final class ChatAt extends BukkitAbstractModule {
             if (p == null) {
                 continue;
             }
-            TextSender.subtitle(p, TextBuilder.buildComponent(this.generateTitleMessage(titleBuilder.toString(), event.getPlayer())),
+            TextSender.subtitle(p, QLib.textBuilder().buildComponent(this.generateTitleMessage(titleBuilder.toString(), event.getPlayer())),
                                 cfg.value("title-fadein").intValue(),
                                 cfg.value("title-stay").intValue(),
                                 cfg.value("title-fadeout").intValue()

@@ -12,6 +12,8 @@ import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.platform.PluginPlatform;
+import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
@@ -80,7 +82,8 @@ public final class ProxyMotd extends VelocityAbstractModule {
     }
 
     public ServerPing buildLocalServerPing(ServerPing origin) {
-        return origin.asBuilder().favicon(this.favicon).description(ConfigDataModel.motd(this.setting)).build();
+        //todo
+        return origin.asBuilder().favicon(this.favicon).description(TextBuilder.buildComponent(ConfigDataModel.motd(this.setting))).build();
     }
 
 
@@ -112,7 +115,7 @@ public final class ProxyMotd extends VelocityAbstractModule {
                     .replace("{node}", Integer.toString(getProxyServer().getPlayerCount()))
                     .replace("{all-cap}", Integer.toString(owrPlayerCaps));
 
-            sample.add(new ServerPing.SamplePlayer(PluginPlatform.global().globalFormatMessage(str), UUID.randomUUID()));
+            sample.add(new ServerPing.SamplePlayer(QLib.textEngine().renderString(str), UUID.randomUUID()));
         }
 
         var players = new ServerPing.Players(playerCount, playerCapacity, sample);

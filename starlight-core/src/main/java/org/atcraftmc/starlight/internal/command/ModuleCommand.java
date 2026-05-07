@@ -7,6 +7,7 @@ import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.module.ModuleManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -41,7 +42,7 @@ public final class ModuleCommand extends CoreCommand {
     private void sendMessage(CommandSender sender, String id, String mid) {
         var module = this.handle.get(mid).orElseThrow();
         var name = module.getAttachment(PluginModuleAttachment.class).displayName(LocaleService.locale(sender));
-        this.getLanguage().item(id).send(sender, name);
+        this.getLanguage().item(id).send(QLib.audience(sender), name);
     }
 
     @Override
@@ -74,15 +75,15 @@ public final class ModuleCommand extends CoreCommand {
             case "list" -> list(sender, !context.hasArgumentAt(1) ? "" : context.requireArgumentAt(1));
             case "enable-all" -> {
                 this.handle.enableAll();
-                this.getLanguage().item("enable-all").send(sender);
+                this.getLanguage().item("enable-all").send(QLib.audience(sender));
             }
             case "disable-all" -> {
                 this.handle.disableAll();
-                this.getLanguage().item("disable-all").send(sender);
+                this.getLanguage().item("disable-all").send(QLib.audience(sender));
             }
             case "reload-all" -> {
                 this.handle.reloadAll();
-                this.getLanguage().item("reload-all").send(sender);
+                this.getLanguage().item("reload-all").send(QLib.audience(sender));
             }
             case "enable" -> sendMessage(sender, messageId(this.handle.enable(id), "enable"), id);
             case "disable" -> sendMessage(sender, messageId(this.handle.disable(id), "disable"), id);
@@ -164,7 +165,7 @@ public final class ModuleCommand extends CoreCommand {
                 .toString()
                 .contains(prefix)).toList();
 
-        getLanguage().item("list").send(sender, "");
+        getLanguage().item("list").send(QLib.audience(sender), "");
 
         var groups = new HashMap<String, List<ModuleContainer>>();
 

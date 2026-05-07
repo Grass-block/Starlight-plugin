@@ -7,6 +7,15 @@
 - Fixed formatting issue with null arguments.
 - Changed the color of worldguard HUD.
 - Fixed task-register error on reloading.
+- Use hikari-cp to optimize database performance.
+- Supported most of DB.(library loading WIP)
+- Fixed UI dismount issue on player death.
+- Added End-Map-Protect.
+- Rejected package will no longer be registered.
+- Fixed motd image cover issue.
+- More text now supported bungee format.
+- Optimized text pipeline.
+- Added more translations.
 
 ### 26.4.3
 

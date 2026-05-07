@@ -5,6 +5,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -46,7 +47,7 @@ public final class InventoryMenu extends SLCommandModule {
 
     public static TextRenderer text(Map<String, ?> section) {
         if (section.containsKey("text")) {
-            return TextRenderer.literal(TextBuilder.buildComponent(section.get("text").toString()));
+            return TextRenderer.literal(QLib.textBuilder().buildComponent(section.get("text").toString()));
         }
         if (section.containsKey("lang")) {
             var key = Objects.requireNonNull(section.get("lang").toString()).split(":");

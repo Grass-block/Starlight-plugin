@@ -61,7 +61,7 @@ public final class ServerTransferMessage extends VelocityAbstractModule {
         this.filterPlayers(player, server, global).forEach((a) -> language().item("join-proxy").send(a, player.getUsername()));
 
         if (local) {
-            language().item("join-message").send(player.getHandle(), player.getUsername());
+            language().item("join-message").send(QLib.audience(player).getHandle(), player.getUsername());
         }
     }
 
@@ -79,7 +79,7 @@ public final class ServerTransferMessage extends VelocityAbstractModule {
                 .send(a, player.getUsername(), serverDisplay));
 
         if (local) {
-            language().item("transfer-message").send(player.getHandle(), serverDisplay);
+            language().item("transfer-message").send(QLib.audience(player).getHandle(), serverDisplay);
         }
     }
 

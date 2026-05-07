@@ -8,6 +8,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
@@ -57,7 +58,7 @@ public final class ChatFormat extends BukkitAbstractModule {
         }).expand(getTemplate(event.getPlayer()), timeLine, event.getPlayer().getDisplayName(), "%2$s");
         //fix vanilla chat-format issue
 
-        event.setFormat(ComponentSerializer.legacy(TextBuilder.buildComponent(expanded)));
+        event.setFormat(ComponentSerializer.legacy(QLib.textBuilder().buildComponent(expanded)));
     }
 
 
@@ -94,7 +95,7 @@ public final class ChatFormat extends BukkitAbstractModule {
             var render = CustomChatRenderer.renderer(event);
 
             if (time.startsWith("<post>")) {
-                render.postfix(TextBuilder.buildComponent(time.substring(6)));
+                render.postfix(QLib.textBuilder().buildComponent(time.substring(6)));
                 template = template.replace("{time}", "");
             } else {
                 template = template.replace("{time}", time);

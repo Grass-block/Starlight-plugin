@@ -4,7 +4,11 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
+import net.kyori.adventure.text.Component;
+import org.atcraftmc.qlib.audience.PointedAudience;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.platform.PluginPlatform;
+import org.atcraftmc.qlib.text.pipe.AudienceHandler;
 import org.atcraftmc.qlib.texts.pipe.TextPipelineProcessor;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -13,6 +17,7 @@ import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +41,7 @@ public final class PAPISupport extends BukkitAbstractModule {
         this.languageExtension.register();
         this.variablesExtension.register();
 
-        PluginPlatform.global().getTextPipeline().addLast("starlight:papi-inject", new PAPIProcessor());
+        QLib.textEngine().getMessageRenderPipeline().addLast("starlight:papi-inject", new PAPIProcessor());
     }
 
     @Override
@@ -44,24 +49,21 @@ public final class PAPISupport extends BukkitAbstractModule {
         this.languageExtension.unregister();
         this.variablesExtension.unregister();
 
-        PluginPlatform.global().getTextPipeline().remove("starlight:papi-inject");
+        QLib.textEngine().getMessageProcessPipeline().remove("starlight:papi-inject");
     }
 
-    public static final class PAPIProcessor implements TextPipelineProcessor {
+    public static final class PAPIProcessor implements AudienceHandler.MessageRenderer {
         private static final UUID CONSOLE_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
         @Override
-        public String process(String source, @Nullable Object player) {
+        public String process(PointedAudience pointedAudience, String source) {
+            var player = pointedAudience.getPointer(CommandSender.class);
+
             if ((player instanceof Player p)) {
                 return PlaceholderAPI.setPlaceholders(p, source);
             }
 
             return PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(CONSOLE_UUID), source);
-        }
-
-        @Override
-        public boolean enforceSecureMode() {
-            return true;
         }
     }
 
@@ -94,7 +96,7 @@ public final class PAPISupport extends BukkitAbstractModule {
 
             System.arraycopy(args, 1, fmt, 0, fmt.length);
 
-            return a.message(locale, (Object[]) fmt).render(player.getPlayer());
+            return a.message(locale, (Object[]) fmt).render(QLib.audience(player.getPlayer()).pointed());
         }
 
         @Override

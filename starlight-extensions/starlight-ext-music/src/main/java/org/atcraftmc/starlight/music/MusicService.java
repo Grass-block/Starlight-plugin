@@ -8,6 +8,7 @@ import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceProvider;
 import me.gb2022.simpnet.util.BufferUtil;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -192,10 +193,10 @@ public interface MusicService extends BukkitService {
             var language = language("starlight-music:music-service");
 
             switch (context.requireEnum(0, "save-defaults", "trim")) {
-                case "trim" -> language.item("trim").send(context.getSender(), MusicService.instance().trim());
+                case "trim" -> language.item("trim").send(QLib.audience(context.getSender()), MusicService.instance().trim());
                 case "save-defaults" -> {
                     MusicService.instance().saveDefaults();
-                    language.item("restore-defaults").send(context.getSender());
+                    language.item("restore-defaults").send(QLib.audience(context.getSender()));
                 }
             }
         }

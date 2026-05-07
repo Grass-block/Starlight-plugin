@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.internal;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.api.event.ChatForwardingEvent;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.foundation.TextSender;
@@ -57,7 +57,7 @@ public interface ChatForwardingService extends BukkitService {
                     continue;
                 }
 
-                TextSender.sendMessage(player, msg);
+                QLib.audience(player).sendMessage(msg);
             }
 
             var e = new ChatForwardingEvent(Bukkit.getConsoleSender(), event.getPlayer(), event.message());
@@ -78,7 +78,7 @@ public interface ChatForwardingService extends BukkitService {
                 return;
             }
 
-            var component = TextBuilder.buildComponent(event.getFormat().formatted(event.getPlayer(), event.getMessage()));
+            var component = QLib.textBuilder().buildComponent(event.getFormat().formatted(event.getPlayer(), event.getMessage()));
 
             event.setCancelled(true);
             for (var player : Bukkit.getOnlinePlayers()) {
@@ -89,7 +89,7 @@ public interface ChatForwardingService extends BukkitService {
                     continue;
                 }
 
-                TextSender.sendMessage(player, e.getExamined());
+                QLib.audience(player).sendMessage(component);
             }
 
             var e = new ChatForwardingEvent(Bukkit.getConsoleSender(), event.getPlayer(), component);

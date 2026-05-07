@@ -6,6 +6,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.ProductInfo;
@@ -149,10 +150,10 @@ public final class InstallationCheck extends BukkitAbstractModule {
                 return;
             }
             if (event.getPlayer().isOp()) {
-                ComponentBlock block = TextBuilder.build(WARN_OP);
+                ComponentBlock block = QLib.textBuilder().build(WARN_OP);
                 TextSender.sendBlock(event.getPlayer(), block);
             } else {
-                ComponentBlock block = TextBuilder.build(WARN_PLAYER);
+                ComponentBlock block = QLib.textBuilder().build(WARN_PLAYER);
                 TextSender.sendBlock(event.getPlayer(), block);
             }
         }

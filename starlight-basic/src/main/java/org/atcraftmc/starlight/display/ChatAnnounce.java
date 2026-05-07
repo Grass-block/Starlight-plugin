@@ -7,12 +7,11 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.*;
-import org.atcraftmc.qlib.platform.PluginPlatform;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
 import org.atcraftmc.starlight.foundation.command.CommandProvider;
@@ -134,7 +133,7 @@ public class ChatAnnounce extends BukkitAbstractModule {
             this.modified.set(false);
         }
 
-        var loc = PluginPlatform.global().locale(sender);
+        var loc = QLib.audience(sender).pointed().locale();
         var idx = LanguageItem.TEXT_RANDOM.nextInt(0, this.sortedKeys.size());
         var key = this.sortedKeys.get(idx);
         var msg = this.tips.get(key).message(loc).render();
@@ -143,7 +142,7 @@ public class ChatAnnounce extends BukkitAbstractModule {
         var template = String.join("\n", temp);
         var ui = Language.format(this.language().inline(template, loc), msg).formatted(msg);
 
-        PluginPlatform.global().sendMessage(sender, TextBuilder.buildComponent(ui));
+        QLib.audience(sender).sendMessage(QLib.textBuilder().buildComponent(ui));
     }
 
 
@@ -161,14 +160,14 @@ public class ChatAnnounce extends BukkitAbstractModule {
             var k = locale.minecraft().replace("_", "-");
 
             if (this.messages.containsKey(k)) {
-                return new RenderedMessage(locale, this.messages.get(k));
+                return new RenderedMessage(QLib.context(), locale, this.messages.get(k));
             }
 
             if (this.messages.containsKey("en-us")) {
-                return new RenderedMessage(MinecraftLocale.EN_US, this.messages.get("en-us"));
+                return new RenderedMessage(QLib.context(), MinecraftLocale.EN_US, this.messages.get("en-us"));
             }
 
-            return new RenderedMessage(MinecraftLocale.ZH_CN, this.messages.get("zh-cn"));
+            return new RenderedMessage(QLib.context(), MinecraftLocale.ZH_CN, this.messages.get("zh-cn"));
         }
     }
 

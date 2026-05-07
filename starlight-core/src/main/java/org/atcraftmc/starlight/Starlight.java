@@ -5,8 +5,13 @@ import me.gb2022.gluon.ModularApplicationContext;
 import me.gb2022.pluginsX.PluginService;
 import net.kyori.adventure.text.ComponentLike;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.QLibContext;
+import org.atcraftmc.qlib.audience.AudienceService;
+import org.atcraftmc.qlib.audience.PointedAudience;
 import org.atcraftmc.qlib.bukkit.BukkitPlatform;
 import org.atcraftmc.qlib.bukkit.BukkitPluginConcept;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.bukkit.QLibBukkitContext;
 import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.config.ConfigContainer;
@@ -17,7 +22,8 @@ import org.atcraftmc.qlib.language.LanguageContainer;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
-import org.atcraftmc.qlib.texts.pipe.TextPipelineProcessor;
+import org.atcraftmc.qlib.text.pipe.AudienceHandler;
+import org.atcraftmc.qlib.text.pipe.LocaleHandler;
 import org.atcraftmc.starlight.api.event.CoreEvent;
 import org.atcraftmc.starlight.bundle.BundledPackageProvider;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -65,11 +71,11 @@ import java.util.UUID;
 public final class Starlight extends BukkitPluginConcept implements PluginApplication {
     public static final Logger LOGGER = SLPluginEnvironment.createLogger("Core");
 
-    public static LanguageAccess LANGUAGE;
-    public final LanguageContainer language = new LanguageContainer(this, ProductInfo.CORE_ID);
-    public final LanguageAccess coreLanguage = this.language.access("starlight-core");
-    private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
     private final ModularApplicationContext context = createContext(this);
+    private final QLibContext qLibContext = new QLibBukkitContext(this);
+    public final LanguageAccess coreLanguage = this.qLibContext.language().access("starlight-core");
+
+    private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
     private final CommandManager commandManager = new StarlightCommandManager(this);
     private final BundledPackageProvider bundledPackageProvider = new BundledPackageProvider(() -> Class.forName(
             "org.atcraftmc.starlight.bundler.StarlightBukkitBundler"));
@@ -89,7 +95,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
                 .build();
     }
 
-    public static void prepareReload(){
+    public static void prepareReload() {
         Starlight.instance().onDisable();
         try {
             PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
@@ -148,15 +154,19 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         return instance().language();
     }
 
+    public static AudienceService<CommandSender> audiences() {
+        return (AudienceService<CommandSender>) instance().qLibContext.audiences();
+    }
+
 
     //----[plugin]----
-    private void loadEnv(){
+    private void loadEnv() {
         try {
             hackDataFolder();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"), BukkitAPI.API_MANAGER);
+        SLPluginEnvironment.init(this.context, this, "starlight-core", new PathManager("starlight"));
         BukkitAPI.init();
     }
 
@@ -238,6 +248,11 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         LOGGER.info("broadcasting dispose event...");
         BukkitUtil.callEventUnsafe(new CoreEvent.PostDispose(this));
         PluginPlatform.global().remove("starlight:core");
+        try {
+            this.qLibContext.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         this.context.shutdown();
 
         LOGGER.info("done ({} ms)", Timer.passedTime());
@@ -269,12 +284,12 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     //----[bukkit plugin concept]----
     @Override
     public ConfigContainer config() {
-        return ConfigContainer.getInstance();
+        return this.qLibContext.config();
     }
 
     @Override
     public LanguageContainer language() {
-        return language;
+        return this.qLibContext.language();
     }
 
     @Override
@@ -306,9 +321,10 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     //----[initialization]----
     private void initializePluginEnv() {
         BukkitPlatform.init();
+
+        QLibPlatform.register();
+
         PluginPlatform.global().addLast("starlight:core", new StarlightBukkitPlatform());
-        PluginPlatform.global().getTextPipeline().addFirst("starlight:core", new GlobalVarsTextProcessor());
-        PluginPlatform.global().getTextPipeline().addLast("starlight:chat-color-patch", new ChatColorPatcher());
 
         LOGGER.info("Plugin Environment: ");
 
@@ -317,13 +333,11 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         var modded = APIProfileTest.isMixedServer();
         this.uuid = UUID.randomUUID().toString();
         PluginUtil.CORE_REF.set(this);
-        LANGUAGE = this.language.access(ProductInfo.CORE_ID);
 
         LOGGER.info(" - platform: {}", APIProfileTest.getAPIProfile().toString());
         LOGGER.info(" - region scheduler: {}", threadedRegions);
         LOGGER.info(" - modded environment: {}", modded);
         LOGGER.info(" - instance UUID: {}", this.uuid);
-        LOGGER.info(" - qlib environment: {}", PluginPlatform.global());
         LOGGER.info(" - bundler mode: {}", this.bundledPackageProvider.isPresent());
 
         this.context.initialize();
@@ -489,23 +503,38 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         f_configFile.set(this, new File(folder() + "/config.yml"));
     }
 
-    public static final class GlobalVarsTextProcessor implements TextPipelineProcessor {
-        @Override
-        public String process(String s, Object o) {
-            s = PlaceHolderService.format(PlaceHolderService.format(s));
 
-            if ((o instanceof Player p)) {
-                s = PlaceHolderService.formatPlayer(p, s);
+    interface QLibPlatform {
+        LocaleHandler LOCALE_HANDLER = LocaleHandler.wrap((a, c) -> LocaleService.locale(a.getPointer(CommandSender.class)));
+
+        AudienceHandler.MessageRenderer GLOBAL_VARS_TEXT_RENDERER = (audience, message) -> {
+            message = PlaceHolderService.format(PlaceHolderService.format(message));
+
+            if ((audience.getPointer(CommandSender.class) instanceof Player p)) {
+                message = PlaceHolderService.formatPlayer(p, message);
             }
 
-            return s;
-        }
-    }
+            return message;
+        };
 
-    public static final class ChatColorPatcher implements TextPipelineProcessor {
-        @Override
-        public String process(String s, Object o) {
-            return ChatColor.translateAlternateColorCodes('&', s);
+        AudienceHandler.MessageRenderer CHAT_COLOR_TEXT_RENDERER = (audience, message) -> {
+            if (message == null) {
+                return "null";
+            }
+            return ChatColor.translateAlternateColorCodes('&', message);
+        };
+
+        AudienceHandler.MessageProcessor COMPONENT_EXAMINER = (audience, component) -> {
+            var locale = audience.locale();
+            return TextExaminer.examine(component, audience, locale);
+        };
+
+        static void register() {
+            QLib.textEngine().getMessagePreRenderPipeline().addLast("starlight:global-vars", GLOBAL_VARS_TEXT_RENDERER);
+            QLib.textEngine().getMessageRenderPipeline().addLast("starlight:global-vars", GLOBAL_VARS_TEXT_RENDERER);
+            QLib.textEngine().getMessageRenderPipeline().addLast("starlight:chat-color", CHAT_COLOR_TEXT_RENDERER);
+            QLib.textEngine().getLocalePipeline().addLast("starlight:core", LOCALE_HANDLER);
+            QLib.textEngine().getMessageProcessPipeline().addLast("starlight:examine", COMPONENT_EXAMINER);
         }
     }
 
@@ -513,11 +542,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
         @Override
         public MinecraftLocale locale(Object sender) {
             return LocaleService.locale(sender);
-        }
-
-        @Override
-        public ComponentLike examineComponent(ComponentLike component, Object pointer, MinecraftLocale locale) {
-            return TextExaminer.examine(component.asComponent(), pointer, locale);
         }
     }
 }

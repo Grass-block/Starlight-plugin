@@ -7,7 +7,7 @@ language:
     twilightforest-twilight-forest: "{color(#17A589)}Twilight Forest{;}"
     ad-astra-moon: "{#gray}The Moon"
     ad-astra-moon-orbit: "{#dark_aqua}Moon Orbit"
-    ad-astra-earth-orbit: "{#dark_aqua}Super Earth Orbit"
+    ad-astra-earth-orbit: "{#dark_aqua}Earth Orbit"
     ad-astra-glacio: "{#blue}Glacio"
     ad-astra-glacio-orbit: "{#dark_aqua}Glacio Orbit"
     ad-astra-mars: "{#red}Mars"

@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight;
 
 import me.gb2022.commons.TriState;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.platform.PluginPlatform;
-import org.atcraftmc.qlib.texts.TextBuilder;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.internal.ProductService;
 import org.bukkit.ChatColor;
@@ -99,7 +99,7 @@ public interface ProductInfo {
                 Starlight.instance().getInstanceUUID(),
                 ProductService.getSystemIdentifier()
         ));
-        TextSender.sendBlock(sender, TextBuilder.build(PlaceHolderService.format(text, BukkitPlaceHolders.quarkStats())));
+        TextSender.sendBlock(sender, QLib.textBuilder().build(PlaceHolderService.format(text, BukkitPlaceHolders.quarkStats())));
     }
 
     static void sendInfoDisplay(CommandSender sender) {
@@ -137,9 +137,9 @@ public interface ProductInfo {
         if (!(sender instanceof ConsoleCommandSender)) {
             String prefix = "{#purple}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一\n";
 
-            TextSender.sendBlock(sender, TextBuilder.build(prefix + s.replace("{logo}", textLogo())));
+            TextSender.sendBlock(sender, QLib.textBuilder().build(prefix + s.replace("{logo}", textLogo())));
         } else {
-            for (var s2 : PluginPlatform.global().globalFormatMessage(s.replace("{logo}", logo(Starlight.instance()))).split("\n")) {
+            for (var s2 : QLib.textEngine().renderString(s.replace("{logo}", logo(Starlight.instance()))).split("\n")) {
                 sender.sendMessage(s2);
             }
         }

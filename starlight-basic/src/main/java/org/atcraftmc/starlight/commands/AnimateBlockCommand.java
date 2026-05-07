@@ -4,6 +4,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -96,28 +97,28 @@ public final class AnimateBlockCommand extends SLCommandModule {
         var tz = (int) Math.floor(target.getZ());
 
         if (x0 > x1) {
-            this.language().item("size-invalid").send(context.getSender(), "x");
+            this.language().item("size-invalid").send(QLib.audience(context.getSender()), "x");
             return;
         }
         if (y0 > y1) {
-            this.language().item("size-invalid").send(context.getSender(), "y");
+            this.language().item("size-invalid").send(QLib.audience(context.getSender()), "y");
             return;
         }
         if (z0 > z1) {
-            this.language().item("size-invalid").send(context.getSender(), "z");
+            this.language().item("size-invalid").send(QLib.audience(context.getSender()), "z");
             return;
         }
 
         if (x1 - x0 > 16) {
-            this.language().item("size-too-big").send(context.getSender(), 8);
+            this.language().item("size-too-big").send(QLib.audience(context.getSender()), 8);
             return;
         }
         if (y1 - y0 > 16) {
-            this.language().item("size-too-big").send(context.getSender(), 8);
+            this.language().item("size-too-big").send(QLib.audience(context.getSender()), 8);
             return;
         }
         if (z1 - z0 > 16) {
-            this.language().item("size-too-big").send(context.getSender(), 8);
+            this.language().item("size-too-big").send(QLib.audience(context.getSender()), 8);
             return;
         }
 
@@ -139,7 +140,7 @@ public final class AnimateBlockCommand extends SLCommandModule {
         }
 
         if (entities.isEmpty()) {
-            this.language().item("no-result").send(context.getSender());
+            this.language().item("no-result").send(QLib.audience(context.getSender()));
             return;
         }
 
@@ -147,7 +148,7 @@ public final class AnimateBlockCommand extends SLCommandModule {
             e.dismount();
         }
 
-        this.language().item("success").send(context.getSender(), entities.size());
+        this.language().item("success").send(QLib.audience(context.getSender()), entities.size());
 
         var dx = tx - x0;
         var dy = ty - y0;

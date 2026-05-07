@@ -29,5 +29,10 @@ public interface SLVInternalPackage {
 
         attachment.config("starlight-velocity");
         attachment.language("starlight-velocity", "zh_cn");
+        attachment.language("starlight-velocity", "en_tw");
+        attachment.language("starlight-velocity", "en_us");
+        attachment.language("starlight-velocity", "fr_fr");
+        attachment.language("starlight-velocity", "ja_jp");
+        attachment.language("starlight-velocity", "ru_ru");
     }
 }

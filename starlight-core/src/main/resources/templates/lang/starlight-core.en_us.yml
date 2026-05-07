@@ -7,6 +7,7 @@ language:
     platform-patcher: '[Core] Platform Difference Patcher'
     protocol-lib-injector: '[Core] ProtocolLib Platform Proxy'
     version-log-viewer: '[Core] Update Log Viewer'
+    player-view-customization: '[Core] Player View Customization %player_allow_flight%'
   custom-block:
     give: '{global#success}Successfully obtained {#var} *1'
     give-failed: '{global#error}Custom block named {#var} does not exist.'
@@ -126,3 +127,9 @@ language:
       - '{#gray}You have been banned from {#var} for {#var}.'
       - '{#gray}Your ban will end on {#var}.'
     default-kick-line: '{#gray}You have been kicked from the game: {#var}'
+  player-view-customization:
+    default-desc: "This UI component has no description."
+    ui-state-open: "{#white}Current State: {#green}[ON]"
+    ui-state-close: "{#white}Current State: {#red}[OFF]"
+    ui-click: "{#gold}[Click to Toggle]"
+    ui-title: "{#dark-aqua}UI Rendering Settings {#white}(Total {} pages)"

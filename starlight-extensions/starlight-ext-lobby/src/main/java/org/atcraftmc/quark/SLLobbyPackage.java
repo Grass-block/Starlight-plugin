@@ -23,5 +23,10 @@ public final class SLLobbyPackage extends MultiPackageProvider {
 
         i.config("starlight-lobby");
         i.language("starlight-lobby", "zh_cn");
+        i.language("starlight-lobby", "en_us");
+        i.language("starlight-lobby", "fr_fr");
+        i.language("starlight-lobby", "ja_jp");
+        i.language("starlight-lobby", "ru_ru");
+        i.language("starlight-lobby", "zh_tw");
     }
 }

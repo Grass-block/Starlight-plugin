@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -50,7 +51,7 @@ public final class ServerInfo extends SLCommandModule {
     }
 
     private void msg(CommandExecution ctx, String msg) {
-        TextSender.sendMessage(ctx.getSender(), TextBuilder.buildComponent(msg));
+        TextSender.sendMessage(ctx.getSender(), QLib.textBuilder().buildComponent(msg));
     }
 
     private String world(World world, int id) {

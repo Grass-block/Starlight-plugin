@@ -3,6 +3,8 @@ package org.atcraftmc.starlight.foundation;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
+import org.atcraftmc.qlib.audience.PointedAudience;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.Starlight;
@@ -19,7 +21,7 @@ public interface TextExaminer {
         return "{msg#%s=%s}".formatted(id, String.join(";;", Arrays.stream(format).map(Object::toString).collect(Collectors.toSet())));
     }
 
-    static ComponentLike searchResult(Object player, MinecraftLocale loc, String string, boolean random) {
+    static ComponentLike searchResult(PointedAudience player, MinecraftLocale loc, String string, boolean random) {
         var data = string.substring(random ? 6 : 5, string.length() - 1);
 
         var sp = data.split("=");
@@ -38,7 +40,7 @@ public interface TextExaminer {
         return Starlight.lang().item(id[0], id[1], id[2]).random(loc, param).renderComponent(player);
     }
 
-    static Component examine(Component component, Object player, MinecraftLocale locale) {
+    static Component examine(Component component, PointedAudience player, MinecraftLocale locale) {
         var repl = TextReplacementConfig.builder()
                 .match(Language.MESSAGE_PATTERN)
                 .replacement((result, builder) -> searchResult(player, locale, result.group(), false))

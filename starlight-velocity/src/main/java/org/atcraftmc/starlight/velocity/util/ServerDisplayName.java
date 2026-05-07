@@ -27,6 +27,6 @@ public interface ServerDisplayName {
     }
 
     static Component getDisplayName_C(String serverName) {
-        return TextBuilder.buildComponent(getDisplayName(serverName));
+        return QLib.textBuilder().buildComponent(getDisplayName(serverName));
     }
 }

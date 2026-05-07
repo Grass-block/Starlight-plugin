@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.utilities;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -34,10 +35,10 @@ public final class ParticleFont extends SLCommandModule {
     @Override
     public void execute(CommandExecution context) {
         switch (context.requireEnum(0, "render", "list", "trim")) {
-            case "trim" -> this.language().item("trim").send(context.getSender(), this.fonts.trim());
+            case "trim" -> this.language().item("trim").send(QLib.audience(context.getSender()), this.fonts.trim());
             case "render" -> {
                 if (this.fonts.list().isEmpty()) {
-                    this.language().item("no-fonts").send(context.getSender());
+                    this.language().item("no-fonts").send(QLib.audience(context.getSender()));
                 }
 
                 var font = context.requireArgumentAt(1);
@@ -66,7 +67,7 @@ public final class ParticleFont extends SLCommandModule {
 
                 ParticleFontRenderer.getInstance(renderer).render(request);
 
-                this.language().item("done").send(context.getSender(), content, request.getCount());
+                this.language().item("done").send(QLib.audience(context.getSender()), content, request.getCount());
             }
             case "list" -> {
 
@@ -77,7 +78,7 @@ public final class ParticleFont extends SLCommandModule {
                     var l = PRESET_DOWNLOADS.get(link);
                 }
                 if (!link.startsWith("http")) {
-                    this.language().item("download-bad-text").send(context.getSender());
+                    this.language().item("download-bad-text").send(QLib.audience(context.getSender()));
                     return;
                 }
 

@@ -6,6 +6,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageItem;
@@ -78,7 +79,7 @@ public final class ChatReport extends BukkitAbstractModule {
         this.records.put(uuid, "%s;%s;%s;%s".formatted(time, sender, content, shorted));
 
         var template = Language.format(Objects.requireNonNull(config().value("append").string()), uuid).formatted(uuid);
-        CustomChatRenderer.renderer(event).postfixNearest(TextBuilder.buildComponent(template));
+        CustomChatRenderer.renderer(event).postfixNearest(QLib.textBuilder().buildComponent(template));
     }
 
     @BukkitCommand(name = "chat-report")
@@ -100,14 +101,14 @@ public final class ChatReport extends BukkitAbstractModule {
             }
 
             handle.records.remove(args[0]);
-            handle.language().item("success").send(sender, rec[1], rec[3]);
+            handle.language().item("success").send(QLib.audience(sender), rec[1], rec[3]);
             RecordService.record(RECORD.render(args[0], sender.getName(), rec[1], rec[0], rec[2]));
 
             BukkitUtil.callEvent(new ChatReportedEvent(rec[1], rec[2], rec[3], args[0]), (e) -> {
                 if (e.getOutcome() == null) {
                     return;
                 }
-                e.getOutcome().send(sender, rec[1], rec[3]);
+                e.getOutcome().send(QLib.audience(sender), rec[1], rec[3]);
             });
         }
 

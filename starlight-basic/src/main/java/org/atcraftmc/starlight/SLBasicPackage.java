@@ -39,6 +39,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-management");
         p.language("starlight-management", "zh_cn");
+        p.language("starlight-management", "zh_tw");
+        p.language("starlight-management", "en_us");
+        p.language("starlight-management", "fr_fr");
+        p.language("starlight-management", "ja_jp");
+        p.language("starlight-management", "ru_ru");
     }
 
 
@@ -53,6 +58,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(StopConfirm.class);
 
         p.language("starlight-console", "zh_cn");
+        p.language("starlight-console", "zh_tw");
+        p.language("starlight-console", "en_us");
+        p.language("starlight-console", "fr_fr");
+        p.language("starlight-console", "ja_jp");
+        p.language("starlight-console", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-warps")
@@ -66,7 +76,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-warps");
         p.language("starlight-warps", "zh_cn");
+        p.language("starlight-warps", "zh_tw");
         p.language("starlight-warps", "en_us");
+        p.language("starlight-warps", "fr_fr");
+        p.language("starlight-warps", "ja_jp");
+        p.language("starlight-warps", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-utilities")
@@ -93,6 +107,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-utilities");
         p.language("starlight-utilities", "zh_cn");
+        p.language("starlight-utilities", "zh_tw");
+        p.language("starlight-utilities", "en_us");
+        p.language("starlight-utilities", "fr_fr");
+        p.language("starlight-utilities", "ja_jp");
+        p.language("starlight-utilities", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-proxy")
@@ -107,6 +126,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-proxy");
         p.language("starlight-proxy", "zh_cn");
+        p.language("starlight-proxy", "zh_tw");
+        p.language("starlight-proxy", "en_us");
+        p.language("starlight-proxy", "fr_fr");
+        p.language("starlight-proxy", "ja_jp");
+        p.language("starlight-proxy", "ru_ru");
     }
 
     //command extension and triggers
@@ -125,6 +149,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(WorldEditCommands.class);
 
         p.language("starlight-commands", "zh_cn");
+        p.language("starlight-commands", "zh_tw");
+        p.language("starlight-commands", "en_us");
+        p.language("starlight-commands", "fr_fr");
+        p.language("starlight-commands", "ja_jp");
+        p.language("starlight-commands", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-security")
@@ -142,6 +171,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-security");
         p.language("starlight-security", "zh_cn");
+        p.language("starlight-security", "zh_tw");
+        p.language("starlight-security", "en_us");
+        p.language("starlight-security", "fr_fr");
+        p.language("starlight-security", "ja_jp");
+        p.language("starlight-security", "ru_ru");
     }
 
 
@@ -154,6 +188,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-chat");
         p.language("starlight-chat", "zh_cn");
+        p.language("starlight-chat", "zh_tw");
+        p.language("starlight-chat", "en_us");
+        p.language("starlight-chat", "fr_fr");
+        p.language("starlight-chat", "ja_jp");
+        p.language("starlight-chat", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-display", description = "Create client's visual look, but not only UI.")
@@ -179,7 +218,11 @@ public final class SLBasicPackage extends MultiPackageProvider {
 
         p.config("starlight-display");
         p.language("starlight-display", "zh_cn");
+        p.language("starlight-display", "zh_tw");
         p.language("starlight-display", "en_us");
+        p.language("starlight-display", "fr_fr");
+        p.language("starlight-display", "ja_jp");
+        p.language("starlight-display", "ru_ru");
     }
 
     @ApplicationPackageProvider(id = "starlight-sideload")

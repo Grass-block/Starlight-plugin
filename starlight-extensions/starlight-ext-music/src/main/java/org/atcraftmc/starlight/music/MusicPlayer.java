@@ -12,14 +12,15 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import me.gb2022.simpnet.util.BufferUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
@@ -28,7 +29,6 @@ import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.core.ui.UI;
 import org.atcraftmc.starlight.core.ui.providing.GUIProvider;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
-import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.command.ModuleCommand;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -77,7 +77,8 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
         );
 
         String ui = this.language().inline(template, LocaleService.locale(player));
-        TextSender.sendActionbarTitle(player, TextBuilder.build(ui));
+        ComponentLike c = QLib.textBuilder().build(ui);
+        QLib.audience(player).sendActionBar(c);
     }
 
     @Override

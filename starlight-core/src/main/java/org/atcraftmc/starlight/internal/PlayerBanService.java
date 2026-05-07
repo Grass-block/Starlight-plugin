@@ -6,6 +6,7 @@ import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import net.kyori.adventure.text.Component;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.Starlight;
@@ -81,7 +82,7 @@ public interface PlayerBanService extends BukkitService {
         e2.setResultMessage(it.message(locale, source, reason, expire).render());
         var ui = BukkitUtil.callEventUnsafe(e2).getResultMessage();
 
-        return TextBuilder.buildComponent(MODIFIED_REASON_HEADER + ui);
+        return QLib.textBuilder().buildComponent(MODIFIED_REASON_HEADER + ui);
     }
 
     final class LoginHandler implements Listener {
@@ -106,7 +107,7 @@ public interface PlayerBanService extends BukkitService {
                 return;
             }
 
-            SET_KICK_REASON.invoke(event, TextBuilder.buildComponent(e.getResultMessage()));
+            SET_KICK_REASON.invoke(event, QLib.textBuilder().buildComponent(e.getResultMessage()));
         }
 
         @EventHandler(priority = EventPriority.HIGH)

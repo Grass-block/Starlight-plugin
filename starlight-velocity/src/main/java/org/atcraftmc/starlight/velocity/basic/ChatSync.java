@@ -51,7 +51,7 @@ public final class ChatSync extends VelocityAbstractModule {
         var targetName = ServerDisplayName.getDisplayName(server);
 
         var template = config().value("template").string().formatted(targetName, player);
-        var line = TextBuilder.buildComponent(template).append(msg);
+        var line = QLib.textBuilder().buildComponent(template).append(msg);
 
         getProxy().getServer()
                 .getAllPlayers()

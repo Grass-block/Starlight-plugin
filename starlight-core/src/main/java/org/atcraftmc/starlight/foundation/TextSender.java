@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.foundation;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.core.LocaleService;
@@ -14,8 +15,7 @@ import org.joml.Vector3i;
 public interface TextSender {
     //message
     static void sendMessage(CommandSender sender, ComponentLike message) {
-        var c = PluginPlatform.global().examineComponent(message, sender, LocaleService.locale(sender));
-        PluginPlatform.global().sendMessage(sender, c);
+        QLib.audience(sender).sendMessage(message);
     }
 
     static void sendBlock(CommandSender sender, ComponentBlock block) {
@@ -45,10 +45,6 @@ public interface TextSender {
 
     static void subtitle(Player p, ComponentLike component, int in, int stay, int out) {
         sendTitle(p, Component.text(""), component, in, stay, out);
-    }
-
-    static void sendActionbarTitle(Player p, ComponentLike c) {
-        BukkitAPI.ACTIONBAR_TITLE.get().invoke(p, c.asComponent());
     }
 
     //misc

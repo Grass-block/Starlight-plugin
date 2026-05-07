@@ -1,12 +1,13 @@
 package org.atcraftmc.starlight.foundation.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.command.execute.CommandErrorType;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
-import org.atcraftmc.starlight.core.permission.PermissionService;
 
 public final class StarlightCommandManager extends CommandManager {
     private final LanguageEntry messages;
@@ -22,7 +23,7 @@ public final class StarlightCommandManager extends CommandManager {
 
     @Override
     public void sendExceptionMessage(CommandSender sender, Throwable... throwable) {
-        this.messages.item("exception").send(sender);
+        this.messages.item("exception").send(QLib.audience(sender));
     }
 
     @Override
@@ -41,17 +42,17 @@ public final class StarlightCommandManager extends CommandManager {
             case REQUIRE_SENDER_PLAYER -> "error-sender-is-not-player";
         };
 
-        this.messages.item(id).send(sender, objects);
+        this.messages.item(id).send(QLib.audience(sender), objects);
     }
 
     @Override
     public void sendPermissionMessage(CommandSender sender, String s) {
-        this.messages.item("error-lack-permission").send(sender, "{;}" + s);
+        this.messages.item("error-lack-permission").send(QLib.audience(sender), "{;}" + s);
     }
 
     @Override
     public void sendPlayerOnlyMessage(CommandSender sender) {
-        this.messages.item("player-only").send(sender);
+        this.messages.item("player-only").send(QLib.audience(sender));
     }
 
     @Override

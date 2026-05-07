@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.config.ConfigurationPack;
@@ -40,14 +41,14 @@ public abstract class PackConfigureCommand extends CoreCommand {
                     pack.load();
                 }
                 this.container.refresh(true);
-                entry.item("reload-all").send(sender);
+                entry.item("reload-all").send(QLib.audience(sender));
             }
             case "restore-all" -> {
                 for (ConfigurationPack pack : this.container.getPacks()) {
                     pack.restore();
                 }
                 this.container.refresh(true);
-                entry.item("restore-all").send(sender);
+                entry.item("restore-all").send(QLib.audience(sender));
             }
             case "restore" -> {
                 var name = context.requireArgumentAt(1);
@@ -58,7 +59,7 @@ public abstract class PackConfigureCommand extends CoreCommand {
                     return;
                 }
                 pack.restore();
-                entry.item("restore").send(sender, name);
+                entry.item("restore").send(QLib.audience(sender), name);
             }
             case "reload" -> {
                 var name = context.requireArgumentAt(1);
@@ -69,7 +70,7 @@ public abstract class PackConfigureCommand extends CoreCommand {
                     return;
                 }
                 pack.load();
-                entry.item("reload").send(sender, name);
+                entry.item("reload").send(QLib.audience(sender), name);
             }
             case "sync" -> {
                 var name = context.requireArgumentAt(1);
@@ -80,7 +81,7 @@ public abstract class PackConfigureCommand extends CoreCommand {
                     return;
                 }
                 pack.sync(true);
-                entry.item("sync").send(sender, name);
+                entry.item("sync").send(QLib.audience(sender), name);
             }
             case "sync-all" -> {
                 for (ConfigurationPack pack : this.container.getPacks()) {

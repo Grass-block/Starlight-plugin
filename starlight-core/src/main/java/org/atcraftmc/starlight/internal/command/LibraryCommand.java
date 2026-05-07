@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
-import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
@@ -50,8 +50,8 @@ public final class LibraryCommand extends CoreCommand {
             list.add(line);
         });
 
-        sender.sendMessage(PluginPlatform.global().globalFormatMessage("{#line}"));
+        sender.sendMessage(QLib.textEngine().renderString("{#line}"));
         TextSender.sendMessage(sender, list);
-        sender.sendMessage(PluginPlatform.global().globalFormatMessage("{#line}"));
+        sender.sendMessage(QLib.textEngine().renderString("{#line}"));
     }
 }

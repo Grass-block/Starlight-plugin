@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.core.custom;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -248,12 +249,12 @@ public final class CustomBlockService implements BukkitService {
             var block = items.get(id);
 
             if (block == null) {
-                lang.item("give-failed").send(context.getSender(), id);
+                lang.item("give-failed").send(QLib.audience(context.getSender()), id);
                 return;
             }
 
             context.requireSenderAsPlayer().getInventory().addItem(block.createItem(amount));
-            lang.item("give").send(context.getSender(), id);
+            lang.item("give").send(Starlight.audiences().get(context.getSender()), id);
         }
     }
 }

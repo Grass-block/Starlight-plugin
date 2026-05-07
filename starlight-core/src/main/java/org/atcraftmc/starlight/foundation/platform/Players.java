@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.foundation.platform;
 import me.gb2022.commons.reflect.method.*;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.foundation.ComponentSerializer;
 import org.atcraftmc.starlight.internal.PlatformPatcher;
@@ -158,8 +159,8 @@ public interface Players {
     }
 
     static void setPlayerTab(Player player, String header, String footer) {
-        var h = TextBuilder.buildComponent(header);
-        var f = TextBuilder.buildComponent(footer);
+        var h = QLib.textBuilder().buildComponent(header);
+        var f = QLib.textBuilder().buildComponent(footer);
 
         setPlayerTab(player, h, f);
     }

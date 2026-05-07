@@ -20,6 +20,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
@@ -132,7 +133,7 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
     }
 
     private void submitForCheck(PlayerCommandPreprocessEvent event) {
-        this.language.item("confirm-required").send(event.getPlayer(), this.config().value("confirm-time").intValue(15));
+        this.language.item("confirm-required").send(QLib.audience(event.getPlayer()), this.config().value("confirm-time").intValue(15));
         this.commandCache.put(event.getPlayer().getUniqueId(), event.getMessage().substring(1));
         event.setCancelled(true);
     }
@@ -230,13 +231,13 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
                 var cached = this.getModule().commandCache.get(player.getUniqueId(), () -> "");
 
                 if (cached.isEmpty()) {
-                    getLanguage().item("action-not-found").send(player);
+                    getLanguage().item("action-not-found").send(QLib.audience(player));
                     return;
                 }
 
                 this.getModule().commandCache.invalidate(player.getUniqueId());
 
-                getLanguage().item("action-confirmed").send(player, cached);
+                getLanguage().item("action-confirmed").send(QLib.audience(player), cached);
                 player.performCommand(cached);
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);

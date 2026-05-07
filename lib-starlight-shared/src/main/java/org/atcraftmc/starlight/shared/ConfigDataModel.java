@@ -1,7 +1,5 @@
 package org.atcraftmc.starlight.shared;
 
-import net.kyori.adventure.text.Component;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.regex.Pattern;
 public interface ConfigDataModel {
     Pattern MOTD_REPL_PATTERN = Pattern.compile("\\{[a-z]+}");
 
-    static Component motd(ConfigurationSection setting) {
+    static String motd(ConfigurationSection setting) {
         var root = setting.getConfigurationSection("motd");
 
         if (root == null) {
@@ -48,6 +46,6 @@ public interface ConfigDataModel {
             template = template.replace(raw, content);
         }
 
-        return TextBuilder.build(template).toSingleLine();
+        return template;
     }
 }

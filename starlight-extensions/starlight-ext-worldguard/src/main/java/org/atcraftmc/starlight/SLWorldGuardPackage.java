@@ -22,6 +22,11 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
         b.module(WGCustomName.class);
 
         p.language("starlight-worldguard", "zh_cn");
+        p.language("starlight-worldguard", "en_us");
+        p.language("starlight-worldguard", "fr_fr");
+        p.language("starlight-worldguard", "ja_jp");
+        p.language("starlight-worldguard", "ru_ru");
+        p.language("starlight-worldguard", "zh_tw");
         p.config("starlight-worldguard");
     }
 

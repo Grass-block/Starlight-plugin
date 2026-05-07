@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.display;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -22,8 +23,8 @@ public final class CustomDeathMessage extends BukkitAbstractModule {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-        var prefix = TextBuilder.buildComponent(config().value("prefix").string());
-        var suffix = TextBuilder.buildComponent(config().value("suffix").string());
+        var prefix = QLib.textBuilder().buildComponent(config().value("prefix").string());
+        var suffix = QLib.textBuilder().buildComponent(config().value("suffix").string());
 
         if (e.deathMessage() == null) {
             return;

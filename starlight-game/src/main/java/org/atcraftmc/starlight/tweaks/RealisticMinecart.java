@@ -9,15 +9,15 @@ import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import net.kyori.adventure.text.ComponentLike;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.SchedulerProvider;
-import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
@@ -51,7 +51,6 @@ import java.util.UUID;
 @ComponentProvider(RealisticMinecart.PlayerWorldCache.class)
 public final class RealisticMinecart extends BukkitAbstractModule {
     private static final String GLOBAL_TASK_ID = "quark:minecart:simulate";
-    private static final double MAX_SAFE_SPEED = 0.6;
     private static final double SIMULATED_GRAVITY = 0.05;
     private static final MethodHandleO2<Entity, Float, Float> SET_ROTATION = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> Entity.class.getMethod("setRotation", float.class, float.class), (e, y, p) -> {
@@ -193,22 +192,11 @@ public final class RealisticMinecart extends BukkitAbstractModule {
                 .replace("{level}", thrustLevelColumn);
 
         String message = MessageAccessor.buildTemplate(this.language, locale, template);
-        TextSender.sendActionbarTitle(p, TextBuilder.build(message));
+        ComponentLike c = QLib.textBuilder().build(message);
+        QLib.audience(p).sendActionBar(c);
     }
 
     private void tick() {
-        /*
-        for (var world : Bukkit.getWorlds()) {
-            for (Minecart minecart : world.getEntitiesByClass(Minecart.class)) {
-                if (minecart.getType() != EntityType.MINECART) {
-                    continue;
-                }
-
-                TaskService.entity(minecart).run((ctx) -> VirtualMinecartAgent.get(this, minecart).tickAppend());
-            }
-        }
-         */
-
         for (var p : Bukkit.getOnlinePlayers()) {
             tickPlayerAndMinecart(p);
         }

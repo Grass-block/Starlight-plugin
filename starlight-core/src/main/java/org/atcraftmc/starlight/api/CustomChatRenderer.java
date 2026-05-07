@@ -6,6 +6,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextComponent;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.atcraftmc.qlib.texts.TextBuilder;
@@ -61,7 +62,7 @@ public final class CustomChatRenderer implements ChatRenderer {
             builder.append(c);
         }
 
-        builder.append(TextBuilder.buildComponent(this.template, sourceDisplayName, message));
+        builder.append(QLib.textBuilder().buildComponent(this.template, sourceDisplayName, message));
 
         for (Component c : this.postFixes) {
             builder.append(c);

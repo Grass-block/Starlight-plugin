@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -86,7 +87,7 @@ public final class ClientEnvironmentSetting extends BukkitAbstractModule {
                 case "off" -> player.resetPlayerWeather();
             }
 
-            getLanguage().item("weather-" + mode).send(player);
+            getLanguage().item("weather-" + mode).send(QLib.audience(player));
         }
     }
 
@@ -108,16 +109,16 @@ public final class ClientEnvironmentSetting extends BukkitAbstractModule {
                 case "offset" -> {
                     var val = context.requireArgumentInteger(1);
                     this.getModule().timeManager.setPlayerTime(player, val, true);
-                    getLanguage().item("time-offset").send(player, val);
+                    getLanguage().item("time-offset").send(QLib.audience(player), val);
                 }
                 case "fixed" -> {
                     var val = context.requireArgumentInteger(1, NumberLimitation.bound(-0.1, 24000.1));
                     this.getModule().timeManager.setPlayerTime(player, val, false);
-                    getLanguage().item("time-fixed").send(player, val);
+                    getLanguage().item("time-fixed").send(QLib.audience(player), val);
                 }
                 case "off" -> {
                     this.getModule().timeManager.resetPlayerTime(player);
-                    getLanguage().item("time-off").send(player);
+                    getLanguage().item("time-off").send(QLib.audience(player));
                 }
             }
         }

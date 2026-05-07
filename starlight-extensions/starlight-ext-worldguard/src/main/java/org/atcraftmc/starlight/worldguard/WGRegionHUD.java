@@ -5,13 +5,13 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import net.kyori.adventure.text.ComponentLike;
 import org.apache.commons.lang3.function.TriFunction;
-import org.atcraftmc.qlib.Pipeline;
-import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
-import org.atcraftmc.starlight.foundation.TextSender;
 import org.atcraftmc.starlight.foundation.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
@@ -41,18 +41,14 @@ public final class WGRegionHUD extends BukkitAbstractModule {
 
     public String format(ProtectedRegion region, World world, String s) {
         var owners = "{msg#ui-empty-owners}";
-        var players = region.getOwners().getUniqueIds()
-                .stream()
-                .map(Bukkit::getOfflinePlayer)
-                .map(OfflinePlayer::getName).collect(Collectors.toSet());
+        var players = region.getOwners().getUniqueIds().stream().map(Bukkit::getOfflinePlayer).map(OfflinePlayer::getName).collect(
+                Collectors.toSet());
 
         if (!players.isEmpty()) {
             owners = "[" + String.join(", ", players) + "]";
         }
 
-        return s.replace("{name}", region.getId())
-                .replace("{owner}", owners)
-                .replace("{id}", region.getId());
+        return s.replace("{name}", region.getId()).replace("{owner}", owners).replace("{id}", region.getId());
     }
 
     private String render(Player player) {
@@ -79,8 +75,8 @@ public final class WGRegionHUD extends BukkitAbstractModule {
                 2,
                 TaskService::entity,
                 (p, c) -> {
-                    var comp = TextBuilder.buildComponent(render(p));
-                    TextSender.sendActionbarTitle(p, comp);
+                    var comp = QLib.textBuilder().buildComponent(render(p));
+                    QLib.audience(p).sendActionBar((ComponentLike) comp);
                 }
         );
     }

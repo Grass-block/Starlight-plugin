@@ -5,6 +5,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
@@ -73,7 +74,7 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
         }
         if (this.cachedState == TriState.TRUE) {
             String page = VERSION_PAGE.formatted(this.cachedVersion);
-            this.language.item("require").send(event.getPlayer(), this.cachedVersion, page);
+            this.language.item("require").send(QLib.audience(event.getPlayer()), this.cachedVersion, page);
         }
     }
 
@@ -93,12 +94,12 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
             return;
         }
 
-        this.language.item("checking").send(sender);
+        this.language.item("checking").send(QLib.audience(sender));
         this.check((state, version) -> {
             switch (state) {
-                case TRUE -> language.item("require").send(sender, version, VERSION_PAGE.formatted(this.cachedVersion));
-                case FALSE -> language.item("no-require").send(sender, version);
-                case UNKNOWN -> language.item("exception").send(sender);
+                case TRUE -> language.item("require").send(QLib.audience(sender), version, VERSION_PAGE.formatted(this.cachedVersion));
+                case FALSE -> language.item("no-require").send(QLib.audience(sender), version);
+                case UNKNOWN -> language.item("exception").send(QLib.audience(sender));
             }
         });
     }

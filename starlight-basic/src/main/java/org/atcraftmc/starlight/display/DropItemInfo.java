@@ -5,6 +5,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
 import org.atcraftmc.starlight.core.TaskService;
@@ -124,13 +125,13 @@ public final class DropItemInfo extends BukkitAbstractModule {
         var s = template.replace("{amount}", String.valueOf(stack.getAmount()));
 
         if (!stack.getItemMeta().getDisplayName().isEmpty()) {
-            item.customName(TextBuilder.buildComponent(s.replace(
+            item.customName(QLib.textBuilder().buildComponent(s.replace(
                     "{id}",
                     ComponentSerializer.legacy(Objects.requireNonNull(stack.getItemMeta()
                                                                               .displayName()))
             )));
         } else {
-            item.customName(TextBuilder.buildComponent(s.replace("{id}", id)));
+            item.customName(QLib.textBuilder().buildComponent(s.replace("{id}", id)));
         }
 
         item.setCustomNameVisible(true);

@@ -6,6 +6,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -135,13 +136,13 @@ public final class Mute extends BukkitAbstractModule implements Listener {
             expired = "9999-12-31 23:59:59";
         }
 
-        this.language.item("add").send(operator, p.getName(), expired, reason);
+        this.language.item("add").send(QLib.audience(operator), p.getName(), expired, reason);
 
         if (player == null || player.getName().equals(operator.getName())) {
             return;
         }
 
-        this.language.item("add-target").send(player, operator.getName(), reason, expired);
+        this.language.item("add-target").send(QLib.audience(player), operator.getName(), reason, expired);
     }
 
     public boolean unmute(OfflinePlayer p, CommandSender operator) {
@@ -149,10 +150,10 @@ public final class Mute extends BukkitAbstractModule implements Listener {
 
         var player = p.getPlayer();
         if (player != null && !player.getName().equals(operator.getName())) {
-            this.language.item("remove-target").send(player, operator.getName());
+            this.language.item("remove-target").send(QLib.audience(player), operator.getName());
         }
 
-        this.language.item("remove").send(operator, p.getName());
+        this.language.item("remove").send(QLib.audience(operator), p.getName());
 
         return true;
     }

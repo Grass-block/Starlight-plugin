@@ -36,9 +36,17 @@ public interface SLInternalPackage {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
         p.language("starlight-core", "zh_cn");
+        p.language("starlight-core", "zh_tw");
         p.language("starlight-core", "en_us");
+        p.language("starlight-core", "fr_fr");
+        p.language("starlight-core", "ja_jp");
+        p.language("starlight-core", "ru_ru");
         p.language("common", "zh_cn");
+        p.language("common", "zh_tw");
         p.language("common", "en_us");
+        p.language("common", "fr_fr");
+        p.language("common", "ja_jp");
+        p.language("common", "ru_ru");
         p.config("starlight-core");
     }
 

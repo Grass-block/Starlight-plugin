@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.commands;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -13,7 +14,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 public final class SelfMessage extends SLCommandModule {
     @Override
     public void execute(CommandExecution context) {
-        TextSender.sendMessage(context.getSender(), TextBuilder.build(context.requireRemainAsParagraph(0, true)));
+        TextSender.sendMessage(context.getSender(), QLib.textBuilder().build(context.requireRemainAsParagraph(0, true)));
     }
 
     @Override
