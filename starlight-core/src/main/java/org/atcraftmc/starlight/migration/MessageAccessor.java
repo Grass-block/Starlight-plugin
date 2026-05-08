@@ -3,9 +3,8 @@ package org.atcraftmc.starlight.migration;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.bukkit.command.CommandSender;
-import org.atcraftmc.starlight.foundation.TextSender;
+import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.LocaleService;
 
 public interface MessageAccessor {

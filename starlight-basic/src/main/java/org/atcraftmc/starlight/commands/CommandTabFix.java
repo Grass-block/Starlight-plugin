@@ -7,7 +7,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.shared.FilePath;

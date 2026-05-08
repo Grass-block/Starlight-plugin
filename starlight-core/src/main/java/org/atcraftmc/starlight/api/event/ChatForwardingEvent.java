@@ -1,8 +1,6 @@
 package org.atcraftmc.starlight.api.event;
 
 import net.kyori.adventure.text.Component;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

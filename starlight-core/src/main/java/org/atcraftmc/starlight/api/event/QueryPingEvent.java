@@ -3,8 +3,6 @@ package org.atcraftmc.starlight.api.event;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.util.CachedServerIcon;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 
 @BukkitEvent
 public final class QueryPingEvent extends CustomEvent {

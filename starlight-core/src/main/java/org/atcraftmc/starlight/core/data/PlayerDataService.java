@@ -8,7 +8,7 @@ import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceProvider;
 import org.atcraftmc.starlight.data.legacy.DataService;
 import org.atcraftmc.starlight.data.storage.DataEntry;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.internal.PlayerIdentificationService;
 import org.atcraftmc.starlight.shared.FilePath;
 import org.bukkit.Bukkit;

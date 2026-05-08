@@ -23,7 +23,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;

@@ -4,7 +4,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.SharedObjects;
-import org.atcraftmc.starlight.foundation.platform.BukkitDataAccess;
+import org.atcraftmc.starlight.core.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Location;
 import org.bukkit.Material;

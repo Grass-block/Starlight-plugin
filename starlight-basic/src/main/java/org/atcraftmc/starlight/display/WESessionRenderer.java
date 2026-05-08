@@ -1,23 +1,22 @@
 package org.atcraftmc.starlight.display;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
-import org.atcraftmc.starlight.core.SimpleRegion;
 import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.WESessionTrackService;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.foundation.command.CommandProvider;
-import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.starlight.foundation.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.bukkit.Bukkit;
@@ -66,7 +65,7 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
     }
 
     private void draw(Player p) {
-        SimpleRegion r = WESessionTrackService.getRegion(p);
+        var r = WESessionTrackService.getRegion(p);
         if (r == null) {
             return;
         }
@@ -106,7 +105,9 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
     }
 
     public enum RenderMode {
-        NEVER, UPDATE, PERSISTENT;
+        NEVER,
+        UPDATE,
+        PERSISTENT;
 
         static RenderMode of(String id) {
             return switch (id) {

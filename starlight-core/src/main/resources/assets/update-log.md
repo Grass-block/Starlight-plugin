@@ -14,6 +14,8 @@
 - Rejected package will no longer be registered.
 - Fixed motd image cover issue.
 - More text now supported bungee format.
+- Optimized text pipeline.
+- Added more translations.
 
 ### 26.4.3
 

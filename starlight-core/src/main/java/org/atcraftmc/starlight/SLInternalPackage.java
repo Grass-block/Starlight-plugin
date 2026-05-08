@@ -2,10 +2,7 @@ package org.atcraftmc.starlight;
 
 import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
-import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.VisualScoreboardService;
-import org.atcraftmc.starlight.core.WESessionTrackService;
+import org.atcraftmc.starlight.core.*;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.data.PlayerDataService;
@@ -16,6 +13,7 @@ import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.internal.*;
+import org.atcraftmc.starlight.core.http.HttpService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 
@@ -52,7 +50,6 @@ public interface SLInternalPackage {
 
     @ApplicationPackageProvider(id = "starlight-core", internal = true, description = "Internal package.")
     static void core(ContentBuilder b) {
-        //foundation
         b.service(PlayerIdentificationService.class);
         b.service(JDBCService.class);
         b.service(TaskService.class);
@@ -75,6 +72,8 @@ public interface SLInternalPackage {
         b.service(WESessionTrackService.class);
         b.service(VisualScoreboardService.class);
         b.service(PlayerUIService.class);
+
+        b.service(HttpService.class);
 
         b.service(InternalServices.BungeeChannelSupplier.class);
         b.service(InternalServices.InternalCommandsProvider.class);

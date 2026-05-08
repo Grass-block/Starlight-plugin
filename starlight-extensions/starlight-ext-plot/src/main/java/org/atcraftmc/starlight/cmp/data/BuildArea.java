@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.cmp.data;
 
-import org.atcraftmc.starlight.core.objects.Region;
+import org.atcraftmc.starlight.core.data.region.Region;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
 import org.bson.BsonDouble;

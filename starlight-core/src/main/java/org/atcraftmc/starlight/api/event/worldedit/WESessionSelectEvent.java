@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.api.event.worldedit;
 
+import org.atcraftmc.starlight.core.data.region.Region;
+import org.atcraftmc.starlight.api.event.BukkitEvent;
+import org.atcraftmc.starlight.api.event.CustomEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.atcraftmc.starlight.core.Region;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 
 @BukkitEvent(async = false)
 public final class WESessionSelectEvent extends CustomEvent implements Cancellable {

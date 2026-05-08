@@ -4,8 +4,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.foundation.platform.Players;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.internal.CacheService;
 
 import java.util.List;

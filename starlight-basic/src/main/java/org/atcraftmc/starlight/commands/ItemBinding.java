@@ -17,10 +17,10 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.starlight.foundation.command.CommandProvider;
-import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
 import me.gb2022.gluon.module.ApplicationModule;
 

@@ -18,7 +18,7 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.SchedulerProvider;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.ConfigAccessor;

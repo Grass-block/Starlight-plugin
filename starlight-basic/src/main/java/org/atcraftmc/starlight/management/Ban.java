@@ -6,7 +6,7 @@ import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
-import org.atcraftmc.starlight.foundation.platform.Players;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;

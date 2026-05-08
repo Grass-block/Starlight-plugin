@@ -7,7 +7,7 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.CommandEvent;
 import org.atcraftmc.starlight.api.event.CommandTabEvent;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.internal.command.InternalCommands;
 import org.bukkit.Bukkit;

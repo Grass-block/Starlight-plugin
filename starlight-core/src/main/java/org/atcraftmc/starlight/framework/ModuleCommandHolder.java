@@ -2,8 +2,8 @@ package org.atcraftmc.starlight.framework;
 
 import me.gb2022.gluon.module.attachment.AbstractModuleAttachment;
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.command.StarlightCommandManager;
 import org.atcraftmc.starlight.framework.module.BukkitModule;
 
 import java.util.HashSet;

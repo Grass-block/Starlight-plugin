@@ -10,7 +10,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

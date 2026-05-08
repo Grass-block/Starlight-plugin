@@ -2,8 +2,6 @@ package org.atcraftmc.starlight.api.event;
 
 import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 
 public abstract class ModuleEvent extends CustomEvent {

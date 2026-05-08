@@ -3,8 +3,6 @@ package org.atcraftmc.starlight.core.data.region;
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
 import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
-import org.atcraftmc.starlight.core.objects.Region;
-import org.atcraftmc.starlight.core.objects.WorldAABB;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;

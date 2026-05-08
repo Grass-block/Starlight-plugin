@@ -13,13 +13,12 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.TextSender;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.framework.SLPluginConcept;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

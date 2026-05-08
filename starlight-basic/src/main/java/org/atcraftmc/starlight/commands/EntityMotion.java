@@ -10,7 +10,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.command.select.EntitySelector;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Location;

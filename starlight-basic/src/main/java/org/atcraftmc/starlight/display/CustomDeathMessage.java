@@ -7,8 +7,7 @@ import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import org.atcraftmc.qlib.texts.TextBuilder;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import me.gb2022.gluon.module.ApplicationModule;
 
 import java.util.Objects;

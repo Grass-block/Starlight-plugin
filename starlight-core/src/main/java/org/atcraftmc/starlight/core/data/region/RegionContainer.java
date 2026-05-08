@@ -2,7 +2,6 @@ package org.atcraftmc.starlight.core.data.region;
 
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
-import org.atcraftmc.starlight.core.objects.Region;
 
 import java.util.Set;
 

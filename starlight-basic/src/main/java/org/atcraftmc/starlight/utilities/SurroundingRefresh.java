@@ -9,7 +9,7 @@ import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.platform.Players;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;

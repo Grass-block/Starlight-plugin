@@ -1,5 +1,4 @@
 package org.atcraftmc.starlight.internal.command;
-//todo: data gen doc and module list.
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -12,7 +11,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 
 import java.io.FileOutputStream;
@@ -23,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @BukkitCommand(name = "data-gen", permission = "-starlight.core.datagen")
-public class DataGenCommand extends CoreCommand {
+public final class DataGenCommand extends CoreCommand {
 
     @Override
     public void suggest(CommandSuggestion suggestion) {
@@ -114,14 +113,17 @@ public class DataGenCommand extends CoreCommand {
                 file.createNewFile();
 
                 try (var o = new FileOutputStream(file)) {
-                    var doc = template.replace("{name}", name)
-                            .replace("{id}", key.id())
-                            .replace("{fid}", key.fullId())
-                            .replace("{version}", mod.getMetadata().version())
-                            .replace("{beta}", mod.getMetadata().beta() ? "是" : "否")
-                            .replace("{internal}", mod.getMetadata().internal() ? "是" : "否")
-                            .replace("{default-enable}", mod.getMetadata().defaultEnabled() ? "是" : "否")
-                            .replace("{description}", mod.getMetadata().description());
+                    var doc = template.replace("{name}", name).replace("{id}", key.id()).replace("{fid}", key.fullId()).replace(
+                            "{version}",
+                            mod.getMetadata()
+                                    .version()
+                    ).replace("{beta}", mod.getMetadata().beta() ? "是" : "否").replace(
+                            "{internal}",
+                            mod.getMetadata().internal() ? "是" : "否"
+                    ).replace("{default-enable}", mod.getMetadata().defaultEnabled() ? "是" : "否").replace(
+                            "{description}",
+                            mod.getMetadata().description()
+                    );
 
                     o.write(doc.getBytes(StandardCharsets.UTF_8));
                     count++;

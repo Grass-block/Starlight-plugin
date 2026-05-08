@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.api;
 
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
+import org.atcraftmc.starlight.api.event.CustomEvent;
+import org.atcraftmc.starlight.api.event.BukkitEvent;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.AnvilInventory;
 

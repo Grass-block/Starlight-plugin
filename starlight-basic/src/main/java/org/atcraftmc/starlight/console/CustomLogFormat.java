@@ -5,7 +5,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.starlight.foundation.platform.APIProfile;
+import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.shared.Configurations;

@@ -2,10 +2,9 @@ package org.atcraftmc.starlight;
 
 import me.gb2022.commons.TriState;
 import org.atcraftmc.qlib.bukkit.QLib;
-import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.foundation.TextSender;
+import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.internal.ProductService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

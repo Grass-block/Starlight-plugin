@@ -12,6 +12,7 @@
     "com.baomidou:mybatis-plus:3.5.15",
     "com.baomidou:mybatis-plus-core:3.5.15",
     "com.baomidou:mybatis-plus-annotation:3.5.15",
-    "com.zaxxer:HikariCP:7.0.2"
+    "com.zaxxer:HikariCP:7.0.2",
+    "io.netty:netty-codec-http:4.1.128.Final"
   ]
 }

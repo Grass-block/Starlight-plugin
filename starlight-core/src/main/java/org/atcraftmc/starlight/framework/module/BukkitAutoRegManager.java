@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.framework.module;
 import me.gb2022.gluon.Registrations;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.UITrackingStateCallback;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.bukkit.event.Listener;
 

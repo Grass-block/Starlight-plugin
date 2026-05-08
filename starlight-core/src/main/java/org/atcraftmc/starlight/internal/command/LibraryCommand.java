@@ -7,8 +7,8 @@ import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.TextSender;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 
 import java.io.File;
 import java.net.URISyntaxException;

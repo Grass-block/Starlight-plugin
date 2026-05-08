@@ -15,7 +15,7 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.atcraftmc.starlight.worldguard.data.RegionKey;
 import org.bukkit.Bukkit;

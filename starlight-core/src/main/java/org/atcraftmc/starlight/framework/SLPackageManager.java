@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.framework;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.foundation.platform.PluginUtil;
+import org.atcraftmc.starlight.core.platform.PluginUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.Plugin;

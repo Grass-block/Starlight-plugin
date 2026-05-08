@@ -13,7 +13,7 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.atcraftmc.qlib.audience.PointedAudience;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.text.pipe.MessageHandler;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

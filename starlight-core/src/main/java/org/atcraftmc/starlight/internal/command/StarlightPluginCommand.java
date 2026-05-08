@@ -9,9 +9,9 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
-import org.atcraftmc.starlight.foundation.platform.APIProfileTest;
+import org.atcraftmc.starlight.core.TextSender;
+import org.atcraftmc.starlight.core.command.CoreCommand;
+import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 
 @BukkitCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {ConfigCommand.class, LanguageCommand.class, ModuleCommand.class, GlobalVarsCommand.class, PackageCommand.class, StarlightPluginCommand.ReloadCommand.class, DebugCommand.class, LibraryCommand.class, DataGenCommand.class})

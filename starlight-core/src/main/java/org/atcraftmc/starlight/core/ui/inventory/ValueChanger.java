@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.core.ui.inventory;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 import org.atcraftmc.starlight.core.ui.callback.ValueEventHandler;
 

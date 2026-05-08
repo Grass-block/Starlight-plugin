@@ -1,8 +1,6 @@
 package org.atcraftmc.starlight.api.event;
 
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 import org.bukkit.BanList;
 import org.bukkit.event.HandlerList;
 

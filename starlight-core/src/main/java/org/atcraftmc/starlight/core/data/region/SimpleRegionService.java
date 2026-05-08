@@ -1,6 +1,5 @@
 package org.atcraftmc.starlight.core.data.region;
 
-import org.atcraftmc.starlight.core.objects.Region;
 import org.bson.BsonDocument;
 import org.joml.Vector3d;
 

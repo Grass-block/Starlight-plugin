@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.internal.command;
 
 import org.bukkit.command.CommandSender;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 
 @BukkitCommand(name = "product")

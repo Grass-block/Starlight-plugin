@@ -5,7 +5,7 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.api.event.ui.PlayerUIDismountEvent;
 import org.atcraftmc.starlight.api.event.ui.PlayerUIMountEvent;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

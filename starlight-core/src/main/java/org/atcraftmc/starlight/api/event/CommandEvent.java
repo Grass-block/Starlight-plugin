@@ -3,8 +3,6 @@ package org.atcraftmc.starlight.api.event;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.atcraftmc.starlight.core.event.CustomEvent;
-import org.atcraftmc.starlight.core.event.BukkitEvent;
 
 @BukkitEvent
 public final class CommandEvent extends CustomEvent implements Cancellable {

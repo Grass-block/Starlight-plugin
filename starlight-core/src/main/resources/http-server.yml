@@ -1,0 +1,4 @@
+http-server:
+  enabled: false
+  port: 9178
+  threads: 1

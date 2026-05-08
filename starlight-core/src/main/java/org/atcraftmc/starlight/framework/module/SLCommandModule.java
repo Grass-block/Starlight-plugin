@@ -5,8 +5,8 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.framework.ModuleCommandHolder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.atcraftmc.starlight.foundation.command.ModuleCommand;
-import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 
 public abstract class SLCommandModule extends BukkitAbstractModule implements PluginCommandExecutor {
     private final AbstractCommand commandAdapter = new AdapterCommand<>(this);

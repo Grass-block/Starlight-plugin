@@ -12,23 +12,24 @@ import com.sk89q.worldedit.extent.NullExtent;
 import com.sk89q.worldedit.util.HandSide;
 import com.sk89q.worldedit.util.eventbus.Subscribe;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.gluon.service.ApplicationService;
+import me.gb2022.gluon.service.ServiceHolder;
+import me.gb2022.gluon.service.ServiceInject;
+import me.gb2022.gluon.service.ServiceProvider;
 import org.atcraftmc.starlight.api.event.worldedit.WEAction;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionEditEvent;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionPreEditEvent;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
-import me.gb2022.gluon.service.ApplicationService;
+import org.atcraftmc.starlight.core.data.region.Region;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.BukkitService;
-import me.gb2022.gluon.service.ServiceHolder;
-import me.gb2022.gluon.service.ServiceProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.atcraftmc.qlib.config.ConfigEntry;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
-import me.gb2022.gluon.service.ServiceInject;
+import org.joml.Vector3d;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,11 +40,11 @@ public interface WESessionTrackService extends BukkitService {
     @ServiceInject
     ServiceHolder<WESessionTrackService> INSTANCE = new ServiceHolder<>();
 
-    static SimpleRegion getRegion(Player p) {
+    static Region getRegion(Player p) {
         return INSTANCE.get().getPlayerRegion(p);
     }
 
-    static SimpleRegion getRegionNatively(Player p) {
+    static Region getRegionNatively(Player p) {
         return INSTANCE.get().getPlayerRegionNatively(p);
     }
 
@@ -53,18 +54,18 @@ public interface WESessionTrackService extends BukkitService {
 
 
     @ServiceProvider
-    static WESessionTrackService create(ConfigEntry cfg) {
+    static WESessionTrackService create() {
         return new ServiceImplementation();
     }
 
-    SimpleRegion getPlayerRegion(Player p);
+    Region getPlayerRegion(Player p);
 
-    SimpleRegion getPlayerRegionNatively(Player p);
+    Region getPlayerRegionNatively(Player p);
 
     WEAction getPlayerLatestAction(Player p);
 
     final class ServiceImplementation implements WESessionTrackService, Listener {
-        private final Map<UUID, SimpleRegion> regions = new HashMap<>();
+        private final Map<UUID, Region> regions = new HashMap<>();
         private final Map<UUID, WEAction> latestActions = new HashMap<>();
 
         //lifetime
@@ -88,7 +89,7 @@ public interface WESessionTrackService extends BukkitService {
 
         //api impl
         @Override
-        public SimpleRegion getPlayerRegion(Player p) {
+        public Region getPlayerRegion(Player p) {
             if (!this.regions.containsKey(p.getUniqueId()) || this.regions.get(p.getUniqueId()) == null) {
                 this.regions.put(p.getUniqueId(), getPlayerRegionNatively(p));
             }
@@ -98,11 +99,11 @@ public interface WESessionTrackService extends BukkitService {
 
         @Override
         public WEAction getPlayerLatestAction(Player p) {
-            return this.latestActions.get(p);
+            return this.latestActions.get(p.getUniqueId());
         }
 
         @Override
-        public SimpleRegion getPlayerRegionNatively(Player p) {
+        public Region getPlayerRegionNatively(Player p) {
             var player = BukkitAdapter.adapt(p);
             var world = BukkitAdapter.adapt(p.getWorld());
 
@@ -116,7 +117,7 @@ public interface WESessionTrackService extends BukkitService {
                 var y1 = r.getMaximumPoint().getBlockY();
                 var z1 = r.getMaximumPoint().getBlockZ();
 
-                return new SimpleRegion(p.getWorld(), x0, y0, z0, x1, y1, z1);
+                return new Region(p.getWorld().getName(), new Vector3d(x0, y0, z0), new Vector3d(x1, y1, z1));
 
             } catch (IncompleteRegionException e) {
                 return null;
@@ -196,13 +197,22 @@ public interface WESessionTrackService extends BukkitService {
                 var region = session1.getSelection(world);
                 var p1 = BukkitAdapter.adapt(player1.getWorld(), region.getBoundingBox().getMinimumPoint());
                 var p2 = BukkitAdapter.adapt(player1.getWorld(), region.getBoundingBox().getMaximumPoint());
-                var r = new SimpleRegion(p1, p2);
+
+                var jp1 = new Vector3d(p1.getX(), p1.getY(), p1.getZ());
+                var jp2 = new Vector3d(p2.getX(), p2.getY(), p2.getZ());
+
+                var r = new Region(world.getName(), jp1, jp2);
 
                 this.regions.put(player1.getUniqueId(), r);
             } catch (IncompleteRegionException ignored) {
             }
 
             var player = Bukkit.getPlayer(p.getUniqueId());
+
+            if (player == null) {
+                return;
+            }
+
             var evt = new WESessionSelectEvent(player, getPlayerRegion(player));
 
             Bukkit.getPluginManager().callEvent(evt);

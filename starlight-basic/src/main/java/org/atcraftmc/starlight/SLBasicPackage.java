@@ -14,6 +14,7 @@ import org.atcraftmc.starlight.proxy.*;
 import org.atcraftmc.starlight.security.*;
 import org.atcraftmc.starlight.sideload.InventoryMenu;
 import org.atcraftmc.starlight.sideload.RecipeLoader;
+import org.atcraftmc.starlight.sideload.ResourcePackLoader;
 import org.atcraftmc.starlight.utilities.*;
 import org.atcraftmc.starlight.warp.BackToDeath;
 import org.atcraftmc.starlight.warp.RTP;
@@ -30,6 +31,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(ChatFilter.class);
         b.module(ChatReport.class);
         b.module(Maintenance.class);
+        b.module(Mute.class); //todo [DFU] import mute status
         b.module(Mute.class); //todo [DFU] import mute status
         b.module(TPSBar.class);
         b.module(ServerInfo.class);
@@ -229,5 +231,6 @@ public final class SLBasicPackage extends MultiPackageProvider {
     public static void sideload(ContentBuilder b) {
         b.module(RecipeLoader.class);
         b.module(InventoryMenu.class);
+        b.module(ResourcePackLoader.class);
     }
 }

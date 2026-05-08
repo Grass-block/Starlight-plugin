@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.display;
 
 import org.atcraftmc.starlight.api.PlayerFirstJoinEvent;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import me.gb2022.gluon.service.ApplicationService;
 import org.atcraftmc.starlight.framework.BukkitService;
 import me.gb2022.gluon.service.ServiceInject;

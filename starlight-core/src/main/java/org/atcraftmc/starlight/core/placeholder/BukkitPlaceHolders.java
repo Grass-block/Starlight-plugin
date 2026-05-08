@@ -9,8 +9,8 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.data.PlayerDataService;
-import org.atcraftmc.starlight.foundation.platform.BukkitUtil;
-import org.atcraftmc.starlight.foundation.platform.Players;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

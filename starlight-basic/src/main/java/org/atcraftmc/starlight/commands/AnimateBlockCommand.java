@@ -12,7 +12,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.starlight.api.customization.CustomItem;
+import org.atcraftmc.starlight.core.custom.CustomItem;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;

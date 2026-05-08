@@ -12,7 +12,7 @@ import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
-import org.atcraftmc.starlight.foundation.platform.Compatibility;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

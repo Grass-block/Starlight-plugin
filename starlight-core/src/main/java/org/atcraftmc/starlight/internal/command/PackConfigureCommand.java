@@ -7,7 +7,7 @@ import org.atcraftmc.qlib.config.ConfigurationPack;
 import org.atcraftmc.qlib.config.PackContainer;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.bukkit.command.CommandSender;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 
 import java.util.List;
 import java.util.function.Consumer;

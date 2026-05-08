@@ -8,9 +8,9 @@ import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.ProductInfo;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
-import org.atcraftmc.starlight.foundation.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.foundation.command.StarlightCommandManager;
+import org.atcraftmc.starlight.core.command.CoreCommand;
+import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.command.StarlightCommandManager;
 import me.gb2022.gluon.module.ApplicationModule;
 
 import java.io.IOException;

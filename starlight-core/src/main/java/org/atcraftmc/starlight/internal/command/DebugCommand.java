@@ -6,8 +6,8 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.GameTestService;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.foundation.TextSender;
-import org.atcraftmc.starlight.foundation.command.CoreCommand;
+import org.atcraftmc.starlight.core.TextSender;
+import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 

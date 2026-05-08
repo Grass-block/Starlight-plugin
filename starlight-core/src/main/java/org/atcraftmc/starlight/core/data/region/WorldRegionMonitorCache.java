@@ -5,8 +5,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalNotification;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import org.atcraftmc.starlight.core.objects.Region;
-import org.atcraftmc.starlight.core.objects.WorldAABB;
 
 import java.time.Duration;
 import java.util.HashSet;
