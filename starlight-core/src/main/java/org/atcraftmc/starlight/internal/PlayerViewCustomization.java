@@ -20,7 +20,8 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
 import org.atcraftmc.starlight.api.event.PlayerViewInitEvent;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.core.ui.UI;
@@ -30,10 +31,8 @@ import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.core.command.CommandProvider;
-import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -99,12 +98,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             register(key);
         }
         this.logger.info("Auto-loaded {} view-settings.", keys.size());
-
-        try {
-            this.storage.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.storage.init(JDBCService.dataSource(JDBCService.SL_SHARED), JDBCService.getInstance());
     }
 
     public PlayerUISetting getSetting(UUID uuid) {
@@ -176,16 +170,12 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
         }
     }
 
-    private static final class SettingStorage extends JDBCBasedDataService<PlayerUISetting> {
+    private static final class SettingStorage extends JDBCDataService {
         private final Cache<UUID, PlayerUISetting> settingCache = CacheBuilder.newBuilder().expireAfterAccess(30, TimeUnit.SECONDS).build();
+        private final String tableName;
 
         public SettingStorage(String table) {
-            super(table);
-        }
-
-        @Override
-        public String getTableNamePlaceholder() {
-            return "_ui_";
+            this.tableName = table;
         }
 
         @Override
@@ -220,7 +210,8 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
         }
 
         private boolean _add(UUID uuid, PlayerUISetting data) throws SQLException {
-            var ps = this.connection.prepareStatement(
+            var c = this.datasource.getConnection();
+            var ps = c.prepareStatement(
                     "INSERT INTO _ui_ (uuid, channels_rejected,renderers_rejected,reject_all_channel) VALUES (?,?, ?, ?)");
 
             ps.setString(1, uuid.toString());
@@ -233,7 +224,8 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
         }
 
         private boolean _update(UUID uuid, PlayerUISetting data) throws SQLException {
-            var ps = this.connection.prepareStatement(
+            var c = this.datasource.getConnection();
+            var ps = c.prepareStatement(
                     "UPDATE _ui_ SET channels_rejected=?, renderers_rejected=?, reject_all_channel=?where uuid = ?");
             ps.setString(1, String.join("::", data.getRejectChannels()));
             ps.setString(2, String.join("::", data.getRejectRenderers()));
@@ -247,7 +239,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
         public PlayerUISetting load(UUID uuid) {
             var sql = "SELECT * FROM _ui_ WHERE uuid = ?";
 
-            try (var ps = this.connection.prepareStatement(sql)) {
+            try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
                 ps.setString(1, uuid.toString());
 
                 var result = new PlayerUISetting();
@@ -333,7 +325,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             builder.lore(TextRenderer.literal(QLib.textBuilder().buildComponent(this.reference.language().inline(template, locale))));
             builder.operation(UI.SOUND_CLICK);
             builder.operation(UI.command((p) -> "player-ui channel " + info.id()));
-            builder.operation((v, player, action) -> TaskService.entity(player).delay(1, () -> v.setData(renderData(v, page))));
+            builder.operation((v, player, action) -> QLib.task().entity(player).delay(1, () -> v.setData(renderData(v, page))));
         }
 
         @Override

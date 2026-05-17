@@ -12,7 +12,6 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.velocity.api.WrappedPlayer;
 import org.atcraftmc.starlight.velocity.api.event.RemotePlayerLeftEvent;
 import org.atcraftmc.starlight.velocity.api.event.RemoteServerConnectEvent;

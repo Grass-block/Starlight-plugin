@@ -9,7 +9,6 @@ import net.kyori.adventure.text.TextComponent;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.atcraftmc.qlib.texts.TextBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

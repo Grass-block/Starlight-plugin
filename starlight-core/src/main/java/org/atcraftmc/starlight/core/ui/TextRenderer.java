@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.core.ui;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.bukkit.entity.Player;

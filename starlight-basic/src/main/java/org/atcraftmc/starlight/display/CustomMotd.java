@@ -6,9 +6,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -24,8 +24,8 @@ import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.ConfigDataModel;
 import org.atcraftmc.starlight.shared.Configurations;
@@ -59,7 +59,7 @@ public final class CustomMotd extends BukkitAbstractModule implements PluginComm
     }
 
     private void refreshText() {
-        try (var i = new FileInputStream(Configurations.file("motd.yml", true))) {
+        try (var i = new FileInputStream(Configurations.file("motd.yml", false))) {
             this.setting = YamlConfiguration.loadConfiguration(new InputStreamReader(i));
         } catch (IOException e) {
             throw new RuntimeException(e);

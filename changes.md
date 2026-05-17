@@ -1,6 +1,26 @@
 ## V5: Now - Gluon engine
 
+### 26.5.1
+
+- Fixed DB creation issue.
+- Due to rewrites, player locale setting will now reset.
+- Mute data is no longer to be imported from quark-plugin.
+- Fixed Locale-service init issue.
+
 ### 26.5.0
+
+- Fixed adventure exception on specific platform.
+- Fixed TaskManager init error on 1.21.11.
+- Fixed MOTD configuration covering issue.
+
+### 26.5.0 - snapshot-20260509
+
+- Fixed missing adventure API on non-paper env.
+- Fixed audience service on non-paper env.
+- Library list now use key order.
+- Actionbar title now support protocol-lib backend. 
+
+### 26.5.0 - snapshot-20260508
 
 - Added wg-extra data storage.
 - Added worldguard package as external.

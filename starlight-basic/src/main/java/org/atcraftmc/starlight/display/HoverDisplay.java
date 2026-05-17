@@ -1,31 +1,31 @@
 package org.atcraftmc.starlight.display;
 
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.nbt.NBTTagCompound;
 import me.gb2022.commons.nbt.NBTTagList;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.texts.TextBuilder;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.custom.CustomMeta;
-import org.atcraftmc.starlight.core.data.poi.LocationBasedObject;
-import org.atcraftmc.starlight.core.data.poi.RegionalLocatedDataService;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.custom.CustomMeta;
+import org.atcraftmc.starlight.core.data.ModuleDataService;
+import org.atcraftmc.starlight.core.data.poi.LocationBasedObject;
+import org.atcraftmc.starlight.core.data.poi.RegionalLocatedDataService;
 import org.atcraftmc.starlight.core.platform.BukkitCodec;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -109,7 +109,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
         ModuleDataService.save(this.getFullId());
         this.stands.clear();
-        TaskService.global().run(this::clearAll);
+        QLib.task().global().run(this::clearAll);
     }
 
     public void clearAll() {
@@ -150,7 +150,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
         var op = context.requireEnum(0, "create", "delete-all", "delete", "edit", "tp");
 
         if (Objects.equals(op, "delete-all")) {
-            TaskService.global().run(this::clearAll);
+            QLib.task().global().run(this::clearAll);
             MessageAccessor.send(this.language, sender, "delete-all");
             return;
         }
@@ -174,7 +174,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
                 MessageAccessor.send(this.language, sender, "create", name);
             }
             case "delete" -> {
-                TaskService.global().run(() -> stands.remove(name).destroy());
+                QLib.task().global().run(() -> stands.remove(name).destroy());
                 MessageAccessor.send(this.language, sender, "delete", name);
             }
             case "edit" -> {

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.api.event;
 
-import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
 @BukkitEvent

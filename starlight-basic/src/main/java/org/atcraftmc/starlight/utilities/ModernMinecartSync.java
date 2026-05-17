@@ -9,7 +9,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
@@ -50,7 +50,7 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(m).timer("starlight:minecart:legacy-sync", 1, 1, new MinecartTracker(this, m));
+        QLib.task().entity(m).timer("starlight:minecart:legacy-sync", 1, 1, new MinecartTracker(this, m));
     }
 
     @EventHandler
@@ -59,7 +59,7 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(m).timer("starlight:minecart:legacy-sync", 1, 1, new MinecartTracker(this, m));
+        QLib.task().entity(m).timer("starlight:minecart:legacy-sync", 1, 1, new MinecartTracker(this, m));
     }
 
     @EventHandler
@@ -68,7 +68,7 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(m).cancel("starlight:minecart:legacy-sync");
+        QLib.task().entity(m).cancel("starlight:minecart:legacy-sync");
     }
 
     private boolean isVisible(Player player, Entity entity) {

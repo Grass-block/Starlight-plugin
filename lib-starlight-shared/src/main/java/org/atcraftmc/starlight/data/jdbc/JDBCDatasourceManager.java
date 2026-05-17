@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.atcraftmc.starlight.data.jdbc.source.JDBCDataSource;
 import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public final class JDBCDatasourceManager {
         return Optional.ofNullable(this.dataSources.get(id));
     }
 
-    public JDBCDataSource create(ConfigurationSection cfg) {
+    public JDBCDataSource create(ConfigurationSection cfg, JDBCService service) {
         var id = cfg.getString("id");
 
         if (cfg.contains("link")) {
@@ -54,7 +55,7 @@ public final class JDBCDatasourceManager {
             return this.dataSources.put(id, JDBCDataSource.phantom(ds));
         }
 
-        return this.dataSources.put(id, JDBCDataSource.simple(hikariPool(cfg)));
+        return this.dataSources.put(id, JDBCDataSource.simple(hikariPool(cfg),service));
     }
 
     public Map<String, JDBCDataSource> getDataSources() {

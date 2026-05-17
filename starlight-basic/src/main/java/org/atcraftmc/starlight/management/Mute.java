@@ -46,9 +46,6 @@ import java.util.UUID;
 @ComponentProvider(Mute.PaperListener.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class Mute extends BukkitAbstractModule implements Listener {
-    public static final String DATA_ENTRY_ID = "starlight:mute";
-    public static final TableColumn<DataEntry> MUTE_DATA = TableColumn.dom("chat_mute");
-
 
     @Inject
     private LanguageEntry language;
@@ -58,17 +55,6 @@ public final class Mute extends BukkitAbstractModule implements Listener {
 
     @Override
     public void enable() throws Exception {
-        QuarkDataImporter.registerPlayerDataHandler("starlight:mute", (uuid, nbt) -> {
-            if (!nbt.hasKey(DATA_ENTRY_ID)) {
-                return;
-            }
-            var e2 = MUTE_DATA.get(JDBCPlayerData.PLAYER_SHARED, uuid);
-
-            e2.getTagMap().clear();
-            e2.getTagMap().putAll(nbt.getCompoundTag(DATA_ENTRY_ID).getTagMap());
-
-            e2.save();
-        });
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -83,21 +69,6 @@ public final class Mute extends BukkitAbstractModule implements Listener {
         }
         this.checkEvent(event.getPlayer(), event, false);
     }
-
-    public StorageTable getBanEntryFor(UUID id) {
-        var entry = MUTE_DATA.get(JDBCPlayerData.PLAYER_SHARED, id);
-
-        if (!entry.hasKey("banned")) {
-            entry.setLong("expired", 0);
-            entry.setString("reason", "N/A");
-            entry.setBoolean("banned", false);
-
-            entry.save();
-        }
-
-        return entry;
-    }
-
 
     public void checkEvent(Player p, Cancellable event, boolean silent) {
         if(!this.muteData.isBanned(p.getUniqueId())){

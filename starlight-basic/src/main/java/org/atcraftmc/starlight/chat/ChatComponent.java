@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.chat;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO2;
 import me.gb2022.commons.reflect.method.MethodHandleRO1;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -17,12 +17,12 @@ import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.PlaceHolders;
 import org.atcraftmc.starlight.api.AnvilRenameEvent;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.core.ComponentSerializer;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.BukkitDataAccess;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.entity.Player;

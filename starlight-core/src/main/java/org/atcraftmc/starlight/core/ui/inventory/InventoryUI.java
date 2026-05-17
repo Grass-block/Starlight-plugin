@@ -1,14 +1,14 @@
 package org.atcraftmc.starlight.core.ui.inventory;
 
+import org.atcraftmc.starlight.core.ui.AbstractUI;
+import org.atcraftmc.starlight.core.ui.UIInstance;
+import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import org.atcraftmc.starlight.core.ui.AbstractUI;
-import org.atcraftmc.starlight.core.ui.UIInstance;
-import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 
 import java.util.function.Function;
 

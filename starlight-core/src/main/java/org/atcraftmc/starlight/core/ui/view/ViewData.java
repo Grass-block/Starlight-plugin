@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.ui.view;
 
-import org.bukkit.inventory.ItemStack;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
+import org.bukkit.inventory.ItemStack;
 
 public final class ViewData {
     private final int size;

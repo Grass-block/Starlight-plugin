@@ -1,13 +1,13 @@
 package org.atcraftmc.starlight.proxy;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
@@ -41,7 +41,7 @@ public class GeyserSkinRedirect extends BukkitAbstractModule implements PluginCo
             return;
         }
 
-        TaskService.async().run(() -> {
+        QLib.task().async().run(() -> {
             this.handle().getLogger().info("redirecting player {}", player.getName());
 
             var profile = player.getPlayerProfile();
@@ -49,7 +49,7 @@ public class GeyserSkinRedirect extends BukkitAbstractModule implements PluginCo
 
             profile.setTextures(source.getTextures());
 
-            TaskService.global().run(() -> player.setPlayerProfile(profile));
+            QLib.task().global().run(() -> player.setPlayerProfile(profile));
 
             this.handle().getLogger().info("redirected player {} to {}", player.getName(), source.getId());
         });

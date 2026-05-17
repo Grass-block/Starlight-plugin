@@ -1,15 +1,15 @@
 package org.atcraftmc.starlight.console;
 
 import me.gb2022.commons.reflect.Inject;
-import org.atcraftmc.qlib.command.LegacyCommandManager;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.starlight.framework.module.SLCommandModule;
+import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.gluon.module.ApplicationModule;
 
 @BukkitCommand(name = "console", permission = "-starlight.console.execute")
 @ApplicationModule(id="console-execute",version = "1.0.0")

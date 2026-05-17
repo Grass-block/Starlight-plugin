@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.proxy;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -10,8 +10,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

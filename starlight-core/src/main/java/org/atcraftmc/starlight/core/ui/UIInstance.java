@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.ui;
 
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.atcraftmc.starlight.core.platform.BukkitUtil;
 
 public abstract class UIInstance implements Listener {
     private final Player player;

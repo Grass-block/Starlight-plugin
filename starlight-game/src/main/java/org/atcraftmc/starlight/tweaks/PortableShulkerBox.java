@@ -3,10 +3,11 @@ package org.atcraftmc.starlight.tweaks;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -45,7 +46,7 @@ public final class PortableShulkerBox extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(event.getPlayer()).run(() -> {
+        QLib.task().entity(event.getPlayer()).run(() -> {
             Session session = new Session(inv.getItemInMainHand(), event.getPlayer());
             this.sessions.put(event.getPlayer().getName(), session);
         });
@@ -55,7 +56,8 @@ public final class PortableShulkerBox extends BukkitAbstractModule {
         if (!this.sessions.containsKey(player)) {
             return;
         }
-        TaskService.entity(Bukkit.getPlayerExact(player)).run(() -> {
+        Entity entity = Bukkit.getPlayerExact(player);
+        QLib.task().entity(entity).run(() -> {
             this.sessions.get(player).close();
             this.sessions.remove(player);
         });

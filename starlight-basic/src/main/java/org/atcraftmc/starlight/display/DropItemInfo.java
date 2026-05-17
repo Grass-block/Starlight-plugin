@@ -1,19 +1,19 @@
 package org.atcraftmc.starlight.display;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Nameable;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockDropItemEvent;
@@ -74,7 +74,7 @@ public final class DropItemInfo extends BukkitAbstractModule {
     public void onEntityDeath(final EntityDeathEvent event) {
         var entity = event.getEntity();
 
-        TaskService.entity(entity).delay(1, () -> {
+        QLib.task().entity(entity).delay(1, () -> {
             for (var e : entity.getNearbyEntities(10, 10, 10)) {
                 if (e instanceof Item i) {
                     setId(i);
@@ -87,7 +87,7 @@ public final class DropItemInfo extends BukkitAbstractModule {
     public void onEntityDeath(final PlayerDeathEvent event) {
         var entity = event.getEntity();
 
-        TaskService.entity(entity).delay(1, () -> {
+        QLib.task().entity(entity).delay(1, () -> {
             for (var e : entity.getNearbyEntities(10, 10, 10)) {
                 if (e instanceof Item i) {
                     setId(i);
@@ -104,7 +104,8 @@ public final class DropItemInfo extends BukkitAbstractModule {
 
     @EventHandler
     public void onItemMerge(final ItemMergeEvent event) {
-        TaskService.entity(event.getTarget()).delay(1, () -> setId(event.getTarget()));
+        Entity entity = event.getTarget();
+        QLib.task().entity(entity).delay(1, () -> setId(event.getTarget()));
     }
 
     public void discover(World world) {

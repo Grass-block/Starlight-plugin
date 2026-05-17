@@ -14,11 +14,10 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -55,14 +54,14 @@ public final class TabMenu extends BukkitAbstractModule {
 
     @Override
     public void enable() {
-        TaskService.async().timer(UPDATE_TASK_TID, 0, 20, this::update);
+        QLib.task().async().timer(UPDATE_TASK_TID, 0, 20, this::update);
         BukkitUtil.registerEventListener(this);
         this.update();
     }
 
     @Override
     public void disable() {
-        TaskService.async().cancel(UPDATE_TASK_TID);
+        QLib.task().async().cancel(UPDATE_TASK_TID);
         for (Player p : Bukkit.getOnlinePlayers()) {
             clearTab(p);
         }
@@ -95,7 +94,7 @@ public final class TabMenu extends BukkitAbstractModule {
         footer = PlaceHolderService.formatPlayer(player, footer);
 
         if (config().value("render-ping").bool()) {
-            TaskService.global().run(()->{
+            QLib.task().global().run(()->{
                 for (var p : Bukkit.getOnlinePlayers()) {
                     var ping = Integer.parseInt(PlaceHolderService.PLAYER.get("ping-value", p));
                     VisualScoreboardService.instance().visualScoreboard(player).setTabColumn(p, ping, Component.text("ms"));

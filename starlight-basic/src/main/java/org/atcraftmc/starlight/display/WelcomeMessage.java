@@ -9,7 +9,6 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.starlight.api.PlayerFirstJoinEvent;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -24,7 +23,7 @@ import org.bukkit.event.EventHandler;
 public final class WelcomeMessage extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerFirstJoin(PlayerFirstJoinEvent event) {
-        TaskService.global().delay(5, () -> this.sendWelcomeMessage(event.getPlayer()));
+        QLib.task().global().delay(5, () -> this.sendWelcomeMessage(event.getPlayer()));
     }
 
     private void sendWelcomeMessage(Player player) {

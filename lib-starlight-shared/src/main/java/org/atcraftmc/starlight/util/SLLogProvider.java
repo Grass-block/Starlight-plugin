@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.util;
 
 import me.gb2022.gluon.LogProvider;
-import me.gb2022.gluon.module.AppModule;
 import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.service.ServiceContainer;
 import org.apache.logging.log4j.Logger;

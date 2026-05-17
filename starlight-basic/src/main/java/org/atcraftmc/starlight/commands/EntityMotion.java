@@ -4,12 +4,12 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.command.select.EntitySelector;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -126,7 +126,7 @@ public final class EntityMotion extends SLCommandModule {
 
         cond.init(e);
 
-        TaskService.entity(e).timer(1, 1, task -> {
+        QLib.task().entity(e).timer(1, 1, task -> {
             cond.tick();
 
             if (cond.reached()) {

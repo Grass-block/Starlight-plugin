@@ -1,21 +1,21 @@
 package org.atcraftmc.starlight.utilities.viewdistance;
 
 import me.gb2022.commons.math.MathHelper;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.bukkit.entity.Player;
 
 public final class CustomSettingStrategy implements ViewDistanceStrategy {
-    public static final TableColumn<Integer> CUSTOM = TableColumn.integer("view_distance", -1);
+    public static final DocumentField<Number> CUSTOM = DocumentField.number("view_distance", -1);
 
     public static boolean has(Player player) {
-        return CUSTOM.get(JDBCPlayerData.PLAYER_LOCAL, player.getUniqueId()) != -1;
+        return CUSTOM.get(JDBCData.PLAYER_LOCAL, player.getUniqueId()).intValue() != -1;
     }
 
     public static int set(Player player, int value) {
         value = (int) MathHelper.clamp(value, 2, 32);
 
-        CUSTOM.set(JDBCPlayerData.PLAYER_LOCAL, player.getUniqueId(), value);
+        CUSTOM.set(JDBCData.PLAYER_LOCAL, player.getUniqueId(), value);
 
         return value;
     }
@@ -29,7 +29,7 @@ public final class CustomSettingStrategy implements ViewDistanceStrategy {
             return -1;
         }
 
-        return CUSTOM.get(JDBCPlayerData.PLAYER_LOCAL, player.getUniqueId());
+        return CUSTOM.get(JDBCData.PLAYER_LOCAL, player.getUniqueId()).intValue();
     }
 
     @Override

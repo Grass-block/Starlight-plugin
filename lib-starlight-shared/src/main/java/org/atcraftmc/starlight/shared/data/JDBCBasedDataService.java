@@ -10,6 +10,7 @@ import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 
+@Deprecated
 public abstract class JDBCBasedDataService<I> {
     public static final Logger LOGGER = SLPluginEnvironment.createLogger("SQL-Compiler");
     protected final String table;

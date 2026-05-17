@@ -7,14 +7,14 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.placeholder.StringObjectPlaceHolder;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
+import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +35,7 @@ public final class ProxyPing extends BukkitAbstractModule {
     @Override
     public void enable() {
         int interval = ConfigAccessor.getInt(config(), "interval");
-        TaskService.async().timer("starlight:proxy-ping:update", interval, interval, () -> {
+        QLib.task().async().timer("starlight:proxy-ping:update", interval, interval, () -> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 refreshPing(p);
             }
@@ -46,7 +46,7 @@ public final class ProxyPing extends BukkitAbstractModule {
 
     @Override
     public void disable() {
-        TaskService.async().cancel("starlight:proxy-ping:update");
+        QLib.task().async().cancel("starlight:proxy-ping:update");
         PlaceHolderService.PLAYER.register("ping", (StringObjectPlaceHolder<Player>) p -> BukkitUtil.formatPing(Players.getPing(p)));
         PlaceHolderService.PLAYER.register("ping-value", (StringObjectPlaceHolder<Player>) p -> String.valueOf(Players.getPing(p)));
     }

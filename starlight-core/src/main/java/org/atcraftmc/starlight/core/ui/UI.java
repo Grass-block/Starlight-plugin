@@ -1,6 +1,12 @@
 package org.atcraftmc.starlight.core.ui;
 
 import com.google.common.io.ByteStreams;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.custom.CustomMeta;
+import org.atcraftmc.starlight.core.ui.element.ElementCallback;
+import org.atcraftmc.starlight.core.ui.element.SimpleElement;
+import org.atcraftmc.starlight.core.ui.element.UIElement;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -8,12 +14,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.core.custom.CustomMeta;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.ui.element.ElementCallback;
-import org.atcraftmc.starlight.core.ui.element.SimpleElement;
-import org.atcraftmc.starlight.core.ui.element.UIElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public interface UI {
     }
 
     static ElementCallback command(Function<Player, String> command) {
-        return (view, player, action) -> TaskService.entity(player).run(() -> Bukkit.dispatchCommand(player, command.apply(player)));
+        return (view, player, action) -> QLib.task().entity(player).run(() -> Bukkit.dispatchCommand(player, command.apply(player)));
     }
 
     static ElementCallback close() {

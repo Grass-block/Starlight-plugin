@@ -10,11 +10,11 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.data.ModuleDataService;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -171,12 +171,8 @@ public class CommandVariables extends BukkitAbstractModule implements PluginComm
             }
         }
 
-        class Persistent extends JDBCBasedDataService<String> implements DataStorage {
+        class Persistent extends JDBCDataService implements DataStorage {
             private final Cache<String, String> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(2)).build();
-
-            protected Persistent() {
-                super("");
-            }
 
             @Override
             public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
@@ -188,7 +184,8 @@ public class CommandVariables extends BukkitAbstractModule implements PluginComm
             public String get(String name) {
                 try {
                     return this.cache.get(name, () -> {
-                        try (var p = this.connection.prepareStatement("select value from sl_command_variables where name = ?")) {
+                        try (var c = this.datasource.getConnection(); var p = c.prepareStatement(
+                                "select value from sl_command_variables where name = ?")) {
                             p.setString(1, name);
 
                             try (var r = p.executeQuery()) {

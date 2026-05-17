@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.velocity.util;
 
 import net.kyori.adventure.text.Component;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.shared.Configurations;
 
 import java.util.HashMap;

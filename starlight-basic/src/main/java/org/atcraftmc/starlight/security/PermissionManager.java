@@ -7,20 +7,21 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.bukkit.util.permission.DirectPermissionManager;
 import org.atcraftmc.qlib.bukkit.util.permission.PermissionEventHandler;
 import org.atcraftmc.qlib.bukkit.util.permission.PlayerPermissionManager;
-import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.permission.PermissionEntry;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.permission.PermissionEntry;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.Configurations;
@@ -129,16 +130,12 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         player.recalculatePermissions();
 
 
-        TaskService.global().delay(10, LegacyCommandManager::sync);
+        QLib.task().global().delay(10, LegacyCommandManager::sync);
     }
 
     @Override
     public void enable() {
-        try {
-            this.dataService.init(JDBCService.getDB(JDBCService.SL_LOCAL).orElseThrow());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.dataService.init(JDBCService.dataSource(JDBCService.SL_LOCAL), JDBCService.getInstance());
 
         Configurations.groupedYML("permission-tags", Set.of()).forEach((k, v) -> {
             for (String tagName : v.getKeys(false)) {
@@ -257,12 +254,10 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         }
     }
 
-    public static final class PermissionStorageService extends JDBCBasedDataService<PermissionData> {
+    public static final class PermissionStorageService extends JDBCDataService {
         private final Cache<UUID, PermissionData> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(3)).build();
 
-        public PermissionStorageService() {
-            super("_null_");
-        }
+        
 
         @Override
         public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
@@ -278,16 +273,14 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             return conn.prepareStatement(sql);
         }
-
-        @Override
+        
         public void encode(PreparedStatement ps, PermissionData data) throws SQLException {
             ps.setString(1, data.group);
             ps.setString(2, String.join(";", data.tags));
             ps.setString(3, String.join(";", data.allowedPermissions));
             ps.setString(4, String.join(";", data.disallowedPermissions));
         }
-
-        @Override
+        
         public PermissionData decode(ResultSet rs) throws SQLException {
             var group = rs.getString("perm_group");
             var tags = new HashSet<>(List.of(rs.getString("perm_tags").split(";")));
@@ -310,7 +303,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         }
 
         public boolean exist(UUID uuid) throws SQLException {
-            try (var p = connection.prepareStatement("SELECT uuid FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
+            try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT uuid FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
                 p.setString(1, uuid.toString());
                 try (var rs = p.executeQuery()) {
                     return rs.next();
@@ -325,7 +318,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             this.cache.put(uuid, data);
 
-            try (var p = this.connection.prepareStatement(
+            try (var c = this.datasource.getConnection();var p = c.prepareStatement(
                     "INSERT INTO SL_PERMISSION (perm_group, perm_tags, perm_allowed, perm_disallowed,uuid) VALUES (?, ?, ?, ?, ?)")) {
                 encode(p, data);
                 p.setString(5, uuid.toString());
@@ -338,17 +331,17 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             this.cache.put(uuid, data);
 
-            try (var ps = connection.prepareStatement(sql)) {
-                encode(ps, data);
-                ps.setString(5, uuid.toString());
-                return ps.executeUpdate() > 0;
+            try (var c = this.datasource.getConnection();var p = c.prepareStatement(sql)) {
+                encode(p, data);
+                p.setString(5, uuid.toString());
+                return p.executeUpdate() > 0;
             }
         }
 
         public Optional<PermissionData> get(UUID uuid) throws SQLException {
             try {
                 return Optional.of(this.cache.get(uuid, () -> {
-                    try (var p = connection.prepareStatement("SELECT * FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
+                    try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT * FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
                         p.setString(1, uuid.toString());
                         try (var rs = p.executeQuery()) {
                             if (rs.next()) {
@@ -361,8 +354,6 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
     }
 }

@@ -1,15 +1,19 @@
 package org.atcraftmc.starlight.security;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import me.gb2022.apm.local.PluginMessenger;
 import me.gb2022.commons.TriState;
 import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
+import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
@@ -17,22 +21,25 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentFieldCodec;
 import org.atcraftmc.starlight.data.record.BukkitRecordRenderer;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.data.record.registry.DataRenderer;
 import org.atcraftmc.starlight.data.record.registry.RecordField;
 import org.atcraftmc.starlight.data.record.registry.RecordRegistry;
-import org.atcraftmc.starlight.core.command.CommandProvider;
-import org.atcraftmc.starlight.core.command.ModuleCommand;
-import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
+import org.atcraftmc.starlight.migration.DataFix;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.bukkit.BanList;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,8 +54,9 @@ import java.util.Objects;
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "ip-defender", version = "1.3.4")
 @CommandProvider(IPDefender.IPQueryCommand.class)
-public final class IPDefender extends BukkitAbstractModule implements PluginCommandExecutor {
-    private static final TableColumn<String> IP_ADDRESS = TableColumn.string("ip_address", 128, "__");
+public final class IPDefender extends BukkitAbstractModule implements PluginCommandExecutor, DocumentFieldCodec<String> {
+    private final DocumentField<String> IP_HASH = DocumentField.custom("ip-address-hash","__",this);
+
     private static final RecordRegistry.A3<Player, String, String> RECORD = new RecordRegistry.A3<>(
             "ip-log",
             new RecordField<>("player", TextRenderer.literal("Player"), BukkitRecordRenderer.PLAYER),
@@ -84,26 +92,36 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        TaskService.async().run(() -> MessageAccessor.send(this.language, sender, "check", query(((Player) sender))));
+        QLib.task().async().run(() -> MessageAccessor.send(this.language, sender, "check", query(((Player) sender))));
+    }
+
+    @Override
+    public JsonElement encodeJson(String s) {
+        return new JsonPrimitive(SHA.getSHA1(s,false));
+    }
+
+    @Override
+    public String decodeJson(JsonElement jsonElement) {
+        return jsonElement.getAsString();
     }
 
     public void check(Player player) {
         var current = query(player.getAddress(), MinecraftLocale.EN_US);
-        var data = IP_ADDRESS.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
+        var data = IP_HASH.get(JDBCData.PLAYER_SHARED, player.getUniqueId());
         var state = TriState.UNKNOWN;
 
         String previous;
 
         if (data.equals("__")) {
-            IP_ADDRESS.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), current);
+            IP_HASH.set(JDBCData.PLAYER_SHARED, player.getUniqueId(), current);
             previous = null;
         } else {
             previous = data;
 
-            if (Objects.equals(previous, current)) {
+            if (Objects.equals(previous, SHA.getSHA1(current, false))) {
                 state = TriState.FALSE;
             } else {
-                IP_ADDRESS.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), current);
+                IP_HASH.set(JDBCData.PLAYER_SHARED, player.getUniqueId(), current);
 
                 state = TriState.TRUE;
             }
@@ -172,7 +190,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        TaskService.async().run(() -> this.check(event.getPlayer()));
+        QLib.task().async().run(() -> this.check(event.getPlayer()));
     }
 
     interface IPService {

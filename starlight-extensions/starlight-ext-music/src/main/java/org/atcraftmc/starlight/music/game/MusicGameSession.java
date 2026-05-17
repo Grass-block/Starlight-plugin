@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.music.game;
 
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.music.MusicGame;
 import org.atcraftmc.starlight.music.PlayerUIRenderer;
 import org.atcraftmc.starlight.music.resolve.MusicData;
@@ -59,7 +59,7 @@ public final class MusicGameSession extends MusicSession {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        TaskService.entity(this.audience).timer("sl:music-game-timer", 1, 1, () -> {
+        QLib.task().entity(this.audience).timer("sl:music-game-timer", 1, 1, () -> {
             this.audience.setVelocity(new Vector(0.3, 0, 0));
 
             var loc = getSelectedLocation(this.audience);
@@ -81,7 +81,7 @@ public final class MusicGameSession extends MusicSession {
             );
         });
         this.playSelected(this.data);
-        TaskService.entity(this.audience).cancel("sl:music-game-timer");
+        QLib.task().entity(this.audience).cancel("sl:music-game-timer");
     }
 
     public void punch(MusicGame.MusicGamePunchItem pi, Player player, Location loc) {

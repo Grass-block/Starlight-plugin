@@ -19,29 +19,17 @@ public final class BukkitDependencyInjector extends PluginDependencyInjector {
 
         registerInjector(SimpleRegionService.class, (a, m) -> {
             var service = new SimpleRegionService(a[1]);
-            try {
-                service.init(JDBCService.getDB(a[0]).orElseThrow());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            service.init(JDBCService.dataSource(a[0]),JDBCService.getInstance());
             return service;
         });
         registerInjector(WaypointService.class, (a, m) -> {
             var service = new WaypointService(a[1]);
-            try {
-                service.init(JDBCService.getDB(a[0]).orElseThrow());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            service.init(JDBCService.dataSource(a[0]),JDBCService.getInstance());
             return service;
         });
         registerInjector(BanEntryService.class, (a, m) -> {
             var service = new BanEntryService(a[1]);
-            try {
-                service.init(JDBCService.getDB(a[0]).orElseThrow());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            service.init(JDBCService.dataSource(a[0]),JDBCService.getInstance());
             return service;
         });
         registerInjector(FlexibleMapService.class, (a, m) -> {

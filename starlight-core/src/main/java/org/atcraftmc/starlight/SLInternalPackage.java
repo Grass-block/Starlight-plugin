@@ -2,10 +2,14 @@ package org.atcraftmc.starlight;
 
 import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
-import org.atcraftmc.starlight.core.*;
+import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.PlayerBanService;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
+import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.data.PlayerDataService;
+import org.atcraftmc.starlight.core.http.HttpService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.ui.UIManager;
@@ -13,7 +17,7 @@ import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.internal.*;
-import org.atcraftmc.starlight.core.http.HttpService;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.atcraftmc.starlight.shared.service.RemoteMessageService;
 
@@ -52,7 +56,6 @@ public interface SLInternalPackage {
     static void core(ContentBuilder b) {
         b.service(PlayerIdentificationService.class);
         b.service(JDBCService.class);
-        b.service(TaskService.class);
 
         b.service(LocaleService.class);
         b.service(PermissionService.class);
@@ -76,6 +79,7 @@ public interface SLInternalPackage {
         b.service(HttpService.class);
 
         b.service(InternalServices.BungeeChannelSupplier.class);
+        b.service(InternalServices.JDBCServiceTicker.class);
         b.service(InternalServices.InternalCommandsProvider.class);
         b.service(InternalServices.CommandEventService.class);
 

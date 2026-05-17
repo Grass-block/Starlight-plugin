@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.management;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -23,12 +23,12 @@ public final class VMGarbageCleaner extends BukkitAbstractModule {
     @Override
     public void enable() {
         int period = ConfigAccessor.getInt(this.config(), "period");
-        TaskService.async().timer(GC_TASK_TID, period, period, this::gc);
+        QLib.task().async().timer(GC_TASK_TID, period, period, this::gc);
     }
 
     @Override
     public void disable() {
-        TaskService.async().cancel(GC_TASK_TID);
+        QLib.task().async().cancel(GC_TASK_TID);
     }
 
     public void gc() {

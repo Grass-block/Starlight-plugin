@@ -1,24 +1,29 @@
 package org.atcraftmc.starlight.display;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.api.event.worldedit.WESessionSelectEvent;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.data.JDBCPlayerData;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentFieldCodec;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,8 +34,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ApplicationModule(id = "we-session-renderer", version = "1.0.0")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WESessionRenderer.WESessionRenderCommand.class)
-public final class WESessionRenderer extends BukkitAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode> {
-    private final TableColumn<RenderMode> RENDER_MODE = TableColumn.custom("we_render_mode", 24, RenderMode.UPDATE, this);
+public final class WESessionRenderer extends BukkitAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode>, DocumentFieldCodec<WESessionRenderer.RenderMode> {
+    private final TableColumn<RenderMode> RENDER_MODE_L = TableColumn.custom("we_render_mode", 24, RenderMode.UPDATE, this);
+    private final DocumentField<RenderMode> RENDER_MODE = DocumentField.custom("we-session-render-mode", RenderMode.UPDATE, this);
 
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
@@ -39,7 +45,7 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
 
     @Override
     public void enable() {
-        TaskService.global().timer("quark:we-renderer:main", 0, 10, () -> {
+        QLib.task().global().timer("quark:we-renderer:main", 0, 10, () -> {
             for (var p : Bukkit.getOnlinePlayers()) {
                 if (getMode(p) != RenderMode.PERSISTENT) {
                     continue;
@@ -52,7 +58,7 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
 
     @Override
     public void disable() {
-        TaskService.global().cancel("quark:we-renderer:main");
+        QLib.task().global().cancel("quark:we-renderer:main");
     }
 
     @EventHandler
@@ -75,7 +81,7 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
     private void render(Player p) {
         var t = new AtomicInteger();
 
-        TaskService.global().timer(0, 10, (ctx) -> {
+        QLib.task().global().timer(0, 10, (ctx) -> {
             t.addAndGet(5);
 
             if (t.get() > 25) {
@@ -87,7 +93,25 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
     }
 
     private RenderMode getMode(Player player) {
-        return RENDER_MODE.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
+        var data = JDBCData.PLAYER_SHARED.get(player.getUniqueId());
+
+        if (!RENDER_MODE.exist(data)) {
+            if (RENDER_MODE_L.exist(JDBCPlayerData.PLAYER_SHARED)) {
+                RENDER_MODE.set(data, RENDER_MODE_L.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId()));
+            }
+        }
+
+        return RENDER_MODE.get(data);
+    }
+
+    @Override
+    public JsonElement encodeJson(RenderMode value) {
+        return new JsonPrimitive(value.name());
+    }
+
+    @Override
+    public RenderMode decodeJson(JsonElement value) {
+        return RenderMode.of(value.getAsString());
     }
 
     @Override
@@ -100,8 +124,9 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
         return RenderMode.valueOf(data);
     }
 
-    private void setMode(Player player, RenderMode of) {
-        RENDER_MODE.set(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId(), of);
+    private void setMode(Player player, RenderMode mode) {
+        var data = JDBCData.PLAYER_SHARED.get(player.getUniqueId());
+        RENDER_MODE.set(data, mode);
     }
 
     public enum RenderMode {

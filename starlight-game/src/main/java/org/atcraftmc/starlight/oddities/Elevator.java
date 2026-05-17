@@ -3,12 +3,14 @@ package org.atcraftmc.starlight.oddities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.bukkit.task.TaskManager;
 import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.starlight.core.custom.CustomBlock;
 import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.core.crafting.RecipeManager;
+import org.atcraftmc.starlight.core.custom.CustomBlock;
+import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -77,7 +79,7 @@ public final class Elevator extends BukkitAbstractModule {
 
         while (y < world.getMaxHeight()) {
             if (isValidElevator(world.getBlockAt(x, y, z))) {
-                TaskService.future(Players.teleport(player, player.getLocation().add(0, y + 1 - yo, 0)), (v) -> {
+                QLib.task().future(Players.teleport(player, player.getLocation().add(0, y + 1 - yo, 0)), (v) -> {
                     var sound = Sound.BLOCK_PISTON_EXTEND;
                     player.playSound(player.getLocation(), sound, 1, 0);
                 });
@@ -111,7 +113,7 @@ public final class Elevator extends BukkitAbstractModule {
 
         while (y > -65) {
             if (isValidElevator(world.getBlockAt(x, y, z))) {
-                TaskService.future(Players.teleport(player, player.getLocation().add(0, y + 1 - yo, 0)), (v) -> {
+                QLib.task().future(Players.teleport(player, player.getLocation().add(0, y + 1 - yo, 0)), (v) -> {
                     var sound = Sound.BLOCK_PISTON_CONTRACT;
                     player.playSound(player.getLocation(), sound, 1, 0);
                 });

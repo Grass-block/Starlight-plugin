@@ -1,12 +1,12 @@
 package org.atcraftmc.starlight.commands;
 
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.gluon.module.ApplicationModule;
 
 @ApplicationModule(id="self-message")
 @BukkitCommand(name = "self-msg")

@@ -9,8 +9,9 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.atcraftmc.starlight.data.jdbc.source.JDBCDataSource;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 
-import java.io.Closeable;
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -22,9 +23,9 @@ public abstract class ORMDataService extends JDBCDataService {
     private SqlSessionFactory sessionFactory;
 
     @Override
-    public void init(JDBCDataSource datasource) {
-        super.init(datasource);
-        this.sessionFactory = datasource.getSessionFactory();
+    public void init(DataSource datasource, JDBCService service) {
+        super.init(datasource, service);
+        this.sessionFactory = ((JDBCDataSource) datasource).getSessionFactory();
     }
 
     public <I> CloseableMapper<I> getDataMapper(Class<? extends BaseMapper<I>> dataMapper) {
@@ -35,7 +36,8 @@ public abstract class ORMDataService extends JDBCDataService {
         return sessionFactory;
     }
 
-    public interface CloseableMapper<T> extends BaseMapper<T>, AutoCloseable{}
+    public interface CloseableMapper<T> extends BaseMapper<T>, AutoCloseable {
+    }
 
     private static final class CloseableMapperImpl<T> implements CloseableMapper<T> {
         private final ORMDataService service;

@@ -17,23 +17,20 @@ import org.atcraftmc.qlib.config.Queries;
 import org.atcraftmc.qlib.config.YamlUtil;
 import org.atcraftmc.qlib.language.LanguageAccess;
 import org.atcraftmc.qlib.language.LanguageContainer;
-import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.text.pipe.AudienceHandler;
 import org.atcraftmc.qlib.text.pipe.LocaleHandler;
 import org.atcraftmc.starlight.api.event.CoreEvent;
 import org.atcraftmc.starlight.bundle.BundledPackageProvider;
-import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.core.BukkitAPI;
+import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextExaminer;
 import org.atcraftmc.starlight.core.command.StarlightCommandManager;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.PluginUtil;
+import org.atcraftmc.starlight.environment.PathManager;
 import org.atcraftmc.starlight.framework.BukkitServiceManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginPackageManager;
@@ -70,7 +67,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     public static final Logger LOGGER = SLPluginEnvironment.createLogger("Core");
 
     private final ModularApplicationContext context = createContext(this);
-    private final QLibContext qLibContext = new QLibBukkitContext(this);
+    private final QLibContext qLibContext = QLibBukkitContext.getInstance(this);
     public final LanguageAccess coreLanguage = this.qLibContext.language().access("starlight-core");
 
     private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
@@ -95,10 +92,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
     public static void prepareReload() {
         Starlight.instance().onDisable();
-        try {
-            PluginPlatform.global().addLast("starlight:core", new Starlight.StarlightBukkitPlatform());
-        } catch (Exception ignored) {
-        }
         InternalCommands.register();
     }
 
@@ -189,6 +182,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             Bukkit.getConsoleSender().sendMessage(s);
         }
 
+        this.qLibContext.init();
         this.initializePluginEnv();
         this.initializeCoreConfiguration();
 
@@ -240,10 +234,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
         LOGGER.info("Metrics shutdown successfully");
 
-        LOGGER.info("broadcasting dispose event...");
-        TaskService.runFinalizeTask();
-
-        LOGGER.info("broadcasting dispose event...");
+        LOGGER.info("Closing platform...");
         BukkitUtil.callEventUnsafe(new CoreEvent.PostDispose(this));
         PluginPlatform.global().remove("starlight:core");
         try {
@@ -319,10 +310,7 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
     //----[initialization]----
     private void initializePluginEnv() {
         BukkitPlatform.init();
-
         QLibPlatform.register();
-
-        PluginPlatform.global().addLast("starlight:core", new StarlightBukkitPlatform());
 
         LOGGER.info("Plugin Environment: ");
 
@@ -533,13 +521,6 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             QLib.textEngine().getMessageRenderPipeline().addLast("starlight:chat-color", CHAT_COLOR_TEXT_RENDERER);
             QLib.textEngine().getLocalePipeline().addLast("starlight:core", LOCALE_HANDLER);
             QLib.textEngine().getMessageProcessPipeline().addLast("starlight:examine", COMPONENT_EXAMINER);
-        }
-    }
-
-    public static final class StarlightBukkitPlatform extends ForwardingPluginPlatform {
-        @Override
-        public MinecraftLocale locale(Object sender) {
-            return LocaleService.locale(sender);
         }
     }
 }

@@ -1,29 +1,39 @@
 package org.atcraftmc.starlight.core;
 
+import com.google.gson.JsonParser;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRO0;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceLayer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
+import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.command.StarlightCommandManager;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.ui.InventoryUI;
+import org.atcraftmc.starlight.core.ui.TextRenderer;
+import org.atcraftmc.starlight.core.ui.UI;
+import org.atcraftmc.starlight.core.ui.providing.GUIProvider;
+import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.BukkitService;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.atcraftmc.starlight.shared.service.AbstractLocaleService;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
@@ -33,18 +43,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLocaleChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.ServicePriority;
 
+import java.net.URI;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.*;
 
 @ApplicationService(id = "locale", layer = ServiceLayer.FRAMEWORK)
 public interface LocaleService extends BukkitService {
+    DocumentField<String> TESTED_LOCALE = DocumentField.string("locale-tested", "unknown");
+    DocumentField<String> CUSTOM_LOCALE = DocumentField.string("locale-custom", "auto");
 
-
-    TableColumn<String> TESTED_LOCALE = TableColumn.string("lang_tested", 16, "unknown");
-    TableColumn<String> CUSTOM_LOCALE = TableColumn.string("lang_custom", 16, "auto");
     Map<UUID, String> LOCALE_CACHE = new HashMap<>();
     @SuppressWarnings("Convert2MethodRef")
     MethodHandleRO0<Player, String> GET_LOCALE = MethodHandle.select((ctx) -> {
@@ -56,13 +68,6 @@ public interface LocaleService extends BukkitService {
 
     @ServiceInject
     static void start() {
-        try {
-            JDBCPlayerData.PLAYER_LOCAL.init(JDBCService.getDB(JDBCService.SL_LOCAL).orElseThrow());
-            JDBCPlayerData.PLAYER_SHARED.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         StarlightCommandManager.getInstance().register(LANGUAGE_COMMAND);
         BukkitUtil.registerEventListener(LISTENER);
 
@@ -96,19 +101,19 @@ public interface LocaleService extends BukkitService {
     }
 
     static void setCustomLanguage(OfflinePlayer user, String value) {
-        CUSTOM_LOCALE.set(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId(), value);
+        CUSTOM_LOCALE.set(JDBCData.PLAYER_SHARED, user.getUniqueId(), value);
         LOCALE_CACHE.put(user.getUniqueId(), getUserLocale(user));
     }
 
     static String getUserLocale(OfflinePlayer user) {
         try {
-            var custom = CUSTOM_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId());
+            var custom = CUSTOM_LOCALE.get(JDBCData.PLAYER_SHARED, user.getUniqueId());
 
             if (!Objects.equals(custom, "auto")) {
                 return custom;
             }
 
-            var tested = TESTED_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, user.getUniqueId());
+            var tested = TESTED_LOCALE.get(JDBCData.PLAYER_SHARED, user.getUniqueId());
 
             if (!Objects.equals(tested, "unknown")) {
                 return tested;
@@ -125,6 +130,109 @@ public interface LocaleService extends BukkitService {
 
     static String saveGetMCPlayerLocale(Player player) {
         return GET_LOCALE.invoke(player);
+    }
+
+    enum LanguageIcon {
+
+        ENGLISH(
+                "en_us",
+                "English",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Q1ZWQ0YzQzMWQxZjA5NWE0MzI0Y2Y2Y2Y1MmRkMTNmNTc2YjFjYjk0M2NmYjQzY2Y4NmVkZTRiIn19fQ=="
+        ),
+
+        SIMPLIFIED_CHINESE(
+                "zh_cn",
+                "简体中文",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2M4ZjQzYmFmNjg3NzA0Y2I2Y2Q2NzNkYTZjNmUwNDU4MTRkNmQ3NmE5NGE0Y2ZiNmNmNjk5NjQ4MiJ9fX0="
+        ),
+
+        TRADITIONAL_CHINESE(
+                "zh_tw",
+                "繁體中文",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQ5YzY4ZTQ2NGFkN2Y3NzI4NTkzMTE4YzM4N2FjY2M4ZDU5YTM4YWE4NTA4M2I5OTc3OTM5OWFlZCJ9fX0="
+        ),
+
+        JAPANESE(
+                "ja_jp",
+                "日本語",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGM4ZDNjYjYxYjE3YmMzY2Y2NDY4ZTM4YzI2NmM5NGFkNmYzYjM3YmNlNmQzOWQ4OGM2YmNlYjIifX19"
+        ),
+
+        FRENCH(
+                "fr_fr",
+                "Français",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmFkODc4YmM2OWY5ZjY5YWEzMTE5NmU4OTM0OTY2MDFkODc0NzQ3Y2JlYjMwNDY2MTJlZWE0In19fQ=="
+        ),
+
+        RUSSIAN(
+                "ru_ru",
+                "Русский",
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZiN2VkYjEzMGE4YjJmZmY4YWE4ZjViYjYxZGE0MWQ3MjNlN2ZmMjQ5YjY5NjRkYmE0NjY0NSJ9fX0="
+        );
+
+        private final String locale;
+        private final String displayName;
+        private final String texture;
+
+        LanguageIcon(
+                String locale,
+                String displayName,
+                String texture
+        ) {
+            this.locale = locale;
+            this.displayName = displayName;
+            this.texture = texture;
+        }
+
+        public static void icon(InventoryUI builder, int pos, LanguageIcon icon) {
+            var item = new ItemStack(Material.PLAYER_HEAD);
+            var meta = (SkullMeta) item.getItemMeta();
+            var profile = Bukkit.createPlayerProfile(UUID.randomUUID());
+            var textures = profile.getTextures();
+
+            textures.setSkin(textureUrl(icon.texture()));
+
+            profile.setTextures(textures);
+            meta.setOwnerProfile(profile);
+            item.setItemMeta(meta);
+
+            UI.buildComponent(builder, pos, (o) -> {
+                o.icon(item);
+                o.name(TextRenderer.literal(Component.text(icon.displayName())
+                                                    .color(NamedTextColor.AQUA)
+                                                    .decoration(TextDecoration.ITALIC, false)));
+                o.operation(UI.command((p) -> "locale " + icon.locale))
+                        .operation(UI.SOUND_CLICK);
+            });
+        }
+
+        private static URL textureUrl(String base64) {
+
+            try {
+                var decoded = new String(Base64.getDecoder().decode(base64));
+                var json = JsonParser.parseString(decoded).getAsJsonObject();
+                var url = json.getAsJsonObject("textures")
+                        .getAsJsonObject("SKIN")
+                        .get("url")
+                        .getAsString();
+
+                return URI.create(url).toURL();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public String locale() {
+            return locale;
+        }
+
+        public String displayName() {
+            return displayName;
+        }
+
+        public String texture() {
+            return texture;
+        }
     }
 
     class BukkitLocaleService extends AbstractLocaleService<CommandSender> implements Listener {
@@ -204,7 +312,7 @@ public interface LocaleService extends BukkitService {
             }
 
             this.checkClientLocale(event.getPlayer(), event.getLocale());
-            TaskService.global().delay(60, () -> {
+            QLib.task().global().delay(60, () -> {
                 var natived = getLocaleNatively(event.getPlayer()).minecraft();
                 this.checkClientLocale(event.getPlayer(), natived);
             });
@@ -215,7 +323,7 @@ public interface LocaleService extends BukkitService {
         @EventHandler
         public void onLocaleChange(PlayerLocaleChangeEvent event) {
             _check(event);
-            TaskService.global().delay(
+            QLib.task().global().delay(
                     60,
                     () -> _check(new PlayerLocaleChangeEvent(
                             event.getPlayer(),
@@ -237,8 +345,8 @@ public interface LocaleService extends BukkitService {
             boolean isValidChange = true;
 
             var uuid = event.getPlayer().getUniqueId();
-            var custom = CUSTOM_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, uuid);
-            var cache = TESTED_LOCALE.get(JDBCPlayerData.PLAYER_SHARED, uuid);
+            var custom = CUSTOM_LOCALE.get(JDBCData.PLAYER_SHARED, uuid);
+            var cache = TESTED_LOCALE.get(JDBCData.PLAYER_SHARED, uuid);
 
             if (Objects.equals(locale, "en_us")) {
                 if (!Objects.equals(cache, "unknown")) {
@@ -253,7 +361,7 @@ public interface LocaleService extends BukkitService {
             }
 
             if (Objects.equals(custom, "auto")) {
-                TESTED_LOCALE.set(JDBCPlayerData.PLAYER_SHARED, uuid, locale);
+                TESTED_LOCALE.set(JDBCData.PLAYER_SHARED, uuid, locale);
                 if (isValidChange) {
                     ComponentBlock block = ((ComponentBlock) preset.component(locale(event.getPlayer()), locale));
                     TextSender.sendBlock(event.getPlayer(), block);
@@ -287,6 +395,11 @@ public interface LocaleService extends BukkitService {
     @SuppressWarnings("deprecation")//because other server still uses getLocale()
     @BukkitCommand(name = "locale", permission = "+quark.locale", playerOnly = true)
     final class LanguageDecideCommand extends CoreCommand {
+        @Override
+        public void suggest(CommandSuggestion suggestion) {
+            suggestion.suggest(0, List.of(LocaleMapping.MINECRAFT_KNOWN_LANGUAGES));
+            suggestion.suggest(0, "gui", "auto");
+        }
 
         @Override
         public void execute(CommandExecution context) {
@@ -294,20 +407,39 @@ public interface LocaleService extends BukkitService {
             if (Objects.equals(data, "auto")) {
                 data = saveGetMCPlayerLocale(context.requireSenderAsPlayer());
             }
+            if (Objects.equals(data, "gui")) {
+                //GUI.open(context.requireSenderAsPlayer());
+            }
 
             setCustomLanguage(context.requireSenderAsPlayer(), data);
 
             Starlight.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), data);
             BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), locale(context.getSender())));
         }
+    }
+
+    final class LocaleUI implements GUIProvider<InventoryUI> {
+        @Override
+        public InventoryUI create() {
+            return new InventoryUI(54, TextRenderer.literal(Component.text("语言 / Language")));
+        }
 
         @Override
-        public void onCommandTab(CommandSender sender, String[] buffer, List<String> tabList) {
-            if (buffer.length == 1) {
-                tabList.addAll(List.of(LocaleMapping.MINECRAFT_KNOWN_LANGUAGES));
-                tabList.add("auto");
-                tabList.add("none");
-            }
+        public void render(InventoryUI builder, InventoryUIView view, Object... args) {
+            LanguageIcon.icon(builder, 11, LanguageIcon.SIMPLIFIED_CHINESE);
+            LanguageIcon.icon(builder, 13, LanguageIcon.TRADITIONAL_CHINESE);
+            LanguageIcon.icon(builder, 15, LanguageIcon.ENGLISH);
+            LanguageIcon.icon(builder, 29, LanguageIcon.FRENCH);
+            LanguageIcon.icon(builder, 31, LanguageIcon.JAPANESE);
+            LanguageIcon.icon(builder, 33, LanguageIcon.RUSSIAN);
+
+            //close button
+            UI.buildComponent(builder, 53, (b) -> {
+                b.icon(UI.icon(Material.REDSTONE));
+                b.name(TextRenderer.data(Starlight.lang().item("common", "ui", "close")));
+                b.operation(UI.SOUND_CLICK);
+                b.operation(UI.close());
+            });
         }
     }
 }

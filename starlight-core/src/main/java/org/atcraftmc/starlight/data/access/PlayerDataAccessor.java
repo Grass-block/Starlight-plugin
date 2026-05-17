@@ -1,13 +1,13 @@
 package org.atcraftmc.starlight.data.access;
 
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.internal.PlayerIdentificationService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.atcraftmc.starlight.core.platform.BukkitUtil;
-import org.atcraftmc.starlight.internal.PlayerIdentificationService;
 
 import java.util.HashMap;
 import java.util.Map;

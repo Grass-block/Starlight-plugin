@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.longs.Long2IntMap;
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArraySet;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Location;
 
@@ -18,7 +18,7 @@ public abstract class RegionTrackService implements BukkitService {
 
     @ServiceInject
     static void start() {
-        TaskService.global().run(() -> {
+        QLib.task().global().run(() -> {
             for (var rpt : instances.values()) {
                 rpt.tick();
             }

@@ -4,7 +4,6 @@ import me.gb2022.commons.container.Pair;
 import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.nbt.NBT;
 import me.gb2022.commons.nbt.NBTTagCompound;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.util.Identifiers;

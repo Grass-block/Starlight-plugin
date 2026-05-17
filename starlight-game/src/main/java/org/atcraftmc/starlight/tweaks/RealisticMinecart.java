@@ -15,10 +15,9 @@ import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.SchedulerProvider;
-import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
@@ -70,7 +69,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
 
     @Override
     public void enable() {
-        TaskService.global().timer(GLOBAL_TASK_ID, 1, 1, this::tick);
+        QLib.task().global().timer(GLOBAL_TASK_ID, 1, 1, this::tick);
 
         for (var player : Bukkit.getOnlinePlayers()) {
             if (player.getVehicle() == null) {
@@ -88,7 +87,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
 
     @Override
     public void disable() {
-        TaskService.async().cancel(GLOBAL_TASK_ID);
+        QLib.task().async().cancel(GLOBAL_TASK_ID);
     }
 
     @EventHandler
@@ -100,7 +99,8 @@ public final class RealisticMinecart extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(event.getEntered()).delay(1, () -> {
+        Entity entity = event.getEntered();
+        QLib.task().entity(entity).delay(1, () -> {
             var agent = VirtualMinecartAgent.get(this, p);
 
             if (playerWorldCache().isPlayerWarped(p)) {
@@ -207,7 +207,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
             return;
         }
 
-        TaskService.entity(minecart).run(() -> {
+        QLib.task().entity(minecart).run(() -> {
             var agent = VirtualMinecartAgent.get(this, p);
             agent.tick();
             var thrustLevel = p.getInventory().getHeldItemSlot() - 4;

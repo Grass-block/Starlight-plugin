@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.core.ui.providing;
 
-import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.ui.AbstractInventoryUI;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.core.ui.view.ViewData;
+import org.bukkit.entity.Player;
 
 public interface GUIProvider<I extends AbstractInventoryUI> {
 

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.ui.inventory;
 
+import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 
 public class Button implements InventoryComponent, InventoryActionListener {
     private final InventoryIcon icon;

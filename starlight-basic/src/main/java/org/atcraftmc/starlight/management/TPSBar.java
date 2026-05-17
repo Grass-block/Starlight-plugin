@@ -5,7 +5,6 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -26,7 +25,7 @@ public final class TPSBar extends SLCommandModule {
     public void enable() throws Exception {
         super.enable();
 
-        TaskService.async().timer("tpsbar:update", 5, 5, () -> {
+        QLib.task().async().timer("tpsbar:update", 5, 5, () -> {
             var tps = BukkitUtil.formatTPS(BukkitUtil.getTPS());
             var msptValue = BukkitUtil.getMSPT();
             var mspt = BukkitUtil.formatMSPT(msptValue);
@@ -50,7 +49,7 @@ public final class TPSBar extends SLCommandModule {
     @Override
     public void disable() throws Exception {
         super.disable();
-        TaskService.async().cancel("tpsbar:update");
+        QLib.task().async().cancel("tpsbar:update");
 
         this.bar.removeAll();
     }

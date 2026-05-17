@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.core.placeholder;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.Starlight;
 import org.bukkit.entity.Player;
 
 public interface PAPIWrapper {

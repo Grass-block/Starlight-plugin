@@ -7,10 +7,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import org.ahocorasick.trie.Trie;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.shared.Configurations;
 import org.atcraftmc.starlight.api.ChatReportedEvent;
-import org.atcraftmc.starlight.core.TaskService;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
@@ -108,7 +108,7 @@ public final class ChatFilter extends BukkitAbstractModule {
         var localCounter = new AtomicInteger();
         this.patterns.clear();
 
-        TaskService.async().run(()->{
+        QLib.task().async().run(()->{
             Configurations.groupedJson("chat-filter-rules", Set.of()).forEach((k, v) -> {
                 localCounter.set(0);
                 v.getAsJsonArray("words").forEach((e) -> {
@@ -231,7 +231,7 @@ public final class ChatFilter extends BukkitAbstractModule {
             }
 
             var command = config().value("punish-command").string().replace("{player}", event.getSender());
-            TaskService.global().run(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+            QLib.task().global().run(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
 
             event.setOutcome(this.language.item("outcome-punished"));
         }

@@ -1,14 +1,14 @@
 package org.atcraftmc.starlight.display;
 
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
-import org.atcraftmc.starlight.core.platform.Compatibility;
-import me.gb2022.gluon.module.ApplicationModule;
 
 import java.util.Objects;
 

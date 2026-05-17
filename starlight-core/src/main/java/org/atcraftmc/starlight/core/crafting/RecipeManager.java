@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.core.crafting;
 
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
@@ -8,7 +8,7 @@ import org.bukkit.inventory.Recipe;
 
 public interface RecipeManager {
     static void register(Recipe... recipes) {
-        TaskService.global().run(() -> {
+        QLib.task().global().run(() -> {
             for (Recipe r : recipes) {
                 if (Bukkit.getRecipe(((Keyed) r).getKey()) != null) {
                     continue;
@@ -31,7 +31,7 @@ public interface RecipeManager {
             return;
         }
 
-        TaskService.global().run(() -> {
+        QLib.task().global().run(() -> {
             for (Recipe r : recipes) {
                 Bukkit.removeRecipe(((Keyed) r).getKey());
             }

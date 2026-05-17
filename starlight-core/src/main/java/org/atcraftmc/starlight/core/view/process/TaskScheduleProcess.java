@@ -4,7 +4,6 @@ import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
 import org.atcraftmc.starlight.core.view.ViewRendererCallback;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

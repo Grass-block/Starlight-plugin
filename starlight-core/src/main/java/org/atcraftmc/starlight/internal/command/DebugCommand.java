@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.internal.command;
 
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.bukkit.task.TaskScheduler;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.GameTestService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.bukkit.Bukkit;
@@ -27,8 +27,8 @@ public final class DebugCommand extends CoreCommand {
         switch (context.requireEnum(0, "task", "permission", "test", "dev1")) {
             case "task" -> {
                 switch (context.requireEnum(1, "global", "async", "entity", "region")) {
-                    case "global" -> debugTask(context.getSender(), TaskService.global());
-                    case "async" -> debugTask(context.getSender(), TaskService.async());
+                    case "global" -> debugTask(context.getSender(), QLib.task().global());
+                    case "async" -> debugTask(context.getSender(), QLib.task().async());
                 }
             }
             case "test" -> GameTestService.run(context.requireEnum(1, GameTestService.TESTS.keySet()));

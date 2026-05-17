@@ -3,41 +3,46 @@ package org.atcraftmc.starlight.shared.service;
 import me.gb2022.gluon.service.*;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
 import org.atcraftmc.starlight.data.jdbc.JDBCDatasourceManager;
 import org.atcraftmc.starlight.data.jdbc.JDBCDrivers;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
 import org.atcraftmc.starlight.data.jdbc.service.TagMap;
 import org.atcraftmc.starlight.data.jdbc.source.JDBCDataSource;
 import org.atcraftmc.starlight.shared.Configurations;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
-@ApplicationService(id = "jdbc", layer = ServiceLayer.FOUNDATION, impl = JDBCService.ServiceImpl.class)
-public interface JDBCService extends Service {
+@ApplicationService(id = "jdbc", layer = ServiceLayer.FRAMEWORK, impl = JDBCService.class)
+public final class JDBCService implements Service {
     @ServiceInject
-    ServiceHolder<JDBCService> INSTANCE = new ServiceHolder<>();
-    Logger LOGGER = SLPluginEnvironment.createLogger("JDBCService");
-    Map<String, JDBCDatabase> REGISTRY = new HashMap<>();
-    String SL_SHARED = "starlight:shared";
-    String SL_LOCAL = "starlight:default";
+    public static final ServiceHolder<JDBCService> INSTANCE = new ServiceHolder<>();
+    public static final Logger LOGGER = SLPluginEnvironment.createLogger("JDBCService");
+    public static final Map<String, JDBCDatabase> REGISTRY = new HashMap<>();
 
-    static JDBCService getInstance() {
+    public static final String SL_SHARED = "starlight:shared";
+    public static final String SL_LOCAL = "starlight:default";
+
+    private final JDBCDatasourceManager datasourceManager = new JDBCDatasourceManager();
+    private final Set<JDBCDataService> instances = new HashSet<>();
+    private final AtomicLong ticks = new AtomicLong(0L);//second
+
+    public static JDBCService getInstance() {
         return INSTANCE.get();
     }
 
-    static Optional<JDBCDatabase> getDB(String id) {
-        return Optional.of(REGISTRY.computeIfAbsent(id, (k) -> new DataSourceDBHandle(dataSource(k))));
+    public static Optional<JDBCDatabase> getDB(String id) {
+        return getInstance().db(id);
     }
 
-    static JDBCDataSource dataSource(String id) {
+    public static JDBCDataSource dataSource(String id) {
         return getInstance().getDataSource(id).orElseThrow();
     }
 
-    static Connection connection(String id) {
+    public static Connection connection(String id) {
         try {
             return getInstance().getSingleConnection(id);
         } catch (SQLException e) {
@@ -45,11 +50,59 @@ public interface JDBCService extends Service {
         }
     }
 
-    Optional<JDBCDataSource> getDataSource(String id);
+    public void registerInstance(JDBCDataService instance) {
+        this.instances.add(instance);
+    }
 
-    Connection getSingleConnection(String id) throws SQLException;
+    public Optional<JDBCDatabase> db(String id) {
+        return Optional.of(REGISTRY.computeIfAbsent(id, (k) -> new DataSourceDBHandle(getDataSource(id).orElseThrow())));
+    }
 
-    interface JDBCDatabase {
+    public void tick() {
+        this.ticks.incrementAndGet();
+        for (var data : this.instances) {
+            data.tick(this.ticks);
+        }
+    }
+
+    @Override
+    public void enable() throws Exception {
+        JDBCDrivers.loadAllDrivers();
+
+        Configurations.groupedYML("database", Set.of("database/sl-default.yml", "database/sl-shared.yml"))
+                .forEach((k, d) -> this.datasourceManager.create(d, this));
+
+        JDBCData.PLAYER_LOCAL.init(getDataSource(JDBCService.SL_LOCAL).orElseThrow(), this);
+        JDBCData.PLAYER_SHARED.init(getDataSource(JDBCService.SL_SHARED).orElseThrow(), this);
+
+        try {
+            JDBCPlayerData.PLAYER_LOCAL.init(db(JDBCService.SL_LOCAL).orElseThrow());
+            JDBCPlayerData.PLAYER_SHARED.init(db(JDBCService.SL_SHARED).orElseThrow());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void disable() throws Exception {
+        this.instances.forEach(JDBCDataService::onClosing);
+        REGISTRY.forEach((k, v) -> v.close());
+        this.datasourceManager.getDataSources().forEach((k, v) -> v.close());
+    }
+
+    public JDBCDatasourceManager getDatasourceManager() {
+        return datasourceManager;
+    }
+
+    public Optional<JDBCDataSource> getDataSource(String id) {
+        return this.datasourceManager.getDataSource(id);
+    }
+
+    public Connection getSingleConnection(String id) throws SQLException {
+        return getDataSource(id).orElseThrow().getConnection();
+    }
+
+    public interface JDBCDatabase {
 
         default void open() {
         }
@@ -66,39 +119,7 @@ public interface JDBCService extends Service {
         Connection getConnection();
     }
 
-    final class ServiceImpl implements JDBCService {
-        private final JDBCDatasourceManager datasourceManager = new JDBCDatasourceManager();
-
-        @Override
-        public void enable() throws Exception {
-            JDBCDrivers.loadAllDrivers();
-
-            Configurations.groupedYML("database", Set.of("database/sl-default.yml", "database/sl-shared.yml"))
-                    .forEach((k, d) -> this.datasourceManager.create(d));
-        }
-
-        @Override
-        public void disable() throws Exception {
-            REGISTRY.forEach((k, v) -> v.close());
-            this.datasourceManager.getDataSources().forEach((k, v) -> v.close());
-        }
-
-        public JDBCDatasourceManager getDatasourceManager() {
-            return datasourceManager;
-        }
-
-        @Override
-        public Optional<JDBCDataSource> getDataSource(String id) {
-            return this.datasourceManager.getDataSource(id);
-        }
-
-        @Override
-        public Connection getSingleConnection(String id) throws SQLException {
-            return getDataSource(id).orElseThrow().getConnection();
-        }
-    }
-
-    final class DataSourceDBHandle implements JDBCDatabase {
+    private static final class DataSourceDBHandle implements JDBCDatabase {
         private final JDBCDataSource dataSource;
         private Connection conn;
 

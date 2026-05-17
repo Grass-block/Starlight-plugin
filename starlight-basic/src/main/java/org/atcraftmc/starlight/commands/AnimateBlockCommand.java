@@ -12,9 +12,8 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.starlight.core.custom.CustomItem;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
+import org.atcraftmc.starlight.core.custom.CustomItem;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -165,7 +164,7 @@ public final class AnimateBlockCommand extends SLCommandModule {
 
         var timer = new AtomicInteger();
 
-        TaskService.entity(entities.get(0).block).timer(0, 1, (t) -> {
+        QLib.task().entity(entities.get(0).block).timer(0, 1, (t) -> {
             if (timer.get() > ticks) {
                 for (var entity : entities) {
                     entity.block.setVelocity(new Vector(0, 0, 0));
@@ -181,7 +180,8 @@ public final class AnimateBlockCommand extends SLCommandModule {
             timer.getAndIncrement();
         });
 
-        TaskService.region(entities.get(0).block.getLocation()).delay(ticks, () -> {
+        Location loc1 = entities.get(0).block.getLocation();
+        QLib.task().chunk(loc1).delay(ticks, () -> {
             var location = new Location(world, tx, ty, tz);
 
             for (var i = entities.size() - 1; i >= 0; i--) {

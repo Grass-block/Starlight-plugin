@@ -157,6 +157,8 @@ public interface HttpService extends Service {
         protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) {
             var uri = request.uri();
 
+            LOGGER.info("{} -> {}", ctx.channel().remoteAddress(), uri);
+
             for (var s : this.service.sortedKeys) {
                 if (!uri.startsWith(s)) {
                     continue;

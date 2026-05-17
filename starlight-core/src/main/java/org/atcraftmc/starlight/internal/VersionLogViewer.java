@@ -1,17 +1,17 @@
 package org.atcraftmc.starlight.internal;
 
 import me.gb2022.commons.reflect.Inject;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.command.StarlightCommandManager;
-import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 import java.io.IOException;
 import java.io.InputStream;

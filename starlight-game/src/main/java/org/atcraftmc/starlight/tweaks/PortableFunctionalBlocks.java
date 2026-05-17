@@ -1,14 +1,14 @@
 package org.atcraftmc.starlight.tweaks;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import me.gb2022.gluon.module.component.SubComponent;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -47,6 +47,11 @@ public abstract class TableColumn<I> {
     }
 
 
+    public boolean exist(FlexibleMapService ds) {
+        return getDBInstance(ds).service.hasColumnRegistered(this.name);
+    }
+
+
     //privates
     private DBInstance<I> getDBInstance(FlexibleMapService ds) {
         return caches.computeIfAbsent(ds.getSessionUUID(), (s) -> new DBInstance<>(this, ds, 10));
@@ -149,7 +154,8 @@ public abstract class TableColumn<I> {
 
         @Override
         public PreparedStatement createColumn(Connection conn) throws SQLException {
-            return conn.prepareStatement("ALTER TABLE _table_ ADD COLUMN _col_ INT DEFAULT " + defaultValue);
+            //"ALTER TABLE _table_ ADD COLUMN _col_ INT DEFAULT " + defaultValue
+            return conn.prepareStatement("");
         }
 
         @Override
@@ -170,7 +176,8 @@ public abstract class TableColumn<I> {
 
         @Override
         public PreparedStatement createColumn(Connection conn) throws SQLException {
-            return conn.prepareStatement("ALTER TABLE _table_ ADD COLUMN _col_ BOOL DEFAULT " + defaultValue);
+            //"ALTER TABLE _table_ ADD COLUMN _col_ BOOL DEFAULT " + defaultValue
+            return conn.prepareStatement("");
         }
 
         @Override
@@ -194,7 +201,8 @@ public abstract class TableColumn<I> {
 
         @Override
         public PreparedStatement createColumn(Connection conn) throws SQLException {
-            return conn.prepareStatement("ALTER TABLE _table_ ADD COLUMN _col_ varchar(" + this.maxLength + ") DEFAULT '" + this.defaultValue + "'");
+            //"ALTER TABLE _table_ ADD COLUMN _col_ varchar(" + this.maxLength + ") DEFAULT '" + this.defaultValue + "'"
+            return conn.prepareStatement("");
         }
 
         @Override

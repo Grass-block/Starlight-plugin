@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.core.command;
 
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.CommandManager;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.module.BukkitModule;
 
 public abstract class ModuleCommand<M extends BukkitModule> extends AbstractCommand {

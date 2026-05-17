@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -29,7 +30,6 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.starlight.core.TaskService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
         this.pipeline.add(new PlayerCountStrategy());
         this.pipeline.add(new CustomSettingStrategy());
 
-        TaskService.async().timer("view-distance:calc", 1, config().value("calc-period").intValue(), () -> {
+        QLib.task().async().timer("view-distance:calc", 1, config().value("calc-period").intValue(), () -> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 calculatePlayerViewDistance(p, false, false);
             }
@@ -76,7 +76,7 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
     public void disable() {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
 
-        TaskService.async().cancel("view-distance:calc");
+        QLib.task().async().cancel("view-distance:calc");
 
         int val = Bukkit.getViewDistance();
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -91,7 +91,7 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        TaskService.global().delay(10, () -> this.calculatePlayerViewDistance(event.getPlayer(), true, false));
+        QLib.task().global().delay(10, () -> this.calculatePlayerViewDistance(event.getPlayer(), true, false));
     }
 
     @EventHandler

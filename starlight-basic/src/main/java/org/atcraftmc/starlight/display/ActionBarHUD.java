@@ -8,7 +8,6 @@ import net.kyori.adventure.text.ComponentLike;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.PlayerView;
@@ -50,7 +49,7 @@ public final class ActionBarHUD extends BukkitAbstractModule implements UITracki
                 this.getFullId(),
                 -10,
                 3,
-                TaskService::entity,
+                entity -> QLib.task().entity(entity),
                 (p, c) -> {
                     var comp = QLib.textBuilder().buildComponent(render(p));
                     QLib.audience(p).sendActionBar((ComponentLike) comp);

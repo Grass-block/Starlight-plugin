@@ -1,15 +1,15 @@
 package org.atcraftmc.starlight.internal;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -77,7 +77,7 @@ public final class PlatformPatcher extends BukkitAbstractModule {
 
         @Override
         public void enable() {
-            TaskService.global().timer("quark:tps:timer", 1, 1, () -> {
+            QLib.task().global().timer("quark:tps:timer", 1, 1, () -> {
                 var now = System.currentTimeMillis();
                 var mspt = (int) (now - this.lastTick);
 
@@ -89,7 +89,7 @@ public final class PlatformPatcher extends BukkitAbstractModule {
 
         @Override
         public void disable() {
-            TaskService.global().cancel("quark:tps:timer");
+            QLib.task().global().cancel("quark:tps:timer");
         }
 
         public double get() {

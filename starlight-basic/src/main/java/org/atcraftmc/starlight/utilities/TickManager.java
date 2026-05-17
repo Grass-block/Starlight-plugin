@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.utilities;
 
-import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;

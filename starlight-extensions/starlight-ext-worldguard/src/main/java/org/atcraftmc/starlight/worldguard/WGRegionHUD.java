@@ -10,9 +10,8 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
-import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -73,7 +72,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
                 this.getFullId(),
                 0,
                 2,
-                TaskService::entity,
+                entity -> QLib.task().entity(entity),
                 (p, c) -> {
                     var comp = QLib.textBuilder().buildComponent(render(p));
                     QLib.audience(p).sendActionBar((ComponentLike) comp);
@@ -111,7 +110,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
     public void enable() {
         PIPELINE.addLast("starlight:default", this::format);
 
-        TaskService.global().timer("starlight:worldguard-hud:main", 5, 5, () -> {
+        QLib.task().global().timer("starlight:worldguard-hud:main", 5, 5, () -> {
             for (var player : Bukkit.getOnlinePlayers()) {
                 tick(player);
             }
@@ -120,7 +119,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
 
     @Override
     public void disable() {
-        TaskService.global().cancel("starlight:worldguard-hud:main");
+        QLib.task().global().cancel("starlight:worldguard-hud:main");
 
         for (var player : Bukkit.getOnlinePlayers()) {
             stopRender(player);

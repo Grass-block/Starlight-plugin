@@ -5,8 +5,8 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
@@ -53,7 +53,7 @@ public final class AFK extends BukkitAbstractModule {
         var id = e.getPlayer().getName();
         var tid = "quark:afk:delay@" + id;
 
-        TaskService.async().cancel(tid);
+        QLib.task().async().cancel(tid);
     }
 
     @EventHandler
@@ -76,11 +76,11 @@ public final class AFK extends BukkitAbstractModule {
         var id = player.getName();
         var tid = "quark:afk:delay@" + id;
 
-        TaskService.async().cancel(tid);
+        QLib.task().async().cancel(tid);
 
         var timestamp = System.currentTimeMillis();
 
-        TaskService.async().delay(tid, ConfigAccessor.getInt(config(), "timeout"), () -> {
+        QLib.task().async().delay(tid, ConfigAccessor.getInt(config(), "timeout"), () -> {
             if (!player.isOnline()) {
                 return;
             }

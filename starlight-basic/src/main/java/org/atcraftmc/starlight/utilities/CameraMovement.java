@@ -4,8 +4,8 @@ import me.gb2022.commons.math.LinearInterpolation;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.GameMode;
@@ -78,7 +78,7 @@ public final class CameraMovement extends SLCommandModule {
 
         var useRotation = xr1 != INVALID_ROTATION;
 
-        TaskService.global().timer(tid, 1, 1, new CameraTask(player, length, tid, useRotation, useRotation, (t) -> {
+        QLib.task().global().timer(tid, 1, 1, new CameraTask(player, length, tid, useRotation, useRotation, (t) -> {
             var x = LinearInterpolation.do1(x1, x2, t);
             var y = LinearInterpolation.do1(y1, y2, t);
             var z = LinearInterpolation.do1(z1, z2, t);
@@ -151,7 +151,7 @@ public final class CameraMovement extends SLCommandModule {
         @Override
         public void run() {
             if (this.tick > this.ticks) {
-                TaskService.global().cancel(this.tid);
+                QLib.task().global().cancel(this.tid);
                 this.viewer.teleport(this.lastLocation);
                 this.viewer.setGameMode(this.lastGameMode);
                 return;

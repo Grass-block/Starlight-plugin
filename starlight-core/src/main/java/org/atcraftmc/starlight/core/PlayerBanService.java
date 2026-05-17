@@ -63,9 +63,9 @@ public interface PlayerBanService extends BukkitService {
             if (player == null) {
                 return;
             }
-            TaskService.async().run(() -> {
+            QLib.task().async().run(() -> {
                 var m = getBanMessage(LocaleService.locale(player), target, source, reason, expire);
-                TaskService.entity(player).run(() -> Players.KICK.invoke(player, m));
+                QLib.task().entity(player).run(() -> Players.KICK.invoke(player, m));
             });
         }
 

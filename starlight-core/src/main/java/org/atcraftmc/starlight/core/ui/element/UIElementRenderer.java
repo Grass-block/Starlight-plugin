@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.ui.element;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.inventory.ItemStack;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 

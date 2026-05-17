@@ -23,14 +23,13 @@ import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.core.ui.UI;
 import org.atcraftmc.starlight.core.ui.providing.GUIProvider;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
-import org.atcraftmc.starlight.core.command.ModuleCommand;
-import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -97,9 +96,9 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
 
     @Override
     public void disable() {
-        for (String s : new HashSet<>(TaskService.async().tasks())) {
+        for (String s : new HashSet<>(QLib.task().async().tasks())) {
             if (s.startsWith("quark_midi")) {
-                TaskService.async().cancel(s);
+                QLib.task().async().cancel(s);
             }
         }
 
@@ -229,7 +228,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
                     var legacy = Boolean.parseBoolean(commands[4]);
 
                     var request = new MusicResolveRequest(player, music, pitch, legacy, speed, 0);
-                    TaskService.async().run(() -> this.parent.playMusic(request));
+                    QLib.task().async().run(() -> this.parent.playMusic(request));
                 }
             }
         }

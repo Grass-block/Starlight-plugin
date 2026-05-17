@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.display;
 
 import io.papermc.paper.scoreboard.numbers.NumberFormat;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -19,17 +19,18 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.StringObjectPlaceHolder;
+import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.data.JDBCPlayerData;
+import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.data.flex.TableColumn;
+import org.atcraftmc.starlight.shared.service.JDBCData;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -47,7 +48,9 @@ import java.util.*;
 @BukkitCommand(name = "header", permission = "-starlight.name.header")
 @ComponentProvider({PlayerNameHeader.BelowNameColumns.class})
 public final class PlayerNameHeader extends SLCommandModule {
-    public static final TableColumn<String> PLAYER_HEADER = TableColumn.string("name_header", 16, "unset");
+    public static final TableColumn<String> PLAYER_HEADER_L = TableColumn.string("name_header", 16, "unset");
+    public static final DocumentField<String> PLAYER_HEADER = DocumentField.string("name-header", "unset");
+
     private final Map<UUID, String> cache = new HashMap<>();
     MethodHandleO1<Player, Component> SET_NAME_HEADER = MethodHandle.select(ctx -> {
         ctx.attempt(() -> Player.class.getMethod("playerListName", Component.class), (p, c) -> {
@@ -96,11 +99,11 @@ public final class PlayerNameHeader extends SLCommandModule {
         var o = Bukkit.getOfflinePlayer(args[1]);
 
         if (Objects.equals(args[0], "set")) {
-            PLAYER_HEADER.set(JDBCPlayerData.PLAYER_SHARED, Bukkit.getOfflinePlayer(args[1]).getUniqueId(), args[2]);
+            PLAYER_HEADER.set(JDBCData.PLAYER_SHARED, Bukkit.getOfflinePlayer(args[1]).getUniqueId(), args[2]);
             MessageAccessor.send(this.language, sender, "set-header", args[1], args[2]);
         }
         if (Objects.equals(args[0], "clear")) {
-            PLAYER_HEADER.set(JDBCPlayerData.PLAYER_SHARED, o.getUniqueId(), "unset");
+            PLAYER_HEADER.set(JDBCData.PLAYER_SHARED, o.getUniqueId(), "unset");
             MessageAccessor.send(this.language, sender, "clear-header", args[1]);
         }
 
@@ -156,23 +159,32 @@ public final class PlayerNameHeader extends SLCommandModule {
     }
 
     public String getHeader(Player player) {
-        if (this.cache.containsKey(player.getUniqueId())) {
-            return this.cache.get(player.getUniqueId());
+        var uuid = player.getUniqueId();
+
+        if (this.cache.containsKey(uuid)) {
+            return this.cache.get(uuid);
         }
 
-        var data = PLAYER_HEADER.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId());
+        var data = JDBCData.PLAYER_SHARED.get(uuid);
 
-        if (!Objects.equals(data, "unset")) {
-            this.cache.put(player.getUniqueId(), data);
-            return data;
+        if (!PLAYER_HEADER.exist(data) && PLAYER_HEADER_L.exist(JDBCPlayerData.PLAYER_SHARED)) {
+            var old = PLAYER_HEADER_L.get(JDBCPlayerData.PLAYER_SHARED, uuid);
+            PLAYER_HEADER.set(data, old);
+        }
+
+        var header = PLAYER_HEADER.get(data);
+
+        if (!Objects.equals(header, "unset")) {
+            this.cache.put(uuid, header);
+            return header;
         } else {
             if (player.isOp()) {
                 var h = config().value("op-header").string();
-                this.cache.put(player.getUniqueId(), h);
+                this.cache.put(uuid, h);
                 return h;
             } else {
                 var h = config().value("player-header").string();
-                this.cache.put(player.getUniqueId(), h);
+                this.cache.put(uuid, h);
                 return h;
             }
         }
@@ -185,7 +197,10 @@ public final class PlayerNameHeader extends SLCommandModule {
             return Component.text(player.getName());
         }
         return QLib.textBuilder().buildComponent(PlaceHolderService.format(template.replace("{player}", player.getName())
-                                                                            .replace("{header}", header + TextBuilder.EMPTY_COMPONENT)));
+                                                                                   .replace(
+                                                                                           "{header}",
+                                                                                           header + TextBuilder.EMPTY_COMPONENT
+                                                                                   )));
     }
 
     public Component getPlayerSuffix(Player player) {
@@ -222,12 +237,12 @@ public final class PlayerNameHeader extends SLCommandModule {
 
         @Override
         public void enable() {
-            TaskService.global().timer("render-below-name", 0, 20, this::render);
+            QLib.task().global().timer("render-below-name", 0, 20, this::render);
         }
 
         @Override
         public void disable() {
-            TaskService.global().cancel("render-below-name");
+            QLib.task().global().cancel("render-below-name");
         }
 
         public void render() {

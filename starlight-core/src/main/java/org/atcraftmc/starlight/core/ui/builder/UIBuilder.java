@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.ui.builder;
 
-import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.ui.AbstractUI;
+import org.bukkit.entity.Player;
 
 import java.util.function.Consumer;
 

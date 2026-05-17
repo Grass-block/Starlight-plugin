@@ -3,14 +3,16 @@ package org.atcraftmc.starlight.core.view;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.starlight.api.event.PlayerViewInitEvent;
-import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.TextSender;
+import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public final class PlayerView {
     public static final Set<String> CHANNELS = new HashSet<>();//temp impl

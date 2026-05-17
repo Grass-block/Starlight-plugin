@@ -13,6 +13,7 @@ import org.atcraftmc.starlight.core.command.CoreCommand;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.Map;
 
 @BukkitCommand(name = "libraries", permission = "-starlight.core.libs")
 public final class LibraryCommand extends CoreCommand {
@@ -26,14 +27,20 @@ public final class LibraryCommand extends CoreCommand {
         var paths = Starlight.instance().getLibraryManager().getLoadedURLs();
         var sender = context.requireSenderAsPlayer();
         var locale = LocaleService.locale(sender);
-        var list = ((ComponentBlock) this.getLanguage().item("list").component(locale));
+        var list = new ComponentBlock();
 
-        paths.forEach((id, lib) -> {
+        list.add(this.getLanguage().item("list").component(locale).asComponent());
+
+        paths.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach((e) -> {
+            var id = e.getKey();
+            var lib = e.getValue();
+
+
             File file;
             try {
                 file = new File(lib.toURI());
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+            } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
             }
 
             var component = getLanguage().item("list-item").component(locale, id);

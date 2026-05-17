@@ -4,14 +4,14 @@ import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleO1;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.core.ui.element.UIElement;
 import org.atcraftmc.starlight.core.ui.element.UIElementRenderer;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.core.ui.view.ViewData;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 

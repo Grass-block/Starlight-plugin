@@ -2,8 +2,12 @@ package org.atcraftmc.starlight.core.data;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.data.jdbc.SQLMapper;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,20 +18,20 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
+public final class BanEntryService extends JDBCDataService {
     private final Cache<UUID, Boolean> stateCache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build();
     private final Cache<UUID, List<BanEntry>> entryCache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build();
+    private final String tableName;
 
     public BanEntryService(String table) {
-        super(table);
+        this.tableName = table;
     }
 
     @Override
-    public String getTableNamePlaceholder() {
-        return "_ban_";
+    public void init(DataSource datasource, JDBCService service) {
+        super.init(new SQLMappedDataSource(datasource, SQLMapper.single("_ban_", this.tableName)), service);
     }
 
-    @Override
     public BanEntry decode(ResultSet rs) throws SQLException {
         return new BanEntry(
                 UUID.fromString(rs.getString("id")),
@@ -39,7 +43,7 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
     }
 
     public void add(BanEntry data) {
-        try (var p = this.connection.prepareStatement(
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement(
                 "insert into _ban_ (id,target,expire,reason,operator,valid) VALUES (?, ?, ?, ?, ?, true)")) {
             p.setString(1, data.getBanId().toString());
             p.setString(2, data.getTarget().toString());
@@ -76,7 +80,8 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
     public boolean isBanned(UUID uuid) {
         try {
             return this.stateCache.get(uuid, () -> {
-                try (var s = this.connection.prepareStatement("SELECT id from _ban_ where target=? and expire>? and valid = true")) {
+                try (var c = this.datasource.getConnection(); var s = c.prepareStatement(
+                        "SELECT id from _ban_ where target=? and expire>? and valid = true")) {
                     s.setString(1, uuid.toString());
                     s.setLong(2, System.currentTimeMillis());
 
@@ -96,7 +101,7 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
     public List<BanEntry> get(UUID uuid) {
         var res = new ArrayList<BanEntry>();
 
-        try (var s = this.connection.prepareStatement("SELECT * from _ban_ where target=?")) {
+        try (var c = this.datasource.getConnection(); var s = c.prepareStatement("SELECT * from _ban_ where target=?")) {
             s.setString(1, uuid.toString());
 
             try (var rs = s.executeQuery()) {
@@ -116,7 +121,8 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
             return this.entryCache.get(uuid, () -> {
                 var res = new ArrayList<BanEntry>();
 
-                try (var s = this.connection.prepareStatement("SELECT * from _ban_ where target=? and expire>? and valid = true")) {
+                try (var c = this.datasource.getConnection(); var s = c.prepareStatement(
+                        "SELECT * from _ban_ where target=? and expire>? and valid = true")) {
                     s.setString(1, uuid.toString());
                     s.setLong(2, System.currentTimeMillis());
 
@@ -137,7 +143,7 @@ public final class BanEntryService extends JDBCBasedDataService<BanEntry> {
     }
 
     public void pardon(UUID uniqueId) {
-        try (var ps = this.connection.prepareStatement("UPDATE _ban_ SET valid = false WHERE target = ?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("UPDATE _ban_ SET valid = false WHERE target = ?")) {
             ps.setString(1, uniqueId.toString());
             ps.executeUpdate();
         } catch (SQLException e) {

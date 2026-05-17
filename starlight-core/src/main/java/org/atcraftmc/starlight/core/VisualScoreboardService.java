@@ -11,6 +11,7 @@ import me.gb2022.gluon.service.ServiceProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
@@ -19,6 +20,7 @@ import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -188,7 +190,8 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void mount() {
-            TaskService.entity(handle()).run(() -> {
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> {
                 this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
                 var player = Bukkit.getPlayer(this.uuid);
@@ -259,7 +262,8 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void renderSidebar(Component title, List<String> columns) {
-            TaskService.entity(handle()).run(() -> {
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> {
                 var buffer1 = getObjective(BUFFER_1);
                 var buffer2 = getObjective(BUFFER_2);
 
@@ -291,7 +295,8 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void stopSidebarRendering() {
-            TaskService.entity(handle()).run(() -> {
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> {
                 this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
                 this.scoreboard.getObjectives().forEach((o) -> {
                     try {
@@ -308,12 +313,14 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public synchronized void setNameTag(Player target, Component prefix, Component postfix) {
-            TaskService.entity(handle()).run(() -> TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix));
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix));
         }
 
         @Override
         public synchronized void setTabColumn(Player target, int value, Component title) {
-            TaskService.entity(handle()).run(() -> {
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> {
                 var tab = getObjective(PLAYER_LIST);
                 tab.setDisplaySlot(DisplaySlot.PLAYER_LIST);
                 tab.getScore(target).setScore(value);
@@ -323,7 +330,8 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public synchronized void clearTabColumn() {
-            TaskService.entity(handle()).run(() -> getObjective(PLAYER_LIST).unregister());
+            Entity entity = handle();
+            QLib.task().entity(entity).run(() -> getObjective(PLAYER_LIST).unregister());
         }
 
         interface TeamAPI {

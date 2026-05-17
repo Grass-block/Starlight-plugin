@@ -1,12 +1,12 @@
 package org.atcraftmc.starlight.core.crafting;
 
+import org.atcraftmc.starlight.Starlight;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.StonecuttingRecipe;
-import org.atcraftmc.starlight.Starlight;
 
 public interface RecipeBuilder {
     static ShapedRecipe shaped(String id, String map, ItemStack result, PatternSymbol... symbols) {

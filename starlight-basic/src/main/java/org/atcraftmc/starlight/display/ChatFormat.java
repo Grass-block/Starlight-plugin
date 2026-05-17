@@ -1,10 +1,10 @@
 package org.atcraftmc.starlight.display;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRO0;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -12,12 +12,12 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.api.CustomChatRenderer;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.TextExaminer;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.util.TemplateExpansion;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

@@ -13,6 +13,7 @@
     "com.baomidou:mybatis-plus-core:3.5.15",
     "com.baomidou:mybatis-plus-annotation:3.5.15",
     "com.zaxxer:HikariCP:7.0.2",
-    "io.netty:netty-codec-http:4.1.128.Final"
+    "io.netty:netty-codec-http:4.1.128.Final",
+    "net.kyori:adventure-text-serializer-plain:4.17.0"
   ]
 }

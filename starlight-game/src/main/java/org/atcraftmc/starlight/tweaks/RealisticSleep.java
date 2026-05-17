@@ -5,11 +5,11 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.APIProfile;
@@ -40,7 +40,7 @@ public final class RealisticSleep extends BukkitAbstractModule {
     private final Set<Player> daySleepingPlayers = new HashSet<>();
     private final Set<Player> whateverSleepingPlayers = new HashSet<>();
 
-    private final TaskHandle daemonTask = TaskHandle.timer(TaskService.global(), "starlight:sleep:daemon", 1, 1, () -> {
+    private final TaskHandle daemonTask = TaskHandle.timer(QLib.task().global(), "starlight:sleep:daemon", 1, 1, () -> {
         for (var w : Bukkit.getWorlds()) {
             if (w.isDayTime()) {
                 continue;
@@ -59,7 +59,7 @@ public final class RealisticSleep extends BukkitAbstractModule {
     @Override
     public void enable() {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.add(this.tip));
-        TaskService.global().timer("starlight:sleep:health", 1, ConfigAccessor.getInt(this.config(), "health-interval"), () -> {
+        QLib.task().global().timer("starlight:sleep:health", 1, ConfigAccessor.getInt(this.config(), "health-interval"), () -> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (!this.whateverSleepingPlayers.contains(p)) {
                     continue;
@@ -77,7 +77,7 @@ public final class RealisticSleep extends BukkitAbstractModule {
     @Override
     public void disable() {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
-        TaskService.global().cancel("starlight:sleep:health");
+        QLib.task().global().cancel("starlight:sleep:health");
         this.daemonTask.stop();
     }
 

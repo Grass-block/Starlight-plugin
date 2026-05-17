@@ -3,13 +3,14 @@ package org.atcraftmc.starlight.internal;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.CommandEvent;
 import org.atcraftmc.starlight.api.event.CommandTabEvent;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.internal.command.InternalCommands;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -31,6 +32,27 @@ public interface InternalServices {
         @ServiceInject
         static void stop() {
             Bukkit.getServer().getMessenger().unregisterOutgoingPluginChannel(Starlight.instance(), BUNGEE_CHANNEL_ID);
+        }
+    }
+
+    @ApplicationService(id = "internal#jdbc-service-ticker")
+    interface JDBCServiceTicker extends BukkitService {
+
+        @ServiceInject
+        static void start() {
+            QLib.task().global().timer("starlight:jdbc-tick", 0, 20, () -> {
+                var i = JDBCService.getInstance();
+
+                if (i == null) {
+                    return;
+                }
+                i.tick();
+            });
+        }
+
+        @ServiceInject
+        static void stop() {
+            QLib.task().global().cancel("starlight:jdbc-tick");
         }
     }
 
@@ -89,7 +111,7 @@ public interface InternalServices {
                         event.getCompletions()
                 );
 
-                TaskService.async().run(() -> Bukkit.getPluginManager().callEvent(evt));
+                QLib.task().async().run(() -> Bukkit.getPluginManager().callEvent(evt));
                 if (evt.isCancelled()) {
                     event.setCancelled(true);
                 }
@@ -103,7 +125,7 @@ public interface InternalServices {
 
                 CommandEvent evt = new CommandEvent(sender, raw[0], args);
 
-                TaskService.async().run(() -> Bukkit.getPluginManager().callEvent(evt));
+                QLib.task().async().run(() -> Bukkit.getPluginManager().callEvent(evt));
 
                 return evt.isCancelled();
             }

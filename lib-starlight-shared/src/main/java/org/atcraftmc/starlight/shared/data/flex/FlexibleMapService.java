@@ -54,7 +54,7 @@ public final class FlexibleMapService extends JDBCBasedDataService<String> {
         return conn.prepareStatement(sql);
     }
 
-    public interface Codec<I> {
+    public static interface Codec<I> {
         Codec<String> STRING = new Codec<>() {
             @Override
             public String decode(String data) {

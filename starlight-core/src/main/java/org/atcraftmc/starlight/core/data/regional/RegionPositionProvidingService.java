@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.core.data.regional;
 
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,7 +23,7 @@ public abstract class RegionPositionProvidingService implements BukkitService {
         INSTANCES.add(PLAYER);
         INSTANCES.add(SPAWN);
 
-        TaskService.async().timer("starlight:region", 0, 1, () -> {
+        QLib.task().async().timer("starlight:region", 0, 1, () -> {
             for (var rpt : INSTANCES) {
                 rpt.tick();
             }
@@ -32,7 +32,7 @@ public abstract class RegionPositionProvidingService implements BukkitService {
 
     @ServiceInject
     static void stop() {
-        TaskService.async().cancel("starlight:region");
+        QLib.task().async().cancel("starlight:region");
     }
 
     public static RegionPositionProvidingService player() {
@@ -71,7 +71,7 @@ public abstract class RegionPositionProvidingService implements BukkitService {
     private static final class SpawnPositionProvider extends RegionPositionProvidingService {
         @Override
         public void tick() {
-            TaskService.global().run(() -> {
+            QLib.task().global().run(() -> {
                 for (var world : Bukkit.getWorlds()) {
                     this.activate(world.getSpawnLocation(), 4);
                 }

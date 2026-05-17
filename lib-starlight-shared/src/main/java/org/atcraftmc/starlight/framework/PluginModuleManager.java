@@ -5,7 +5,6 @@ import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.module.ModuleManager;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.FilePath;
 import org.atcraftmc.starlight.util.PluginAutoRegManager;
 import org.atcraftmc.starlight.util.PluginDependencyInjector;
 

@@ -14,8 +14,8 @@ import me.gb2022.commons.container.ObjectContainer;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.worldguard.data.JsonDataHandle;
@@ -96,7 +96,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
         public void enable() {
             BukkitUtil.registerEventListener(this);
 
-            TaskService.global().timer("starlight:region-auto-save", 100, 100, () -> this.handleCache.asMap().forEach((k, v) -> {
+            QLib.task().global().timer("starlight:region-auto-save", 100, 100, () -> this.handleCache.asMap().forEach((k, v) -> {
                 if (v.isDirty() && v.isFree()) {
                     write(k, v);
                     v.setDirty(false);
@@ -106,7 +106,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
 
         @Override
         public void disable() {
-            TaskService.global().cancel("starlight:region-auto-save");
+            QLib.task().global().cancel("starlight:region-auto-save");
 
             BukkitUtil.unregisterEventListener(this);
             this.handleCache.asMap().forEach((k, v) -> flush(k));

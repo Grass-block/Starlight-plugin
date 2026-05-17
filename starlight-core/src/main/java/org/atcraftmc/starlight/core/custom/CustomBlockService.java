@@ -11,7 +11,6 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
@@ -122,7 +121,7 @@ public final class CustomBlockService implements BukkitService {
     }
 
     public void refreshInventory(Player player, int delay) {
-        TaskService.entity(player).delay(delay, () -> {
+        QLib.task().entity(player).delay(delay, () -> {
             for (var i : player.getInventory().getContents()) {
                 if (i == null) {
                     continue;

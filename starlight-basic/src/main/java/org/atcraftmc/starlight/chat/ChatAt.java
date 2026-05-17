@@ -2,16 +2,16 @@ package org.atcraftmc.starlight.chat;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.Players;
-import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

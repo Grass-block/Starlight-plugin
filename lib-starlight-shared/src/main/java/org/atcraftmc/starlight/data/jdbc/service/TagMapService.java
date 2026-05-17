@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.data.jdbc.service;
 
 import org.atcraftmc.starlight.data.jdbc.SQLMapper;
-import org.atcraftmc.starlight.data.jdbc.source.JDBCDataSource;
 import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
 import org.atcraftmc.starlight.data.jdbc.source.WrappedDataSource;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -33,9 +33,8 @@ public final class TagMapService extends JDBCDataService implements TagMap {
     }
 
     @Override
-    public void init(JDBCDataSource datasource) {
-        super.init(datasource);
-        this.datasource = new SQLMappedDataSource(datasource, SQLMapper.single("_tagmap_", this.tableName));
+    public void init(DataSource datasource, JDBCService service) {
+        super.init(new SQLMappedDataSource(datasource, SQLMapper.single("_tagmap_", this.tableName)), service);
         this.payloadHandlerA = channel(datasource, "payload_a", this.tableName);
         this.payloadHandlerB = channel(datasource, "payload_b", this.tableName);
         this.payloadHandlerC = channel(datasource, "payload_c", this.tableName);

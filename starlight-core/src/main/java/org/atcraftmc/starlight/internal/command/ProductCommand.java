@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.internal.command;
 
-import org.bukkit.command.CommandSender;
+import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.command.CoreCommand;
-import org.atcraftmc.qlib.command.BukkitCommand;
+import org.bukkit.command.CommandSender;
 
 @BukkitCommand(name = "product")
 public final class ProductCommand extends CoreCommand {

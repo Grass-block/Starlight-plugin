@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.core.ui;
 
-import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.core.ui.view.UIViewRenderer;
+import org.bukkit.entity.Player;
 
 public abstract class AbstractInventoryUI implements UIViewRenderer {
     protected final int capacity;

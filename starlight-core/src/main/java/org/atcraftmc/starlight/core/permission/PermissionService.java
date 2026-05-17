@@ -5,7 +5,6 @@ import me.gb2022.gluon.service.ServiceInject;
 import me.gb2022.gluon.service.ServiceLayer;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

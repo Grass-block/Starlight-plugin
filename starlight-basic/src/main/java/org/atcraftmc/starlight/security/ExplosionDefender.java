@@ -1,22 +1,22 @@
 package org.atcraftmc.starlight.security;
 
 import me.gb2022.apm.local.PluginMessenger;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
-import org.atcraftmc.starlight.core.data.region.Region;
-import org.atcraftmc.starlight.data.record.registry.RecordField;
-import org.atcraftmc.starlight.data.record.registry.RecordRegistry;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.data.region.Region;
+import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.data.record.registry.RecordField;
+import org.atcraftmc.starlight.data.record.registry.RecordRegistry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.ConfigAccessor;

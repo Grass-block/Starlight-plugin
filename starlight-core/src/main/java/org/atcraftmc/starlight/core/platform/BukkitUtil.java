@@ -7,7 +7,6 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.internal.PlatformPatcher;
 import org.atcraftmc.starlight.internal.platform.SpigotReflection;
 import org.bukkit.*;
@@ -78,7 +77,7 @@ public interface BukkitUtil {
         };
 
         if (event.isAsynchronous()) {
-            TaskService.async().run(command);
+            QLib.task().async().run(command);
             return f;
         }
 
@@ -87,7 +86,7 @@ public interface BukkitUtil {
             return f;
         }
 
-        TaskService.global().run(command);
+        QLib.task().global().run(command);
         return f;
     }
 

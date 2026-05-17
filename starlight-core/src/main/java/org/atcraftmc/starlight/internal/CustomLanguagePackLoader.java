@@ -2,13 +2,13 @@ package org.atcraftmc.starlight.internal;
 
 import com.google.gson.JsonObject;
 import me.gb2022.commons.reflect.Inject;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.language.LanguagePack;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.SharedObjects;
+import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
-import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 
 import java.io.File;

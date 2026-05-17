@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.music.session;
 
-import org.atcraftmc.starlight.core.TaskService;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicNode;
 import org.atcraftmc.starlight.util.AsyncLock;
@@ -43,7 +43,7 @@ public final class MusicTask {
     public void run() {
         var delayedTicks = 0;
         var firstNodePlayed = false;
-        var t = TaskService.async().timer(0, 10, () -> this.callback.tick(this, this.music));
+        var t = QLib.task().async().timer(0, 10, () -> this.callback.tick(this, this.music));
 
         try {
             this.callback.start(this, this.music);

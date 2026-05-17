@@ -2,12 +2,16 @@ package org.atcraftmc.starlight.core.data.region;
 
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.data.jdbc.SQLMapper;
+import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
 import org.joml.Vector3d;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +23,17 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public abstract class AbstractRegionService<R extends Region> extends JDBCBasedDataService<R> implements RegionDataProvider<R> {
+public abstract class AbstractRegionService<R extends Region> extends JDBCDataService implements RegionDataProvider<R> {
+    private final String tableName;
     private final ConcurrentHashMap<String, WorldRegionMonitorCache<R>> caches = new ConcurrentHashMap<>();
 
     public AbstractRegionService(String table) {
-        super(table);
+        this.tableName = table;
+    }
+
+    @Override
+    public void init(DataSource datasource, JDBCService service) {
+        super.init(new SQLMappedDataSource(datasource, SQLMapper.single("_region_", this.tableName)), service);
     }
 
     @Override
@@ -56,7 +66,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
                 )
                 """;
 
-        try (var ps = this.connection.prepareStatement(sql)) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
             ps.setString(1, worldId);
             ps.setInt(2, wx0);
             ps.setInt(3, wx0);
@@ -124,7 +134,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
     private boolean _add(R data) throws SQLException {
         data.serializeMetadata(data.getExtraMetadata());
 
-        try (var ps = this.connection.prepareStatement(
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
                 "INSERT INTO _region_ (uuid, owner, name, world, x0, y0, z0, x1, y1, z1, meta) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
             var p0 = data.getMinPoint();
@@ -154,7 +164,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
         var p0 = data.getMinPoint();
         var p1 = data.getMaxPoint();
 
-        try (var ps = this.connection.prepareStatement(
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
                 "UPDATE _region_ SET name=?,owner=?, world=?, x0=?, y0=?, z0=?, x1=?, y1=?, z1=?, meta=? where uuid = ?")) {
             ps.setString(1, data.getName());
             ps.setString(2, data.getOwner().toString());
@@ -177,8 +187,6 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
 
     public abstract R create(UUID id, UUID owner, String name, String world, Vector3d p1, Vector3d p2, BsonDocument meta);
 
-
-    @Override
     public R decode(ResultSet rs) throws SQLException {
         return create(
                 UUID.fromString(rs.getString("uuid")),
@@ -190,7 +198,6 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
                 BsonCodec.string(rs.getString("meta"))
         );
     }
-
 
     // name
     public Set<String> _queryNames(PreparedStatement ps) throws SQLException {
@@ -205,13 +212,13 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
     }
 
     public Set<String> listNames() throws SQLException {
-        try (var ps = this.connection.prepareStatement("SELECT name FROM _region_")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT name FROM _region_")) {
             return _queryNames(ps);
         }
     }
 
     public Set<String> listNamesByOwner(UUID owner) {
-        try (var ps = this.connection.prepareStatement("SELECT name FROM _region_ where owner = ?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT name FROM _region_ where owner = ?")) {
             ps.setString(1, owner.toString());
             return _queryNames(ps);
         } catch (SQLException e) {
@@ -263,7 +270,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
 
 
     public boolean rename(UUID owner, String origin, String dest) throws SQLException {
-        try (var p = this.connection.prepareStatement("UPDATE _region_ SET name = ? WHERE name = ? AND owner = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("UPDATE _region_ SET name = ? WHERE name = ? AND owner = ?")) {
             p.setString(1, dest);
             p.setString(2, origin);
             p.setString(3, owner.toString());
@@ -275,7 +282,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
     }
 
     public boolean delete(String name) throws SQLException {
-        try (var p = connection.prepareStatement("DELETE FROM _region_ WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("DELETE FROM _region_ WHERE name = ?")) {
             p.setString(1, name);
             invalidateCache();
             return p.executeUpdate() > 0;
@@ -284,7 +291,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
 
 
     public boolean existName(String name) throws SQLException {
-        try (var p = connection.prepareStatement("SELECT 42 FROM _region_ WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT 42 FROM _region_ WHERE name = ?")) {
             p.setString(1, name);
             try (var rs = p.executeQuery()) {
                 return rs.next();
@@ -293,7 +300,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
     }
 
     public boolean existUUID(UUID uuid) {
-        try (var p = connection.prepareStatement("SELECT 42 FROM _region_ WHERE uuid = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT 42 FROM _region_ WHERE uuid = ?")) {
             p.setString(1, uuid.toString());
             try (var rs = p.executeQuery()) {
                 return rs.next();
@@ -320,7 +327,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
     }
 
     public Optional<WorldAABB> byName(String name) throws SQLException {
-        try (var p = connection.prepareStatement("SELECT * FROM _region_ WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT * FROM _region_ WHERE name = ?")) {
             p.setString(1, name);
 
             try (var rs = p.executeQuery()) {
@@ -341,7 +348,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
 
         var sql = "SELECT uuid FROM _region_ WHERE ? >= x0 AND ? <= x1 AND ? >= y0 AND ? <= y1 AND ? >= z0 AND ? <= z1 AND world = ? LIMIT 1";
 
-        try (var ps = this.connection.prepareStatement(sql)) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
             renderBoundCall(world, x, y, z, ps);
 
             try (var rs = ps.executeQuery()) {
@@ -358,11 +365,5 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCBasedD
         ps.setDouble(5, z);
         ps.setDouble(6, z);
         ps.setString(7, world);
-    }
-
-
-    @Override
-    public String getTableNamePlaceholder() {
-        return "_region_";
     }
 }

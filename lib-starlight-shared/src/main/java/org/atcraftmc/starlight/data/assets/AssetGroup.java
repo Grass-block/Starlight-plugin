@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.data.assets;
 
 import me.gb2022.commons.file.Files;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 

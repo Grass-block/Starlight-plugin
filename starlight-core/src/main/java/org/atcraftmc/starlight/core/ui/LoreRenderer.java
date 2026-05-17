@@ -3,7 +3,8 @@ package org.atcraftmc.starlight.core.ui;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public interface LoreRenderer extends Function<InventoryUIView, List<Component>> {

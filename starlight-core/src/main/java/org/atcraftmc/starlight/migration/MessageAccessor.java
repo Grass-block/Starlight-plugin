@@ -3,9 +3,9 @@ package org.atcraftmc.starlight.migration;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.bukkit.command.CommandSender;
-import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.LocaleService;
+import org.atcraftmc.starlight.core.TextSender;
+import org.bukkit.command.CommandSender;
 
 public interface MessageAccessor {
     static void broadcast(LanguageEntry language, boolean b, boolean b1, String s, Object... format) {

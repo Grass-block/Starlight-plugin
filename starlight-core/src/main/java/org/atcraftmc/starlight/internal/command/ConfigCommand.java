@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.internal.command;
 
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.qlib.config.PackContainer;
 import org.atcraftmc.qlib.config.ConfigContainer;
+import org.atcraftmc.qlib.config.PackContainer;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
 

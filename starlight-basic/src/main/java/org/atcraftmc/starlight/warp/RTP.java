@@ -2,10 +2,10 @@ package org.atcraftmc.starlight.warp;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
@@ -43,7 +43,7 @@ public final class RTP extends SLCommandModule {
 
 
     public void attempt(Random random, Player player, Consumer<Location> callback, int counter, boolean async) {
-        (async ? TaskService.async() : TaskService.global()).delay(1, () -> {
+        (async ? QLib.task().async() : QLib.task().global()).delay(1, () -> {
 
             var limit = ConfigAccessor.getInt(this.config(), "limit");
             var max = ConfigAccessor.getInt(this.config(), "max-height");
@@ -108,7 +108,7 @@ public final class RTP extends SLCommandModule {
 
                     var loc = new Location(player.getWorld(), x, y, z);
 
-                    TaskService.global().run(() -> {
+                    QLib.task().global().run(() -> {
                         Players.teleport(player, loc.add(0.5, 1, 0.5));
                         callback.accept(loc);
                     });

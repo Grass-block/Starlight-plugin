@@ -2,7 +2,6 @@ package org.atcraftmc.starlight.data.jdbc.source;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisSqlSessionFactoryBuilder;
-import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -10,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.data.jdbc.JDBCDrivers;
 import org.atcraftmc.starlight.data.jdbc.service.TagMapService;
+import org.atcraftmc.starlight.shared.service.JDBCService;
 
 import javax.sql.DataSource;
 import java.io.Closeable;
@@ -27,8 +27,8 @@ public abstract class JDBCDataSource extends WrappedDataSource {
         super(dataSource);
     }
 
-    public static JDBCDataSource simple(DataSource dataSource) {
-        return new SimpleDatasource(dataSource);
+    public static JDBCDataSource simple(DataSource dataSource,JDBCService service) {
+        return new SimpleDatasource(dataSource,service);
     }
 
     public static JDBCDataSource phantom(JDBCDataSource dataSource) {
@@ -54,12 +54,14 @@ public abstract class JDBCDataSource extends WrappedDataSource {
     }
 
     private static final class SimpleDatasource extends JDBCDataSource {
+        private final JDBCService service;
         private final Map<String, Set<String>> columns = new HashMap<>();
         private final SqlSessionFactory sessionFactory;
         private final TagMapService flexibleMetaMap;
 
-        public SimpleDatasource(DataSource dataSource) {
+        public SimpleDatasource(DataSource dataSource, JDBCService service) {
             super(dataSource);
+            this.service = service;
 
             var configuration = new MybatisConfiguration();
             var builder = new MybatisSqlSessionFactoryBuilder();
@@ -70,7 +72,7 @@ public abstract class JDBCDataSource extends WrappedDataSource {
             try {
                 this.sessionFactory = builder.build(configuration);
                 this.flexibleMetaMap = new TagMapService("_sl_flexible_meta");
-                this.flexibleMetaMap.init(this);
+                this.flexibleMetaMap.init(this,this.service);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

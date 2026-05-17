@@ -1,15 +1,15 @@
 package org.atcraftmc.starlight.commands;
 
-import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.shared.FilePath;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -58,7 +58,7 @@ public final class CommandTabFix extends BukkitAbstractModule {
 
     @Override
     public void enable() {
-        TaskService.global().delay(1000, LegacyCommandManager::sync);
+        QLib.task().global().delay(1000, LegacyCommandManager::sync);
     }
 
     @Override

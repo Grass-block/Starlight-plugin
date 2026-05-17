@@ -3,15 +3,15 @@ package org.atcraftmc.starlight.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -100,7 +100,7 @@ public final class SurroundingRefresh extends SLCommandModule {
             return;
         }
 
-        TaskService.async().delay(3, () -> {
+        QLib.task().async().delay(3, () -> {
             var loc = event.getLocation();
 
             for (var p : Bukkit.getOnlinePlayers()) {
@@ -121,7 +121,7 @@ public final class SurroundingRefresh extends SLCommandModule {
             return;
         }
 
-        TaskService.async().delay(3, () -> {
+        QLib.task().async().delay(3, () -> {
             var loc = event.getBlock().getLocation();
 
             for (var p : Bukkit.getOnlinePlayers()) {
@@ -152,11 +152,11 @@ public final class SurroundingRefresh extends SLCommandModule {
                 for (int zz = z - radius; zz <= z + radius; zz++) {
                     var loc = new Location(p.getWorld(), xx, yy, zz);
                     if (!silent) {
-                        TaskService.global().delay(delay, () -> p.sendBlockChange(loc, Material.AIR.createBlockData()));
-                        TaskService.global().delay(delay + 5, () -> p.sendBlockChange(loc, loc.getBlock().getBlockData()));
+                        QLib.task().global().delay(delay, () -> p.sendBlockChange(loc, Material.AIR.createBlockData()));
+                        QLib.task().global().delay(delay + 5, () -> p.sendBlockChange(loc, loc.getBlock().getBlockData()));
                     } else {
                         p.sendBlockChange(loc, Material.AIR.createBlockData());
-                        TaskService.global().delay(5, () -> p.sendBlockChange(loc, loc.getBlock().getBlockData()));
+                        QLib.task().global().delay(5, () -> p.sendBlockChange(loc, loc.getBlock().getBlockData()));
                     }
                 }
             }

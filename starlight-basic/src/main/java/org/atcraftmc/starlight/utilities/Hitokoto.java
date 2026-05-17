@@ -4,8 +4,8 @@ import com.google.gson.JsonParser;
 import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.starlight.core.TaskService;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
@@ -19,7 +19,7 @@ public final class Hitokoto extends SLCommandModule {
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
-        TaskService.async().run(() -> {
+        QLib.task().async().run(() -> {
             var json = JsonParser.parseString(FETCH.request()).getAsJsonObject();
 
             MessageAccessor.send(this.language(), sender,

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.utilities.viewdistance;
 
-import org.bukkit.entity.Player;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.bukkit.entity.Player;
 
 public final class NetworkPingStrategy implements ViewDistanceStrategy {
 

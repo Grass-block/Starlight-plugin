@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.permission;
 
-import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.permissions.Permissible;

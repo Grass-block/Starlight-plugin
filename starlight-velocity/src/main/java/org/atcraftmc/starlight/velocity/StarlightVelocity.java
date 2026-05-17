@@ -14,7 +14,6 @@ import org.atcraftmc.qlib.language.LanguageContainer;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
-import org.atcraftmc.qlib.platform.api.APIManager;
 import org.atcraftmc.qlib.velocity.VelocityPlatform;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.environment.PathManager;

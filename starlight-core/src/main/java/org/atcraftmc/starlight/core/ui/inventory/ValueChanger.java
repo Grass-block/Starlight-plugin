@@ -1,11 +1,11 @@
 package org.atcraftmc.starlight.core.ui.inventory;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.ui.callback.InventoryActionListener;
 import org.atcraftmc.starlight.core.ui.callback.ValueEventHandler;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public final class ValueChanger implements InventoryComponent, InventoryActionListener {
     private static final int[] SCALES = new int[]{1, 5, 10, 50};

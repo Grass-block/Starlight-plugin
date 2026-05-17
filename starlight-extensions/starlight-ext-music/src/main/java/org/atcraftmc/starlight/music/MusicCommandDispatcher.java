@@ -1,10 +1,8 @@
 package org.atcraftmc.starlight.music;
 
-import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
-import org.atcraftmc.starlight.util.StandaloneCommand;
 
 import java.util.List;
 import java.util.Objects;

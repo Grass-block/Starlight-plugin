@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.stream.ChunkedFile;
 import me.gb2022.commons.file.FilePath;
 import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.commons.reflect.method.MethodHandle;
+import me.gb2022.commons.reflect.method.MethodHandleO4;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
@@ -15,12 +17,13 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
-import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.core.http.HttpHandler;
 import org.atcraftmc.starlight.core.http.HttpResponses;
 import org.atcraftmc.starlight.core.http.HttpService;
-import org.atcraftmc.starlight.core.http.HttpHandler;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.sideload.resource.LocalPackManager;
 import org.atcraftmc.starlight.sideload.resource.ResourcePackSourceInfo;
 import org.bukkit.entity.Player;
@@ -33,6 +36,16 @@ import java.io.RandomAccessFile;
 @AutoRegister({Registrations.SERVER_EVENT})
 @CommandProvider(ResourcePackLoader.GetResourceCommand.class)
 public final class ResourcePackLoader extends BukkitAbstractModule implements HttpHandler {
+    public static final MethodHandleO4<Player, Boolean, byte[], Component, String> SEND_RESOURCE_PACK = MethodHandle.select((c) -> {
+        c.attempt(
+                () -> Player.class.getMethod("setResourcePack", String.class, byte[].class, Component.class, boolean.class),
+                (player, force, hash, prompt, url) -> player.setResourcePack(url, hash, prompt, force)
+        );
+        c.attempt(
+                () -> Player.class.getMethod("setResourcePack", String.class, byte[].class, String.class, boolean.class),
+                (player, force, hash, prompt, url) -> player.setResourcePack(url, hash, ComponentSerializer.legacy(prompt), force)
+        );
+    });
     private static final FilePath PATH = SLPluginEnvironment.getPathManager().getCurrentPluginFolder().append("assets").append(
             "resource-packs");
     private final LocalPackManager localPackManager = new LocalPackManager(PATH);
@@ -58,13 +71,14 @@ public final class ResourcePackLoader extends BukkitAbstractModule implements Ht
         sendResourcePack(event.getPlayer());
     }
 
+    //todo: prompt and enforce config
     public void sendResourcePack(Player player) {
         try {
             var prompt = Component.text("");//language().item("prompt").component(LocaleService.locale(player)).asComponent();
             var sha = ResourcePackSourceInfo.fileSHA1Raw(this.localPackManager.getCompiledFile());
             var uri = "http://localhost:8080/resource-pack";
 
-            player.setResourcePack(uri, sha, prompt);
+            SEND_RESOURCE_PACK.invoke(player, true, sha, prompt, uri);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
