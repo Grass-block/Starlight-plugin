@@ -31,9 +31,10 @@ import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,7 +50,7 @@ import java.util.concurrent.TimeUnit;
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(PlayerViewCustomization.PlayerUICommand.class)
 public final class PlayerViewCustomization extends BukkitAbstractModule {
-    private final SettingStorage storage = new SettingStorage("SL_UI_SETTINGS");
+    private final SettingStorage storage = new SettingStorage();
     private final Map<String, ViewSettingInfo> settings = new HashMap<>();
     private final SettingsUI settingsUI = new SettingsUI(this);
 
@@ -98,7 +99,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             register(key);
         }
         this.logger.info("Auto-loaded {} view-settings.", keys.size());
-        this.storage.init(JDBCService.dataSource(JDBCService.SL_SHARED), JDBCService.getInstance());
+        this.storage.initService(JDBCService.dataSource(JDBCData.SL_SHARED));
     }
 
     public PlayerUISetting getSetting(UUID uuid) {
@@ -125,6 +126,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             var instance = PlayerUIService.getInstance(context.requireSenderAsPlayer());
             var uuid = context.requireSenderAsPlayer().getUniqueId();
             var setting = this.getModule().getSetting(uuid);
+            var audience = QLib.audience(context.getSender());
 
             switch (context.requireEnum(0, "renderer", "channel", "reject-all", "gui")) {
                 case "gui" -> {
@@ -137,24 +139,32 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
 
                     if (b) {
                         setting.unrejectChannel(channel);
+                        audience.sendMessage(getLanguage().item("unreject-channel").message(channel));
                     } else {
                         setting.rejectChannel(channel);
+                        audience.sendMessage(getLanguage().item("reject-channel").message(channel));
                     }
-
-                    //todo:msg
                 }
                 case "renderer" -> {
                     var renderer = context.requireArgumentAt(1);
                     var b = setting.isRendererRejected(renderer);
                     if (b) {
                         setting.unrejectRenderer(renderer);
+                        audience.sendMessage(getLanguage().item("unreject-renderer").message(renderer));
                     } else {
                         setting.rejectRenderer(renderer);
+                        audience.sendMessage(getLanguage().item("reject-renderer").message(renderer));
                     }
                 }
                 case "reject-all" -> {
                     var b = setting.isRejectAllChannels();
                     setting.rejectAllChannels(!b);
+
+                    if (!b) {
+                        audience.sendMessage(getLanguage().item("reject-all").message());
+                    } else {
+                        audience.sendMessage(getLanguage().item("unreject-all").message());
+                    }
                 }
             }
 
@@ -172,16 +182,11 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
 
     private static final class SettingStorage extends JDBCDataService {
         private final Cache<UUID, PlayerUISetting> settingCache = CacheBuilder.newBuilder().expireAfterAccess(30, TimeUnit.SECONDS).build();
-        private final String tableName;
-
-        public SettingStorage(String table) {
-            this.tableName = table;
-        }
 
         @Override
-        public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
+        public PreparedStatement createTable(Connection conn) throws SQLException {
             var sql = """
-                    CREATE TABLE IF NOT EXISTS _ui_(
+                    CREATE TABLE IF NOT EXISTS SL_UI_SETTINGS(
                         uuid char(36) PRIMARY KEY,
                         channels_rejected varchar(512) NOT NULL,
                         renderers_rejected varchar(512) NOT NULL,
@@ -210,34 +215,33 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
         }
 
         private boolean _add(UUID uuid, PlayerUISetting data) throws SQLException {
-            var c = this.datasource.getConnection();
-            var ps = c.prepareStatement(
-                    "INSERT INTO _ui_ (uuid, channels_rejected,renderers_rejected,reject_all_channel) VALUES (?,?, ?, ?)");
+            try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
+                    "INSERT INTO SL_UI_SETTINGS (uuid, channels_rejected,renderers_rejected,reject_all_channel) VALUES (?,?, ?, ?)")) {
+                ps.setString(1, uuid.toString());
+                ps.setString(2, String.join("::", data.getRejectChannels()));
+                ps.setString(3, String.join("::", data.getRejectRenderers()));
+                ps.setBoolean(4, data.isRejectAllChannels());
+                this.settingCache.invalidate(uuid);
 
-            ps.setString(1, uuid.toString());
-            ps.setString(2, String.join("::", data.getRejectChannels()));
-            ps.setString(3, String.join("::", data.getRejectRenderers()));
-            ps.setBoolean(4, data.isRejectAllChannels());
-            this.settingCache.invalidate(uuid);
-
-            return ps.executeUpdate() > 0;
+                return ps.executeUpdate() > 0;
+            }
         }
 
         private boolean _update(UUID uuid, PlayerUISetting data) throws SQLException {
-            var c = this.datasource.getConnection();
-            var ps = c.prepareStatement(
-                    "UPDATE _ui_ SET channels_rejected=?, renderers_rejected=?, reject_all_channel=?where uuid = ?");
-            ps.setString(1, String.join("::", data.getRejectChannels()));
-            ps.setString(2, String.join("::", data.getRejectRenderers()));
-            ps.setBoolean(3, data.isRejectAllChannels());
-            ps.setString(4, uuid.toString());
-            this.settingCache.invalidate(uuid);
+            try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
+                    "UPDATE SL_UI_SETTINGS SET channels_rejected=?, renderers_rejected=?, reject_all_channel=?where uuid = ?")) {
+                ps.setString(1, String.join("::", data.getRejectChannels()));
+                ps.setString(2, String.join("::", data.getRejectRenderers()));
+                ps.setBoolean(3, data.isRejectAllChannels());
+                ps.setString(4, uuid.toString());
+                this.settingCache.invalidate(uuid);
 
-            return ps.executeUpdate() > 0;
+                return ps.executeUpdate() > 0;
+            }
         }
 
         public PlayerUISetting load(UUID uuid) {
-            var sql = "SELECT * FROM _ui_ WHERE uuid = ?";
+            var sql = "SELECT * FROM SL_UI_SETTINGS WHERE uuid = ?";
 
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
                 ps.setString(1, uuid.toString());
@@ -365,12 +369,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
             if (page != 0) {
                 UI.builder()
                         .icon(UI.icon(Material.YELLOW_STAINED_GLASS_PANE))
-                        .name(TextRenderer.data(Starlight.lang()
-                                                        .item(
-                                                                "common",
-                                                                "ui",
-                                                                "prev"
-                                                        )))
+                        .name(TextRenderer.data(Starlight.lang().item("common", "ui", "prev")))
                         .operation((v, player, action) -> v.setData(renderData(v, page - 1)))
                         .operation(UI.SOUND_CLICK)
                         .build(builder, 48);

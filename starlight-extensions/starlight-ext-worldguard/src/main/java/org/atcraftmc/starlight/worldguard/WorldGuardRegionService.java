@@ -25,7 +25,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ApplicationService(id = "wg-region-service")
-//todo: rg-extra额外存储
 public interface WorldGuardRegionService extends Service {
     PlotCommand COMMAND = new PlotCommand();
 

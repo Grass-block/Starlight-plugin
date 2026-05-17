@@ -16,7 +16,7 @@ import org.atcraftmc.qlib.platform.ForwardingPluginPlatform;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.qlib.velocity.VelocityPlatform;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.environment.PathManager;
+import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginServiceManager;
 import org.atcraftmc.starlight.util.ProductMetadata;

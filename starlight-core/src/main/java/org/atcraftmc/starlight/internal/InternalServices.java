@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.api.event.CommandTabEvent;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.internal.command.InternalCommands;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -40,7 +40,7 @@ public interface InternalServices {
 
         @ServiceInject
         static void start() {
-            QLib.task().global().timer("starlight:jdbc-tick", 0, 20, () -> {
+            QLib.task().async().timer("starlight:jdbc-tick", 0, 20, () -> {
                 var i = JDBCService.getInstance();
 
                 if (i == null) {

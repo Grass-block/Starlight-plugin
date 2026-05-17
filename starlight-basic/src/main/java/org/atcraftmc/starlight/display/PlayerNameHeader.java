@@ -24,13 +24,12 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -167,8 +166,8 @@ public final class PlayerNameHeader extends SLCommandModule {
 
         var data = JDBCData.PLAYER_SHARED.get(uuid);
 
-        if (!PLAYER_HEADER.exist(data) && PLAYER_HEADER_L.exist(JDBCPlayerData.PLAYER_SHARED)) {
-            var old = PLAYER_HEADER_L.get(JDBCPlayerData.PLAYER_SHARED, uuid);
+        if (!PLAYER_HEADER.exist(data) && PLAYER_HEADER_L.exist(JDBCData.PLAYER_SHARED_L)) {
+            var old = PLAYER_HEADER_L.get(JDBCData.PLAYER_SHARED_L, uuid);
             PLAYER_HEADER.set(data, old);
         }
 

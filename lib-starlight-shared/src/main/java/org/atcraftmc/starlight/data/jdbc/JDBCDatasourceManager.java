@@ -2,9 +2,8 @@ package org.atcraftmc.starlight.data.jdbc;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.atcraftmc.starlight.data.jdbc.source.JDBCDataSource;
-import org.atcraftmc.starlight.shared.FilePath;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.config.FilePath;
+import org.atcraftmc.starlight.shared.JDBCService;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class JDBCDatasourceManager {
-    private final Map<String, JDBCDataSource> dataSources = new HashMap<>();
+    private final Map<String, JDBCDatabase> dataSources = new HashMap<>();
 
     static HikariDataSource hikariPool(ConfigurationSection cfg) {
         @SuppressWarnings("StringBufferReplaceableByString") var url = new StringBuilder().append("jdbc:")
@@ -41,24 +40,24 @@ public final class JDBCDatasourceManager {
         return new HikariDataSource(config);
     }
 
-    public Optional<JDBCDataSource> getDataSource(String id) {
+    public Optional<JDBCDatabase> getDataSource(String id) {
         return Optional.ofNullable(this.dataSources.get(id));
     }
 
-    public JDBCDataSource create(ConfigurationSection cfg, JDBCService service) {
+    public JDBCDatabase create(ConfigurationSection cfg, JDBCService service) {
         var id = cfg.getString("id");
 
         if (cfg.contains("link")) {
             var link = cfg.getString("link");
             var ds = getDataSource(link).orElseThrow();
 
-            return this.dataSources.put(id, JDBCDataSource.phantom(ds));
+            return this.dataSources.put(id, JDBCDatabase.phantom(ds, service));
         }
 
-        return this.dataSources.put(id, JDBCDataSource.simple(hikariPool(cfg),service));
+        return this.dataSources.put(id, JDBCDatabase.simple(hikariPool(cfg), service));
     }
 
-    public Map<String, JDBCDataSource> getDataSources() {
+    public Map<String, JDBCDatabase> getDataSources() {
         return dataSources;
     }
 }

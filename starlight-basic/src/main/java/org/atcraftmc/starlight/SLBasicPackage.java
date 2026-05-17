@@ -31,8 +31,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(ChatFilter.class);
         b.module(ChatReport.class);
         b.module(Maintenance.class);
-        b.module(Mute.class); //todo [DFU] import mute status
-        b.module(Mute.class); //todo [DFU] import mute status
+        b.module(Mute.class);
         b.module(TPSBar.class);
         b.module(ServerInfo.class);
         b.module(KickOnReload.class);
@@ -165,7 +164,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(AdvancedPermissionControl.class);
         b.module(ExplosionDefender.class); //todo [DFU] import whitelist region
         b.module(IMGRegulationSync.class);
-        b.module(IPDefender.class); //todo [DFU] miss
+        b.module(IPDefender.class);
         b.module(PermissionManager.class); //todo [DFU] import permission data
         b.module(WorldEditOperationDefender.class);
         b.module(GuestMode.class);
@@ -216,7 +215,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(PlayerJoinMessage.class);
         b.module(ChatAnnounce.class);
 
-        b.service(PlayerWelcomeService.class); //todo [DFU] import status-> first-join-detection
+        b.service(PlayerWelcomeService.class);
 
         p.config("starlight-display");
         p.language("starlight-display", "zh_cn");

@@ -12,7 +12,7 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;

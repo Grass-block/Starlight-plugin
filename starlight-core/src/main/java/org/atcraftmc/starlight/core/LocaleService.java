@@ -28,10 +28,10 @@ import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.core.ui.UI;
 import org.atcraftmc.starlight.core.ui.providing.GUIProvider;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.BukkitService;
-import org.atcraftmc.starlight.shared.service.AbstractLocaleService;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.AbstractLocaleService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -363,8 +363,8 @@ public interface LocaleService extends BukkitService {
             if (Objects.equals(custom, "auto")) {
                 TESTED_LOCALE.set(JDBCData.PLAYER_SHARED, uuid, locale);
                 if (isValidChange) {
-                    ComponentBlock block = ((ComponentBlock) preset.component(locale(event.getPlayer()), locale));
-                    TextSender.sendBlock(event.getPlayer(), block);
+                    var block = (preset.component(locale(event.getPlayer()), locale));
+                    TextSender.sendMessage(event.getPlayer(), block);
                     LOCALE_CACHE.put(uuid, locale);
                 }
             } else {

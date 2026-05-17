@@ -16,14 +16,13 @@ import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.core.platform.Players;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentFieldCodec;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentFieldCodec;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
+import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -96,8 +95,8 @@ public final class WESessionRenderer extends BukkitAbstractModule implements Fle
         var data = JDBCData.PLAYER_SHARED.get(player.getUniqueId());
 
         if (!RENDER_MODE.exist(data)) {
-            if (RENDER_MODE_L.exist(JDBCPlayerData.PLAYER_SHARED)) {
-                RENDER_MODE.set(data, RENDER_MODE_L.get(JDBCPlayerData.PLAYER_SHARED, player.getUniqueId()));
+            if (RENDER_MODE_L.exist(JDBCData.PLAYER_SHARED_L)) {
+                RENDER_MODE.set(data, RENDER_MODE_L.get(JDBCData.PLAYER_SHARED_L, player.getUniqueId()));
             }
         }
 

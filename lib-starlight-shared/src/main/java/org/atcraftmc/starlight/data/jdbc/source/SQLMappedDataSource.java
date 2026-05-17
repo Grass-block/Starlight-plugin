@@ -1,8 +1,5 @@
 package org.atcraftmc.starlight.data.jdbc.source;
 
-import org.atcraftmc.starlight.data.jdbc.SQLMapper;
-import org.atcraftmc.starlight.data.jdbc.WrappedConnection;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 

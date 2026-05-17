@@ -3,7 +3,7 @@ package org.atcraftmc.starlight;
 import me.gb2022.gluon.ModularApplicationContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.starlight.environment.PathManager;
+import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.util.ForwardingLogger;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;

@@ -37,7 +37,7 @@ import org.atcraftmc.starlight.music.resolve.MusicData;
 import org.atcraftmc.starlight.music.resolve.MusicResolveRequest;
 import org.atcraftmc.starlight.music.session.LegacyMusicSession;
 import org.atcraftmc.starlight.music.session.MusicSession;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -127,7 +127,6 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
         MessageAccessor.broadcast(this.language, false, false, "play", request.actor(), request.music(), request.pitch());
     }
 
-    //todo: 修正命令和权限NS
     @BukkitCommand(name = "play", multiNames = {"pause", "resume", "cancel", "gui"}, permission = "+starlight.music.play")
     public static final class MusicCommand extends ModuleCommand<MusicPlayer> {
 

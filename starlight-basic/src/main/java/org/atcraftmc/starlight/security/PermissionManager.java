@@ -21,12 +21,12 @@ import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.permission.PermissionEntry;
-import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.Configurations;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.config.Configurations;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
+import org.atcraftmc.starlight.shared.JDBCService;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -135,7 +135,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
     @Override
     public void enable() {
-        this.dataService.init(JDBCService.dataSource(JDBCService.SL_LOCAL), JDBCService.getInstance());
+        this.dataService.initService(JDBCService.dataSource(JDBCData.SL_LOCAL));
 
         Configurations.groupedYML("permission-tags", Set.of()).forEach((k, v) -> {
             for (String tagName : v.getKeys(false)) {
@@ -257,10 +257,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
     public static final class PermissionStorageService extends JDBCDataService {
         private final Cache<UUID, PermissionData> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(3)).build();
 
-        
-
-        @Override
-        public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
+        public PreparedStatement createTable(Connection conn) throws SQLException {
             var sql = """
                         CREATE TABLE SL_PERMISSION(
                             uuid CHAR(36) PRIMARY KEY,

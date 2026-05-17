@@ -9,8 +9,8 @@ import me.gb2022.gluon.module.AppModule;
 import me.gb2022.gluon.module.ModuleContainer;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.service.IRemoteMessageService;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.IRemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -26,9 +26,8 @@ import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentFieldCodec;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentFieldCodec;
 import org.atcraftmc.starlight.data.record.BukkitRecordRenderer;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.data.record.registry.DataRenderer;
@@ -36,10 +35,8 @@ import org.atcraftmc.starlight.data.record.registry.RecordField;
 import org.atcraftmc.starlight.data.record.registry.RecordRegistry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
-import org.atcraftmc.starlight.migration.DataFix;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.BanList;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -55,15 +52,13 @@ import java.util.Objects;
 @ApplicationModule(id = "ip-defender", version = "1.3.4")
 @CommandProvider(IPDefender.IPQueryCommand.class)
 public final class IPDefender extends BukkitAbstractModule implements PluginCommandExecutor, DocumentFieldCodec<String> {
-    private final DocumentField<String> IP_HASH = DocumentField.custom("ip-address-hash","__",this);
-
     private static final RecordRegistry.A3<Player, String, String> RECORD = new RecordRegistry.A3<>(
             "ip-log",
             new RecordField<>("player", TextRenderer.literal("Player"), BukkitRecordRenderer.PLAYER),
             new RecordField<>("old-ip", TextRenderer.literal("Old-IP"), DataRenderer.STRING),
             new RecordField<>("new-ip", TextRenderer.literal("Current-IP"), DataRenderer.STRING)
     );
-
+    private final DocumentField<String> IP_HASH = DocumentField.custom("ip-address-hash", "__", this);
     @Inject
     private LanguageEntry language;
 
@@ -97,7 +92,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
 
     @Override
     public JsonElement encodeJson(String s) {
-        return new JsonPrimitive(SHA.getSHA1(s,false));
+        return new JsonPrimitive(SHA.getSHA1(s, false));
     }
 
     @Override

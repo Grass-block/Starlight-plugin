@@ -1,13 +1,14 @@
 ## V5: Now - Gluon engine
 
-### 26.5.1
+### 26.5.0
 
 - Fixed DB creation issue.
 - Due to rewrites, player locale setting will now reset.
 - Mute data is no longer to be imported from quark-plugin.
 - Fixed Locale-service init issue.
+- Added message for view setting toggle.
 
-### 26.5.0
+### 26.5.0 - snapshot-20260510
 
 - Fixed adventure exception on specific platform.
 - Fixed TaskManager init error on 1.21.11.

@@ -17,7 +17,7 @@ import org.atcraftmc.starlight.api.event.ModuleEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;

@@ -4,11 +4,10 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.api.PlayerFirstJoinEvent;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.BukkitService;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -36,8 +35,8 @@ public interface PlayerWelcomeService extends BukkitService {
             var data = JDBCData.PLAYER_LOCAL.get(event.getPlayer().getUniqueId());
 
             if (JOINED.get(data).longValue() == -1L) {
-                if (JOINED_L.exist(JDBCPlayerData.PLAYER_LOCAL) && JOINED_L.get(
-                        JDBCPlayerData.PLAYER_LOCAL,
+                if (JOINED_L.exist(JDBCData.PLAYER_LOCAL_L) && JOINED_L.get(
+                        JDBCData.PLAYER_LOCAL_L,
                         event.getPlayer().getUniqueId()
                 )) {
                     JOINED.set(data, System.currentTimeMillis());

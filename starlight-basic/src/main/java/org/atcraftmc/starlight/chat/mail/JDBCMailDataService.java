@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.chat.mail;
 
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
@@ -10,10 +10,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage> {
-    public JDBCMailDataService() {
-        super("__null__");
+public final class JDBCMailDataService extends JDBCDataService {
+
+    @Override
+    public PreparedStatement createTable(Connection conn) throws SQLException {
+        var sql = """
+                CREATE TABLE sl_mail_message
+                (
+                    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+                    sender      VARCHAR(36)  NOT NULL,
+                    recipient   VARCHAR(36),
+                    global      BOOLEAN      NOT NULL DEFAULT FALSE,
+                    title       VARCHAR(255) NOT NULL,
+                    content     TEXT         NOT NULL,
+                    send_time   TIMESTAMP    NOT NULL,
+                    expire_time TIMESTAMP    NULL,
+                    favorite    BOOLEAN      NOT NULL DEFAULT FALSE,
+                    read        BOOLEAN      NOT NULL DEFAULT FALSE
+                );
+                """;
+        return conn.prepareStatement(sql);
     }
+
 
     public MailMessage insert(MailMessage.Builder mail) throws SQLException {
         String sql = """
@@ -23,7 +41,7 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
-        try (var ps = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, mail.getSender().toString());
 
             if (mail.isAll() || mail.getRecipient() == null) {
@@ -51,7 +69,8 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
     }
 
     public void markFavorite(long id, boolean favorite) throws SQLException {
-        try (var ps = this.connection.prepareStatement("UPDATE sl_mail_message SET favorite=? WHERE id=? AND GLOBAL=false")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
+                "UPDATE sl_mail_message SET favorite=? WHERE id=? AND GLOBAL=false")) {
             ps.setBoolean(1, favorite);
             ps.setLong(2, id);
             ps.executeUpdate();
@@ -59,7 +78,8 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
     }
 
     public void markRead(long id, boolean read) throws SQLException {
-        try (var ps = this.connection.prepareStatement("UPDATE sl_mail_message SET READ=? WHERE id=? AND GLOBAL=false")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
+                "UPDATE sl_mail_message SET READ=? WHERE id=? AND GLOBAL=false")) {
             ps.setBoolean(1, read);
             ps.setLong(2, id);
             ps.executeUpdate();
@@ -75,14 +95,14 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
                      AND expire_time <= ?
                 """;
 
-        try (PreparedStatement ps = this.connection.prepareStatement(sql)) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
             ps.setTimestamp(1, Timestamp.from(Instant.now()));
             return ps.executeUpdate();
         }
     }
 
     public Optional<MailMessage> findById(long id) throws SQLException {
-        try (PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM sl_mail_message WHERE id=?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM sl_mail_message WHERE id=?")) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -100,7 +120,7 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
                 ORDER BY send_time DESC
                 """;
 
-        return dispatchMailList(recipientId, this.connection.prepareStatement(sql));
+        return dispatchMailList(recipientId, this.datasource.getConnection().prepareStatement(sql));
     }
 
     public List<MailMessage> listFavorite(UUID recipientId) throws SQLException {
@@ -111,7 +131,7 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
                 ORDER BY send_time DESC
                 """;
 
-        return dispatchMailList(recipientId, this.connection.prepareStatement(sql));
+        return dispatchMailList(recipientId, this.datasource.getConnection().prepareStatement(sql));
     }
 
     public boolean owns(long id, UUID user) {
@@ -155,25 +175,5 @@ public final class JDBCMailDataService extends JDBCBasedDataService<MailMessage>
         m.setRead(rs.getBoolean("read"));
 
         return m;
-    }
-
-    @Override
-    public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
-        var sql = """
-                CREATE TABLE sl_mail_message
-                (
-                    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    sender      VARCHAR(36)  NOT NULL,
-                    recipient   VARCHAR(36),
-                    global      BOOLEAN      NOT NULL DEFAULT FALSE,
-                    title       VARCHAR(255) NOT NULL,
-                    content     TEXT         NOT NULL,
-                    send_time   TIMESTAMP    NOT NULL,
-                    expire_time TIMESTAMP    NULL,
-                    favorite    BOOLEAN      NOT NULL DEFAULT FALSE,
-                    read        BOOLEAN      NOT NULL DEFAULT FALSE
-                );
-                """;
-        return conn.prepareStatement(sql);
     }
 }

@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.data.record;
 
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 
 import java.io.File;
 import java.io.FileOutputStream;

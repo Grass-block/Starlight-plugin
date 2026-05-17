@@ -4,8 +4,6 @@ import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.nbt.NBT;
 import me.gb2022.commons.nbt.NBTTagCompound;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.data.DataBackend;
-import org.atcraftmc.starlight.data.FileBackend;
 import org.atcraftmc.starlight.data.storage.DataEntry;
 import org.atcraftmc.starlight.data.storage.StorageContext;
 import org.atcraftmc.starlight.util.Identifiers;
@@ -15,7 +13,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -23,13 +20,10 @@ import java.util.logging.Logger;
 public class DataService implements StorageContext {
     public static final org.apache.logging.log4j.Logger LOGGER = SLPluginEnvironment.createLogger("DataService");
     protected final Logger logger = Logger.getLogger("DataService");
-    private final ArrayDeque<String> saveRequest = new ArrayDeque<>();
     private final HashMap<String, NBTTagCompound> cache = new HashMap<>();
     private final HashMap<String, DataEntry> entries = new HashMap<>();
     private final File folder;
-    private final boolean available = true;
     private DataStorage storage;
-    private DataBackend backend;
 
     public DataService(File folder) {
         if (!folder.exists()) {
@@ -69,11 +63,6 @@ public class DataService implements StorageContext {
         }
     }
 
-
-    public File getFile(String id) {
-        return new File(((FileBackend) this.backend).getDataFile(hash(id)));
-    }
-
     public void clear() {
         for (File f : Objects.requireNonNull(this.getFolder().listFiles())) {
             if (f.delete()) {
@@ -87,16 +76,8 @@ public class DataService implements StorageContext {
         return folder;
     }
 
-    public DataBackend getBackend() {
-        return backend;
-    }
-
     String hash(String id) {
         return SHA.getSHA1(id, false);
-    }
-
-    public int getEntryCount() {
-        return this.getBackend().count();
     }
 
     //direct

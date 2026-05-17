@@ -11,7 +11,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
 

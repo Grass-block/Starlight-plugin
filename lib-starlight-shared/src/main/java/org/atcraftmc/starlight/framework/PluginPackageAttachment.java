@@ -7,7 +7,7 @@ import me.gb2022.gluon.pack.PackageAttachment;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.Configuration;
 import org.atcraftmc.qlib.language.LanguagePack;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 
 import java.util.HashSet;
 import java.util.Set;

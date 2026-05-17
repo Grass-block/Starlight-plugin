@@ -5,17 +5,17 @@ import me.gb2022.gluon.service.*;
 import org.atcraftmc.starlight.data.legacy.DataService;
 import org.atcraftmc.starlight.data.storage.DataEntry;
 import org.atcraftmc.starlight.framework.BukkitService;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 
 import java.io.File;
 
-@ApplicationService(id = "module-data",layer = ServiceLayer.FOUNDATION)
+@ApplicationService(id = "module-data", layer = ServiceLayer.FOUNDATION)
 public interface ModuleDataService extends BukkitService {
     @ServiceInject
     ServiceHolder<ModuleDataService> INSTANCE = new ServiceHolder<>();
 
     @ServiceProvider
-    static ModuleDataService create(){
+    static ModuleDataService create() {
         return create(FilePath.slDataFolder() + "/data/module");
     }
 
@@ -31,16 +31,10 @@ public interface ModuleDataService extends BukkitService {
         return new ServiceImplementation(new File(folder));
     }
 
-    static int getEntryCount() {
-        return INSTANCE.get().entryCount();
-    }
-
     static DataEntry get(String id) {
         return INSTANCE.get().getData(id);
     }
 
-
-    int entryCount();
 
     NBTTagCompound getDataEntry(String id);
 
@@ -77,11 +71,6 @@ public interface ModuleDataService extends BukkitService {
         @Override
         public void saveData(String id) {
             this.saveEntry(id);
-        }
-
-        @Override
-        public int entryCount() {
-            return this.getEntryCount();
         }
     }
 }

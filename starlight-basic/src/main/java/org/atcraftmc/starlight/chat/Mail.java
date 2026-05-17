@@ -5,7 +5,8 @@ import org.atcraftmc.starlight.chat.mail.JDBCMailDataService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
+import org.atcraftmc.starlight.shared.JDBCService;
 
 @CommandProvider(Mail.MailCommand.class)
 public class Mail extends BukkitAbstractModule {
@@ -14,7 +15,7 @@ public class Mail extends BukkitAbstractModule {
 
     @Override
     public void enable() throws Exception {
-        this.dataService.init(JDBCService.getDB(JDBCService.SL_SHARED).orElseThrow());
+        this.dataService.initService(JDBCService.dataSource(JDBCData.SL_SHARED));
     }
 
     @BukkitCommand(name = "mail", permission = "+starlight.mail", subCommands = {})

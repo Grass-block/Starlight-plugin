@@ -9,7 +9,7 @@ import org.ahocorasick.trie.Trie;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.api.ChatReportedEvent;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;

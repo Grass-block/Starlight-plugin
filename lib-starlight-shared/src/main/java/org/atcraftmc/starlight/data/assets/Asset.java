@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.data.assets;
 
 import me.gb2022.commons.file.Files;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

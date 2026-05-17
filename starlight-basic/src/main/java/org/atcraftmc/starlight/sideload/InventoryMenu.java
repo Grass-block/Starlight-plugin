@@ -17,7 +17,7 @@ import org.atcraftmc.starlight.core.ui.*;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;

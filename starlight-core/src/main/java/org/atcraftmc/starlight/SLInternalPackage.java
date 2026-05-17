@@ -8,7 +8,6 @@ import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.WESessionTrackService;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
-import org.atcraftmc.starlight.core.data.PlayerDataService;
 import org.atcraftmc.starlight.core.http.HttpService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
@@ -17,9 +16,8 @@ import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.data.record.RecordService;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.internal.*;
-import org.atcraftmc.starlight.shared.service.JDBCData;
-import org.atcraftmc.starlight.shared.service.JDBCService;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 
 public interface SLInternalPackage {
     static void modules(ContentBuilder b) {
@@ -60,7 +58,6 @@ public interface SLInternalPackage {
         b.service(LocaleService.class);
         b.service(PermissionService.class);
         b.service(ModuleDataService.class);//legacy
-        b.service(PlayerDataService.class);
         b.service(ProductService.class);
 
         b.service(CacheService.class);

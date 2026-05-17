@@ -28,7 +28,6 @@ public final class WGCustomName extends BukkitAbstractModule {
     public void enable() {
         WorldGuardRegionService.COMMAND.registerSubCommand(cmd);
 
-        //todo: query
         WGRegionHUD.PIPELINE.addFirst("starlight:custom-name", (world, region, s) -> {
             var key = RegionKey.of(region, world);
             var h = WorldGuardExtraInfoService.getInstance().getDataHandle(key);

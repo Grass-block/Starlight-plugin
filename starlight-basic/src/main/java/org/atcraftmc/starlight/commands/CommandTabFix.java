@@ -10,7 +10,7 @@ import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.TabCompleteEvent;

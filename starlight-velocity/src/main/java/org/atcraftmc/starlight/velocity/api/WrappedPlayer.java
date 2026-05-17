@@ -5,7 +5,7 @@ import com.velocitypowered.api.proxy.ServerConnection;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.util.GameProfile;
 import me.gb2022.simpnet.util.BufferUtil;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.StarlightVelocity;
 import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
 

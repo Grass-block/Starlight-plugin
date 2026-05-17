@@ -7,8 +7,6 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
-import org.atcraftmc.starlight.core.data.PlayerDataService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.bukkit.Bukkit;
@@ -80,10 +78,8 @@ public interface BukkitPlaceHolders {
                         .getIdsByStatus(TriState.FALSE)
                         .size())
         );
-        holder.register("player-data-count", GlobalPlaceHolder.object(PlayerDataService::entryCount));
-        holder.register("module-data-count", GlobalPlaceHolder.object(ModuleDataService::getEntryCount));
-        holder.register("quark-version", (StringPlaceHolder) ProductInfo::version);
-        holder.register("quark-framework_version", GlobalPlaceHolder.object(ProductInfo::apiVersion));
+        holder.register("plugin-version", (StringPlaceHolder) ProductInfo::version);
+        holder.register("plugin-framework_version", GlobalPlaceHolder.object(ProductInfo::apiVersion));
         holder.register("build-time", GlobalPlaceHolder.object(() -> ProductInfo.METADATA.getProperty("build-time")));
 
         return holder;

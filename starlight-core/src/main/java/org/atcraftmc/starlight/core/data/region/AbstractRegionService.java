@@ -2,10 +2,10 @@ package org.atcraftmc.starlight.core.data.region;
 
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.data.jdbc.SQLMapper;
-import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
@@ -37,7 +37,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
     }
 
     @Override
-    public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
+    public PreparedStatement createTable(Connection conn) throws SQLException {
         var createTableSQL = """
                 CREATE TABLE IF NOT EXISTS _region_ (
                     uuid CHAR(36) PRIMARY KEY,

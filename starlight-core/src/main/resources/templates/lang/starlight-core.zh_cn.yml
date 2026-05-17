@@ -124,6 +124,14 @@ language:
     ui-state-close: "{#white}当前状态: {#red}[关]"
     ui-click: "{#gold}[点击切换]"
     ui-title: "{#dark-aqua}界面渲染设置 {#white}(共 {} 页)"
+    reject-all: "{global#sys-info}已{msg#state-close}全局附加UI界面渲染。"
+    unreject-all: "{global#sys-info}已{msg#state-open}全局附加UI界面渲染。"
+    reject-renderer: "{global#sys-info}已{msg#state-close}界面组件{#var}的附加UI界面渲染。"
+    unreject-renderer: "{global#sys-info}已{msg#state-open}界面组件{#var}的附加UI界面渲染。"
+    reject-channel: "{global#sys-info}已{msg#state-close}功能组件{#var}的附加UI界面渲染。"
+    unreject-channel: "{global#sys-info}已{msg#state-open}功能组件{#var}的附加UI界面渲染。"
+    state-open: "{#green}开启{#gray}"
+    state-close: "{#red}关闭{#gray}"
   libraries:
     list: '{#aqua}已加载的第三方依赖库: '
     list-item: "{color(#44FFAA)}[{}]"

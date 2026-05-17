@@ -5,7 +5,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.*;
 import org.yaml.snakeyaml.error.YAMLException;

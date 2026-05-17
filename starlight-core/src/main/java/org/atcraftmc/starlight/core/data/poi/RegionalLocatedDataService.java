@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.core.data.poi;
 
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCBasedDataService;
 import org.joml.Vector3d;
 
 import java.sql.Connection;

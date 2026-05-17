@@ -14,7 +14,7 @@ import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
-import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -174,8 +174,7 @@ public class CommandVariables extends BukkitAbstractModule implements PluginComm
         class Persistent extends JDBCDataService implements DataStorage {
             private final Cache<String, String> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(2)).build();
 
-            @Override
-            public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
+            public PreparedStatement createTable(Connection conn) throws SQLException {
                 return conn.prepareStatement("create table sl_command_variables(name varchar(32),value varchar(256))");
             }
 

@@ -124,6 +124,14 @@ language:
     ui-state-close: "{#white}現在の状態: {#red}[オフ]"
     ui-click: "{#gold}[クリックで切り替え]"
     ui-title: "{#dark-aqua}UIレンダリング設定 {#white}(全 {} ページ)"
+    reject-all: "{global#sys-info}グローバル追加UIレンダリングを{msg#state-close}しました。"
+    unreject-all: "{global#sys-info}グローバル追加UIレンダリングを{msg#state-open}しました。"
+    reject-renderer: "{global#sys-info}UIコンポーネント{#var}の追加UIレンダリングを{msg#state-close}しました。"
+    unreject-renderer: "{global#sys-info}UIコンポーネント{#var}の追加UIレンダリングを{msg#state-open}しました。"
+    reject-channel: "{global#sys-info}機能コンポーネント{#var}の追加UIレンダリングを{msg#state-close}しました。"
+    unreject-channel: "{global#sys-info}機能コンポーネント{#var}の追加UIレンダリングを{msg#state-open}しました。"
+    state-open: "{#green}有効{#gray}"
+    state-close: "{#red}無効{#gray}"
   libraries:
     list: '{#aqua}読み込まれたサードパーティ依存ライブラリ: '
     list-item: "{color(#44FFAA)}[{}]"

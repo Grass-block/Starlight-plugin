@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.utilities.viewdistance;
 
 import me.gb2022.commons.math.MathHelper;
-import org.atcraftmc.starlight.data.jdbc.document.DocumentField;
-import org.atcraftmc.starlight.shared.service.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.entity.Player;
 
 public final class CustomSettingStrategy implements ViewDistanceStrategy {

@@ -19,7 +19,7 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;

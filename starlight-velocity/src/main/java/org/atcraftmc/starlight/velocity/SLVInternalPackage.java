@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.velocity;
 import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
-import org.atcraftmc.starlight.shared.service.RemoteMessageService;
+import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.basic.*;
 import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
 import org.atcraftmc.starlight.velocity.core.VelocityCommandManager;

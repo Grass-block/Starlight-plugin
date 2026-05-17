@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.migration;
 import com.google.common.io.Files;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 
 import java.io.File;
 import java.io.IOException;

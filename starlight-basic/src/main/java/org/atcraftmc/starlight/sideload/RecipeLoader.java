@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.core.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.core.crafting.RecipeManager;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

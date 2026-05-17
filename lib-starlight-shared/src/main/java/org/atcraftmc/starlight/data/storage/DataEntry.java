@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.data.storage;
 
 import me.gb2022.commons.nbt.NBTTagCompound;
-import org.atcraftmc.starlight.shared.data.flex.FlexibleMapService;
-import org.atcraftmc.starlight.shared.data.flex.NBTColumn;
+import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
+import org.atcraftmc.starlight.shared.jdbc.flex.NBTColumn;
 
 import java.util.UUID;
 

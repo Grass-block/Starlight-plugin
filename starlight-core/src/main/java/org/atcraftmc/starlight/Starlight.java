@@ -30,7 +30,7 @@ import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.PluginUtil;
-import org.atcraftmc.starlight.environment.PathManager;
+import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.BukkitServiceManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginPackageManager;

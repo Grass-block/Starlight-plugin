@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.management;
 
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
-import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
@@ -13,19 +13,14 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
-import org.atcraftmc.starlight.core.data.BanEntryService;
-import org.atcraftmc.starlight.core.data.BanEntry;
-import org.atcraftmc.starlight.data.JDBCPlayerData;
-import org.atcraftmc.starlight.data.storage.DataEntry;
-import org.atcraftmc.starlight.data.storage.StorageTable;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.data.BanEntry;
+import org.atcraftmc.starlight.core.data.BanEntryService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.migration.QuarkDataImporter;
-import org.atcraftmc.starlight.shared.data.flex.TableColumn;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -71,7 +66,7 @@ public final class Mute extends BukkitAbstractModule implements Listener {
     }
 
     public void checkEvent(Player p, Cancellable event, boolean silent) {
-        if(!this.muteData.isBanned(p.getUniqueId())){
+        if (!this.muteData.isBanned(p.getUniqueId())) {
             return;
         }
 
@@ -98,7 +93,7 @@ public final class Mute extends BukkitAbstractModule implements Listener {
 
 
     public void mute(OfflinePlayer p, long expire, String reason, CommandSender operator) {
-        this.muteData.add(new BanEntry(UUID.randomUUID(),p.getUniqueId(),expire,reason,operator.getName()));
+        this.muteData.add(new BanEntry(UUID.randomUUID(), p.getUniqueId(), expire, reason, operator.getName()));
 
         var player = p.getPlayer();
         var expired = SharedObjects.DATE_FORMAT.format(new Date(expire));

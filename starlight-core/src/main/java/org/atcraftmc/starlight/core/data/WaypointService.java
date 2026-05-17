@@ -1,11 +1,9 @@
 package org.atcraftmc.starlight.core.data;
 
-import org.atcraftmc.starlight.data.jdbc.SQLMapper;
-import org.atcraftmc.starlight.data.jdbc.service.JDBCDataService;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
-import org.atcraftmc.starlight.data.jdbc.source.WrappedDataSource;
-import org.atcraftmc.starlight.shared.data.JDBCBasedDataService;
-import org.atcraftmc.starlight.shared.service.JDBCService;
+import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -55,7 +53,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     @Override
-    public PreparedStatement attemptCreateTable(Connection conn) throws SQLException {
+    public PreparedStatement createTable(Connection conn) throws SQLException {
         var createTableSQL = """
                 CREATE TABLE IF NOT EXISTS _waypoint_ (
                     uuid VARCHAR(36) PRIMARY KEY,

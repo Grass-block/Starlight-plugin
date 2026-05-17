@@ -8,7 +8,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import org.atcraftmc.starlight.shared.Configurations;
+import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;

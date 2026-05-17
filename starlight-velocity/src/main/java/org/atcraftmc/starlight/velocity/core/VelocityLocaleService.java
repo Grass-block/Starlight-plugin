@@ -10,7 +10,7 @@ import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import net.kyori.adventure.audience.Audience;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.service.AbstractLocaleService;
+import org.atcraftmc.starlight.shared.AbstractLocaleService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;

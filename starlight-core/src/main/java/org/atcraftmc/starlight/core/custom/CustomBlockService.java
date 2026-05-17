@@ -61,7 +61,6 @@ public final class CustomBlockService implements BukkitService {
 
     @Override
     public void enable() {
-        //todo: possible offline-mount name issue
         BukkitUtil.registerEventListener(this);
         Starlight.instance().getCommandManager().register(this.command);
 

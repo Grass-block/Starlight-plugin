@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.data;
 import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.YamlUtil;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.shared.FilePath;
+import org.atcraftmc.starlight.config.FilePath;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;

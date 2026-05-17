@@ -124,6 +124,14 @@ language:
     ui-state-close: "{#white}Текущее Состояние: {#red}[ВЫКЛ]"
     ui-click: "{#gold}[Нажмите для Переключения]"
     ui-title: "{#dark-aqua}Настройки Рендеринга Интерфейса {#white}(Всего {} страниц)"
+    reject-all: "{global#sys-info}Глобальный дополнительный рендеринг UI был {msg#state-close}."
+    unreject-all: "{global#sys-info}Глобальный дополнительный рендеринг UI был {msg#state-open}."
+    reject-renderer: "{global#sys-info}Дополнительный рендеринг UI для компонента интерфейса {#var} был {msg#state-close}."
+    unreject-renderer: "{global#sys-info}Дополнительный рендеринг UI для компонента интерфейса {#var} был {msg#state-open}."
+    reject-channel: "{global#sys-info}Дополнительный рендеринг UI для функционального компонента {#var} был {msg#state-close}."
+    unreject-channel: "{global#sys-info}Дополнительный рендеринг UI для функционального компонента {#var} был {msg#state-open}."
+    state-open: "{#green}включено{#gray}"
+    state-close: "{#red}отключено{#gray}"
   libraries:
     list: '{#aqua}Загруженные сторонние библиотеки: '
     list-item: "{color(#44FFAA)}[{}]"

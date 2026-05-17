@@ -1,0 +1,224 @@
+package org.atcraftmc.starlight.shared.jdbc.flex;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
+import org.atcraftmc.starlight.data.jdbc.source.WrappedConnection;
+import org.atcraftmc.starlight.data.storage.DataEntry;
+import org.atcraftmc.starlight.shared.jdbc.JDBCBasedDataService;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+
+public abstract class TableColumn<I> {
+    protected final String name;
+    protected final I defaultValue;
+    private final Map<UUID, DBInstance<I>> caches = new ConcurrentHashMap<>();
+
+    protected TableColumn(String name, I defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+    }
+
+    //integrated
+    public static TableColumn<Integer> integer(String id, int defaultValue) {
+        return new IntColumn(id, defaultValue);
+    }
+
+    public static TableColumn<String> string(String id, int maxLength, String defaultValue) {
+        return new StringColumn(id, defaultValue, maxLength);
+    }
+
+    public static <A> TableColumn<A> custom(String id, int maxLength, A defaultValue, FlexibleMapService.Codec<A> codec) {
+        return new CustomColumn<>(id, defaultValue, maxLength, codec);
+    }
+
+    public static TableColumn<Boolean> bool(String id, boolean defaultValue) {
+        return new BooleanColumn(id, defaultValue);
+    }
+
+    public static TableColumn<DataEntry> dom(String s) {
+        return new NBTColumn(s);
+    }
+
+
+    public boolean exist(FlexibleMapService ds) {
+        return getDBInstance(ds).service.hasColumnRegistered(this.name);
+    }
+
+
+    //privates
+    private DBInstance<I> getDBInstance(FlexibleMapService ds) {
+        return caches.computeIfAbsent(ds.getSessionUUID(), (s) -> new DBInstance<>(this, ds, 10));
+    }
+
+    public abstract PreparedStatement createColumn(Connection conn) throws SQLException;
+
+    public abstract I dispatchResult(ResultSet rs) throws SQLException;
+
+    public abstract void encodeStatement(PreparedStatement ps, I value) throws SQLException;
+
+    public I getDefaultValue(FlexibleMapService ds, UUID uuid) {
+        return defaultValue;
+    }
+
+    public I processValue(I value, FlexibleMapService ds, UUID uuid) {
+        return value;
+    }
+
+    public final I get(FlexibleMapService ds, UUID uuid) {
+        return processValue(getDBInstance(ds).get(uuid, this.getDefaultValue(ds, uuid)), ds, uuid);
+    }
+
+    public final void set(FlexibleMapService ds, UUID uuid, I value) {
+        getDBInstance(ds).set(uuid, value);
+    }
+
+    private static final class DBInstance<I> {
+        private final TableColumn<I> owner;
+        private final FlexibleMapService service;
+        private final Cache<UUID, I> cache;
+        private final WrappedConnection connection;
+
+        public DBInstance(TableColumn<I> owner, FlexibleMapService service, int cacheLife) {
+            this.owner = owner;
+            this.service = service;
+            this.cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(cacheLife)).build();
+            this.connection = new WrappedConnection(service.getDatabase().getSharedConnection(), SQLMapper.create((m)->{
+                m.replaceSQL("_col_",this.owner.name);
+                m.replaceSQL("_table_",this.service.getTableName());
+            }));
+        }
+
+        public void verifyColumn() throws SQLException {
+            if (this.service.hasColumnRegistered(this.owner.name)) {
+                return;
+            }
+
+            try {
+                this.owner.createColumn(this.connection).executeUpdate();
+            } catch (SQLException e) {
+                if (!e.getMessage().contains("Duplicate") && !e.getMessage().contains("duplicate")) {
+                    throw e;
+                }
+            }
+            this.service.onColumnAdded(this.owner.name);
+        }
+
+        public I get(UUID uuid, I defaultValue) {
+            try {
+                return this.cache.get(uuid, () -> {
+                    this.verifyColumn();
+                    var p = this.connection.prepareStatement("SELECT _col_ FROM _table_ WHERE uuid = ?");
+                    p.setString(1, uuid.toString());
+
+                    try (var rs = p.executeQuery()) {
+                        if (rs.next()) {
+                            return this.owner.dispatchResult(rs);
+                        }
+                    }
+
+                    return defaultValue;
+                });
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        public void set(UUID uuid, I value) {
+            this.cache.put(uuid, value);
+
+            try {
+                this.service.createRow(uuid);
+                this.verifyColumn();
+                var p = this.connection.prepareStatement("UPDATE _table_ SET _col_ = ? WHERE uuid = ?");
+
+                this.owner.encodeStatement(p, value);
+
+                p.setString(2, uuid.toString());
+                p.executeUpdate();
+            } catch (Exception e) {
+                this.cache.invalidate(uuid);
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static final class IntColumn extends TableColumn<Integer> {
+        public IntColumn(String name, Integer defaultValue) {
+            super(name, defaultValue);
+        }
+
+        @Override
+        public PreparedStatement createColumn(Connection conn) throws SQLException {
+            //"ALTER TABLE _table_ ADD COLUMN _col_ INT DEFAULT " + defaultValue
+            return conn.prepareStatement("");
+        }
+
+        @Override
+        public Integer dispatchResult(ResultSet rs) throws SQLException {
+            return rs.getInt(1);
+        }
+
+        @Override
+        public void encodeStatement(PreparedStatement ps, Integer value) throws SQLException {
+            ps.setInt(1, value);
+        }
+    }
+
+    private static final class BooleanColumn extends TableColumn<Boolean> {
+        public BooleanColumn(String name, boolean defaultValue) {
+            super(name, defaultValue);
+        }
+
+        @Override
+        public PreparedStatement createColumn(Connection conn) throws SQLException {
+            //"ALTER TABLE _table_ ADD COLUMN _col_ BOOL DEFAULT " + defaultValue
+            return conn.prepareStatement("");
+        }
+
+        @Override
+        public Boolean dispatchResult(ResultSet rs) throws SQLException {
+            return rs.getBoolean(1);
+        }
+
+        @Override
+        public void encodeStatement(PreparedStatement ps, Boolean value) throws SQLException {
+            ps.setBoolean(1, value);
+        }
+    }
+
+    private static class StringColumn extends TableColumn<String> {
+        private final int maxLength;
+
+        public StringColumn(String name, String defaultValue, int maxLength) {
+            super(name, defaultValue);
+            this.maxLength = maxLength;
+        }
+
+        @Override
+        public PreparedStatement createColumn(Connection conn) throws SQLException {
+            //"ALTER TABLE _table_ ADD COLUMN _col_ varchar(" + this.maxLength + ") DEFAULT '" + this.defaultValue + "'"
+            return conn.prepareStatement("");
+        }
+
+        @Override
+        public String dispatchResult(ResultSet rs) throws SQLException {
+            return rs.getString(1);
+        }
+
+        @Override
+        public void encodeStatement(PreparedStatement ps, String value) throws SQLException {
+            ps.setString(1, value);
+        }
+    }
+
+}

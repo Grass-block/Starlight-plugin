@@ -124,6 +124,14 @@ language:
     ui-state-close: "{#white}État Actuel : {#red}[DÉSACTIVÉ]"
     ui-click: "{#gold}[Cliquer pour Basculer]"
     ui-title: "{#dark-aqua}Paramètres de Rendu d''Interface {#white}({} pages au total)"
+    reject-all: "{global#sys-info}Le rendu UI supplémentaire global a été {msg#state-close}."
+    unreject-all: "{global#sys-info}Le rendu UI supplémentaire global a été {msg#state-open}."
+    reject-renderer: "{global#sys-info}Le rendu UI supplémentaire du composant d'interface {#var} a été {msg#state-close}."
+    unreject-renderer: "{global#sys-info}Le rendu UI supplémentaire du composant d'interface {#var} a été {msg#state-open}."
+    reject-channel: "{global#sys-info}Le rendu UI supplémentaire du composant fonctionnel {#var} a été {msg#state-close}."
+    unreject-channel: "{global#sys-info}Le rendu UI supplémentaire du composant fonctionnel {#var} a été {msg#state-open}."
+    state-open: "{#green}activé{#gray}"
+    state-close: "{#red}désactivé{#gray}"
   libraries:
     list: '{#aqua}Bibliothèques tierces chargées : '
     list-item: "{color(#44FFAA)}[{}]"
