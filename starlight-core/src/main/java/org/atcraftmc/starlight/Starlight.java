@@ -6,10 +6,7 @@ import me.gb2022.pluginsX.PluginService;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.QLibContext;
 import org.atcraftmc.qlib.audience.AudienceService;
-import org.atcraftmc.qlib.bukkit.BukkitPlatform;
-import org.atcraftmc.qlib.bukkit.BukkitPluginConcept;
-import org.atcraftmc.qlib.bukkit.QLib;
-import org.atcraftmc.qlib.bukkit.QLibBukkitContext;
+import org.atcraftmc.qlib.bukkit.*;
 import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.config.ConfigContainer;
@@ -22,6 +19,7 @@ import org.atcraftmc.qlib.text.pipe.AudienceHandler;
 import org.atcraftmc.qlib.text.pipe.LocaleHandler;
 import org.atcraftmc.starlight.api.event.CoreEvent;
 import org.atcraftmc.starlight.bundle.BundledPackageProvider;
+import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.core.BukkitAPI;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextExaminer;
@@ -30,7 +28,6 @@ import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.PluginUtil;
-import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.BukkitServiceManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginPackageManager;
@@ -105,6 +102,10 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
 
             var locale = LocaleService.locale(audience);
             var msg = Starlight.instance().language().item("starlight-core.reload.complete").component(locale);
+
+            if (Starlight.instance().isPluginInitialized()) {
+                prepareReload();
+            }
 
             var serverPacks = SLPackageManager.getSubPacksFromServer();
             var folderPacks = SLPackageManager.getSubPacksFromFolder();
@@ -243,6 +244,8 @@ public final class Starlight extends BukkitPluginConcept implements PluginApplic
             throw new RuntimeException(e);
         }
         this.context.shutdown();
+
+        BukkitEventManager.cleanup(this);
 
         LOGGER.info("done ({} ms)", Timer.passedTime());
     }

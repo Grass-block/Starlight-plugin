@@ -77,22 +77,7 @@ public final class StarlightPluginCommand extends CoreCommand {
                     Starlight.prepareReload();
                     TextSender.sendMessage(context.getSender(), this.getLanguage().item("prepared").component(loc));
                 }
-                case "action" -> {
-                    if (Starlight.instance().isPluginInitialized()) {
-                        Starlight.prepareReload();
-                    }
-
-                    if (APIProfileTest.isMixedServer()) {
-                        this.getLanguage().item("platform-unsupported").send(QLib.audience(context.getSender()));
-                        return;
-                    }
-                    if (Starlight.instance().isFastBoot()) {
-                        this.getLanguage().item("fastboot-unsupported").send(QLib.audience(context.getSender()));
-                        return;
-                    }
-
-                    Starlight.reload(context.getSender());
-                }
+                case "action" -> Starlight.reload(context.getSender());
             }
         }
     }

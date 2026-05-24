@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.core.platform;
 import me.gb2022.commons.reflect.method.MethodHandle;
 import me.gb2022.commons.reflect.method.MethodHandleRS0;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.bukkit.BukkitEventManager;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
@@ -104,37 +105,11 @@ public interface BukkitUtil {
     }
 
     static void registerEventListener(Listener listener) {
-        Bukkit.getPluginManager().registerEvents(listener, Starlight.instance());
-    }
-
-    static void unregisterEventBinding(Method method, Listener listener) {
-        try {
-            if (!method.isAnnotationPresent(EventHandler.class)) {
-                return;
-            }
-
-            var eventHandler = method.getAnnotation(EventHandler.class);
-            var eventType = method.getParameterTypes()[0];
-            var m_getHandlerList = eventType.getMethod("getHandlerList");
-
-            var handlerList = (HandlerList) m_getHandlerList.invoke(null);
-
-            handlerList.unregister(listener);
-        } catch (Exception e) {
-            LOGGER.error("Failed to unregister event binding: {}", method.getName());
-            LOGGER.catching(e);
-        }
+        BukkitEventManager.registerEventListener(Starlight.instance(),listener);
     }
 
     static void unregisterEventListener(Listener listener) {
-        try {
-            for (var m : listener.getClass().getMethods()) {
-                unregisterEventBinding(m, listener);
-            }
-        } catch (Throwable e) {
-            LOGGER.error("Failed to unregister event listener: {}", listener.getClass().getName());
-            LOGGER.catching(e);
-        }
+        BukkitEventManager.unregisterEventListener(listener);
     }
 
 

@@ -1,5 +1,13 @@
 ## V5: Now - Gluon engine
 
+### 26.5.1
+
+- Fixed language detection error.
+- Language names now use remapped values.
+- Fixed module cleanup issue.
+- Fixed scoreboard name-header mount issue.
+- Fixed the "horrible-player-login" warning with paper.
+
 ### 26.5.0
 
 - Fixed DB creation issue.
@@ -7,6 +15,7 @@
 - Mute data is no longer to be imported from quark-plugin.
 - Fixed Locale-service init issue.
 - Added message for view setting toggle.
+- [1.21.11]Fixed locale detection issue.
 
 ### 26.5.0 - snapshot-20260510
 
@@ -19,7 +28,7 @@
 - Fixed missing adventure API on non-paper env.
 - Fixed audience service on non-paper env.
 - Library list now use key order.
-- Actionbar title now support protocol-lib backend. 
+- Actionbar title now support protocol-lib backend.
 
 ### 26.5.0 - snapshot-20260508
 

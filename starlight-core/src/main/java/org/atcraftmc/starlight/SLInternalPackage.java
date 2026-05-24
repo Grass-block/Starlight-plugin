@@ -2,10 +2,7 @@ package org.atcraftmc.starlight;
 
 import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
-import org.atcraftmc.starlight.core.LocaleService;
-import org.atcraftmc.starlight.core.PlayerBanService;
-import org.atcraftmc.starlight.core.VisualScoreboardService;
-import org.atcraftmc.starlight.core.WESessionTrackService;
+import org.atcraftmc.starlight.core.*;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.http.HttpService;
@@ -55,7 +52,8 @@ public interface SLInternalPackage {
         b.service(PlayerIdentificationService.class);
         b.service(JDBCService.class);
 
-        b.service(LocaleService.class);
+        //b.service(LocaleService.class);
+        b.service(BukkitLocaleService.class);
         b.service(PermissionService.class);
         b.service(ModuleDataService.class);//legacy
         b.service(ProductService.class);

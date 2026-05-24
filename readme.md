@@ -53,6 +53,21 @@ provided, just use them without doubts——They are 100% better.
 - Fast: initialize on less than 600ms, support command-line hot reload.
 - Modularized: all features are separately toggleable.
 
+## DISCLAIMER / 免责声明
+
+本项目中的语言代码仅用于标识语言及本地化内容，以兼容 Minecraft 及相关国际化标准。
+部分语言代码可能包含地区标识，其用途仅为区分不同语言习惯与翻译分支，不代表任何政治立场或地区主张。
+
+部分外部服务（如 IP 属地、系统 Locale 或第三方 API）返回的信息由其提供方决定，本项目不对相关数据的准确性或地区划分方式作额外定义。<br>
+
+Language codes used in this project are intended solely for localization and compatibility purposes, 
+following Minecraft and common internationalization conventions where applicable.
+Some language tags may include regional identifiers used only to distinguish language variants or localization differences, 
+and do not imply any political position or territorial claim.
+
+Certain external information (such as IP geolocation, system locale, or third-party API results) is provided by external services. 
+This project does not define or endorse any regional classification returned by such services.
+
 ## Installation
 
 ### 1. Download the bundler pack from page.

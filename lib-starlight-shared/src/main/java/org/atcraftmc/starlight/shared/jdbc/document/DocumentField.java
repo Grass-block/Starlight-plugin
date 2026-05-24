@@ -4,6 +4,12 @@ import com.google.gson.JsonObject;
 
 import java.util.UUID;
 
+/**
+ * <h3>A field bind to access dom.</h3>
+ *
+ * We access the dom in static entries instead of directly.
+ * This sounds weird, but definitely an enjoyment.
+* */
 public abstract class DocumentField<I> {
     protected final String name;
     protected final I defaultValue;

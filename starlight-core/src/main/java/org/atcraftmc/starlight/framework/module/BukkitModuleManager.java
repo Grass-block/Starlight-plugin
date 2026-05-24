@@ -59,7 +59,7 @@ public final class BukkitModuleManager extends PluginModuleManager {
         initCommands(handle);
 
         try {
-            BukkitUtil.callEvent(new ModuleEvent.PreEnable(handle));
+            //BukkitUtil.callEvent(new ModuleEvent.PreEnable(handle));
         } catch (Throwable e) {
             this.logger.error("Failed to dispatch event ModuleEvent/PreEnable");
             this.logger.catching(e);
@@ -69,7 +69,7 @@ public final class BukkitModuleManager extends PluginModuleManager {
     @Override
     public void handlePostEnable(ModuleContainer handle, ObjectOperationResult result) {
         try {
-            BukkitUtil.callEvent(new ModuleEvent.Enable(handle, result));
+            //BukkitUtil.callEvent(new ModuleEvent.Enable(handle, result));
         } catch (Throwable e) {
             this.logger.error("Failed to dispatch event ModuleEvent/Enable");
             this.logger.catching(e);
@@ -97,7 +97,7 @@ public final class BukkitModuleManager extends PluginModuleManager {
         }
 
         try {
-            BukkitUtil.callEvent(new ModuleEvent.Disable(handle, result));
+            //BukkitUtil.callEvent(new ModuleEvent.Disable(handle, result));
         } catch (Throwable e) {
             this.logger.error("Failed to dispatch event ModuleEvent/Disable");
             this.logger.catching(e);
@@ -107,7 +107,7 @@ public final class BukkitModuleManager extends PluginModuleManager {
     @Override
     public void handlePreDisable(ModuleContainer handle) {
         try {
-            BukkitUtil.callEvent(new ModuleEvent.PreDisable(handle));
+            //BukkitUtil.callEvent(new ModuleEvent.PreDisable(handle));
         } catch (Throwable e) {
             this.logger.error("Failed to dispatch event ModuleEvent/PreDisable");
             this.logger.catching(e);

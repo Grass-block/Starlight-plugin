@@ -24,12 +24,13 @@ import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.core.view.ScoreboardTrackingStateCallback;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -42,11 +43,11 @@ import org.bukkit.scoreboard.DisplaySlot;
 import java.util.*;
 
 @SuppressWarnings("deprecation")
-@AutoRegister(Registrations.SERVER_EVENT)
+@AutoRegister({Registrations.SERVER_EVENT, VisualScoreboardService.TRACKING})
 @ApplicationModule(id = "player-name-header", description = "Provide a Header before player's name.")
 @BukkitCommand(name = "header", permission = "-starlight.name.header")
 @ComponentProvider({PlayerNameHeader.BelowNameColumns.class})
-public final class PlayerNameHeader extends SLCommandModule {
+public final class PlayerNameHeader extends SLCommandModule implements ScoreboardTrackingStateCallback {
     public static final TableColumn<String> PLAYER_HEADER_L = TableColumn.string("name_header", 16, "unset");
     public static final DocumentField<String> PLAYER_HEADER = DocumentField.string("name-header", "unset");
 
@@ -67,9 +68,6 @@ public final class PlayerNameHeader extends SLCommandModule {
 
     @Inject
     private LanguageEntry language;
-
-    @Inject
-    private Logger logger;
 
     @Override
     public void enable() throws Exception {
@@ -137,24 +135,32 @@ public final class PlayerNameHeader extends SLCommandModule {
         this.detach(event.getPlayer());
     }
 
+    @Override
+    public void mount(Player player, VisualScoreboardService.VisualScoreboard scoreboard) {
+        for (var target : Bukkit.getOnlinePlayers()) {
+            var prefix = getPlayerPrefix(target);
+            var postfix = getPlayerSuffix(target);
+
+            scoreboard.setNameTag(target, prefix, postfix);
+        }
+    }
+
     public void attach(Player p) {
         var name = getPlayerName(p);
         SET_NAME_HEADER.invoke(p, name);
 
-        for (var viewer : Bukkit.getOnlinePlayers()) {
-            var prefix = getPlayerPrefix(p);
-            var postfix = getPlayerSuffix(p);
-
-            VisualScoreboardService.instance().visualScoreboard(viewer).setNameTag(p, prefix, postfix);
+        for (var target : Bukkit.getOnlinePlayers()) {
+            if (target.getUniqueId() == p.getUniqueId()) {
+                continue;
+            }
+            var board = VisualScoreboardService.instance().visualScoreboard(target);
+            mount(target, board);
         }
     }
 
     public void detach(Player p) {
         p.setDisplayName(p.getName());
         p.setPlayerListName(p.getName());
-        for (var target : Bukkit.getOnlinePlayers()) {
-            VisualScoreboardService.instance().visualScoreboard(target).setNameTag(p, Component.text(""), Component.text(""));
-        }
     }
 
     public String getHeader(Player player) {

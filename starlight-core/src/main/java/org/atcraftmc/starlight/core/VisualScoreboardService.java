@@ -17,14 +17,18 @@ import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.view.ScoreboardTrackingStateCallback;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scoreboard.*;
 
 import java.util.*;
@@ -33,13 +37,14 @@ import java.util.*;
 public interface VisualScoreboardService extends BukkitService {
     @ServiceInject
     ServiceHolder<BukkitScoreboardService> INSTANCE = new ServiceHolder<>();
+    String TRACKING = "starlight:scoreboard-tracking";
 
     @ServiceProvider
     static VisualScoreboardService create() {
         return new BukkitScoreboardService();
     }
 
-    static VisualScoreboardService instance() {
+    static AbstractScoreboardService instance() {
         return INSTANCE.get();
     }
 
@@ -65,6 +70,7 @@ public interface VisualScoreboardService extends BukkitService {
 
     abstract class AbstractScoreboardService implements VisualScoreboardService {
         private final Map<UUID, VisualScoreboard> handles = new HashMap<>();
+        private final Set<ScoreboardTrackingStateCallback> callbacks = new HashSet<>();
 
         public abstract VisualScoreboard create(UUID uuid);
 
@@ -86,14 +92,55 @@ public interface VisualScoreboardService extends BukkitService {
             }
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.HIGHEST)
         public final void onPlayerJoin(PlayerJoinEvent event) {
             this.loadScoreboard(event.getPlayer());
         }
 
         @EventHandler
+        public final void onPlayerRespawn(PlayerRespawnEvent event) {
+            this.loadScoreboard(event.getPlayer());
+        }
+
+        @EventHandler(priority = EventPriority.LOWEST)
         public final void onPlayerQuit(PlayerQuitEvent event) {
             this.unloadScoreboard(event.getPlayer());
+        }
+
+        @EventHandler
+        public final void onPlayerDied(PlayerDeathEvent event) {
+            this.unloadScoreboard(event.getEntity());
+        }
+
+
+        public void attachCallback(final ScoreboardTrackingStateCallback callback) {
+            for (var entry : this.handles.entrySet()) {
+                var player = Bukkit.getPlayer(entry.getKey());
+                if (player == null) {
+                    continue;
+                }
+
+                var board = entry.getValue();
+
+                callback.mount(player, board);
+            }
+
+            this.callbacks.add(callback);
+        }
+
+        public void detachCallback(final ScoreboardTrackingStateCallback callback) {
+            this.callbacks.remove(callback);
+
+            for (var entry : this.handles.entrySet()) {
+                var player = Bukkit.getPlayer(entry.getKey());
+                if (player == null) {
+                    continue;
+                }
+
+                var board = entry.getValue();
+
+                callback.unmount(player, board);
+            }
         }
 
         public final void loadScoreboard(Player player) {
@@ -103,6 +150,10 @@ public interface VisualScoreboardService extends BukkitService {
 
             this.handles.put(player.getUniqueId(), instance);
             instance.mount();
+
+            for (var callback : this.callbacks) {
+                callback.mount(player, instance);
+            }
         }
 
         public final void unloadScoreboard(Player player) {
@@ -110,6 +161,10 @@ public interface VisualScoreboardService extends BukkitService {
 
             if (instance == null) {
                 return;
+            }
+
+            for (var callback : this.callbacks) {
+                callback.unmount(player, instance);
             }
 
             instance.destroy();
