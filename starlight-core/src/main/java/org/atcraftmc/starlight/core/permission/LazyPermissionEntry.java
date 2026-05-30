@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.core.permission;
 
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.PermissionAttachment;
 

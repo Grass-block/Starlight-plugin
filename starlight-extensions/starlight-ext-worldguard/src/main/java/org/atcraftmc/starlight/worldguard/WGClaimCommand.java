@@ -19,11 +19,11 @@ import org.atcraftmc.starlight.util.StandaloneCommand;
 import java.util.Comparator;
 
 
-@ApplicationModule(id = "wg-claim")
+@ApplicationModule(id = "wg-claim", description = "Provides WorldGuard region claiming and unclaiming commands")
 public final class WGClaimCommand extends BukkitAbstractModule {
 
     static LanguageItem lang(String id) {
-        return SLPluginEnvironment.getPlugin().language().item("starlight-worldguard:wg-claim:" + id);
+        return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-claim:" + id);
     }
 
     @Override

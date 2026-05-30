@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.data.record;
 
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.config.FilePath;
 
 import java.io.File;

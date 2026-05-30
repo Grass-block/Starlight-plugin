@@ -10,14 +10,14 @@ import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.core.ui.*;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-@ApplicationModule(id = "inventory-menu")
+@ApplicationModule(id = "inventory-menu", description = "Provides custom inventory GUI menus for players")
 @AutoRegister(Registrations.SERVER_EVENT)
 @BukkitCommand(name = "gui", permission = "-starlight.gui.admin")
 public final class InventoryMenu extends SLCommandModule {
@@ -50,7 +50,7 @@ public final class InventoryMenu extends SLCommandModule {
         }
         if (section.containsKey("lang")) {
             var key = Objects.requireNonNull(section.get("lang").toString()).split(":");
-            return TextRenderer.data(Starlight.lang().item(key[0], key[1], key[2]));
+            return TextRenderer.data(StarlightBukkitCore.lang().item(key[0], key[1], key[2]));
         }
         throw new IllegalArgumentException("unexpected text component");
     }
@@ -275,7 +275,7 @@ public final class InventoryMenu extends SLCommandModule {
 
         public void open(Player player) {
             if (this.permission != null && !player.hasPermission(this.permission)) {
-                Starlight.instance().getCommandManager().sendPermissionMessage(player, this.permission.getName());
+                StarlightBukkitCore.instance().getCommandManager().sendPermissionMessage(player, this.permission.getName());
                 return;
             }
 
@@ -284,13 +284,13 @@ public final class InventoryMenu extends SLCommandModule {
 
         public void register() {
             for (var command : this.commands) {
-                Starlight.instance().getCommandManager().register(command);
+                StarlightBukkitCore.instance().getCommandManager().register(command);
             }
         }
 
         public void destroy() {
             for (var command : this.commands) {
-                Starlight.instance().getCommandManager().unregister(command);
+                StarlightBukkitCore.instance().getCommandManager().unregister(command);
             }
         }
     }

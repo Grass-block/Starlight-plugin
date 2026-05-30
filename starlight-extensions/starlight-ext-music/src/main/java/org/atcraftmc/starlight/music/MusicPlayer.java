@@ -21,7 +21,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
@@ -51,7 +51,7 @@ import java.util.*;
 
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_VPN_EVENT})
 @ComponentProvider({MusicPlayer.APMEventHandler.class, MusicPlayer.PlayerEventHandler.class})
-@ApplicationModule(id = "music-player", version = "1.0.3")
+@ApplicationModule(id = "music-player", version = "1.0.3", description = "Plays custom music tracks for players on the server")
 public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIRenderer {
     private final GUIProvider<InventoryUI> musicUI = new MusicUI(this);
     private MusicSession globalSession;
@@ -325,7 +325,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             //close button
             UI.buildComponent(builder, 53, (b) -> {
                 b.icon(UI.icon(Material.REDSTONE));
-                b.name(TextRenderer.data(Starlight.lang().item("common", "ui", "close")));
+                b.name(TextRenderer.data(StarlightBukkitCore.lang().item("common", "ui", "close")));
                 b.operation(UI.SOUND_CLICK);
                 b.operation(UI.close());
             });
@@ -342,20 +342,20 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             //page indicator
             UI.buildComponent(builder, 49, (b) -> {
                 b.icon(UI.icon(Material.CLOCK, page + 1));
-                b.name(TextRenderer.data(Starlight.lang().item("common", "ui", "page"), page + 1, pages + 1));
+                b.name(TextRenderer.data(StarlightBukkitCore.lang().item("common", "ui", "page"), page + 1, pages + 1));
             });
 
             if (page != 0) {
                 UI.builder()
                         .icon(UI.icon(Material.YELLOW_STAINED_GLASS_PANE))
-                        .name(TextRenderer.data(Starlight.lang().item("common", "ui", "prev")))
+                        .name(TextRenderer.data(StarlightBukkitCore.lang().item("common", "ui", "prev")))
                         .operation((v, player, action) -> v.setData(renderData(v, page - 1)))
                         .operation(UI.SOUND_CLICK)
                         .build(builder, 48);
             } else {
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
-                        .name(TextRenderer.data(Starlight.lang()
+                        .name(TextRenderer.data(StarlightBukkitCore.lang()
                                                         .item("common", "ui", "prev")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 48);
@@ -364,7 +364,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             if (page != pages) {
                 UI.builder()
                         .icon(UI.icon(Material.BLUE_STAINED_GLASS_PANE))
-                        .name(TextRenderer.data(Starlight.lang()
+                        .name(TextRenderer.data(StarlightBukkitCore.lang()
                                                         .item("common", "ui", "next")))
                         .operation((v, player, action) -> v.setData(renderData(v, page + 1)))
                         .operation(UI.SOUND_CLICK)
@@ -372,7 +372,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
             } else {
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
-                        .name(TextRenderer.data(Starlight.lang()
+                        .name(TextRenderer.data(StarlightBukkitCore.lang()
                                                         .item("common", "ui", "next")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 50);

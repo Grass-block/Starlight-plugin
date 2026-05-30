@@ -58,14 +58,17 @@ provided, just use them without doubts——They are 100% better.
 本项目中的语言代码仅用于标识语言及本地化内容，以兼容 Minecraft 及相关国际化标准。
 部分语言代码可能包含地区标识，其用途仅为区分不同语言习惯与翻译分支，不代表任何政治立场或地区主张。
 
-部分外部服务（如 IP 属地、系统 Locale 或第三方 API）返回的信息由其提供方决定，本项目不对相关数据的准确性或地区划分方式作额外定义。<br>
+部分外部服务（如 IP 属地、系统 Locale 或第三方
+API）返回的信息由其提供方决定，本项目不对相关数据的准确性或地区划分方式作额外定义。<br>
 
-Language codes used in this project are intended solely for localization and compatibility purposes, 
+Language codes used in this project are intended solely for localization and compatibility purposes,
 following Minecraft and common internationalization conventions where applicable.
-Some language tags may include regional identifiers used only to distinguish language variants or localization differences, 
+Some language tags may include regional identifiers used only to distinguish language variants or localization
+differences,
 and do not imply any political position or territorial claim.
 
-Certain external information (such as IP geolocation, system locale, or third-party API results) is provided by external services. 
+Certain external information (such as IP geolocation, system locale, or third-party API results) is provided by external
+services.
 This project does not define or endorse any regional classification returned by such services.
 
 ## Installation
@@ -210,6 +213,40 @@ This readme will become to loooooooooong if I don't do this.
 - `waypoints`: provide a waypoint system for private or public waypoints.
 
 </details>
+
+## Used Third-party libraries:
+
+| Dependency                                          | Scope         | Usage                     |
+|-----------------------------------------------------|---------------|---------------------------|
+| com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT | reference     | plugin-related-extension  |
+| com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT   | reference     | plugin-related-extension  |
+| me.clip:placeholderapi:2.11.6                       | reference     | placeholder support       |
+| org.ahocorasick:ahocorasick:0.6.3                   | downloaded    | chat-filtering algorithm  |
+| net.bytebuddy:byte-buddy:1.17.8                     | downloaded    | bytecode scanning         |
+| net.kyori:adventure-api:4.17.0                      | auto-complete | Adventure API             |
+| net.kyori:adventure-text-serializer-gson:4.17.0     | auto-complete | Adventure serializer      |
+| net.kyori:adventure-text-serializer-legacy:4.17.0   | auto-complete | Adventure serializer      |
+| net.kyori:adventure-text-serializer-plain:4.17.0    | auto-complete | Adventure serializer      |
+| net.kyori:adventure-text-minimessage:4.17.0         | auto-complete | MiniMessage support       |
+| com.h2database:h2:2.3.232                           | reference     | Database support          |
+| com.baomidou:mybatis-plus:3.5.15                    | reference     | ORM framework integration |
+| io.netty:netty-codec-http:4.1.128.Final             | reference     | HTTP service              |
+| adventure-platform-api-4.4.1                        | packaged      | Adventure platform bridge |
+| adventure-platform-bukkit-4.4.1                     | packaged      | Adventure Bukkit support  |
+| adventure-platform-facet-4.4.1                      | packaged      | Adventure platform facet  |
+| :lib-starlight-shared                               | packaged      | Shared internal library   |
+| me.gb2022.commons:commons-nbt                       | packaged      | NBT utilities             |
+| me.gb2022.commons:commons-math                      | packaged      | Math utilities            |
+| me.gb2022.commons:commons-container                 | packaged      | Container utilities       |
+| me.gb2022.commons:commons-general                   | packaged      | General utilities         |
+| me.gb2022.commons:commons-event                     | packaged      | Event framework           |
+| me.gb2022.commons:commons-reflection                | packaged      | Reflection utilities      |
+| me.gb2022.commons:commons-compatibility             | packaged      | Compatibility layer       |
+| me.gb2022.apm:apm-remote                            | packaged      | APM remote module         |
+| me.gb2022.apm:apm-plugin                            | packaged      | APM plugin module         |
+| org.atcraftmc.qlib:qlib-bukkit                      | packaged      | QLib Bukkit integration   |
+| me.gb2022:gluon-main                                | packaged      | Gluon framework runtime   |
+| me.gb2022.pluginsX-lib                              | packaged      | Internal plugin library   |
 
 ## Compatibility
 

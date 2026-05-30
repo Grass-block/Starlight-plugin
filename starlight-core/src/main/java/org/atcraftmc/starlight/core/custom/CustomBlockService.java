@@ -9,6 +9,8 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
@@ -62,7 +64,7 @@ public final class CustomBlockService implements BukkitService {
     @Override
     public void enable() {
         BukkitUtil.registerEventListener(this);
-        Starlight.instance().getCommandManager().register(this.command);
+        StarlightBukkitCore.instance().getCommandManager().register(this.command);
 
         for (var player : Bukkit.getOnlinePlayers()) {
             refreshInventory(player, 1);
@@ -72,7 +74,7 @@ public final class CustomBlockService implements BukkitService {
     @Override
     public void disable() {
         BukkitUtil.unregisterEventListener(this);
-        Starlight.instance().getCommandManager().unregister(this.command);
+        StarlightBukkitCore.instance().getCommandManager().unregister(this.command);
     }
 
     @EventHandler
@@ -237,7 +239,7 @@ public final class CustomBlockService implements BukkitService {
 
         @Override
         public void execute(CommandExecution context) {
-            var lang = Starlight.lang().entry("starlight-core:custom-block");
+            var lang = StarlightBukkitCore.lang().entry("starlight-core:custom-block");
 
             var id = context.requireArgumentAt(0);
             var amount = context.requireArgumentInteger(1);
@@ -250,7 +252,7 @@ public final class CustomBlockService implements BukkitService {
             }
 
             context.requireSenderAsPlayer().getInventory().addItem(block.createItem(amount));
-            lang.item("give").send(Starlight.audiences().get(context.getSender()), id);
+            lang.item("give").send(QLib.audience(context.getSender()), id);
         }
     }
 }

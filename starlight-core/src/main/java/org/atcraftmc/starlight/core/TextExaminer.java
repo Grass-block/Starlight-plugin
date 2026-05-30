@@ -6,7 +6,7 @@ import net.kyori.adventure.text.TextReplacementConfig;
 import org.atcraftmc.qlib.audience.PointedAudience;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -33,10 +33,10 @@ public interface TextExaminer {
         }
 
         if (!random) {
-            return Starlight.lang().item(id[0], id[1], id[2]).message(loc, param).renderComponent(player);
+            return StarlightBukkitCore.lang().item(id[0], id[1], id[2]).message(loc, param).renderComponent(player);
         }
 
-        return Starlight.lang().item(id[0], id[1], id[2]).random(loc, param).renderComponent(player);
+        return StarlightBukkitCore.lang().item(id[0], id[1], id[2]).random(loc, param).renderComponent(player);
     }
 
     static Component examine(Component component, PointedAudience player, MinecraftLocale locale) {

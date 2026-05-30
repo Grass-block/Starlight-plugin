@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@ApplicationModule(id = "item-drop-secure")
+@ApplicationModule(id = "item-drop-secure", description = "Prevents accidental dropping of secured items")
 @CommandProvider(ItemDropSecure.DropInsecureUnlockCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ItemDropSecure extends BukkitAbstractModule implements PluginCommandExecutor {

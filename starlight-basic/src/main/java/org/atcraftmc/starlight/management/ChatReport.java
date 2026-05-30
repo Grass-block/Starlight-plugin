@@ -34,7 +34,7 @@ import org.bukkit.event.EventPriority;
 
 import java.util.*;
 
-@ApplicationModule(id = "chat-report", version = "1.0.0")
+@ApplicationModule(id = "chat-report", version = "1.0.0", description = "Handles chat reporting with hash verification")
 @CommandProvider(ChatReport.ChatReportCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 @BlacklistPlatform({APIProfile.SPIGOT, APIProfile.BUKKIT, APIProfile.ARCLIGHT})

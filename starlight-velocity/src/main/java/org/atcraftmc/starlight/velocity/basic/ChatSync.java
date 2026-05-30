@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_VPN_EVENT})
-@ApplicationModule(id = "chat-sync")
+@ApplicationModule(id = "chat-sync", description = "Synchronizes chat messages across proxy backend servers")
 public final class ChatSync extends VelocityAbstractModule {
     public static final MinecraftChannelIdentifier CHANNEL = MinecraftChannelIdentifier.from("quark_plugin:msg");
     public static final MinecraftChannelIdentifier CHANNEL_LEGACY = MinecraftChannelIdentifier.from("quark_plugin:msg");

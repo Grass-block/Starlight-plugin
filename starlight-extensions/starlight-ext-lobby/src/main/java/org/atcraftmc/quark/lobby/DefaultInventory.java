@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-@ApplicationModule(id = "lobby-default-inventory")
+@ApplicationModule(id = "lobby-default-inventory", description = "Gives players a configurable default inventory in lobby")
 @BukkitCommand(name = "lobby-default-inventory", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DefaultInventory extends SLCommandModule {

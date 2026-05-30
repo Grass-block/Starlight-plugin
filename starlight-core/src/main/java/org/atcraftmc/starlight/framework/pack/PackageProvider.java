@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.framework.pack;
 import me.gb2022.gluon.pack.ApplicationPackage;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

@@ -5,13 +5,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.atcraftmc.starlight.util.ForwardingLogger;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
 
 public final class SLPluginEnvironment {
     public static final Logger ROOT_LOGGER = LogManager.getLogger("Starlight");
 
-    private static PluginApplication plugin;
+    private static PluginApplication application;
+    private static SLPluginHandle plugin;
     private static PathManager pathManager;
     private static ModularApplicationContext context;
     private static String pluginId;
@@ -20,7 +22,7 @@ public final class SLPluginEnvironment {
     private static boolean debug = false;
 
     public static void init(ModularApplicationContext c, PluginApplication p, String cpn, PathManager fm) {
-        plugin = p;
+        application = p;
         pluginId = p.id();
         corePackageName = cpn;
         pathManager = fm;
@@ -43,7 +45,11 @@ public final class SLPluginEnvironment {
         return returnSafely(corePackageName);
     }
 
-    public static PluginApplication getPlugin() {
+    public static PluginApplication getApplication() {
+        return returnSafely(application);
+    }
+
+    public static SLPluginHandle getPlugin() {
         return returnSafely(plugin);
     }
 
@@ -56,7 +62,7 @@ public final class SLPluginEnvironment {
     }
 
     public static LibraryManager getLibraryManager() {
-        return getPlugin().getLibraryManager();
+        return plugin.getLibraryManager();
     }
 
     public static boolean isDebug() {
@@ -69,5 +75,17 @@ public final class SLPluginEnvironment {
 
     public static Logger createLogger(String id) {
         return ForwardingLogger.prefixed(ROOT_LOGGER, id);
+    }
+
+    public static void init(ModularApplicationContext context, PluginApplication application) {
+        SLPluginEnvironment.context = context;
+        SLPluginEnvironment.application = application;
+        pluginId = application.id();
+    }
+
+    public static void init(SLPluginHandle plugin, String corePackageName, PathManager pathManager) {
+        SLPluginEnvironment.plugin = plugin;
+        SLPluginEnvironment.corePackageName = corePackageName;
+        SLPluginEnvironment.pathManager = pathManager;
     }
 }

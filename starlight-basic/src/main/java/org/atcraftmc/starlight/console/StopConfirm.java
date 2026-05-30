@@ -11,7 +11,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import java.util.List;
 
-@ApplicationModule(id = "stop-confirm", defaultEnable = false)
+@ApplicationModule(id = "stop-confirm", defaultEnable = false, description = "Requires confirmation before server stop")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class StopConfirm extends BukkitAbstractModule {
     @EventHandler

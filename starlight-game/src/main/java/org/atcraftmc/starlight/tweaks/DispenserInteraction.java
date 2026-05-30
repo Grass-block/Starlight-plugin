@@ -16,7 +16,7 @@ import org.bukkit.block.Dispenser;
 import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
 
-@ApplicationModule(id = "dispenser-interaction", version = "1.0.0")
+@ApplicationModule(id = "dispenser-interaction", version = "1.0.0", description = "Enhances dispenser interaction with custom behavior")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DispenserInteraction extends BukkitAbstractModule {
 

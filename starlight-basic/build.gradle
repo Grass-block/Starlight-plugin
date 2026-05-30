@@ -20,13 +20,15 @@ dependencies {
 dependencies {
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
     compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
+    compileOnly projectLib("ProtocolLib")
 }
 
 dependencies {
     compileOnly "org.apache.logging.log4j:log4j-core:2.8.1"
 
     compileOnly "org.ahocorasick:ahocorasick:0.6.3"
-    compileOnly projectLib("ProtocolLib")
+    compileOnly "net.bytebuddy:byte-buddy:1.17.8"
+
     implementation projectLib("paper-logger")
 }
 

@@ -46,7 +46,7 @@ import java.util.UUID;
 
 //todo: test folia
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "realistic-minecart")
+@ApplicationModule(id = "realistic-minecart", description = "Enhances minecart behavior for realistic physics and control")
 @ComponentProvider(RealisticMinecart.PlayerWorldCache.class)
 public final class RealisticMinecart extends BukkitAbstractModule {
     private static final String GLOBAL_TASK_ID = "quark:minecart:simulate";

@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
-@ApplicationModule(id = "rtp")
+@ApplicationModule(id = "rtp", description = "Teleports players to a random location in the world")
 @BukkitCommand(name = "random-tp", aliases = "rtp", permission = "+quark.warps.rtp")
 public final class RTP extends SLCommandModule {
 

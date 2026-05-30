@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.permissions.Permission;
 
-@ApplicationModule(id="advanced-permission-control",version = "1.1")
+@ApplicationModule(id="advanced-permission-control",version = "1.1", description = "Controls advanced player permissions for chat, interact, and break actions")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class AdvancedPermissionControl extends BukkitAbstractModule {
     @Inject("+starlight.player.chat")

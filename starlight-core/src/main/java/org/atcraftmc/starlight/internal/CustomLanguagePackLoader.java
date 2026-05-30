@@ -8,6 +8,8 @@ import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.language.LanguagePack;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 
@@ -22,7 +24,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-@ApplicationModule(id = "custom-language-pack-loader")
+@ApplicationModule(id = "custom-language-pack-loader", description = "Load custom third-party language resource packs from external zip archives.")
 public final class CustomLanguagePackLoader extends BukkitAbstractModule {
     public static final String PACK_SCHEME = "CB723E2A-873D-5435-8CF2-9DEC5D09BDBD";
 
@@ -47,21 +49,21 @@ public final class CustomLanguagePackLoader extends BukkitAbstractModule {
                 this.registeredPacks.addAll(packs);
 
                 for (LanguagePack pack : packs) {
-                    Starlight.lang().register(pack);
+                    StarlightBukkitCore.lang().register(pack);
                 }
             } catch (Exception e) {
                 this.logger.error("cannot load custom language packs from {}", f.getAbsolutePath(), e);
             }
         }
-        Starlight.lang().refresh(true);
+        StarlightBukkitCore.lang().refresh(true);
     }
 
     @Override
     public void disable() {
         for (LanguagePack pack : this.registeredPacks) {
-            Starlight.lang().unregister(pack);
+            StarlightBukkitCore.lang().unregister(pack);
         }
-        Starlight.lang().refresh(true);
+        StarlightBukkitCore.lang().refresh(true);
         this.registeredPacks.clear();
     }
 

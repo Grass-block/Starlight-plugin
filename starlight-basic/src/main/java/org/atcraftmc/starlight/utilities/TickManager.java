@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("UnstableApiUsage")
-@ApplicationModule(id = "tick-manager")
+@ApplicationModule(id = "tick-manager", description = "Freezes, unfreezes, and steps the server tick")
 @BukkitCommand(name = "server-tick", permission = "-quark.tick")
 public final class TickManager extends SLCommandModule {
 

@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationModule(id = "legacy-forwarding-protect", defaultEnable = false)
+@ApplicationModule(id = "legacy-forwarding-protect", defaultEnable = false, description = "Protects against unauthorized legacy forwarding connections")
 @AutoRegister({Registrations.SERVER_EVENT})
 public final class LegacyForwardingProtect extends BukkitAbstractModule {
     private final Set<String> sessions = new HashSet<>();

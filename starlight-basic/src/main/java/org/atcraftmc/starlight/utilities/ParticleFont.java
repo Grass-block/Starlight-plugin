@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@ApplicationModule(id = "particle-font")
+@ApplicationModule(id = "particle-font", description = "Renders text in the world using particle effects")
 @BukkitCommand(name = "particle-font")
 public final class ParticleFont extends SLCommandModule {
     public static final Map<String, String> PRESET_DOWNLOADS = Map.of(

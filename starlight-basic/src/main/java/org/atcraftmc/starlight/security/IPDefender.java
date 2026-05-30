@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Objects;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "ip-defender", version = "1.3.4")
+@ApplicationModule(id = "ip-defender", version = "1.3.4", description = "Defends against malicious IP connections and provides IP query commands")
 @CommandProvider(IPDefender.IPQueryCommand.class)
 public final class IPDefender extends BukkitAbstractModule implements PluginCommandExecutor, DocumentFieldCodec<String> {
     private static final RecordRegistry.A3<Player, String, String> RECORD = new RecordRegistry.A3<>(

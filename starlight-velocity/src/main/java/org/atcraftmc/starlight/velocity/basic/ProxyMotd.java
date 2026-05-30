@@ -26,7 +26,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 //todo: refresh command
-@ApplicationModule(id = "proxy-motd")
+@ApplicationModule(id = "proxy-motd", description = "Customizes the proxy server list MOTD display")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ProxyMotd extends VelocityAbstractModule {
     public static final Logger LOGGER = SLPluginEnvironment.createLogger("CustomMotd");

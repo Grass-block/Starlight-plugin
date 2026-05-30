@@ -32,7 +32,6 @@ dependencies {
     compileOnly gbuildLib("me.gb2022:gluon-main")
     compileOnly gbuildLib("org.atcraftmc.qlib:qlib-base")
 
-    //compileOnly "org.rocksdb:rocksdbjni:8.11.3"
     compileOnly 'io.netty:netty-buffer:4.1.100.Final'
     compileOnly 'com.google.code.gson:gson:2.13.2'
 

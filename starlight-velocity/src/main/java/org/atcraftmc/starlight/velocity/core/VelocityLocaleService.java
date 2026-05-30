@@ -53,7 +53,7 @@ public final class VelocityLocaleService extends AbstractLocaleService<Audience>
 
     @Subscribe
     public void onPlayerJoin(PostLoginEvent event) {
-        if (SLPluginEnvironment.getPlugin().config().value("starlight-velocity.locale.detect").bool(false)) {
+        if (SLPluginEnvironment.getApplication().config().value("starlight-velocity.locale.detect").bool(false)) {
             checkClientLocale(event.getPlayer(), getLocaleNatively(event.getPlayer()).minecraft());
         }
     }

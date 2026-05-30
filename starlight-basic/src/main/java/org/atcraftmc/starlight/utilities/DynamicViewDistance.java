@@ -36,7 +36,7 @@ import java.util.List;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(DynamicViewDistance.ViewDistanceCommand.class)
-@ApplicationModule(id="dynamic-view-distance",version = "1.0.0")
+@ApplicationModule(id="dynamic-view-distance",version = "1.0.0", description = "Dynamically adjusts server view distance based on player count")
 public final class DynamicViewDistance extends BukkitAbstractModule implements PluginCommandExecutor {
     private final List<ViewDistanceStrategy> pipeline = new ArrayList<>();
 

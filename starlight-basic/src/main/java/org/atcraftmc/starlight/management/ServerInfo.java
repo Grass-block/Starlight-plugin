@@ -14,7 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 @BukkitCommand(name = "system", permission = "-quark.management.system")
-@ApplicationModule(id = "server-info")
+@ApplicationModule(id = "server-info", description = "Displays server information and performance statistics")
 public final class ServerInfo extends SLCommandModule {
     @Override
     public void checkCompatibility() throws APIIncompatibleException {

@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class GlobalVars {
-    private PluginConcept holder = SLPluginEnvironment.getPlugin();
+    private PluginConcept holder = SLPluginEnvironment.getApplication();
 
     public Map<String, String> loadMap() {
         Map<String, String> map = new HashMap<>();

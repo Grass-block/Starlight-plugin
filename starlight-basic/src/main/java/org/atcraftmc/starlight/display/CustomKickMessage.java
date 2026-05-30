@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.PLUGIN_MESSAGE})
-@ApplicationModule(id = "custom-kick-message", version = "1.0.0")
+@ApplicationModule(id = "custom-kick-message", version = "1.0.0", description = "Customizes kick and ban messages")
 public final class CustomKickMessage extends BukkitAbstractModule {
 
     @Inject

@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-@ApplicationModule(id = "tpa", version = "1.0.2")
+@ApplicationModule(id = "tpa", version = "1.0.2", description = "Handles teleport request and acceptance between players")
 public final class TPA extends BukkitAbstractModule {
     private final TPACommand tpa = new TPACommand();
     private final TPAHereCommand tpaHere = new TPAHereCommand();

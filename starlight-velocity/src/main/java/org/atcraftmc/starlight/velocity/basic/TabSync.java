@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "tab-sync")
+@ApplicationModule(id = "tab-sync", description = "Synchronizes the tab list across all proxy servers")
 public final class TabSync extends VelocityAbstractModule {
 
     @Inject

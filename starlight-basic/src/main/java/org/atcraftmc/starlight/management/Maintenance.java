@@ -26,7 +26,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
-@ApplicationModule(id = "maintenance", version = "2.0.0")
+@ApplicationModule(id = "maintenance", version = "2.0.0", description = "Enables maintenance mode to restrict player access")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(Maintenance.MaintenanceCommand.class)
 public final class Maintenance extends BukkitAbstractModule {

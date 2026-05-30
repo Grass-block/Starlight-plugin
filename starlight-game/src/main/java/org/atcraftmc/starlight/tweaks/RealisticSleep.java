@@ -30,7 +30,7 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 
 import java.util.*;
 
-@ApplicationModule(id = "realistic-sleep", beta = true)
+@ApplicationModule(id = "realistic-sleep", beta = true, description = "Requires most players to sleep for night skip")
 @AutoRegister(Registrations.SERVER_EVENT)
 @BlacklistPlatform({APIProfile.ARCLIGHT, APIProfile.BUKKIT})
 @CommandProvider(RealisticSleep.LeaveBedCommand.class)

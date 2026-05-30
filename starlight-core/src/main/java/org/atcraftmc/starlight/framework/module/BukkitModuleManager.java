@@ -5,6 +5,7 @@ import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -59,20 +60,16 @@ public final class BukkitModuleManager extends PluginModuleManager {
         initCommands(handle);
 
         try {
-            //BukkitUtil.callEvent(new ModuleEvent.PreEnable(handle));
-        } catch (Throwable e) {
-            this.logger.error("Failed to dispatch event ModuleEvent/PreEnable");
-            this.logger.catching(e);
+            BukkitUtil.callEvent(new ModuleEvent.PreEnable(handle));
+        } catch (Throwable ignored) {
         }
     }
 
     @Override
     public void handlePostEnable(ModuleContainer handle, ObjectOperationResult result) {
         try {
-            //BukkitUtil.callEvent(new ModuleEvent.Enable(handle, result));
-        } catch (Throwable e) {
-            this.logger.error("Failed to dispatch event ModuleEvent/Enable");
-            this.logger.catching(e);
+            BukkitUtil.callEvent(new ModuleEvent.Enable(handle, result));
+        } catch (Throwable ignored) {
         }
     }
 
@@ -92,25 +89,21 @@ public final class BukkitModuleManager extends PluginModuleManager {
 
         if (handle.getReference().getDeclaredAnnotation(CommandProvider.class) != null) {
             for (AbstractCommand cmd : handle.getAttachment(ModuleCommandHolder.class).getCommands()) {
-                Starlight.instance().getCommandManager().unregister(cmd);
+                StarlightBukkitCore.instance().getCommandManager().unregister(cmd);
             }
         }
 
         try {
-            //BukkitUtil.callEvent(new ModuleEvent.Disable(handle, result));
-        } catch (Throwable e) {
-            this.logger.error("Failed to dispatch event ModuleEvent/Disable");
-            this.logger.catching(e);
+            BukkitUtil.callEvent(new ModuleEvent.Disable(handle, result));
+        } catch (Throwable ignored) {
         }
     }
 
     @Override
     public void handlePreDisable(ModuleContainer handle) {
         try {
-            //BukkitUtil.callEvent(new ModuleEvent.PreDisable(handle));
-        } catch (Throwable e) {
-            this.logger.error("Failed to dispatch event ModuleEvent/PreDisable");
-            this.logger.catching(e);
+            BukkitUtil.callEvent(new ModuleEvent.PreDisable(handle));
+        } catch (Throwable ignored) {
         }
     }
 }

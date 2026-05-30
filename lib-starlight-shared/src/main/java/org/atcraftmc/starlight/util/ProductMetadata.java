@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.util;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.atcraftmc.starlight.util.dependency.GradleDependency;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ public final class ProductMetadata {
         }
     }
 
-    public static ProductMetadata createFromResource(SLPluginConcept plugin) {
+    public static ProductMetadata createFromResource(SLPluginHandle plugin) {
         var res = plugin.getResource(plugin.name() + ".product-meta.json");
         if (res == null) {
             throw new RuntimeException("Failed to load product meta: " + plugin.name() + ".product-meta.json");

@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "freecam", version = "1.0.0")
+@ApplicationModule(id = "freecam", version = "1.0.0", description = "Allows players to detach camera from their body")
 @BukkitCommand(name = "freecam", playerOnly = true)
 public final class FreeCam extends SLCommandModule {
     private final Map<String, GameMode> gameModes = new HashMap<>();

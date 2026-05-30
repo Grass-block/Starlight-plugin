@@ -17,7 +17,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-@ApplicationModule(id = "command-exec")
+@ApplicationModule(id = "command-exec", description = "Executes commands as other entities or players")
 @AutoRegister(Registrations.SERVER_EVENT)
 @BukkitCommand(name = "exec", permission = "-starlight.command.exec")
 public final class Execute extends SLCommandModule {

@@ -9,7 +9,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 
-@ApplicationModule(id = "legacy-forwarding-protect")
+@ApplicationModule(id = "legacy-forwarding-protect", description = "Protects servers from unauthorized forwarding connections")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class LegacyForwardingProtect extends VelocityAbstractModule {
 

@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.framework;
 import me.gb2022.gluon.ModularApplicationContext;
 import me.gb2022.gluon.service.Service;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 

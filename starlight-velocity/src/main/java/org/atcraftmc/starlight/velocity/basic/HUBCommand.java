@@ -10,7 +10,7 @@ import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.atcraftmc.starlight.velocity.util.VelocityCommand;
 
 @VelocityCommand(name = "hub", aliases = {"lobby", "quit"})
-@ApplicationModule(id = "hub-command")
+@ApplicationModule(id = "hub-command", description = "Teleports players to the hub or lobby server")
 public final class HUBCommand extends VelocityAbstractModule implements SimpleCommand {
 
     @Override

@@ -4,6 +4,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -17,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApplicationModule(id = "client-transfer-support")
+@ApplicationModule(id = "client-transfer-support", description = "Supports transferring players between proxy servers")
 @CommandProvider(ClientTransferSupport.ConnectCommand.class)
 public final class ClientTransferSupport extends BukkitAbstractModule {
     private final Map<String, String> originRecords = new HashMap<>();

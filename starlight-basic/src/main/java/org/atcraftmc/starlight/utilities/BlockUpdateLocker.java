@@ -16,7 +16,7 @@ import java.util.List;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({BlockUpdateLocker.BlockUpdateLockerCommand.class})
-@ApplicationModule(id = "block-update-locker", version = "1.0.0")
+@ApplicationModule(id = "block-update-locker", version = "1.0.0", description = "Locks block updates such as pistons and redstone")
 public final class BlockUpdateLocker extends BukkitAbstractModule {
     private boolean locked = false;
 

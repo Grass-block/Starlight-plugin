@@ -13,7 +13,7 @@ import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.Language;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
@@ -85,7 +85,7 @@ public final class TabMenu extends BukkitAbstractModule {
 
     public void setPlayerList(Player player) {
         var locale = LocaleService.locale(player);
-        var lang = Starlight.lang();
+        var lang = StarlightBukkitCore.lang();
 
         var header = lang.inline(Language.generateTemplate(this.config(), "header-ui"), locale, "starlight-display:tab-menu");
         var footer = lang.inline(Language.generateTemplate(this.config(), "footer-ui"), locale, "starlight-display:tab-menu");

@@ -9,6 +9,7 @@ import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
@@ -20,7 +21,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.nio.charset.StandardCharsets;
 
-@ApplicationModule(id = "chat-sync", version = "1.0.0")
+@ApplicationModule(id = "chat-sync", version = "1.0.0", description = "Syncs chat messages across proxy server instances")
 @AutoRegister({Registrations.SERVER_EVENT})
 @ComponentProvider({ProxyChatSync.BukkitListener.class, ProxyChatSync.PaperListener.class})
 public final class ProxyChatSync extends BukkitAbstractModule {

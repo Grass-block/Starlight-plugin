@@ -1,5 +1,26 @@
 ## V5: Now - Gluon engine
 
+### 26.6.0
+
+> From this version, working with non-paper-based will NO LONGER require `starlight-adventure-loader`.
+
+- Shortened ui for custom-scoreboard.
+- No longer need starlight-adventure loader on non-std platform.
+- Added document link for module info.
+- Fixed loading error on missing dependency parts.
+- Optimized log output.
+- Fixed config command exception.
+- Optimized loading speed(need to enable fast-boot)
+- Added plugin-backdoor-scanner.
+- Hot reload with fast-boot is no longer disabled.
+
+### 26.5.2
+
+> From this version, working with non-paper-based will require `starlight-adventure-loader`
+> Due to it is still being reviewed, `starlight-adventure-loader` is provided in version page.
+
+- Fixed library loading on non-std platform.
+
 ### 26.5.1
 
 - Fixed language detection error.

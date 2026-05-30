@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.internal;
 
 import me.gb2022.gluon.service.*;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.util.Identifiers;
 import org.bukkit.Bukkit;

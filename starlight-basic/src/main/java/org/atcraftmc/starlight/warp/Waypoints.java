@@ -46,7 +46,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @BukkitCommand(name = "waypoint")
-@ApplicationModule(id = "waypoint", version = "2.0.4")
+@ApplicationModule(id = "waypoint", version = "2.0.4", description = "Creates and manages teleport waypoints for players")
 @CommandProvider({Waypoints.WaypointCommand.class})
 @AutoRegister({Registrations.SERVER_EVENT, Registrations.CLIENT_MESSAGE})
 public final class Waypoints extends SLCommandModule {

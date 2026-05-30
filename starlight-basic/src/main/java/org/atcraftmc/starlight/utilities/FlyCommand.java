@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-@ApplicationModule(id = "fly-command", version = "1.2.0")
+@ApplicationModule(id = "fly-command", version = "1.2.0", description = "Controls player flight speed and toggling")
 @CommandProvider({FlyCommand.FlySpeedCommand.class, FlyCommand.FlyToggleCommand.class})
 public final class FlyCommand extends BukkitAbstractModule {
     @Inject("tip")

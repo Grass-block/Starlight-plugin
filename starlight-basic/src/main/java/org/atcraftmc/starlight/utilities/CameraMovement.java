@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
-@ApplicationModule(id = "camera-movement", version = "1.0.0")
+@ApplicationModule(id = "camera-movement", version = "1.0.0", description = "Moves player camera along a predefined path")
 @BukkitCommand(name = "camera", permission = "-starlight.camera", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class CameraMovement extends SLCommandModule {

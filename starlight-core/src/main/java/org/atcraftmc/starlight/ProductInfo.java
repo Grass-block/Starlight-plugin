@@ -61,7 +61,7 @@ public interface ProductInfo {
                 &d&l  /___/ \\__/ \\_,_//_/  /_//_/ \\_, //_//_/\\__/\s
                 &d&l                         /___/                    -&fv%s
                 
-                &7 Artifact by &fGrassBlock2022, &7Copyright &f[C]ATCraftMC 2025.
+                &7 Artifact by &fGrassBlock2022, &7Copyright &f[C]A.T.C Group 2025.
                 &d一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """.formatted(p.getDescription().getVersion()));
     }
@@ -82,9 +82,9 @@ public interface ProductInfo {
                 {#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """;
 
-        var mm = Starlight.instance().context().getModuleManager();
-        var sm = Starlight.instance().context().getServiceManager();
-        var pm = Starlight.instance().context().getPackageManager();
+        var mm = StarlightBukkitCore.instance().getGluonContext().getModuleManager();
+        var sm = StarlightBukkitCore.instance().getGluonContext().getServiceManager();
+        var pm = StarlightBukkitCore.instance().getGluonContext().getPackageManager();
 
         var text = ChatColor.translateAlternateColorCodes('&', dom.formatted(
                 version() + "/api_" + apiMajorVersion() + "." + apiMinorVersion(),

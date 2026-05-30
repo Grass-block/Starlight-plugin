@@ -16,7 +16,7 @@ import java.util.Stack;
 /**
  * special thanks to ChatGPT.
  */
-@ApplicationModule(id = "calculator", version = "1.0.0")
+@ApplicationModule(id = "calculator", version = "1.0.0", description = "Evaluates mathematical expressions via chat command")
 @BukkitCommand(name = "calc")
 public final class Calculator extends SLCommandModule {
 

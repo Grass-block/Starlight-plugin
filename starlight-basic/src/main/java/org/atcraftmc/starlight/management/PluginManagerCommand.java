@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("removal")
 @BukkitCommand(name = "plugins", aliases = "pl", permission = "-bukkit.plugins")
-@ApplicationModule(id = "plugin-manager-command", version = "1.1.0")
+@ApplicationModule(id = "plugin-manager-command", version = "1.1.0", description = "Provides plugin management commands like list and toggle")
 public final class PluginManagerCommand extends SLCommandModule {
     private final PluginUtil.ModernPluginManager pluginManager = PluginUtil.INSTANCE;
     private final PluginManager bukkitPluginManager = Bukkit.getPluginManager();

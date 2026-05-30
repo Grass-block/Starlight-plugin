@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-@ApplicationModule(id = "position-align")
+@ApplicationModule(id = "position-align", description = "Aligns player position to the nearest block center")
 @BukkitCommand(name = "align", playerOnly = true, permission = "+starlight.command.align")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class PositionAlign extends SLCommandModule {

@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.internal.command;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.bukkit.command.CommandSender;
@@ -16,15 +17,15 @@ public final class GlobalVarsCommand extends CoreCommand {
         switch (args[0]) {
             case "reload" -> {
                 PlaceHolderService.reloadExternal();
-                Starlight.instance().coreLanguage().item("global-var:reload").send(QLib.audience(sender));
+                StarlightBukkitCore.instance().coreLanguage().item("global-var:reload").send(QLib.audience(sender));
             }
             case "restore" -> {
                 PlaceHolderService.EXTERNAL_VARS.restore();
-                Starlight.instance().coreLanguage().item("global-var:restore").send(QLib.audience(sender));
+                StarlightBukkitCore.instance().coreLanguage().item("global-var:restore").send(QLib.audience(sender));
             }
             case "sync" -> {
                 PlaceHolderService.EXTERNAL_VARS.sync();
-                Starlight.instance().coreLanguage().item("global-var:sync").send(QLib.audience(sender));
+                StarlightBukkitCore.instance().coreLanguage().item("global-var:sync").send(QLib.audience(sender));
             }
         }
     }

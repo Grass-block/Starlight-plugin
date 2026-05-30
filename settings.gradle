@@ -8,9 +8,11 @@ include 'starlight-game'
 include 'starlight-extensions:starlight-ext-lobby'
 include 'starlight-extensions:starlight-ext-music'
 include 'starlight-extensions:starlight-ext-plot'
+//include 'starlight-adventure-loader'
 
 include 'starlight-velocity'
 include 'starlight-bundler'
 include 'starlight-extensions:starlight-ext-worldguard'
 findProject(':starlight-extensions:starlight-ext-worldguard')?.name = 'starlight-ext-worldguard'
+
 

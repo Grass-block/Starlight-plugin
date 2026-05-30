@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @CommandProvider({Mute.MuteCommand.class, Mute.UnmuteCommand.class})
-@ApplicationModule(id = "mute", version = "1.0.2")
+@ApplicationModule(id = "mute", version = "1.0.2", description = "Manages player muting with time-based durations")
 @ComponentProvider(Mute.PaperListener.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class Mute extends BukkitAbstractModule implements Listener {

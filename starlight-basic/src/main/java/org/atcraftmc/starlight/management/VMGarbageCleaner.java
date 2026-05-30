@@ -13,7 +13,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 
 @CommandProvider({VMGarbageCleaner.GCCommand.class})
-@ApplicationModule(id = "vm-garbage-cleaner", version = "1.3.0")
+@ApplicationModule(id = "vm-garbage-cleaner", version = "1.3.0", description = "Periodically runs garbage collection to free memory")
 public final class VMGarbageCleaner extends BukkitAbstractModule {
     public static final String GC_TASK_TID = "starlight:gc";
 

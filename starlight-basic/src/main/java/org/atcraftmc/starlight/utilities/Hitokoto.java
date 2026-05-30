@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.command.CommandSender;
 
 @BukkitCommand(name = "hitokoto")
-@ApplicationModule(id = "hitokoto", version = "1.0.0")
+@ApplicationModule(id = "hitokoto", version = "1.0.0", description = "Displays random inspirational quotes from hitokoto API")
 public final class Hitokoto extends SLCommandModule {
     public static final HttpRequest FETCH = HttpRequest.https(HttpMethod.GET, "v1.hitokoto.cn")
             .browserBehavior(false)

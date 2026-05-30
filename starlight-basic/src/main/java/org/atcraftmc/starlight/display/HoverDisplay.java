@@ -41,7 +41,7 @@ import org.joml.Vector3d;
 
 import java.util.*;
 
-@ApplicationModule(id = "hover-display")
+@ApplicationModule(id = "hover-display", description = "Displays hover texts for items and entities")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(HoverDisplay.HoverDisplayCommand.class)
 public final class HoverDisplay extends BukkitAbstractModule implements PluginCommandExecutor {

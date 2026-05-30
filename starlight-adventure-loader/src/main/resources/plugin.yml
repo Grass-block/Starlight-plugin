@@ -1,0 +1,16 @@
+#identifier
+name: starlight-adventure-loader
+version: '1.0.0'
+
+#api
+main: org.atcraftmc.starlight.AdventureAPILoader
+api-version: 1.13
+folia-supported: true
+load: STARTUP
+
+#description
+authors: [ "GrassBlock2022","A.T.C Group" ]
+website: https://atcarftmc.cn
+prefix: StarlightADVPlatform
+description: |
+  Adventure environment provider.

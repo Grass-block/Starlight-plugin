@@ -8,7 +8,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 
-@ApplicationModule(id="self-message")
+@ApplicationModule(id="self-message", description = "Sends formatted messages to the sender only")
 @BukkitCommand(name = "self-msg")
 public final class SelfMessage extends SLCommandModule {
     @Override

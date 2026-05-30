@@ -102,7 +102,7 @@ public abstract class AbstractLocaleService<A> implements Service {
         var uuid = getIdentifier(player);
         var locale = initial;
 
-        var preset = SLPluginEnvironment.getPlugin().language().item(getConfigNamespace() + ".locale.preset");
+        var preset = SLPluginEnvironment.getApplication().language().item(getConfigNamespace() + ".locale.preset");
 
         try {
             locale = getLocaleNatively(player).minecraft();

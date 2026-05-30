@@ -6,18 +6,19 @@ import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.module.ModuleManager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -27,7 +28,7 @@ import java.util.List;
 
 @BukkitCommand(name = "module", permission = "-starlight.core.module")
 public final class ModuleCommand extends CoreCommand {
-    private final ModuleManager handle = Starlight.instance().context().getModuleManager();
+    private final ModuleManager handle = StarlightBukkitCore.instance().getGluonContext().getModuleManager();
 
     static String messageId(ObjectOperationResult result, String success) {
         return switch (result) {
@@ -49,7 +50,7 @@ public final class ModuleCommand extends CoreCommand {
     public void suggest(CommandSuggestion suggestion) {
         suggestion.suggest(0, "list", "enable", "disable", "reload", "info");
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, "<search meta>"));
-        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, Starlight.instance().context().getPackageManager().getPackages().keySet()));
+        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, StarlightBukkitCore.instance().getGluonContext().getPackageManager().getPackages().keySet()));
         suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
         suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
         suggestion.matchArgument(0, "reload", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
@@ -103,7 +104,7 @@ public final class ModuleCommand extends CoreCommand {
 
                     var all = group.size();
                     var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-                    var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginConcept.class).name(), enable, all);
+                    var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginHandle.class).name(), enable, all);
 
                     Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
                     TextSender.sendMessage(sender, msg1);
@@ -131,6 +132,8 @@ public final class ModuleCommand extends CoreCommand {
                 &7Status: %s%s
                 &7Version: &d%s
                 &7Description: &d%s
+                
+                &6[Click: Open doc]
                 """.formatted(
                 m.getMetadata().key(),
                 statusColor,
@@ -150,13 +153,19 @@ public final class ModuleCommand extends CoreCommand {
             case ENABLED -> "&aE";
         });
 
+        var ns = m.getMetadata().key().namespace();
+        var key = m.getMetadata().key().id();
+
         var info = Component.text(ChatColor.translateAlternateColorCodes(
                 '&',
                 prefix + m.getAttachment(PluginModuleAttachment.class)
                         .displayName(locale)
         ));
 
-        return info.hoverEvent(HoverEvent.showText(buildModuleHoverInfo(m)));
+        var hover = HoverEvent.showText(buildModuleHoverInfo(m));
+        var click = ClickEvent.openUrl("https://dev.atcraftmc.cn/starlight/content/%s/%s.html".formatted(ns,key));
+
+        return info.hoverEvent(hover).clickEvent(click);
     }
 
     private void list(CommandSender sender, String prefix) {
@@ -179,9 +188,10 @@ public final class ModuleCommand extends CoreCommand {
 
             var all = group.size();
             var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginConcept.class).name(), enable, all);
+            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginHandle.class).name(), enable, all);
 
             Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
+
             TextSender.sendMessage(sender, msg1);
 
             for (var meta : groups.get(gid)) {

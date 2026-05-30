@@ -17,6 +17,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
@@ -43,7 +44,7 @@ import java.util.concurrent.ExecutionException;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({PermissionManager.PermissionCommand.class})
-@ApplicationModule(id = "permission-manager", version = "1.0.3", defaultEnable = false)
+@ApplicationModule(id = "permission-manager", version = "1.0.3", defaultEnable = false, description = "Manages player permissions with JDBC-backed storage and commands")
 public final class PermissionManager extends BukkitAbstractModule implements PluginCommandExecutor, PermissionEventHandler {
     private final PlayerPermissionManager service = new DirectPermissionManager(this, Starlight.instance());
     private final Map<String, List<String>> tags = new HashMap<>();

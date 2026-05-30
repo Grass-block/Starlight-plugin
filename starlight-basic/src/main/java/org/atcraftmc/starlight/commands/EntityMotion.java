@@ -23,7 +23,7 @@ import org.bukkit.util.Vector;
 import java.util.Collection;
 import java.util.function.Supplier;
 
-@ApplicationModule(id = "entity-motion")
+@ApplicationModule(id = "entity-motion", description = "Controls entity motion with velocity commands")
 @AutoRegister(Registrations.SERVER_EVENT)
 @BukkitCommand(name = "motion", permission = "-starlight.command.motion")
 public final class EntityMotion extends SLCommandModule {

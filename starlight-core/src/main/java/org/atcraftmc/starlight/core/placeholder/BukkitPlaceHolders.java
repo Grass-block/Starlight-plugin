@@ -6,6 +6,8 @@ import org.atcraftmc.qlib.texts.placeholder.*;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Players;
@@ -68,12 +70,12 @@ public interface BukkitPlaceHolders {
 
         holder.register(
                 "module-installed",
-                GlobalPlaceHolder.object(() -> Starlight.instance().context().getModuleManager().getModules().size())
+                GlobalPlaceHolder.object(() -> StarlightBukkitCore.instance().getGluonContext().getModuleManager().getModules().size())
         );
         holder.register(
                 "module-enabled",
-                GlobalPlaceHolder.object(() -> Starlight.instance()
-                        .context()
+                GlobalPlaceHolder.object(() -> StarlightBukkitCore.instance()
+                        .getGluonContext()
                         .getModuleManager()
                         .getIdsByStatus(TriState.FALSE)
                         .size())

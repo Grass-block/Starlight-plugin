@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ApplicationModule(id = "proxy-ping", defaultEnable = false)
+@ApplicationModule(id = "proxy-ping", defaultEnable = false, description = "Monitors and broadcasts player ping across proxy")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ProxyPing extends BukkitAbstractModule {
     private final Map<String, Integer> ping = new HashMap<>();

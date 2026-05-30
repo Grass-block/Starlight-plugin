@@ -5,6 +5,8 @@ import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.command.execute.CommandErrorType;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
@@ -12,13 +14,13 @@ import org.bukkit.permissions.Permission;
 public final class StarlightCommandManager extends CommandManager {
     private final LanguageEntry messages;
 
-    public StarlightCommandManager(Starlight handle) {
-        super(handle);
+    public StarlightCommandManager(StarlightBukkitCore handle) {
+        super(handle.getPlugin());
         this.messages = handle.language().entry("starlight-core:command");
     }
 
     public static CommandManager getInstance() {
-        return Starlight.instance().getCommandManager();
+        return StarlightBukkitCore.instance().getCommandManager();
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.atcraftmc.quark_velocity.Registers;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule()
+@ApplicationModule(description = "Routes modded players to compatible backend servers")
 public class ModdedServerSupport extends VelocityAbstractModule {
 
     @Subscribe

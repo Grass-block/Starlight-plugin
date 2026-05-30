@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(version = "1.0.3", id = "lobby-player-protect")
+@ApplicationModule(version = "1.0.3", id = "lobby-player-protect", description = "Protects players from damage in the lobby world")
 public final class PlayerProtect extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event) {

@@ -15,6 +15,7 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.atcraftmc.starlight.worldguard.data.RegionKey;
@@ -36,12 +37,12 @@ public interface WorldGuardRegionService extends Service {
 
     @ServiceInject
     static void start() {
-        Starlight.instance().getCommandManager().register(COMMAND);
+        StarlightBukkitCore.instance().getCommandManager().register(COMMAND);
     }
 
     @ServiceInject
     static void stop() {
-        Starlight.instance().getCommandManager().unregister(COMMAND);
+        StarlightBukkitCore.instance().getCommandManager().unregister(COMMAND);
     }
 
     static Optional<ProtectedRegion> getRegion(RegionKey key) {

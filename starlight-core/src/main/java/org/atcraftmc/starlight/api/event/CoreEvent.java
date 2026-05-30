@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.api.event;
 
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.bukkit.event.HandlerList;
 
 public abstract class CoreEvent extends CustomEvent {

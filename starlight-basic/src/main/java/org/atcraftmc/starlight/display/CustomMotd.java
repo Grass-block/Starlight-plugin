@@ -17,6 +17,7 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.QueryPingEvent;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.TextSender;
@@ -41,7 +42,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-@ApplicationModule(id = "custom-motd", version = "1.0.2")
+@ApplicationModule(id = "custom-motd", version = "1.0.2", description = "Customizes server list message of the day")
 @CommandProvider({CustomMotd.MotdCommand.class})
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(CustomMotd.ProtocolLibSender.class)

@@ -6,6 +6,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;

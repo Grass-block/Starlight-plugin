@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-@ApplicationModule(id = "crop-click-harvest", version = "1.0.0")
+@ApplicationModule(id = "crop-click-harvest", version = "1.0.0", description = "Allows harvesting crops by right-clicking them")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class CropClickHarvest extends BukkitAbstractModule {
     public static final Map<Material, Material> CROPS = new HashMap<>();

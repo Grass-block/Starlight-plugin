@@ -10,12 +10,12 @@ import java.io.InputStream;
 public interface PluginModule extends AppModule {
     default LanguageEntry language() {
         var k = handle().getMetadata().key();
-        return SLPluginEnvironment.getPlugin().language().entry(k.namespace(), k.id());
+        return SLPluginEnvironment.getApplication().language().entry(k.namespace(), k.id());
     }
 
     default ConfigEntry config() {
         var k = handle().getMetadata().key();
-        return SLPluginEnvironment.getPlugin().config().entry(k.namespace(), k.id());
+        return SLPluginEnvironment.getApplication().config().entry(k.namespace(), k.id());
     }
 
     default InputStream getResource(String path) {

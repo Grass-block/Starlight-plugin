@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(ExplosionDefender.ExplosionWhitelistCommand.class)
-@ApplicationModule(id = "explosion-defender", version = "1.4.3")
+@ApplicationModule(id = "explosion-defender", version = "1.4.3", description = "Defends against block and entity explosions with whitelist support")
 @ComponentProvider(ExplosionDefender.BlockExplosionListener.class)
 public final class ExplosionDefender extends BukkitAbstractModule {
     private static final RecordRegistry.A5<String, Number, Number, Number, String> RECORD = new RecordRegistry.A5<>(

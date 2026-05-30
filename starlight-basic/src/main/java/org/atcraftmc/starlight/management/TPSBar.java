@@ -14,7 +14,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
-@ApplicationModule(id = "tps-bar")
+@ApplicationModule(id = "tps-bar", description = "Shows TPS and MSPT via a boss bar overlay")
 @BukkitCommand(name = "tpsbar", permission = "-starlight.monitor.tpsbar")
 public final class TPSBar extends SLCommandModule {
     public static final TemplateExpansion TEMPLATE_EXPANSION = TemplateExpansion.build((b) -> b.replacement("tps").replacement("mspt"));

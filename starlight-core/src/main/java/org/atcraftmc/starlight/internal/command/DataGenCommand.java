@@ -10,7 +10,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 
@@ -32,7 +32,7 @@ public final class DataGenCommand extends CoreCommand {
     private HashMap<String, List<ModuleContainer>> indexModules() {
         var groups = new HashMap<String, List<ModuleContainer>>();
 
-        for (var meta : Starlight.instance().context().getModuleManager().getModules().values()) {
+        for (var meta : StarlightBukkitCore.instance().getGluonContext().getModuleManager().getModules().values()) {
             groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>()).add(meta);
         }
 
@@ -89,65 +89,93 @@ public final class DataGenCommand extends CoreCommand {
         }
     }
 
-    private void generateDocTemplate() throws IOException {
-        var f = storage().append("module-doc");
-        var groups = indexModules();
-        var template = new String(this.getClass().getResourceAsStream("/assets/doc-template.md").readAllBytes());
-        var count = 0;
+    private void generateDocTemplate() {
+        try {
+            var f = storage().append("module-doc");
+            var groups = indexModules();
+            var template = new String(this.getClass().getResourceAsStream("/assets/doc-template.md").readAllBytes());
+            var count = 0;
 
-        for (var gid : groups.keySet()) {
-            var group = groups.get(gid);
-            var pth = f.append(gid);
+            for (var gid : groups.keySet()) {
+                var group = groups.get(gid);
+                var pth = f.append(gid);
 
-            for (var mod : group) {
-                var key = mod.getMetadata().key();
-                var name = mod.getAttachment(PluginModuleAttachment.class).displayNameOrId(MinecraftLocale.ZH_CN);
+                for (var mod : group) {
+                    var key = mod.getMetadata().key();
+                    var name = mod.getAttachment(PluginModuleAttachment.class).displayNameOrId(MinecraftLocale.ZH_CN);
 
-                var file = pth.append(key.id() + ".md").file();
+                    var file = pth.append(key.id() + ".md").file();
 
-                if (file.exists() && file.length() > 0) {
-                    continue;
-                }
+                    if (file.exists() && file.length() > 0) {
+                        continue;
+                    }
 
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
 
-                try (var o = new FileOutputStream(file)) {
-                    var doc = template.replace("{name}", name).replace("{id}", key.id()).replace("{fid}", key.fullId()).replace(
-                            "{version}",
-                            mod.getMetadata()
-                                    .version()
-                    ).replace("{beta}", mod.getMetadata().beta() ? "是" : "否").replace(
-                            "{internal}",
-                            mod.getMetadata().internal() ? "是" : "否"
-                    ).replace("{default-enable}", mod.getMetadata().defaultEnabled() ? "是" : "否").replace(
-                            "{description}",
-                            mod.getMetadata().description()
-                    );
+                    try (var o = new FileOutputStream(file)) {
+                        var doc = template.replace("{name}", name).replace("{id}", key.id()).replace("{fid}", key.fullId()).replace(
+                                "{version}",
+                                mod.getMetadata()
+                                        .version()
+                        ).replace("{beta}", mod.getMetadata().beta() ? "是" : "否").replace(
+                                "{internal}",
+                                mod.getMetadata().internal() ? "是" : "否"
+                        ).replace("{default-enable}", mod.getMetadata().defaultEnabled() ? "是" : "否").replace(
+                                "{description}",
+                                mod.getMetadata().description()
+                        );
 
-                    o.write(doc.getBytes(StandardCharsets.UTF_8));
-                    count++;
+                        o.write(doc.getBytes(StandardCharsets.UTF_8));
+                        count++;
+                    }
                 }
             }
+            System.out.printf("done. %s modules indexed.%n", count);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.printf("done. %s modules indexed.%n", count);
+    }
+
+    private void generateModuleList() {
+        var file = storage().append("module-list.md").file();
+        var groups = indexModules();
+        var count = 0;
+
+        try (var out = new FileOutputStream(file, false)) {
+            for (var gid : groups.keySet()) {
+                var group = groups.get(gid);
+
+                out.write("### %s: \n".formatted(gid).getBytes(StandardCharsets.UTF_8));
+
+                for (var mod : group) {
+                    var k = mod.getMetadata().key();
+                    var ns = k.namespace();
+                    var key = k.id();
+
+                    var desc = mod.getMetadata().description();
+                    var url = "https://dev.atcraftmc.cn/starlight/content/%s/%s.html".formatted(ns, key);
+                    var name = mod.getAttachment(PluginModuleAttachment.class).displayNameOrId(MinecraftLocale.EN_US);
+
+                    out.write("- %s: %s [doc↗](%s)\n".formatted(name, desc, url).getBytes(StandardCharsets.UTF_8));
+                    count++;
+                }
+
+                out.write("\n".getBytes(StandardCharsets.UTF_8));
+            }
+            System.out.printf("done. %s modules indexed.%n", count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     public void execute(CommandExecution context) {
-        switch (context.requireEnum(0, "module-index", "service-index", "module-doc")) {
+        switch (context.requireEnum(0, "module-index", "module-list", "module-doc")) {
             case "module-index" -> generateIndexFile();
-            case "service-index" -> {
-
-            }
-            case "module-doc" -> {
-                try {
-                    generateDocTemplate();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            case "module-list" -> generateModuleList();
+            case "module-doc" -> generateDocTemplate();
         }
     }
 }

@@ -12,10 +12,10 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.ProductInfo;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +25,7 @@ import java.util.*;
 
 @BukkitCommand(name = "package", permission = "-starlight.packages")
 public final class PackageCommand extends CoreCommand {
-    private final PackageManager handle = Starlight.instance().context().getPackageManager();
+    private final PackageManager handle = StarlightBukkitCore.instance().getGluonContext().getPackageManager();
 
 
     static String messageId(ObjectOperationResult result, String success) {
@@ -93,7 +93,7 @@ public final class PackageCommand extends CoreCommand {
         StringBuilder sb = new StringBuilder();
         HashMap<String, List<String>> map = new HashMap<>();
         for (String s : this.handle.getAllPackages().keySet().stream().sorted().toList()) {
-            var namespace = this.handle.get(s).holder(SLPluginConcept.class).name();
+            var namespace = this.handle.get(s).holder(SLPluginHandle.class).name();
             if (!map.containsKey(namespace)) {
                 map.put(namespace, new ArrayList<>());
             }
@@ -126,7 +126,7 @@ public final class PackageCommand extends CoreCommand {
 
     private Component buildModuleInfo(ApplicationPackage pkg) {
         var state = this.handle.isEnabled(pkg.meta().id()) ? "&aE" : "&cD";
-        var owner = pkg.holder(SLPluginConcept.class).name();
+        var owner = pkg.holder(SLPluginHandle.class).name();
         //var ownerVer = pkg.holder(Plugin.class).getDescription().getVersion();
         var line = "&f[%s&f]%s".formatted(state, pkg.meta().id());
 
@@ -142,7 +142,7 @@ public final class PackageCommand extends CoreCommand {
         var nodes = this.handle.getPackages()
                 .values()
                 .stream()
-                .sorted(Comparator.comparing(m -> m.holder(SLPluginConcept.class).name()))
+                .sorted(Comparator.comparing(m -> m.holder(SLPluginHandle.class).name()))
                 .filter((m) -> m.meta().id().contains(prefix))
                 .toList();
         getLanguage().item("list").send(QLib.audience(sender), "");

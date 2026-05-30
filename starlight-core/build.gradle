@@ -4,7 +4,7 @@ plugins {
 
 group = "org.atcraftmc.starlight"
 
-project.setProperty("version", "26.5.1")
+project.setProperty("version", "26.6.0")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 apply from: rootDir.getAbsolutePath() + "/info.gradle"
@@ -29,10 +29,12 @@ repositories {
     maven { url = 'https://maven.enginehub.org/repo/' }
 }
 
+//other plugins
 dependencies {
     compileOnly 'me.clip:placeholderapi:2.11.6'
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
     compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
+    compileOnly projectLib("ProtocolLib")
 }
 
 //implemented by platform
@@ -42,6 +44,10 @@ dependencies {
     compileOnly 'net.kyori:adventure-text-serializer-legacy:4.17.0'
     compileOnly 'net.kyori:adventure-text-serializer-plain:4.17.0'
     compileOnly 'net.kyori:adventure-text-minimessage:4.17.0'
+
+    implementation projectLib('adventure-platform-api-4.4.1')
+    implementation projectLib('adventure-platform-bukkit-4.4.1')
+    implementation projectLib('adventure-platform-facet-4.4.1')
 }
 
 //integrated
@@ -61,19 +67,16 @@ dependencies {
     implementation gbuildLib("org.atcraftmc.qlib:qlib-bukkit")
     implementation gbuildLib("me.gb2022:gluon-main")
 
-    implementation projectLib("adventure-platform-bukkit-4.4.1")
-
     implementation localStorage("me.gb2022.pluginsX-lib")
-
 
     //provided by starlight dependency loader.
     compileOnly 'org.iq80.leveldb:leveldb:0.12'
     compileOnly 'com.h2database:h2:2.3.232'
     compileOnly 'org.mongodb:bson:5.6.0'
     compileOnly 'com.baomidou:mybatis-plus:3.5.15'
-    compileOnly 'net.kyori:adventure-platform-bukkit:4.4.1'
 
     //noinspection VulnerableLibrariesLocal
+    //platform
     compileOnly 'io.netty:netty-codec-http:4.1.128.Final'
 }
 
@@ -81,10 +84,9 @@ dependencies {
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
     compileOnly 'io.netty:netty-buffer:4.1.25.Final'
-    compileOnly 'org.msgpack:msgpack-core:0.9.8'
 
     compileOnly projectLib('paper-plugin')
-    compileOnly projectLib("ProtocolLib")
+
 }
 
 jar {

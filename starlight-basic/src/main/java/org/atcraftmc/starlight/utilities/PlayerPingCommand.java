@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@ApplicationModule(id="player-ping-command",version = "1.0.0")
+@ApplicationModule(id="player-ping-command",version = "1.0.0", description = "Shows player latency/ping information")
 @BukkitCommand(name = "ping", playerOnly = true)
 public final class PlayerPingCommand extends SLCommandModule {
     @Inject("tip")

@@ -4,6 +4,8 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.ExceptionUtil;
@@ -14,7 +16,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 public interface InternalCommands {
     Listener INVALID_COMMAND_WARN = new InvalidCommandWarn();
-    AbstractCommand[] COMMANDS = new AbstractCommand[]{new StarlightPluginCommand()};
+    AbstractCommand[] COMMANDS = new AbstractCommand[]{StarlightPluginCommand.INSTANCE};
 
     static void register() {
         if (APIProfileTest.isFoliaServer()) {
@@ -23,7 +25,7 @@ public interface InternalCommands {
 
         for (AbstractCommand cmd : COMMANDS) {
             try {
-                Starlight.instance().getCommandManager().register(cmd);
+                StarlightBukkitCore.instance().getCommandManager().register(cmd);
             } catch (Exception e) {
                 Starlight.instance()
                         .getLogger()
@@ -38,7 +40,7 @@ public interface InternalCommands {
     static void unregister() {
         for (AbstractCommand command : COMMANDS) {
             try {
-                Starlight.instance().getCommandManager().unregister(command);
+                StarlightBukkitCore.instance().getCommandManager().unregister(command);
             } catch (Exception e) {
                 Starlight.instance()
                         .getLogger()
@@ -54,7 +56,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(ServerCommandEvent event) {
             if (event.getCommand().startsWith("reload")) {
-                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getSender()));
+                StarlightBukkitCore.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getSender()));
                 //event.setCancelled(true);
             }
         }
@@ -62,7 +64,7 @@ public interface InternalCommands {
         @EventHandler
         public void onCommand(PlayerCommandPreprocessEvent event) {
             if (event.getMessage().startsWith("/reload")) {
-                Starlight.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getPlayer()));
+                StarlightBukkitCore.instance().coreLanguage().item("folia-compat:reload-warn").send(QLib.audience(event.getPlayer()));
                 //event.setCancelled(true);
             }
         }

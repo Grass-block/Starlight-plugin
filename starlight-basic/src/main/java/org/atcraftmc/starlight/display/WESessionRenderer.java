@@ -30,7 +30,7 @@ import org.bukkit.event.EventHandler;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ApplicationModule(id = "we-session-renderer", version = "1.0.0")
+@ApplicationModule(id = "we-session-renderer", version = "1.0.0", description = "Renders WorldEdit selection session visuals")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WESessionRenderer.WESessionRenderCommand.class)
 public final class WESessionRenderer extends BukkitAbstractModule implements FlexibleMapService.Codec<WESessionRenderer.RenderMode>, DocumentFieldCodec<WESessionRenderer.RenderMode> {

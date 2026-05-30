@@ -15,7 +15,7 @@ import org.bukkit.permissions.Permission;
 
 import java.util.List;
 
-@ApplicationModule(id = "hat")
+@ApplicationModule(id = "hat", description = "Equips held items as wearable head gear")
 @BukkitCommand(name = "hat", permission = "+starlight.hat", playerOnly = true)
 public final class HatCommand extends SLCommandModule {
 

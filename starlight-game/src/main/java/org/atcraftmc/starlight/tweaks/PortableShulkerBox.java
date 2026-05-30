@@ -23,7 +23,7 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApplicationModule(id = "portable-shulker-box", version = "1.2")
+@ApplicationModule(id = "portable-shulker-box", version = "1.2", description = "Opens shulker boxes directly from the inventory")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class PortableShulkerBox extends BukkitAbstractModule {
     private final Map<String, Session> sessions = new HashMap<>();

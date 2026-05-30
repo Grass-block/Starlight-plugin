@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-@ApplicationModule(id = "command-variables")
+@ApplicationModule(id = "command-variables", description = "Expands variables in commands and messages")
 @CommandProvider(CommandVariables.VariableCommand.class)
 @AutoRegister(Registrations.SERVER_EVENT)
 public class CommandVariables extends BukkitAbstractModule implements PluginCommandExecutor {

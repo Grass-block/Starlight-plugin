@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "stair-seat", version = "2.0.1")
+@ApplicationModule(id = "stair-seat", version = "2.0.1", description = "Allows players to sit on stair blocks")
 public final class StairSeat extends BukkitAbstractModule {
     public static final String CHAIR_ENTITY_ID = "quark_chair_entity";
     private final HashMap<String, Entity> entityMapping = new HashMap<>();

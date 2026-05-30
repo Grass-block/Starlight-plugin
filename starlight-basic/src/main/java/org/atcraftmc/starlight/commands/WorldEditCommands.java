@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Optional;
 
-@ApplicationModule(id = "world-edit-commands")
+@ApplicationModule(id = "world-edit-commands", description = "Provides WorldEdit utility brush and editing commands")
 @CommandProvider({WorldEditCommands.MirrorCommand.class, WorldEditCommands.DrainWaterCommand.class, WorldEditCommands.FastBrushCommand.class, WorldEditCommands.BoxOutlineCommand.class})
 public final class WorldEditCommands extends BukkitAbstractModule {
     @Override

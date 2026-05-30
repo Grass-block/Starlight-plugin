@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class LocaleService<A> {
-    private final Cache<UUID, MinecraftLocale> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build();
+    protected final Cache<UUID, MinecraftLocale> cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(5)).build();
 
     public final MinecraftLocale getLocale(A audience) {
         var uuid = getIdentifier(audience);
@@ -28,10 +28,10 @@ public abstract class LocaleService<A> {
             return tested.get();
         }
 
-        return testLocale(uuid, getLocaleNatively(audience));
+        return testLocale(uuid, getLocaleNatively(audience),false);
     }
 
-    public MinecraftLocale testLocale(UUID uuid, MinecraftLocale fetched) {
+    public MinecraftLocale testLocale(UUID uuid, MinecraftLocale fetched,boolean enforceChange) {
         var custom = Storage.getCustom(uuid);
 
         if (custom.isPresent()) {
@@ -39,7 +39,9 @@ public abstract class LocaleService<A> {
             return custom.get();
         }
 
-        Storage.setTested(uuid, fetched);
+        if(enforceChange){
+            Storage.setTested(uuid, fetched);
+        }
         this.cache.put(uuid, fetched);
 
         return fetched;
@@ -72,13 +74,6 @@ public abstract class LocaleService<A> {
 
     public abstract MinecraftLocale getLocaleNatively(A audience);
 
-    protected void updateLocale(A audience) {
-        var uuid = getIdentifier(audience);
-        var fetched = getLocaleNatively(audience);
-
-        this.cache.put(uuid, testLocale(uuid, fetched));
-    }
-
 
     interface Storage {
         //this sucks, but it is initially defined as it. Frick.
@@ -95,7 +90,7 @@ public abstract class LocaleService<A> {
                 return Optional.empty();
             }
 
-            return Optional.of(org.atcraftmc.qlib.language.MinecraftLocale.minecraft(data));
+            return Optional.of(MinecraftLocale.minecraft(data));
         }
 
         static Optional<MinecraftLocale> getTested(UUID uuid) {

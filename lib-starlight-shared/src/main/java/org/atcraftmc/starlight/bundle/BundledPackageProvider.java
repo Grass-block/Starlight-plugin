@@ -61,7 +61,7 @@ public final class BundledPackageProvider {
     }
 
     public void preload() {
-        if(this.handle != null) {
+        if (this.handle != null) {
             for (var method : this.handle.getDeclaredMethods()) {
                 method.setAccessible(true);
 

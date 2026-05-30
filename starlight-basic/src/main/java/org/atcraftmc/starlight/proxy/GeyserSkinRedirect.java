@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-@ApplicationModule(id = "geyser-skin-redirect")
+@ApplicationModule(id = "geyser-skin-redirect", description = "Redirects Bedrock player skins via Geyser integration")
 @AutoRegister({Registrations.SERVER_EVENT})
 @CommandProvider(GeyserSkinRedirect.RedirectSkinCommand.class)
 public class GeyserSkinRedirect extends BukkitAbstractModule implements PluginCommandExecutor {

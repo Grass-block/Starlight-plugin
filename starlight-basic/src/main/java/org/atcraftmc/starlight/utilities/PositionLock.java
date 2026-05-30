@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "position-lock", version = "1.0.0")
+@ApplicationModule(id = "position-lock", version = "1.0.0", description = "Prevents locked players from moving from their position")
 @CommandProvider(PositionLock.LockPositionCommand.class)
 public final class PositionLock extends BukkitAbstractModule {
     private final HashSet<String> lockedPlayers = new HashSet<>();

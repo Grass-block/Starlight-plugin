@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@ApplicationModule(id = "log-color-patch", defaultEnable = false)
+@ApplicationModule(id = "log-color-patch", defaultEnable = false, description = "Patches log output with ANSI colors")
 @AutoRegister(Registrations.PLUGIN_MESSAGE)
 public final class LogColorPatch extends BukkitAbstractModule {
     private final Map<String, Log4jConfiguration> configurations = new HashMap<>();

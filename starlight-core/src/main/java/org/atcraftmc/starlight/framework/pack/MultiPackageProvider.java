@@ -2,7 +2,8 @@ package org.atcraftmc.starlight.framework.pack;
 
 import me.gb2022.gluon.pack.ApplicationPackage;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.atcraftmc.starlight.util.EarlyLoadingManager;
 import org.atcraftmc.starlight.util.ProductMetadata;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
@@ -15,14 +16,14 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class MultiPackageProvider extends JavaPlugin implements PackageProvider, SLPluginConcept {
+public abstract class MultiPackageProvider extends JavaPlugin implements PackageProvider, SLPluginHandle {
     private final ProductMetadata metadata = ProductMetadata.createFromResource(this);
     private Set<ApplicationPackage> packages = new HashSet<>();
     private String coreInstanceId;
 
     @Override
     public final void onEnable() {
-        LibraryManager.prepareEnvironment(Starlight.instance().getLibraryManager(), this);
+        LibraryManager.prepareEnvironment(Starlight.instance().getLibraryManager(),this);
 
         this.coreInstanceId = Starlight.instance().getInstanceUUID();
         if (!this.isCoreExist()) {
@@ -41,8 +42,13 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
         return super.getResource(filename);
     }
 
+    @Override
+    public LibraryManager getLibraryManager() {
+        return Starlight.instance().getLibraryManager();
+    }
+
     public final Set<ApplicationPackage> createPackages() {
-        return Starlight.instance().context().registerPackage(this, this.getClass());
+        return StarlightBukkitCore.instance().getGluonContext().registerPackage(this, this.getClass());
     }
 
     @Override
@@ -66,7 +72,7 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
             return;
         }
         for (var p : this.packages) {
-            Starlight.instance().context().getPackageManager().removePackage(p.meta().id());
+            StarlightBukkitCore.instance().getGluonContext().getPackageManager().removePackage(p.meta().id());
         }
     }
 

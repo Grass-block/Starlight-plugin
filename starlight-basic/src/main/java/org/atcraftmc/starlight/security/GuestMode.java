@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.permissions.Permission;
 
-@ApplicationModule(id = "guest-mode")
+@ApplicationModule(id = "guest-mode", description = "Restricts actions for guest players in specified worlds")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class GuestMode extends BukkitAbstractModule {
     @Inject("-starlight.guest.bypass")

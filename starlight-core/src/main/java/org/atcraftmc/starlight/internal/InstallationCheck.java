@@ -10,6 +10,7 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.platform.PluginUtil;
@@ -26,7 +27,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 
 @ComponentProvider({InstallationCheck.Incomplete.class, InstallationCheck.Unregistered.class, InstallationCheck.CounterConflicts.class})
-@ApplicationModule(id = "installation-check", internal = true)
+@ApplicationModule(id = "installation-check", internal = true, description = "Verifies plugin installation and detects configuration issues")
 public final class InstallationCheck extends BukkitAbstractModule {
 
     @AutoRegister(Registrations.SERVER_EVENT)

@@ -8,6 +8,7 @@ import org.atcraftmc.qlib.audience.PointedAudience;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.text.pipe.AudienceHandler;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
@@ -88,7 +89,7 @@ public final class PAPISupport extends BukkitAbstractModule {
 
             var locale = LocaleService.locale(player.getPlayer());
             var args = params.split("_");
-            var a = Starlight.instance().language().item(args[0]);
+            var a = StarlightBukkitCore.instance().language().item(args[0]);
             var fmt = new String[args.length - 1];
 
             System.arraycopy(args, 1, fmt, 0, fmt.length);
@@ -108,7 +109,7 @@ public final class PAPISupport extends BukkitAbstractModule {
 
         @Override
         public @NotNull List<String> getPlaceholders() {
-            return Starlight.instance().language().getItems().keySet().stream().map((s) -> "%starlight-lang_" + s + "%").toList();
+            return StarlightBukkitCore.instance().language().getItems().keySet().stream().map((s) -> "%starlight-lang_" + s + "%").toList();
         }
     }
 

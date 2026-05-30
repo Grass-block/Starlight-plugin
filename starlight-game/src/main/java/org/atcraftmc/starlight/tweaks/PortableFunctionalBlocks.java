@@ -15,7 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-@ApplicationModule(id="portable-functional-blocks")
+@ApplicationModule(id="portable-functional-blocks", description = "Opens functional block GUIs from hand-held items")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({PortableFunctionalBlocks.NetherUpdate.class, PortableFunctionalBlocks.VillageUpdate.class})
 public final class PortableFunctionalBlocks extends BukkitAbstractModule {

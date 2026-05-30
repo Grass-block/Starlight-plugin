@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "chat-at", version = "1.2")
+@ApplicationModule(id = "chat-at", version = "1.2", description = "Handles @mentions and player completion in chat")
 @CommandProvider(ChatAt.AtCommand.class)
 public final class ChatAt extends BukkitAbstractModule {
 

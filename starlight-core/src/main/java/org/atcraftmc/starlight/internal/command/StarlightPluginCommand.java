@@ -7,19 +7,21 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
-import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
 
 @BukkitCommand(name = "starlight", permission = "+starlight.command.core", subCommands = {ConfigCommand.class, LanguageCommand.class, ModuleCommand.class, GlobalVarsCommand.class, PackageCommand.class, StarlightPluginCommand.ReloadCommand.class, DebugCommand.class, LibraryCommand.class, DataGenCommand.class})
 public final class StarlightPluginCommand extends CoreCommand {
+    public static final StarlightPluginCommand INSTANCE = new StarlightPluginCommand();
 
 
     @Override
     public void execute(CommandExecution context) {
-        var l = Starlight.instance().coreLanguage();
+        var l = StarlightBukkitCore.instance().coreLanguage();
 
         switch (context.requireEnum(0, "info", "stats", "sync-commands", "update-data")) {
             case "info" -> ProductInfo.sendInfoDisplay(context.getSender());

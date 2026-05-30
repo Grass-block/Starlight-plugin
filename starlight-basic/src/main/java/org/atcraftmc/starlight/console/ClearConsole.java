@@ -5,7 +5,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 
-@ApplicationModule(id = "clear-console")
+@ApplicationModule(id = "clear-console", description = "Clears the console screen")
 @BukkitCommand(name = "clear-console", aliases = "cls", permission = "-starlight.console.clear")
 public final class ClearConsole extends SLCommandModule {
     @Override

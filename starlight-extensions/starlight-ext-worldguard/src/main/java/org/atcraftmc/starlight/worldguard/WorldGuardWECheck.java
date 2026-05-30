@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationModule(id = "wg-we-check")
+@ApplicationModule(id = "wg-we-check", description = "Validates WorldEdit edits against WorldGuard region permissions")
 public final class WorldGuardWECheck extends BukkitAbstractModule {
 
     @Override

@@ -24,7 +24,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 import java.util.List;
 
-@ApplicationModule(id="surrounding-refresh")
+@ApplicationModule(id="surrounding-refresh", description = "Refreshes surrounding blocks and chunks for a player")
 @BukkitCommand(name = "refresh-area", permission = "+starlight.world.refresh", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class SurroundingRefresh extends SLCommandModule {

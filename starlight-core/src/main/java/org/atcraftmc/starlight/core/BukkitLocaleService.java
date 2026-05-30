@@ -9,6 +9,7 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.command.StarlightCommandManager;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
@@ -77,7 +78,7 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
                         MinecraftLocale.minecraft(new String(
                                 message,
                                 StandardCharsets.UTF_8
-                        ))
+                        )), true
                 )
         );
     }
@@ -92,10 +93,12 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
     }
 
     private void checkLocale(Player player, MinecraftLocale locale) {
-        var preset = Starlight.instance().language().item("starlight-core.locale.preset");
-        this.testLocale(player.getUniqueId(), locale);
+        var preset = StarlightBukkitCore.instance().language().item("starlight-core.locale.preset");
+        this.testLocale(player.getUniqueId(), locale, true);
         var display = org.atcraftmc.starlight.core.LocaleService.remapLanguageNames(getLocale(player).minecraft());
-        QLib.audience(player).sendMessage(preset.message(display));
+
+        QLib.task().entity(player).delay(3, () -> QLib.audience(player).sendMessage(preset.message(display)));
+
         this.checked.add(player.getUniqueId());
 
         BukkitUtil.callEvent(new ClientLocaleChangeEvent(player, locale));
@@ -105,7 +108,7 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
     public void onPlayerJoin(PlayerJoinEvent event) {
         var player = event.getPlayer();
 
-        QLib.task().entity(player).delay(8, () -> {
+        QLib.task().entity(player).delay(15, () -> {
             if (this.checked.contains(player.getUniqueId())) {
                 return;
             }
@@ -116,6 +119,7 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         this.checked.remove(event.getPlayer().getUniqueId());
+        this.cache.invalidate(event.getPlayer().getUniqueId());
     }
 
     @EventHandler

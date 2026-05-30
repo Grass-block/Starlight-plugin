@@ -7,6 +7,7 @@ import org.atcraftmc.qlib.bukkit.BukkitEventManager;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
 import org.atcraftmc.starlight.internal.PlatformPatcher;
 import org.atcraftmc.starlight.internal.platform.SpigotReflection;

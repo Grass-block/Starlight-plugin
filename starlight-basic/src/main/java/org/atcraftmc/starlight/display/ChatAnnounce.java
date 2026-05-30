@@ -26,7 +26,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@ApplicationModule(id = "chat-announce")
+@ApplicationModule(id = "chat-announce", description = "Broadcasts periodic announcements to players")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(ChatAnnounce.AnnounceCommand.class)
 //todo: 公告系统

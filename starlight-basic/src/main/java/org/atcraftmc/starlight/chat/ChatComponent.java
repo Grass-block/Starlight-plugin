@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({ChatComponent.PaperChatListener.class, ChatComponent.PaperSignChangeListener.class})
-@ApplicationModule(id = "chat-component", version = "1.3.0")
+@ApplicationModule(id = "chat-component", version = "1.3.0", description = "Processes chat components and sign text formatting")
 public final class ChatComponent extends BukkitAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
     private final GloballyPlaceHolder chatPH = PlaceHolders.chat();

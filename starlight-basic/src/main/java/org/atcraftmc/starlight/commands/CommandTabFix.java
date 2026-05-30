@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-@ApplicationModule(id = "command-tab-fix", version = "1.2.0")
+@ApplicationModule(id = "command-tab-fix", version = "1.2.0", description = "Fixes tab completion for server commands")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider({CommandTabFix.WEAddition.class,})
 public final class CommandTabFix extends BukkitAbstractModule {

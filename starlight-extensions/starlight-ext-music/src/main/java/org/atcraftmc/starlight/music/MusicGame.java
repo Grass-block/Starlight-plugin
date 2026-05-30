@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 
-@ApplicationModule(id = "music-game")
+@ApplicationModule(id = "music-game", description = "Adds a rhythm-based music gameplay minigame")
 @CommandProvider(MusicGame.MusicGameCommand.class)
 public class MusicGame extends BukkitAbstractModule implements PlayerUIRenderer {
     private final CustomItem item_DiamondSword = new MusicGamePunchItem("m-puncher-diamond", Material.DIAMOND_SWORD);

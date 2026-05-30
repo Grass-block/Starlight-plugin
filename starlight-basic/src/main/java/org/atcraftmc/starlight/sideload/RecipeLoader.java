@@ -6,6 +6,7 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.core.crafting.RecipeManager;
 import org.atcraftmc.starlight.core.platform.Compatibility;
@@ -24,7 +25,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 import java.util.function.Supplier;
 
-@ApplicationModule(id="recipe-loader")
+@ApplicationModule(id="recipe-loader", description = "Loads custom crafting recipes from configuration files")
 public final class RecipeLoader extends BukkitAbstractModule {
     private final Map<String, RecipeDispatcher> dispatchers = new HashMap<>();
     private final Set<Recipe> recipes = new HashSet<>();

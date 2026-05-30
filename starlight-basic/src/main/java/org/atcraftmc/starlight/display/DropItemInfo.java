@@ -25,7 +25,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 import java.util.Objects;
 
-@ApplicationModule(id = "drop-item-info")
+@ApplicationModule(id = "drop-item-info", description = "Shows item info when dropped on ground")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DropItemInfo extends BukkitAbstractModule {
 

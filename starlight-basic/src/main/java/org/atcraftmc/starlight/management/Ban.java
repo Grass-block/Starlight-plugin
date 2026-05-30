@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationModule(id = "ban", version = "1.0.0")
+@ApplicationModule(id = "ban", version = "1.0.0", description = "Manages player bans with time-based durations")
 @BukkitCommand(name = "ban")
 public final class Ban extends SLCommandModule {
 

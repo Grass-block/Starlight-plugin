@@ -49,7 +49,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @SuppressWarnings("DuplicatedCode")
-@ApplicationModule(id = "we-operation-defender", version = "1.3")
+@ApplicationModule(id = "we-operation-defender", version = "1.3", description = "Defends against unauthorized WorldEdit operations with confirmation")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(WorldEditOperationDefender.ConfirmCommand.class)
 public final class WorldEditOperationDefender extends BukkitAbstractModule {

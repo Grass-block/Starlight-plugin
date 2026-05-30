@@ -3,6 +3,7 @@ package org.atcraftmc.starlight.core.ui;
 import com.google.common.io.ByteStreams;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
 import org.atcraftmc.starlight.core.ui.element.ElementCallback;
 import org.atcraftmc.starlight.core.ui.element.SimpleElement;

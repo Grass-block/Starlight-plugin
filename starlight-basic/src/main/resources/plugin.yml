@@ -11,7 +11,7 @@ depend: [ "starlight-core" ]
 softdepend: [ "WorldEdit","ProtocolLib" ]
 
 #description
-authors: [ "GrassBlock2022","TBSTCraft" ]
+authors: [ "GrassBlock2022","A.T.C Group" ]
 website: https://atcarftmc.cn
 prefix: Starlight-Base
 description: |

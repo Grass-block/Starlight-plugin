@@ -24,7 +24,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 
-@ApplicationModule(id = "back-to-death", version = "1.3.0")
+@ApplicationModule(id = "back-to-death", version = "1.3.0", description = "Teleports players back to their death location")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(BackToDeath.BackCommand.class)
 public final class BackToDeath extends BukkitAbstractModule implements PluginCommandExecutor {

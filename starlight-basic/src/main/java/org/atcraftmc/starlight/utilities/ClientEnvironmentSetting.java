@@ -13,6 +13,7 @@ import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
@@ -24,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@ApplicationModule(id = "client-environment-setting")
+@ApplicationModule(id = "client-environment-setting", description = "Allows players to set local weather and time")
 @CommandProvider({ClientEnvironmentSetting.LocalWeatherCommand.class, ClientEnvironmentSetting.LocalTimeCommand.class})
 public final class ClientEnvironmentSetting extends BukkitAbstractModule {
     private TimeManager timeManager;

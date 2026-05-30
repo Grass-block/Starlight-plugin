@@ -16,12 +16,12 @@ import org.atcraftmc.starlight.worldguard.data.RegionKey;
 
 import java.util.Comparator;
 
-@ApplicationModule(id = "wg-custom-name")
+@ApplicationModule(id = "wg-custom-name", description = "Allows custom display names for WorldGuard regions")
 public final class WGCustomName extends BukkitAbstractModule {
     private final PlotRenameCommand cmd = new PlotRenameCommand();
 
     static LanguageItem lang(String id) {
-        return SLPluginEnvironment.getPlugin().language().item("starlight-worldguard:wg-custom-name:" + id);
+        return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-custom-name:" + id);
     }
 
     @Override

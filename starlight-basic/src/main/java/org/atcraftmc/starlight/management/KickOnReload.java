@@ -16,7 +16,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 import java.util.function.Function;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id="kick-on-reload",version = "1.0.0")
+@ApplicationModule(id="kick-on-reload",version = "1.0.0", description = "Kicks players on server reload to prevent issues")
 public final class KickOnReload extends BukkitAbstractModule {
 
     @EventHandler(priority = EventPriority.HIGHEST)

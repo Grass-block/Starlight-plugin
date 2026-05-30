@@ -13,7 +13,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
-import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
@@ -181,7 +181,7 @@ public interface LocaleService extends BukkitService {
             setCustomLanguage(context.requireSenderAsPlayer(), data);
 
 
-            Starlight.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), remapLanguageNames(data));
+            StarlightBukkitCore.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), remapLanguageNames(data));
             BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), locale(context.getSender())));
         }
     }
@@ -204,7 +204,7 @@ public interface LocaleService extends BukkitService {
             //close button
             UI.buildComponent(builder, 53, (b) -> {
                 b.icon(UI.icon(Material.REDSTONE));
-                b.name(TextRenderer.data(Starlight.lang().item("common", "ui", "close")));
+                b.name(TextRenderer.data(StarlightBukkitCore.lang().item("common", "ui", "close")));
                 b.operation(UI.SOUND_CLICK);
                 b.operation(UI.close());
             });

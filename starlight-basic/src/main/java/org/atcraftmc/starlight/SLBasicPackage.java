@@ -12,6 +12,7 @@ import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
 import org.atcraftmc.starlight.management.*;
 import org.atcraftmc.starlight.proxy.*;
 import org.atcraftmc.starlight.security.*;
+import org.atcraftmc.starlight.security.scan.PluginBackdoorScanner;
 import org.atcraftmc.starlight.sideload.InventoryMenu;
 import org.atcraftmc.starlight.sideload.RecipeLoader;
 import org.atcraftmc.starlight.sideload.ResourcePackLoader;
@@ -169,6 +170,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(WorldEditOperationDefender.class);
         b.module(GuestMode.class);
         b.module(EndProtect.class);
+        b.module(PluginBackdoorScanner.class);
 
         p.config("starlight-security");
         p.language("starlight-security", "zh_cn");

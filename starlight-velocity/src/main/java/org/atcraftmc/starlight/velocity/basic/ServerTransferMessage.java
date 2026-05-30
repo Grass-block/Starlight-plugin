@@ -19,7 +19,7 @@ import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
 import java.util.stream.Stream;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "server-transfer-message")
+@ApplicationModule(id = "server-transfer-message", description = "Announces player server transfers across the proxy")
 public final class ServerTransferMessage extends VelocityAbstractModule {
     @Subscribe
     public void onRemoteJoin(RemoteServerConnectEvent event) {

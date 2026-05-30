@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-@ApplicationModule(id = "double-door-sync", version = "1.0.0")
+@ApplicationModule(id = "double-door-sync", version = "1.0.0", description = "Synchronizes adjacent wooden doors to open together")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DoubleDoorSync extends BukkitAbstractModule {
     @EventHandler

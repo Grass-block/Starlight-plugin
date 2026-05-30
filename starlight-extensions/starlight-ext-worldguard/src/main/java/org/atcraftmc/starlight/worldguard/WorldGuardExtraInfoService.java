@@ -16,6 +16,7 @@ import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.worldguard.data.JsonDataHandle;

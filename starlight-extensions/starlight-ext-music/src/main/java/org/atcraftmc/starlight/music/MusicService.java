@@ -16,6 +16,7 @@ import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.migration.QuarkDataImporter;
@@ -68,12 +69,12 @@ public interface MusicService extends BukkitService {
 
     @ServiceInject
     static void start() {
-        Starlight.instance().getCommandManager().register(COMMAND);
+        StarlightBukkitCore.instance().getCommandManager().register(COMMAND);
     }
 
     @ServiceInject
     static void stop() {
-        Starlight.instance().getCommandManager().unregister(COMMAND);
+        StarlightBukkitCore.instance().getCommandManager().unregister(COMMAND);
     }
 
     @ServiceProvider

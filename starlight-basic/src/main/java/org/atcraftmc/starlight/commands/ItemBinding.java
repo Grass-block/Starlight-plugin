@@ -27,7 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationModule(id="item-command",version = "0.3")
+@ApplicationModule(id="item-command",version = "0.3", description = "Binds commands and actions to items")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider({ItemBinding.ItemCommandCommand.class})
 public final class ItemBinding extends BukkitAbstractModule implements PluginCommandExecutor {

@@ -26,7 +26,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ApplicationModule(id = "animate-block-command")
+@ApplicationModule(id = "animate-block-command", description = "Animates blocks with falling block effects")
 @BukkitCommand(name = "animate-block")
 public final class AnimateBlockCommand extends SLCommandModule {
     @SuppressWarnings("Convert2MethodRef")

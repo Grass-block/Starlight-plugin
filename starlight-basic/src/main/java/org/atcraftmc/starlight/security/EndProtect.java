@@ -10,7 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-@ApplicationModule(id = "end-protect", defaultEnable = false)
+@ApplicationModule(id = "end-protect", defaultEnable = false, description = "Protects the End dimension from crystal placement")
 public final class EndProtect extends BukkitAbstractModule {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

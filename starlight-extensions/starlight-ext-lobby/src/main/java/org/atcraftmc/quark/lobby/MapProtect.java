@@ -20,7 +20,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-@ApplicationModule(version = "1.0.3", id = "lobby-map-protect")
+@ApplicationModule(version = "1.0.3", id = "lobby-map-protect", description = "Protects the lobby world from building and griefing")
 @AutoRegister(Registrations.SERVER_EVENT)
 @ComponentProvider(MapProtect.PaperPreAttackEventEXT.class)
 public final class MapProtect extends BukkitAbstractModule {

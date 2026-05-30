@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 @BukkitCommand(name = "console", permission = "-starlight.console.execute")
-@ApplicationModule(id="console-execute",version = "1.0.0")
+@ApplicationModule(id="console-execute",version = "1.0.0", description = "Executes commands from the server console")
 public final class ConsoleExecute extends SLCommandModule {
     @Inject
     private LanguageEntry language;

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ApplicationModule(id = "version-log-viewer")
+@ApplicationModule(id = "version-log-viewer", description = "Displays version update logs to players")
 public final class VersionLogViewer extends BukkitAbstractModule implements PluginCommandExecutor {
     private final Map<String, List<String>> versions = new HashMap<>();
 

@@ -5,7 +5,7 @@ import me.gb2022.commons.http.HttpMethod;
 import me.gb2022.commons.http.HttpRequest;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -40,7 +40,7 @@ public final class LibraryManager {
         this.loadFully = loadFully;
     }
 
-    public static void prepareEnvironment(LibraryManager lm, SLPluginConcept p) {
+    public static void prepareEnvironment(LibraryManager lm, SLPluginHandle p) {
         lm.resolveDependencies(p.getMetadata().getDependencies());
         lm.injectLibraries(p);
         if (lm.loadFully) {
@@ -94,6 +94,11 @@ public final class LibraryManager {
                     }
                 } catch (Throwable e) {
                     this.loadFailedClasses.add(className);
+                    if (e.getClass() == UnsupportedClassVersionError.class) {
+                       // LOGGER.info("Failed to load class {} of unsupported version.", className);
+                        continue;
+                    }
+
                     LOGGER.warn("failed to load class {}: {}({})", className, e.getClass().getName(), e.getMessage());
                 }
             }

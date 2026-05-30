@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "vein-miner")
+@ApplicationModule(id = "vein-miner", description = "Mines entire connected ore veins with one break")
 public final class VeinMiner extends BukkitAbstractModule {
     private final Set<String> breakingSession = new HashSet<>();
 

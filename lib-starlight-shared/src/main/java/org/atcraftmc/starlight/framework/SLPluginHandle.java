@@ -1,6 +1,7 @@
 package org.atcraftmc.starlight.framework;
 
 import org.atcraftmc.starlight.util.ProductMetadata;
+import org.atcraftmc.starlight.util.dependency.LibraryManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,12 +9,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public interface SLPluginConcept {
+public interface SLPluginHandle {
     ClassLoader classLoader();
 
     File getFile();
 
     ProductMetadata getMetadata();
+
+    LibraryManager getLibraryManager();
 
     default InputStream getResource(String filename) {
         if (filename == null) {

@@ -9,8 +9,10 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.util.version.ModrinthVersionAPI;
 import org.atcraftmc.starlight.util.version.VersionInfo;
@@ -22,7 +24,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.function.BiConsumer;
 
-@ApplicationModule(id = "modrinth-version-check", internal = true)
+@ApplicationModule(id = "modrinth-version-check", internal = true, description = "Checks for plugin updates on Modrinth")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ModrinthVersionCheck extends BukkitAbstractModule implements PluginCommandExecutor {
     String VERSION_PAGE = "https://modrinth.com/plugin/starlight-plugin/version/%s";
@@ -38,7 +40,7 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
 
     @Override
     public void enable() {
-        Starlight.instance().getCommandManager().getCommand("starlight").registerSubCommand(new CheckVersionCommand(this));
+        StarlightBukkitCore.instance().getCommandManager().getCommand("starlight").registerSubCommand(new CheckVersionCommand(this));
 
         check((state, version) -> {
         });
@@ -52,7 +54,7 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
                 return;
             }
 
-            var currentVersion = VersionInfo.parse(owner(Plugin.class).getDescription().getVersion());
+            var currentVersion = VersionInfo.parse(Starlight.instance().getDescription().getVersion());
             this.cachedVersion = latestVersion;
             var result = currentVersion.compareTo(latestVersion);
 

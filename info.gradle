@@ -12,17 +12,24 @@ task copyInfo(type: Copy) {
 
 tasks.processResources.dependsOn(copyInfo)
 
+def version() {
+    var pv = project(":starlight-core").property("version")
+
+    return pv
+}
+
+
 processResources {
     doFirst {
         filesMatching('**/*.product-meta.json') {
             expand([
-                    'version'   : project.property("version"),
-                    'build_time': new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+                    'version'   : version(),
+                    'build_time': buildTime()
             ])
         }
         filesMatching("**/plugin.yml") {
             expand([
-                    'version'     : project(":starlight-core").property("version")
+                    'version': version()
             ])
         }
     }

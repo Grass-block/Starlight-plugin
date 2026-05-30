@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.bundle;
 
 import me.gb2022.gluon.pack.ApplicationPackage;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.framework.SLPluginConcept;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.atcraftmc.starlight.util.ProductMetadata;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
 
@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class BundledPluginContainer implements SLPluginConcept {
+public final class BundledPluginContainer implements SLPluginHandle {
     private final String id;
     private final Class<?> handle;
     private final ProductMetadata metadata;
@@ -46,6 +46,11 @@ public final class BundledPluginContainer implements SLPluginConcept {
     @Override
     public ProductMetadata getMetadata() {
         return this.metadata;
+    }
+
+    @Override
+    public LibraryManager getLibraryManager() {
+        return SLPluginEnvironment.getPlugin().getLibraryManager();
     }
 
     @Override

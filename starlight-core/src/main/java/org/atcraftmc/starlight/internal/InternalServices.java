@@ -5,6 +5,7 @@ import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.CommandEvent;
 import org.atcraftmc.starlight.api.event.CommandTabEvent;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;

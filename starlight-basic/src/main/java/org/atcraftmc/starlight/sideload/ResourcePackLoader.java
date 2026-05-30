@@ -17,6 +17,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -32,7 +33,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.RandomAccessFile;
 
-@ApplicationModule(id = "resource-pack-loader")
+@ApplicationModule(id = "resource-pack-loader", description = "Serves resource packs to players via HTTP server")
 @AutoRegister({Registrations.SERVER_EVENT})
 @CommandProvider(ResourcePackLoader.GetResourceCommand.class)
 public final class ResourcePackLoader extends BukkitAbstractModule implements HttpHandler {

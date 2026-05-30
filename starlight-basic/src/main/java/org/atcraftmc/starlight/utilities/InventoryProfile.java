@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-@ApplicationModule(id = "inventory-profile")
+@ApplicationModule(id = "inventory-profile", description = "Loads and examines player inventory NBT data")
 public class InventoryProfile extends BukkitAbstractModule {
 
     public static File getPlayerDataFolder() {

@@ -11,7 +11,7 @@ import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
 
 @AutoRegister(Registrations.PLUGIN_VPN_LISTENER)
-@ApplicationModule(id = "server-statement-observer")
+@ApplicationModule(id = "server-statement-observer", description = "Notifies players when backend servers go online or offline")
 public final class ServerStatementObserver extends VelocityAbstractModule implements RemoteEventListener {
 
     @Override

@@ -21,7 +21,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.entity.Player;
 
 @AutoRegister({Registrations.SERVER_EVENT, PlayerUIService.TRACKING})
-@ApplicationModule(id = "custom-scoreboard", version = "0.2")
+@ApplicationModule(id = "custom-scoreboard", version = "0.2", description = "Renders a custom scoreboard for players")
 public final class CustomScoreboard extends BukkitAbstractModule implements UITrackingStateCallback {
 
     @Inject
