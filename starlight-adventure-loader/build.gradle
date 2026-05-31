@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'me.gb2022'
+version = 'unspecified'
+
+apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
+
+applyGlobalScript("Publish/MinecraftServerTest.gradle")
+applyGlobalScript("Publish/ProjectOutput.gradle")
+
+repositories {
+    mavenCentral()
+    papermcRepo()
+}
+
+dependencies {
+    implementation 'net.kyori:adventure-api:4.17.0'
+
+    implementation 'net.kyori:adventure-text-serializer-gson:4.17.0'
+    implementation 'net.kyori:adventure-text-serializer-legacy:4.17.0'
+    implementation 'net.kyori:adventure-text-serializer-plain:4.17.0'
+    implementation 'net.kyori:adventure-text-minimessage:4.17.0'
+
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
