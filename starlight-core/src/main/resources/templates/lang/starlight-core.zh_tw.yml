@@ -23,6 +23,8 @@ language:
     warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
     error: "{#gray}[{#red}!{#gray}]{#gray}"
     operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+    state-open: "{#green}開啟{#gray}"
+    state-close: "{#red}關閉{#gray}"
   command:
     exception: "{global#sys-error}語法有誤，或執行該指令時出現了內部錯誤。"
     lack-permission: "{global#sys-error}很抱歉，你沒有執行該指令的權限({#var})。"

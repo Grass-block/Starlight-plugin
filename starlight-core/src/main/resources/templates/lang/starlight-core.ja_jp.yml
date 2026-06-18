@@ -23,6 +23,8 @@ language:
     warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
     error: "{#gray}[{#red}!{#gray}]{#gray}"
     operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+    state-open: "{#green}有効{#gray}"
+    state-close: "{#red}無効{#gray}"
   command:
     exception: "{global#sys-error}構文エラー、またはコマンド実行中に内部エラーが発生しました。"
     lack-permission: "{global#sys-error}申し訳ありませんが、このコマンドを実行する権限({#var})がありません。"

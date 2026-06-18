@@ -15,24 +15,29 @@ public abstract class CustomEvent extends Event {
     public static final Map<Class<? extends CustomEvent>, HandlerList> HANDLER_LISTS = new HashMap<>();
 
     protected CustomEvent() {
-        BukkitEvent annotation = this.getClass().getAnnotation(BukkitEvent.class);
-        boolean async = annotation.async();
+        super(true);
+
+        getHandlers();
+
+        var annotation = this.getClass().getAnnotation(BukkitEvent.class);
+        var async = annotation.async();
+
+        if (async) {
+            return;
+        }
 
         try {
             Field f = Event.class.getDeclaredField("async");
             f.setAccessible(true);
-            f.set(this, async);
+            f.set(this, false);
         } catch (Exception e) {
             try {
                 Field f = Event.class.getDeclaredField("isAsync");
                 f.setAccessible(true);
-                f.set(this, async);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                f.set(this, false);
+            } catch (Exception ignored) {
             }
         }
-
-        getHandlers();
     }
 
     public static HandlerList getHandlerList(Class<? extends CustomEvent> clazz) {

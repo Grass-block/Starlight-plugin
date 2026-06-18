@@ -9,18 +9,16 @@ import org.atcraftmc.starlight.internal.ProductService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Properties;
 
 @SuppressWarnings("TrailingWhitespacesInTextBlock")
 public interface ProductInfo {
     Properties METADATA = new Properties();
-    int API_VERSION = 50;
+    int API_VERSION = 80;
     int BSTATS_ID = 22683;
-    String PLUGIN_ID = "starlight";
     String CORE_ID = "starlight-core";
-    String CORE_UA = "starlight/sl-beta-0.90.10[\"anchor\"]";
+    String CORE_UA = "starlight-26.6.1,gluon-1.2.1";
 
     static String version() {
         return Starlight.instance().getDescription().getVersion();
@@ -52,7 +50,7 @@ public interface ProductInfo {
         return "{color(purple)}Starlight {color(gray)} - {color(white)}v%s".formatted(version());
     }
 
-    static String logo(JavaPlugin p) {
+    static String logo() {
         return ChatColor.translateAlternateColorCodes('&', """
                 &d一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 &d&l      ____ __              __ _        __   __\s
@@ -63,7 +61,7 @@ public interface ProductInfo {
                 
                 &7 Artifact by &fGrassBlock2022, &7Copyright &f[C]A.T.C Group 2025.
                 &d一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
-                """.formatted(p.getDescription().getVersion()));
+                """.formatted(version()));
     }
 
     static void sendStatsDisplay(CommandSender sender) {
@@ -107,24 +105,18 @@ public interface ProductInfo {
                 
                  A plugin containing everything you need. :D
                 
-                 Website & Docs: {#aqua}https://starlight-plugin.pages.dev{#reset}
+                 Website & Docs: {#aqua}https://dev.atcraftmc.cn/starlight{#reset}
                  Official Release: {#aqua}https://modrinth.com/plugin/starlight-plugin{#reset}
-                 Contact: {#aqua}tbstmc@163.com{#reset}
+                 Contact: {#aqua}grassblock2022@atcraftmc.cn{#reset}
                 
                 {#purple}> Credits & Special thanks:
                 {#white} - GrassBlock2022: {#gray}Core developer.
-                {#white} - Mipa/IdealMC: {#gray}Production environment test.
+                {#white} - DeepSeek-R1: {#gray}Documentation&translate.
+                {#white} - IdealMC/Mipa: {#gray}Production environment test.
                 {#white} - Modrinth: {#gray}Publishing and version check service.
-                {#white} - OpenAI/ChatGPT: {#gray}Multi-language translations.
-                {#white} - {#gray}(and anyone who use this plugin and feedback)
+                {#white} - OpenAI/ChatGPT: {#gray}Technical assistant.
                 
-                {#purple}> Third party libraries:
-                {#white} - LevelDB-JNI: {#gray}Legacy Data storage.
-                {#white} - AdventureAPI: {#gray}Player view implementation.
-                {#white} - JavaX-Mail: {#gray}SMTP Service implementation.
-                {#white} - Aho-Corasick: {#gray}Chat filtering algorithm.
-                
-                 {#white}Copyright @ATCraftMC(TBSTMC)(China). All Right Reserved.
+                 {#white}Copyright @A.T.C Group[CN,MAINLAND]. All Right Reserved.
                 {#purple}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """;
         if (ProductService.isActivated()) {
@@ -138,7 +130,7 @@ public interface ProductInfo {
 
             TextSender.sendBlock(sender, QLib.textBuilder().build(prefix + s.replace("{logo}", textLogo())));
         } else {
-            for (var s2 : QLib.textEngine().renderString(s.replace("{logo}", logo(Starlight.instance()))).split("\n")) {
+            for (var s2 : QLib.textEngine().renderString(s.replace("{logo}", logo())).split("\n")) {
                 sender.sendMessage(s2);
             }
         }

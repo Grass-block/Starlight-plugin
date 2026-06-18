@@ -32,15 +32,15 @@ public final class WGClaimCommand extends BukkitAbstractModule {
     }
 
     @Override
-    public void enable() throws Exception {
-        WorldGuardRegionService.COMMAND.registerSubCommand(new ClaimCommand());
-        WorldGuardRegionService.COMMAND.registerSubCommand(new UnClaimCommand());
+    public void enable() {
+        WGCommandService.COMMAND.registerSubCommand(new ClaimCommand());
+        WGCommandService.COMMAND.registerSubCommand(new UnClaimCommand());
     }
 
     @Override
-    public void disable() throws Exception {
-        WorldGuardRegionService.COMMAND.unregisterSubCommand("claim");
-        WorldGuardRegionService.COMMAND.unregisterSubCommand("unclaim");
+    public void disable() {
+        WGCommandService.COMMAND.unregisterSubCommand("claim");
+        WGCommandService.COMMAND.unregisterSubCommand("unclaim");
     }
 
     @BukkitCommand(name = "unclaim", permission = "+starlight.worldguard.claim")
@@ -60,7 +60,7 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var regionManager = container.get(BukkitAdapter.adapt(world));
 
             if (regionManager == null) {
-                lang("no-wg").send(QLib.audience(context.getSender()));
+                WGCommandService.lang("no-wg").send(QLib.audience(context.getSender()));
                 return;
             }
 
@@ -70,12 +70,12 @@ public final class WGClaimCommand extends BukkitAbstractModule {
             var target = regions.getRegions().stream().max(Comparator.comparingInt(ProtectedRegion::getPriority)).orElse(null);
 
             if (target == null) {
-                lang("no-rg").send(QLib.audience(context.getSender()));
+                WGCommandService.lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 
             if (target.getId().equalsIgnoreCase("__global__")) {
-                lang("no-rg").send(QLib.audience(context.getSender()));
+                WGCommandService.lang("no-rg").send(QLib.audience(context.getSender()));
                 return;
             }
 

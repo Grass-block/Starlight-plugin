@@ -137,7 +137,8 @@ public final class Starlight extends BukkitPluginConcept implements SLPluginHand
 
     @Override
     public void onEnable() {
-        for (String s : ProductInfo.logo(this).split("\n")) {
+
+        for (String s : ProductInfo.logo().split("\n")) {
             Bukkit.getConsoleSender().sendMessage(s);
         }
 

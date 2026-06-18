@@ -1,22 +1,19 @@
 language:
+  wg-command:
+    no-wg: "{global#error}此世界未启用WorldGuard。"
+    no-rg: "{global#error}您没有踩在任何地块上。"
+    rg-not-self: "{global#error}这块地皮({#var})不是您的领地。"
+    cmd-error: "{global#error}操作领地管理系统时出错，请联系管理员。"
   wg-we-check:
     region-limit: "{global#info}您的WorldEdit操作已提交，此操作只对您当前的领地范围内有效。"
     region-warn: "{global#warning}您的WorldEdit操作已提交，请确认您的位置在您的领地内。"
   wg-custom-name:
-    no-wg: "{global#error}此世界未启用WorldGuard。"
-    no-rg: "{global#error}您没有踩在任何地块上。"
-    rg-not-self: "{global#error}这块地皮({#var})不是您的领地。"
     rg-rename: "{global#info}您已成功修改地皮自定义名称为 {#var}。"
-    cmd-error: "{global#error}操作领地管理系统时出错，请联系管理员。"
   wg-claim:
-    no-wg: "{global#error}此世界未启用WorldGuard。"
-    no-rg: "{global#error}您没有踩在任何地块上。"
     rg-claimed: "{global#error}这块地皮({#var})已被领取。"
     rg-claimed-self: "{global#error}这块地皮({#var})已被领取且是您的领地。"
-    rg-not-self: "{global#error}这块地皮({#var})不是您的领地。"
     rg-claim: "{global#info}恭喜！您已成功领取地皮 {#var}。"
     rg-unclaim: "{global#info}您已成功放弃地皮 {#var}。"
-    cmd-error: "{global#error}操作领地管理系统时出错，请联系管理员。"
   wg-region-hud:
     --view-setting-title: "{#green}[快捷栏]领地HUD信息显示"
     --view-setting-desc:

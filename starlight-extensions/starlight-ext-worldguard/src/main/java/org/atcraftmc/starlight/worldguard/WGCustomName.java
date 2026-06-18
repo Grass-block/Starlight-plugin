@@ -1,8 +1,5 @@
 package org.atcraftmc.starlight.worldguard;
 
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
@@ -11,13 +8,16 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.atcraftmc.starlight.worldguard.data.RegionKey;
 
-import java.util.Comparator;
+import java.util.Objects;
 
 @ApplicationModule(id = "wg-custom-name", description = "Allows custom display names for WorldGuard regions")
 public final class WGCustomName extends BukkitAbstractModule {
+    public static final String DEFAULT_VALUE = "__default__";
+    public static final DocumentField<String> REGION_CUSTOM_NAME = DocumentField.string("custom-name", DEFAULT_VALUE);
     private final PlotRenameCommand cmd = new PlotRenameCommand();
 
     static LanguageItem lang(String id) {
@@ -26,23 +26,33 @@ public final class WGCustomName extends BukkitAbstractModule {
 
     @Override
     public void enable() {
-        WorldGuardRegionService.COMMAND.registerSubCommand(cmd);
+        WGCommandService.COMMAND.registerSubCommand(this.cmd);
 
-        WGRegionHUD.PIPELINE.addFirst("starlight:custom-name", (world, region, s) -> {
-            var key = RegionKey.of(region, world);
-            var h = WorldGuardExtraInfoService.getInstance().getDataHandle(key);
+        WGRegionHUD.PIPELINE.addFirst("starlight:custom-name", (r, w, s) -> {
+            var dom = WGExtraInfoServiceV2.instance().getData(r, w);
 
-            if (h.has("custom-name")) {
-                return s.replace("{name}", h.getString("custom-name", "") + "{;}");
+            if (!REGION_CUSTOM_NAME.exist(dom)) {
+                var key = RegionKey.of(w, r);
+                var h = WGExtraInfoService.getInstance().getDataHandle(key);
+
+                if (h.has("custom-name")) {
+                    REGION_CUSTOM_NAME.set(dom, h.getString("custom-name", DEFAULT_VALUE));
+                }
             }
 
-            return s;
+            var name = REGION_CUSTOM_NAME.get(dom);
+
+            if (Objects.equals(name, DEFAULT_VALUE)) {
+                return s;
+            }
+
+            return s.replace("{name}", name + "{;}");
         });
     }
 
     @Override
     public void disable() {
-        WorldGuardRegionService.COMMAND.unregisterSubCommand(cmd);
+        WGCommandService.COMMAND.unregisterSubCommand(cmd);
 
         WGRegionHUD.PIPELINE.remove("starlight:custom-name");
     }
@@ -56,41 +66,24 @@ public final class WGCustomName extends BukkitAbstractModule {
 
         @Override
         public void execute(CommandExecution context) {
+            var t = WGCommandService.getManageableRegion(context);
+
+            if (t.isEmpty()) {
+                return;
+            }
+
             var player = context.requireSenderAsPlayer();
-            var world = player.getWorld();
-
-            var container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-            var regionManager = container.get(BukkitAdapter.adapt(world));
-
-            if (regionManager == null) {
-                lang("no-wg").send(QLib.audience(context.getSender()));
-                return;
-            }
-
-            var pos = BukkitAdapter.asBlockVector(player.getLocation());
-            var regions = regionManager.getApplicableRegions(pos);
-
-            var target = regions.getRegions().stream().max(Comparator.comparingInt(ProtectedRegion::getPriority)).orElse(null);
-
-            if (target == null) {
-                lang("no-rg").send(QLib.audience(context.getSender()));
-                return;
-            }
-
-            if (target.getId().equalsIgnoreCase("__global__")) {
-                lang("no-rg").send(QLib.audience(context.getSender()));
-                return;
-            }
+            var target = t.get();
+            var line = context.requireRemainAsParagraph(0, true);
 
             if (!target.getOwners().getUniqueIds().contains(player.getUniqueId())) {
-                lang("rg-not-self").send(QLib.audience(context.getSender()), target.getId());
+                WGCommandService.lang("rg-not-self").send(QLib.audience(context.getSender()), target.getId());
                 return;
             }
 
-            var line = context.requireRemainAsParagraph(0, true);
-            var k = RegionKey.of(player, target.getId());
+            var data = WGExtraInfoServiceV2.instance().getData(target, player.getWorld());
 
-            WorldGuardExtraInfoService.getInstance().getDataHandle(k).editSafe((h) -> h.setString("custom-name", line));
+            REGION_CUSTOM_NAME.set(data,line);
 
             lang("rg-rename").send(QLib.audience(context.getSender()), line);
         }

@@ -77,3 +77,14 @@ language:
     not-self: "{global#sys-error}您不能举报自己的聊天信息。"
     success: "{global#sys-success}您已提交对 {#var} 的聊天举报 ({#var})。"
     --tip: '{#gray}如果一位玩家发送的信息包含了不合适的内容，你可以点击聊天文本后面的"[!]"进行举报。'
+  world-object-filter:
+    --tip: '{#gray}您可以使用 {#gold}/world-filter{#gray} 来屏蔽不想看到的告示牌或旗帜。'
+    notify-title: "{#aqua}您的世界内容屏蔽设置:"
+    notify-state-flag: "{#gray}旗帜图案屏蔽: {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}切换{#white}]"
+    notify-state-signs: "{#gray}告示牌文本屏蔽: {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}切换{#white}]"
+    flag-enable: "{global#sys-info}您已{global#state-open}旗帜纹理屏蔽, 可能需要重新加载或位移来刷新更改。"
+    flag-disable: "{global#sys-info}您已{global#state-close}旗帜纹理屏蔽, 可能需要重新加载或位移来刷新更改。"
+    sign-enable: "{global#sys-info}您已{global#state-open}告示牌内容屏蔽, 可能需要重新加载或位移来刷新更改。"
+    sign-disable: "{global#sys-info}您已{global#state-close}告示牌内容屏蔽, 可能需要重新加载或位移来刷新更改。"
+    action-flag-hint: "{global#info}按照您的设置，当前旗帜内容已被屏蔽。(本消息此会话内不再提示)"
+    action-sign-hint: "{global#info}按照您的设置，当前告示牌内容已被屏蔽。(本消息此会话内不再提示)"

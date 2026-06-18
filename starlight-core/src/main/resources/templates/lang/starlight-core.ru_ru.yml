@@ -23,6 +23,8 @@ language:
     warning: "{#gray}[{#yellow}!{#gray}]{#gray}"
     error: "{#gray}[{#red}!{#gray}]{#gray}"
     operation: "{#gray}[{#light-purple}!{#gray}]{#gray}"
+    state-open: "{#green}включено{#gray}"
+    state-close: "{#red}отключено{#gray}"
   command:
     exception: "{global#sys-error}Синтаксическая ошибка или внутренняя ошибка при выполнении этой команды."
     lack-permission: "{global#sys-error}Извините, у вас нет разрешения ({#var}) на выполнение этой команды."

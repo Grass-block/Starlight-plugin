@@ -25,7 +25,7 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
-@ApplicationModule(id = "modern-minecart-sync", description = "provide information to legacy clients of newer protocol.")
+@ApplicationModule(id = "modern-minecart-sync", description = "provide minecart information to legacy clients of newer protocol.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ModernMinecartSync extends BukkitAbstractModule {
     private final EntityProtocolManager protocolManager = new EntityProtocolManager();
@@ -34,14 +34,14 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
     public void checkCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("ViaVersion");
         try {
-            ProtocolVersion.class.getDeclaredField("v1_20_5");
+            ProtocolVersion.class.getDeclaredField("v1_21_2");
         } catch (NoSuchFieldException e) {
-            throw new APIIncompatibleException("ViaVersion does not present V1_20_5.");
+            throw new APIIncompatibleException("ViaVersion does not present V1_21_2");
         }
     }
 
     private boolean isLegacy(Player player) {
-        return Via.getAPI().getPlayerProtocolVersion(player).olderThan(ProtocolVersion.v1_20_5);
+        return Via.getAPI().getPlayerProtocolVersion(player).olderThan(ProtocolVersion.v1_21_2);
     }
 
     @EventHandler

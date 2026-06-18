@@ -1,5 +1,12 @@
 ## V5: Now - Gluon engine
 
+### 26.6.1
+
+- Modern minecart sync now cover rest version incompatible.
+- Improved performance of events.
+- Added World-object-filter
+- Moved world-guard data from wg to local.
+
 ### 26.6.0
 
 > From this version, working with non-paper-based will NO LONGER require `starlight-adventure-loader`.

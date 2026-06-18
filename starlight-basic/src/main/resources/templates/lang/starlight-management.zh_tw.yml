@@ -77,3 +77,14 @@ language:
     not-self: "{global#sys-error}您不能舉報自己的聊天資訊。"
     success: "{global#sys-success}您已提交對 {#var} 的聊天舉報 ({#var})。"
     --tip: '{#gray}如果一位玩家發送的資訊包含了不合適的內容，你可以點擊聊天文本後面的"[!]"進行舉報。'
+  world-object-filter:
+    --tip: '{#gray}您可以使用 {#gold}/world-filter{#gray} 來遮蔽不想看到的告示牌或旗幟。'
+    notify-title: "{#aqua}您的世界內容遮蔽設定:"
+    notify-state-flag: "{#gray}旗幟圖案遮蔽: {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}切換{#white}]"
+    notify-state-signs: "{#gray}告示牌文字遮蔽: {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}切換{#white}]"
+    flag-enable: "{global#sys-info}您已{global#state-open}旗幟紋理遮蔽, 可能需要重新載入或位移來重新整理變更。"
+    flag-disable: "{global#sys-info}您已{global#state-close}旗幟紋理遮蔽, 可能需要重新載入或位移來重新整理變更。"
+    sign-enable: "{global#sys-info}您已{global#state-open}告示牌內容遮蔽, 可能需要重新載入或位移來重新整理變更。"
+    sign-disable: "{global#sys-info}您已{global#state-close}告示牌內容遮蔽, 可能需要重新載入或位移來重新整理變更。"
+    action-flag-hint: "{global#info}按照您的設定，目前旗幟內容已被遮蔽。(本訊息此會話內不再提示)"
+    action-sign-hint: "{global#info}按照您的設定，目前告示牌內容已被遮蔽。(本訊息此會話內不再提示)"

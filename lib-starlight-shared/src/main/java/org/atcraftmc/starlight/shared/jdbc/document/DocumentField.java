@@ -6,10 +6,10 @@ import java.util.UUID;
 
 /**
  * <h3>A field bind to access dom.</h3>
- *
+ * <p>
  * We access the dom in static entries instead of directly.
  * This sounds weird, but definitely an enjoyment.
-* */
+ */
 public abstract class DocumentField<I> {
     protected final String name;
     protected final I defaultValue;
@@ -57,7 +57,17 @@ public abstract class DocumentField<I> {
         set(h, data);
     }
 
+    public void set(NamedDocumentDataService service, String id, I data) {
+        var h = service.get(id);
+        set(h, data);
+    }
+
     public I get(DocumentDataService service, UUID id) {
+        var h = service.get(id);
+        return get(h);
+    }
+
+    public I get(NamedDocumentDataService service, String id) {
         var h = service.get(id);
         return get(h);
     }

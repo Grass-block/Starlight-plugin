@@ -13,11 +13,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.atcraftmc.starlight.worldguard.data.RegionKey;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -26,23 +22,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ApplicationService(id = "wg-region-service")
-public interface WorldGuardRegionService extends Service {
-    PlotCommand COMMAND = new PlotCommand();
-
+public interface WGRegionService extends Service {
     @ServiceInject
     static void checkServiceCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("WorldGuard");
         Compatibility.requirePlugin("WorldEdit");
-    }
-
-    @ServiceInject
-    static void start() {
-        StarlightBukkitCore.instance().getCommandManager().register(COMMAND);
-    }
-
-    @ServiceInject
-    static void stop() {
-        StarlightBukkitCore.instance().getCommandManager().unregister(COMMAND);
     }
 
     static Optional<ProtectedRegion> getRegion(RegionKey key) {
@@ -132,7 +116,4 @@ public interface WorldGuardRegionService extends Service {
         Compatibility.requirePlugin("WorldEdit");
     }
 
-    @BukkitCommand(name = "plot")
-    final class PlotCommand extends StandaloneCommand {
-    }
 }

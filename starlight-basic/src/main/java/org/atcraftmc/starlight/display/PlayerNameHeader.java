@@ -10,7 +10,6 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
-import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.config.ConfigContainer;
@@ -38,6 +37,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.*;
@@ -133,6 +133,12 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
         this.detach(event.getPlayer());
+    }
+
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        this.attach(event.getPlayer());
     }
 
     @Override

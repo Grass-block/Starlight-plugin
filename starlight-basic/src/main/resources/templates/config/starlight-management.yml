@@ -10,6 +10,13 @@ config:
     period: 1000
   chat-report:
     append: '{click(command,/chat-report {});color(red)}[!]' #report interactive text
+  world-object-filter:
+    notify-gui:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - " {msg#notify-title}"
+      - "  {msg#notify-state-flag}"
+      - "  {msg#notify-state-signs}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
   chat-filter:
     filter-sign: true #determine weather will filter sign edits or not.
     filter-anvil: true #determine weather will filter anvil renames or not.

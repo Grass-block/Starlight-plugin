@@ -1,22 +1,19 @@
 language:
+  wg-command:
+    no-wg: "{global#error}WorldGuard is not enabled in this world."
+    no-rg: "{global#error}You are not standing on any region."
+    rg-not-self: "{global#error}This region ({#var}) is not yours."
+    cmd-error: "{global#error}An error occurred while operating the region management system. Please contact an administrator."
   wg-we-check:
     region-limit: "{global#info}Your WorldEdit operation has been submitted. This operation is only effective within your current region."
     region-warn: "{global#warning}Your WorldEdit operation has been submitted. Please confirm you are within your region."
   wg-custom-name:
-    no-wg: "{global#error}WorldGuard is not enabled in this world."
-    no-rg: "{global#error}You are not standing on any region."
-    rg-not-self: "{global#error}This region ({#var}) is not yours."
     rg-rename: "{global#info}You have successfully renamed the region to {#var}."
-    cmd-error: "{global#error}An error occurred while operating the region management system. Please contact an administrator."
   wg-claim:
-    no-wg: "{global#error}WorldGuard is not enabled in this world."
-    no-rg: "{global#error}You are not standing on any region."
     rg-claimed: "{global#error}This region ({#var}) has already been claimed."
     rg-claimed-self: "{global#error}This region ({#var}) has already been claimed and is yours."
-    rg-not-self: "{global#error}This region ({#var}) is not yours."
     rg-claim: "{global#info}Congratulations! You have successfully claimed the region {#var}."
     rg-unclaim: "{global#info}You have successfully unclaimed the region {#var}."
-    cmd-error: "{global#error}An error occurred while operating the region management system. Please contact an administrator."
   wg-region-hud:
     --view-setting-title: "{#green}[Hotbar] Region HUD Information Display"
     --view-setting-desc:

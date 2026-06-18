@@ -16,7 +16,6 @@ import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.worldguard.data.JsonDataHandle;
@@ -31,17 +30,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@ApplicationService(id = "wg-extra-info", impl = WorldGuardExtraInfoService.Impl.class)
-public interface WorldGuardExtraInfoService extends BukkitService {
+@ApplicationService(id = "wg-extra-info", impl = WGExtraInfoService.Impl.class)
+@Deprecated(since = "26.6.1")
+public interface WGExtraInfoService extends BukkitService {
     String WG_FLAG_NAME = "--starlight-data";
     String WG_FLAG_DEFAULT = "{}";
     StringFlag INITIAL_FLAG = new StringFlag(WG_FLAG_NAME, WG_FLAG_DEFAULT);
 
     @ServiceInject
-    ServiceHolder<WorldGuardExtraInfoService> INSTANCE = new ServiceHolder<>();
+    ServiceHolder<WGExtraInfoService> INSTANCE = new ServiceHolder<>();
     ObjectContainer<StringFlag> WG_MAIN_FLAG = new ObjectContainer<>();
 
-    static WorldGuardExtraInfoService getInstance() {
+    static WGExtraInfoService getInstance() {
         return INSTANCE.get();
     }
 
@@ -52,7 +52,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
     static void validateFlag() {
         var registry = WorldGuard.getInstance().getFlagRegistry();
 
-        Flag<?> f1 = registry.get(WorldGuardExtraInfoService.WG_FLAG_NAME);
+        Flag<?> f1 = registry.get(WGExtraInfoService.WG_FLAG_NAME);
 
         if (f1 == null) {
             registry.register(INITIAL_FLAG);
@@ -68,7 +68,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
 
     JsonDataHandle getDataHandle(RegionKey id);
 
-    final class Impl implements WorldGuardExtraInfoService, RemovalListener<RegionKey, JsonDataHandle> {
+    final class Impl implements WGExtraInfoService, RemovalListener<RegionKey, JsonDataHandle> {
         private final Cache<RegionKey, JsonDataHandle> handleCache = CacheBuilder.newBuilder()
                 .expireAfterAccess(Duration.ofMinutes(3))
                 .removalListener(this)
@@ -84,7 +84,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
         }
 
         private static void write(RegionKey key, JsonDataHandle handle) {
-            var region = WorldGuardRegionService.getRegion(key);
+            var region = WGRegionService.getRegion(key);
 
             if (region.isEmpty()) {
                 return;
@@ -192,7 +192,7 @@ public interface WorldGuardExtraInfoService extends BukkitService {
         }
 
         private JsonObject getData(RegionKey id) {
-            var region = WorldGuardRegionService.getRegion(id);
+            var region = WGRegionService.getRegion(id);
             if (region.isEmpty()) {
                 return new JsonObject();
             }

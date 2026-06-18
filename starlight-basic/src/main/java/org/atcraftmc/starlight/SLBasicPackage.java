@@ -10,6 +10,7 @@ import org.atcraftmc.starlight.display.*;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
 import org.atcraftmc.starlight.management.*;
+import org.atcraftmc.starlight.management.WorldObjectFilter;
 import org.atcraftmc.starlight.proxy.*;
 import org.atcraftmc.starlight.security.*;
 import org.atcraftmc.starlight.security.scan.PluginBackdoorScanner;
@@ -38,6 +39,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(KickOnReload.class);
         b.module(PluginManagerCommand.class);
         b.module(VMGarbageCleaner.class);
+        b.module(WorldObjectFilter.class);
 
         p.config("starlight-management");
         p.language("starlight-management", "zh_cn");

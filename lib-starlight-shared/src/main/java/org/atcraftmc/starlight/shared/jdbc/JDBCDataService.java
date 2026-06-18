@@ -28,9 +28,10 @@ public abstract class JDBCDataService {
             }
             stmt.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().toLowerCase().contains("exist")) {
+            if (e.getMessage().toLowerCase().contains("already exists")) {
                 return;
             }
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

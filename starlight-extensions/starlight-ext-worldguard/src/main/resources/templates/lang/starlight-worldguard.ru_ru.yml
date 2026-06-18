@@ -1,22 +1,19 @@
 language:
+  wg-command:
+    no-wg: "{global#error}WorldGuard не включён в этом мире."
+    no-rg: "{global#error}Вы не находитесь на каком-либо участке."
+    rg-not-self: "{global#error}Этот участок ({#var}) не ваш."
+    cmd-error: "{global#error}Ошибка при работе с системой управления регионами. Обратитесь к администратору."
   wg-we-check:
     region-limit: "{global#info}Ваша операция WorldEdit отправлена. Эта операция действует только в пределах вашего текущего региона."
     region-warn: "{global#warning}Ваша операция WorldEdit отправлена. Подтвердите, что вы находитесь в пределах своего региона."
   wg-custom-name:
-    no-wg: "{global#error}WorldGuard не включён в этом мире."
-    no-rg: "{global#error}Вы не находитесь на каком-либо участке."
-    rg-not-self: "{global#error}Этот участок ({#var}) не ваш."
     rg-rename: "{global#info}Вы успешно изменили пользовательское имя участка на {#var}."
-    cmd-error: "{global#error}Ошибка при работе с системой управления регионами. Обратитесь к администратору."
   wg-claim:
-    no-wg: "{global#error}WorldGuard не включён в этом мире."
-    no-rg: "{global#error}Вы не находитесь на каком-либо участке."
     rg-claimed: "{global#error}Этот участок ({#var}) уже занят."
     rg-claimed-self: "{global#error}Этот участок ({#var}) уже занят и является вашим."
-    rg-not-self: "{global#error}Этот участок ({#var}) не ваш."
     rg-claim: "{global#info}Поздравляем! Вы успешно заняли участок {#var}."
     rg-unclaim: "{global#info}Вы успешно освободили участок {#var}."
-    cmd-error: "{global#error}Ошибка при работе с системой управления регионами. Обратитесь к администратору."
   wg-region-hud:
     --view-setting-title: "{#green}[Панель] Отображение HUD региона"
     --view-setting-desc:

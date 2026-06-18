@@ -86,7 +86,6 @@ dependencies {
     compileOnly 'io.netty:netty-buffer:4.1.25.Final'
 
     compileOnly projectLib('paper-plugin')
-
 }
 
 jar {

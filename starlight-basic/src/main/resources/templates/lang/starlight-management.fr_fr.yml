@@ -77,3 +77,14 @@ language:
     not-self: "{global#sys-error}Vous ne pouvez pas signaler vos propres messages de chat."
     success: "{global#sys-success}Vous avez soumis un signalement de chat contre {#var} ({#var})."
     --tip: '{#gray}Si un joueur envoie un message contenant un contenu inapproprié, vous pouvez cliquer sur le "[!]" après le texte du chat pour le signaler.'
+  world-object-filter:
+    --tip: '{#gray}Vous pouvez utiliser {#gold}/world-filter{#gray} pour masquer les panneaux ou bannières que vous ne souhaitez pas voir.'
+    notify-title: "{#aqua}Vos paramètres de filtrage du contenu du monde :"
+    notify-state-flag: "{#gray}Filtre de bannières : {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}Basculer{#white}]"
+    notify-state-signs: "{#gray}Filtre de panneaux : {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}Basculer{#white}]"
+    flag-enable: "{global#sys-info}Le filtrage des textures de bannières a été {global#state-open}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    flag-disable: "{global#sys-info}Le filtrage des textures de bannières a été {global#state-close}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    sign-enable: "{global#sys-info}Le filtrage du contenu des panneaux a été {global#state-open}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    sign-disable: "{global#sys-info}Le filtrage du contenu des panneaux a été {global#state-close}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    action-flag-hint: "{global#info}Selon vos paramètres, cette bannière a été filtrée. (Ce message ne réapparaîtra pas durant cette session.)"
+    action-sign-hint: "{global#info}Selon vos paramètres, ce panneau a été filtré. (Ce message ne réapparaîtra pas durant cette session.)"

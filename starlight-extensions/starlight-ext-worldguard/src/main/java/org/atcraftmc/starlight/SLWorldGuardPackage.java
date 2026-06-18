@@ -13,8 +13,10 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
     public static void worldguard(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
-        b.service(WorldGuardRegionService.class);
-        b.service(WorldGuardExtraInfoService.class);
+        b.service(WGRegionService.class);
+        b.service(WGCommandService.class);
+        b.service(WGExtraInfoService.class);
+        b.service(WGExtraInfoServiceV2.class);
 
         b.module(WGRegionHUD.class);
         b.module(WorldGuardWECheck.class);
@@ -32,6 +34,6 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
 
     @EarlyLoading
     public static void preload() {
-        WorldGuardExtraInfoService.validateFlag();
+        WGExtraInfoService.validateFlag();
     }
 }

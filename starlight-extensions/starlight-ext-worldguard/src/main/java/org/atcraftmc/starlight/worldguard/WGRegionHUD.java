@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @ApplicationModule(id = "wg-region-hud", description = "Create an HUD displaying WorldGuard region info.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class WGRegionHUD extends BukkitAbstractModule {
+
     public static final Pipeline<Formatter> PIPELINE = new Pipeline<>();
     private final Map<UUID, ProtectedRegion> stateCache = new HashMap<>();
 
@@ -86,7 +87,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
 
     public void tick(Player player) {
         var pos = player.getLocation();
-        var region = WorldGuardRegionService.getRegionAt(pos.getWorld(), pos.getX(), pos.getY(), pos.getZ());
+        var region = WGRegionService.getRegionAt(pos.getWorld(), pos.getX(), pos.getY(), pos.getZ());
         var currentState = region.orElse(null);
 
         var previousState = this.stateCache.get(player.getUniqueId());
@@ -141,6 +142,6 @@ public final class WGRegionHUD extends BukkitAbstractModule {
     }
 
 
-    interface Formatter extends TriFunction<ProtectedRegion, World, String, String> {
+    public interface Formatter extends TriFunction<ProtectedRegion, World, String, String> {
     }
 }

@@ -5,8 +5,8 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.atcraftmc.starlight.util.AsyncLock;
-import org.atcraftmc.starlight.worldguard.WorldGuardExtraInfoService;
-import org.atcraftmc.starlight.worldguard.WorldGuardRegionService;
+import org.atcraftmc.starlight.worldguard.WGExtraInfoService;
+import org.atcraftmc.starlight.worldguard.WGRegionService;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,13 +15,13 @@ import java.util.function.Consumer;
 public final class JsonDataHandle {
     private final AsyncLock lock = new AsyncLock();
     private final AtomicInteger writeActivities = new AtomicInteger(0);
-    private final WorldGuardExtraInfoService service;
+    private final WGExtraInfoService service;
     private final RegionKey id;
     private final JsonObject handle;
     private boolean dirty = false;
     private boolean valid = true;
 
-    public JsonDataHandle(WorldGuardExtraInfoService service, RegionKey id, JsonObject handle) {
+    public JsonDataHandle(WGExtraInfoService service, RegionKey id, JsonObject handle) {
         this.service = service;
         this.id = id;
         this.handle = handle;
@@ -38,7 +38,7 @@ public final class JsonDataHandle {
     }
 
     public Optional<ProtectedRegion> getTargetRegion() {
-        return WorldGuardRegionService.getRegion(this.id);
+        return WGRegionService.getRegion(this.id);
     }
 
     public void flush() {

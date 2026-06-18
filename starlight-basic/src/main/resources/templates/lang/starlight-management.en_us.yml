@@ -77,3 +77,14 @@ language:
     not-self: "{global#sys-error}You cannot report your own chat messages."
     success: "{global#sys-success}You have submitted a chat report against {#var} ({#var})."
     --tip: '{#gray}If a player sends a message containing inappropriate content, you can click the "[!]" after the chat text to report it.'
+  world-object-filter:
+    --tip: '{#gray}You can use {#gold}/world-filter{#gray} to hide signs or banners you don''t want to see.'
+    notify-title: "{#aqua}Your world content filter settings:"
+    notify-state-flag: "{#gray}Banner Filter: {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}Toggle{#white}]"
+    notify-state-signs: "{#gray}Sign Text Filter: {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}Toggle{#white}]"
+    flag-enable: "{global#sys-info}Banner texture filtering {global#state-open}. You may need to reload or move to see changes."
+    flag-disable: "{global#sys-info}Banner texture filtering {global#state-close}. You may need to reload or move to see changes."
+    sign-enable: "{global#sys-info}Sign content filtering {global#state-open}. You may need to reload or move to see changes."
+    sign-disable: "{global#sys-info}Sign content filtering {global#state-close}. You may need to reload or move to see changes."
+    action-flag-hint: "{global#info}Based on your settings, this banner content has been filtered. (This message will not appear again this session.)"
+    action-sign-hint: "{global#info}Based on your settings, this sign content has been filtered. (This message will not appear again this session.)"

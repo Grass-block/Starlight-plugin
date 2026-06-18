@@ -69,7 +69,7 @@ public final class WorldGuardWECheck extends BukkitAbstractModule {
                 return;
             }
 
-            if (WorldGuardRegionService.isGlobalAccessOpenedTo(bw, player)) {
+            if (WGRegionService.isGlobalAccessOpenedTo(bw, player)) {
                 return;
             }
 
@@ -84,7 +84,7 @@ public final class WorldGuardWECheck extends BukkitAbstractModule {
 
 
             var pos = player.getLocation();
-            var r = WorldGuardRegionService.getRegionAt(bw, pos.getX(), pos.getY(), pos.getZ());
+            var r = WGRegionService.getRegionAt(bw, pos.getX(), pos.getY(), pos.getZ());
 
             if (r.isEmpty()) {
                 event.setExtent(new NullExtent());
@@ -94,7 +94,7 @@ public final class WorldGuardWECheck extends BukkitAbstractModule {
 
             var region = r.get();
 
-            if (!WorldGuardRegionService.canAccess(region, player.getUniqueId())) {
+            if (!WGRegionService.canAccess(region, player.getUniqueId())) {
                 event.setExtent(new NullExtent());
                 language().item("region-warn").send(QLib.audience(bp));
                 return;

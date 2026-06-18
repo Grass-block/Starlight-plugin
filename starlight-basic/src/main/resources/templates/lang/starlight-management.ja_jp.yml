@@ -77,3 +77,14 @@ language:
     not-self: "{global#sys-error}自分のチャットメッセージを通報することはできません。"
     success: "{global#sys-success}{#var} のチャット通報({#var})を送信しました。"
     --tip: '{#gray}不適切な内容を含むメッセージを見つけた場合、チャットテキストの後ろにある "[!]" をクリックして通報できます。'
+  world-object-filter:
+    --tip: '{#gray}{#gold}/world-filter{#gray}を使用して、表示したくない看板や旗を非表示にできます。'
+    notify-title: "{#aqua}ワールドコンテンツフィルター設定:"
+    notify-state-flag: "{#gray}旗フィルター: {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}切替{#white}]"
+    notify-state-signs: "{#gray}看板テキストフィルター: {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}切替{#white}]"
+    flag-enable: "{global#sys-info}旗テクスチャフィルタリングを{global#state-open}しました。変更を反映するには再読み込みまたは移動が必要な場合があります。"
+    flag-disable: "{global#sys-info}旗テクスチャフィルタリングを{global#state-close}しました。変更を反映するには再読み込みまたは移動が必要な場合があります。"
+    sign-enable: "{global#sys-info}看板内容フィルタリングを{global#state-open}しました。変更を反映するには再読み込みまたは移動が必要な場合があります。"
+    sign-disable: "{global#sys-info}看板内容フィルタリングを{global#state-close}しました。変更を反映するには再読み込みまたは移動が必要な場合があります。"
+    action-flag-hint: "{global#info}設定に基づき、この旗の内容はフィルタリングされました。(このメッセージはこのセッションでは再表示されません。)"
+    action-sign-hint: "{global#info}設定に基づき、この看板の内容はフィルタリングされました。(このメッセージはこのセッションでは再表示されません。)"

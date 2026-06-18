@@ -44,6 +44,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -78,6 +79,11 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
         String ui = this.language().inline(template, LocaleService.locale(player));
         ComponentLike c = QLib.textBuilder().build(ui);
         QLib.audience(player).sendActionBar(c);
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        this.globalSession.addPlayer(event.getPlayer());
     }
 
     @Override
