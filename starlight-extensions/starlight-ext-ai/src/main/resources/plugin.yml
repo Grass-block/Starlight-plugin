@@ -1,0 +1,16 @@
+#identifier
+name: starlight-ext-ai
+version: '${version}'
+
+#api
+main: org.atcraftmc.starlight.SLAiPackage
+api-version: 1.14
+folia-supported: true
+load: POSTWORLD
+depend: [ "starlight-core" ]
+
+#description
+authors: [ "GrassBlock2022" ]
+website: https://atcraftmc.cn
+description: AI chat extension.
+prefix: Starlight/AI
