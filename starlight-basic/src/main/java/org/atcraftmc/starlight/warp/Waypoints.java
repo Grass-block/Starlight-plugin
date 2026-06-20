@@ -205,6 +205,7 @@ public final class Waypoints extends SLCommandModule {
 
                 wp = new Waypoint(uuid, name, world, x, y, z, yaw, pitch, owner, Set.of());
             } else {
+                //todo: FIX NUMBER LIMITATION IN QLIB !!!! IM IDIOT!!!!
                 var x = context.requireArgumentDouble(3, NumberLimitation.any());
                 var y = context.requireArgumentDouble(4, NumberLimitation.any());
                 var z = context.requireArgumentDouble(5, NumberLimitation.any());

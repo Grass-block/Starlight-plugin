@@ -16,12 +16,12 @@ public final class JsonDataHandle {
     private final AsyncLock lock = new AsyncLock();
     private final AtomicInteger writeActivities = new AtomicInteger(0);
     private final WGExtraInfoService service;
-    private final RegionKey id;
+    private final RegionKey_L id;
     private final JsonObject handle;
     private boolean dirty = false;
     private boolean valid = true;
 
-    public JsonDataHandle(WGExtraInfoService service, RegionKey id, JsonObject handle) {
+    public JsonDataHandle(WGExtraInfoService service, RegionKey_L id, JsonObject handle) {
         this.service = service;
         this.id = id;
         this.handle = handle;

@@ -19,7 +19,7 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.worldguard.data.JsonDataHandle;
-import org.atcraftmc.starlight.worldguard.data.RegionKey;
+import org.atcraftmc.starlight.worldguard.data.RegionKey_L;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.server.ServerCommandEvent;
@@ -64,12 +64,12 @@ public interface WGExtraInfoService extends BukkitService {
         Starlight.LOGGER.info("WorldGuard data validating result: {}", WG_MAIN_FLAG.get());
     }
 
-    void suggestFlush(RegionKey id);
+    void suggestFlush(RegionKey_L id);
 
-    JsonDataHandle getDataHandle(RegionKey id);
+    JsonDataHandle getDataHandle(RegionKey_L id);
 
-    final class Impl implements WGExtraInfoService, RemovalListener<RegionKey, JsonDataHandle> {
-        private final Cache<RegionKey, JsonDataHandle> handleCache = CacheBuilder.newBuilder()
+    final class Impl implements WGExtraInfoService, RemovalListener<RegionKey_L, JsonDataHandle> {
+        private final Cache<RegionKey_L, JsonDataHandle> handleCache = CacheBuilder.newBuilder()
                 .expireAfterAccess(Duration.ofMinutes(3))
                 .removalListener(this)
                 .build();
@@ -83,7 +83,7 @@ public interface WGExtraInfoService extends BukkitService {
             return JsonParser.parseString(s).getAsJsonObject();
         }
 
-        private static void write(RegionKey key, JsonDataHandle handle) {
+        private static void write(RegionKey_L key, JsonDataHandle handle) {
             var region = WGRegionService.getRegion(key);
 
             if (region.isEmpty()) {
@@ -116,7 +116,7 @@ public interface WGExtraInfoService extends BukkitService {
 
 
         @Override
-        public void onRemoval(RemovalNotification<RegionKey, JsonDataHandle> notification) {
+        public void onRemoval(RemovalNotification<RegionKey_L, JsonDataHandle> notification) {
             var key = notification.getKey();
             var handle = notification.getValue();
 
@@ -133,7 +133,7 @@ public interface WGExtraInfoService extends BukkitService {
         }
 
         @Override
-        public void suggestFlush(RegionKey id) {
+        public void suggestFlush(RegionKey_L id) {
             var data = this.handleCache.getIfPresent(id);
 
             if (data == null) {
@@ -144,7 +144,7 @@ public interface WGExtraInfoService extends BukkitService {
         }
 
         @Override
-        public JsonDataHandle getDataHandle(RegionKey id) {
+        public JsonDataHandle getDataHandle(RegionKey_L id) {
             try {
                 return this.handleCache.get(id, () -> new JsonDataHandle(this, id, getData(id)));
             } catch (ExecutionException e) {
@@ -177,7 +177,7 @@ public interface WGExtraInfoService extends BukkitService {
             }
         }
 
-        private void flush(RegionKey k) {
+        private void flush(RegionKey_L k) {
             var d = this.handleCache.getIfPresent(k);
             this.handleCache.invalidate(k);
 
@@ -191,7 +191,7 @@ public interface WGExtraInfoService extends BukkitService {
             write(k, d);
         }
 
-        private JsonObject getData(RegionKey id) {
+        private JsonObject getData(RegionKey_L id) {
             var region = WGRegionService.getRegion(id);
             if (region.isEmpty()) {
                 return new JsonObject();

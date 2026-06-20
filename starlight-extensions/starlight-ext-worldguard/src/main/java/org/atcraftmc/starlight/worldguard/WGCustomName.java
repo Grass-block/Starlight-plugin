@@ -8,16 +8,15 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcraftmc.starlight.worldguard.data.RegionKey;
+import org.atcraftmc.starlight.worldguard.api.RegionKey;
+import org.atcraftmc.starlight.worldguard.api.WGCustomNameAPI;
+import org.atcraftmc.starlight.worldguard.data.RegionKey_L;
 
 import java.util.Objects;
 
 @ApplicationModule(id = "wg-custom-name", description = "Allows custom display names for WorldGuard regions")
 public final class WGCustomName extends BukkitAbstractModule {
-    public static final String DEFAULT_VALUE = "__default__";
-    public static final DocumentField<String> REGION_CUSTOM_NAME = DocumentField.string("custom-name", DEFAULT_VALUE);
     private final PlotRenameCommand cmd = new PlotRenameCommand();
 
     static LanguageItem lang(String id) {
@@ -29,20 +28,9 @@ public final class WGCustomName extends BukkitAbstractModule {
         WGCommandService.COMMAND.registerSubCommand(this.cmd);
 
         WGRegionHUD.PIPELINE.addFirst("starlight:custom-name", (r, w, s) -> {
-            var dom = WGExtraInfoServiceV2.instance().getData(r, w);
+            var name = WGCustomNameAPI.getRegionCustomName(RegionKey.fromRegion(w,r));
 
-            if (!REGION_CUSTOM_NAME.exist(dom)) {
-                var key = RegionKey.of(w, r);
-                var h = WGExtraInfoService.getInstance().getDataHandle(key);
-
-                if (h.has("custom-name")) {
-                    REGION_CUSTOM_NAME.set(dom, h.getString("custom-name", DEFAULT_VALUE));
-                }
-            }
-
-            var name = REGION_CUSTOM_NAME.get(dom);
-
-            if (Objects.equals(name, DEFAULT_VALUE)) {
+            if (Objects.equals(name, WGCustomNameAPI.DEFAULT_VALUE)) {
                 return s;
             }
 
@@ -75,15 +63,7 @@ public final class WGCustomName extends BukkitAbstractModule {
             var player = context.requireSenderAsPlayer();
             var target = t.get();
             var line = context.requireRemainAsParagraph(0, true);
-
-            if (!target.getOwners().getUniqueIds().contains(player.getUniqueId())) {
-                WGCommandService.lang("rg-not-self").send(QLib.audience(context.getSender()), target.getId());
-                return;
-            }
-
-            var data = WGExtraInfoServiceV2.instance().getData(target, player.getWorld());
-
-            REGION_CUSTOM_NAME.set(data,line);
+            WGCustomNameAPI.setRegionCustomName(RegionKey.fromRegion(player,target),line);
 
             lang("rg-rename").send(QLib.audience(context.getSender()), line);
         }

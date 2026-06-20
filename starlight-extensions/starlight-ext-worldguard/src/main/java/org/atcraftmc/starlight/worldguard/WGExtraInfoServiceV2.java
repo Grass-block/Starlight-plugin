@@ -12,6 +12,7 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.atcraftmc.starlight.shared.jdbc.document.NamedDocumentDataService;
+import org.atcraftmc.starlight.worldguard.api.RegionKey;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -22,10 +23,6 @@ public final class WGExtraInfoServiceV2 implements Service {
     @ServiceInject
     public static final ServiceHolder<WGExtraInfoServiceV2> INSTANCE = new ServiceHolder<>();
     private final NamedDocumentDataService dataService = new NamedDocumentDataService("sl_plot_info");
-
-    public static String key(ProtectedRegion region, World world) {
-        return world.getName() + "/" + region.getId();
-    }
 
     public static WGExtraInfoServiceV2 instance() {
         return INSTANCE.get();
@@ -38,7 +35,7 @@ public final class WGExtraInfoServiceV2 implements Service {
     }
 
     @Override
-    public void disable() throws Exception {
+    public void disable() {
         QLib.task().async().cancel("wg-extra-v2:purge-cancel");
     }
 
@@ -51,13 +48,12 @@ public final class WGExtraInfoServiceV2 implements Service {
         }
 
         for (var k : this.dataService.getAllNames()) {
-            var split = k.split("/");
-            var world = Bukkit.getWorld(split[0]);
+            var rk = RegionKey.fromDatabaseId(k);
+            var world = Bukkit.getWorld(rk.getWorldId());
 
             if (world == null) {
                 continue;
             }
-
 
             var regionManager = container.get(BukkitAdapter.adapt(world));
 
@@ -65,7 +61,7 @@ public final class WGExtraInfoServiceV2 implements Service {
                 continue;
             }
 
-            if (regionManager.getRegion(split[1]) != null) {
+            if (regionManager.getRegion(rk.getRegionId()) != null) {
                 continue;
             }
 
@@ -79,7 +75,7 @@ public final class WGExtraInfoServiceV2 implements Service {
         return dataService;
     }
 
-    public JsonObject getData(ProtectedRegion r, World w) {
-        return this.dataService.get(key(r, w));
+    public JsonObject getData(RegionKey key) {
+        return this.dataService.get(key.toDatabaseId());
     }
 }

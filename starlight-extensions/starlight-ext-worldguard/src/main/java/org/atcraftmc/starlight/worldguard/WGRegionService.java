@@ -14,7 +14,8 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcraftmc.starlight.worldguard.data.RegionKey;
+import org.atcraftmc.starlight.worldguard.api.RegionKey;
+import org.atcraftmc.starlight.worldguard.data.RegionKey_L;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -30,6 +31,24 @@ public interface WGRegionService extends Service {
     }
 
     static Optional<ProtectedRegion> getRegion(RegionKey key) {
+        var world = Bukkit.getWorld(key.getWorldId());
+
+        if (world == null) {
+            return Optional.empty();
+        }
+
+        var container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        var wgWorld = BukkitAdapter.adapt(world);
+        var rm = container.get(wgWorld);
+
+        if (rm == null) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(rm.getRegion(key.getRegionId()));
+    }
+
+    static Optional<ProtectedRegion> getRegion(RegionKey_L key) {
         var container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         var wgWorld = BukkitAdapter.adapt(key.world());
         var rm = container.get(wgWorld);
@@ -42,10 +61,10 @@ public interface WGRegionService extends Service {
     }
 
     static boolean canAccess(Player player, org.bukkit.entity.Player ep) {
-        return WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(
-                WorldGuardPlugin.inst().wrapPlayer(ep),
-                player.getWorld()
-        );
+        return WorldGuard.getInstance()
+                .getPlatform()
+                .getSessionManager()
+                .hasBypass(WorldGuardPlugin.inst().wrapPlayer(ep), player.getWorld());
     }
 
     static boolean isGlobalAccessOpenedTo(World world, Player player) {
