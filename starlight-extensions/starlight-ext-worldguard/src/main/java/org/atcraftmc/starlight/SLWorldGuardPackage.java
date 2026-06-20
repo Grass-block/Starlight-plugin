@@ -13,15 +13,18 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
     public static void worldguard(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
+        //deprecated
+        b.service(WGExtraInfoService.class);
+
         b.service(WGRegionService.class);
         b.service(WGCommandService.class);
-        b.service(WGExtraInfoService.class);
-        b.service(WGExtraInfoServiceV2.class);
+        b.service(WGPlotInfoService.class);
 
         b.module(WGRegionHUD.class);
         b.module(WorldGuardWECheck.class);
         b.module(WGClaimCommand.class);
         b.module(WGCustomName.class);
+        b.module(WGSpawnTeleport.class);
 
         p.language("starlight-worldguard", "zh_cn");
         p.language("starlight-worldguard", "en_us");
@@ -34,6 +37,7 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
 
     @EarlyLoading
     public static void preload() {
-        WGExtraInfoService.validateFlag();
+        //deprecated
+        //WGExtraInfoService.validateFlag();
     }
 }

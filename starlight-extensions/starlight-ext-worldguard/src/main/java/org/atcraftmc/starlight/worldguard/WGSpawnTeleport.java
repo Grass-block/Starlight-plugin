@@ -19,15 +19,16 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.joml.Vector3d;
 
+//todo: untested
 @ApplicationModule(id = "wg-spawn-tp")
-public class WGSpawnTeleport extends BukkitAbstractModule {
+public final class WGSpawnTeleport extends BukkitAbstractModule {
     private final StandaloneCommand plotTeleportCommand = new PlotTeleportCommand();
     private final RegionRelatedCommand plotTeleportControlCommand = new PlotTeleportPermissionCommand();
     private final RegionRelatedCommand plotSetSpawnCommand = new PlotSpawnCommand();
     private final RegionRelatedCommand plotClearSpawnCommand = new PlotSpawnClearCommand();
 
     static LanguageItem lang(String id) {
-        return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-custom-spawn:" + id);
+        return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-spawn-tp:" + id);
     }
 
     @Override
@@ -119,7 +120,7 @@ public class WGSpawnTeleport extends BukkitAbstractModule {
     public static final class PlotSpawnClearCommand extends RegionRelatedCommand {
         @Override
         public void execute(Player player, ProtectedRegion region, CommandExecution context) {
-            var data = WGExtraInfoServiceV2.instance().getData(RegionKey.fromRegion(player, region));
+            var data = WGPlotInfoService.instance().getData(RegionKey.fromRegion(player, region));
 
             WGSpawnAPI.SPAWN_LOCATION.set(data, WGSpawnAPI.UNKNOWN_POS);
         }

@@ -4,7 +4,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.shared.jdbc.document.DocumentFieldCodec;
-import org.atcraftmc.starlight.worldguard.WGExtraInfoServiceV2;
+import org.atcraftmc.starlight.worldguard.WGPlotInfoService;
 import org.bukkit.World;
 import org.joml.Vector3d;
 
@@ -22,7 +22,7 @@ public interface WGSpawnAPI {
 
 
     static boolean toggleAllowTP(RegionKey key) {
-        var data = WGExtraInfoServiceV2.instance().getData(key);
+        var data = WGPlotInfoService.instance().getData(key);
 
         var previous = ALLOW_PUB_TELEPORT.get(data);
         var operated = !previous;
@@ -33,7 +33,7 @@ public interface WGSpawnAPI {
     }
 
     static boolean allowTP(RegionKey key) {
-        var data = WGExtraInfoServiceV2.instance().getData(key);
+        var data = WGPlotInfoService.instance().getData(key);
 
         if (!ALLOW_PUB_TELEPORT.exist(data)) {
             return true;
@@ -47,7 +47,7 @@ public interface WGSpawnAPI {
             return false;
         }
 
-        var data = WGExtraInfoServiceV2.instance().getData(RegionKey.fromRegion(world, region));
+        var data = WGPlotInfoService.instance().getData(RegionKey.fromRegion(world, region));
 
         SPAWN_LOCATION.set(data, pos);
 
@@ -55,7 +55,7 @@ public interface WGSpawnAPI {
     }
 
     static Optional<Vector3d> getSpawnLocation(RegionKey key) {
-        var data = WGExtraInfoServiceV2.instance().getData(key);
+        var data = WGPlotInfoService.instance().getData(key);
 
         if (!ALLOW_PUB_TELEPORT.exist(data)) {
             return Optional.empty();
