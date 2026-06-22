@@ -22,11 +22,11 @@ public final class RegionKey {
     }
 
     public static RegionKey fromDatabaseId(String in) {
-        if (!in.contains("//")) {
+        if (!in.contains("::")) {
             throw new IllegalArgumentException("Invalid region ID: " + in);
         }
 
-        var parts = in.split("//");
+        var parts = in.split("::");
         if (parts.length != 2) {
             throw new IllegalArgumentException("Invalid region ID: " + in);
         }
@@ -35,11 +35,11 @@ public final class RegionKey {
     }
 
     public static RegionKey fromSearchId(String in) {
-        if (!in.contains("::")) {
+        if (!in.contains("@")) {
             throw new IllegalArgumentException("Invalid region ID: " + in);
         }
 
-        var parts = in.split("::");
+        var parts = in.split("@");
         if (parts.length != 2) {
             throw new IllegalArgumentException("Invalid region ID: " + in);
         }
@@ -63,7 +63,11 @@ public final class RegionKey {
     }
 
     public String toDatabaseId() {
-        return this.worldId + "//" + this.regionId;
+        return this.worldId + "::" + this.regionId;
+    }
+
+    public String toSearchId() {
+        return this.regionId + "@" + this.worldId;
     }
 
     @Override
@@ -78,6 +82,11 @@ public final class RegionKey {
         }
 
         return this.worldId.equals(rk.worldId) && this.regionId.equals(rk.regionId);
+    }
+
+    @Override
+    public String toString() {
+        return toDatabaseId();
     }
 
     @Override
