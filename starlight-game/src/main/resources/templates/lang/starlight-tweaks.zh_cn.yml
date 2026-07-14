@@ -11,6 +11,9 @@ language:
     realistic-minecart: 真实矿车
     sit-on-player: 骑你头上
     stair-seat: 楼梯椅子
+    quick-deposit: 快速存入
+  quick-deposit:
+    deposit-info: "{global#sys-info}存入了 {#var} 个 {translate}{}{;}，容器中共 {#var} 个"
   item-drop-secure:
     warn: "{global#warning}由于安全原因你无法丢掉这个物品, 使用{#gold}/unlock-drop{#gray} 或 {click(command,/unlock-drop)}{#white}[{#green}点击{#white}]{;} {#gray}来临时解锁。"
     unlock: "{global#info}你已解除物品丢弃安全锁。锁定将于{#var}秒后恢复。"

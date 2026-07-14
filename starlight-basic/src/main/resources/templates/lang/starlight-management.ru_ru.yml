@@ -15,7 +15,7 @@ language:
     broadcast: "{global#sys-info}Игрок {#var} забанен администратором {#var} за {#var} до {#var}."
   vm-garbage-cleaner:
     gc-start: "{global#sys-operation}Запущена очистка памяти..."
-    gc-end: "{global#sys-operation}Очистка памяти завершена, освобождено %d МБ."
+    gc-end: "{global#sys-operation}Очистка памяти завершена, освобождено {#var} МБ."
   maintenance:
     start: "{global#sys-operation}Обслуживание начато."
     end: "{global#sys-operation}Обслуживание завершено."
@@ -88,3 +88,4 @@ language:
     sign-disable: "{global#sys-info}Фильтрация содержимого табличек {global#state-close}. Возможно, потребуется перезагрузка или перемещение, чтобы увидеть изменения."
     action-flag-hint: "{global#info}Согласно вашим настройкам, содержимое этого флага было скрыто. (Это сообщение не появится снова в этой сессии.)"
     action-sign-hint: "{global#info}Согласно вашим настройкам, содержимое этой таблички было скрыто. (Это сообщение не появится снова в этой сессии.)"
+    action-flag-banned: "{global#warning}На сервере включён строгий режим; этот флаг запрещён к размещению."

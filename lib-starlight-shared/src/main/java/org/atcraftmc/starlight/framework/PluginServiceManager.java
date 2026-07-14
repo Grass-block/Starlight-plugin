@@ -15,7 +15,8 @@ public class PluginServiceManager extends ServiceManager {
     @Override
     public Service createImplementation(ServiceContainer c, Class<Service> clazz) {
         var cid = this.context().holder(PluginConcept.class).id();
-        var cfg = ConfigContainer.getInstance().entry(c.owner() == null ? cid : c.owner().meta().id(), c.meta().id());
+        var container = this.context().holder(PluginApplication.class).config();
+        var cfg = container.entry(c.owner() == null ? cid : c.owner().meta().id(), c.meta().id());
 
         return createImplementation(clazz, cfg);
     }

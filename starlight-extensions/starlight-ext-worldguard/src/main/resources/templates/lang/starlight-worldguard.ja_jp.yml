@@ -4,6 +4,10 @@ language:
     no-rg: "{global#error}どの区画にも立っていません。"
     rg-not-self: "{global#error}この区画({#var})はあなたの領地ではありません。"
     cmd-error: "{global#error}領地管理システムの操作中にエラーが発生しました。管理者に連絡してください。"
+    rg-not-fount: "{global#error}区画 {#var} が見つかりません。"
+    rg-tp-disallow: "{global#error}区画 {#var} へのテレポートは許可されていません。"
+    rg-tp-unset: "{global#error}区画 {#var} にテレポート地点が設定されていません。"
+    rg-tp-complete: "{global#info}区画 {#var} にテレポートしました。"
   wg-we-check:
     region-limit: "{global#info}WorldEditの操作が送信されました。この操作は現在の領地内でのみ有効です。"
     region-warn: "{global#warning}WorldEditの操作が送信されました。領地内にいることを確認してください。"
@@ -22,3 +26,15 @@ language:
     ui-owner: "所有者:"
     ui-id: "エリアID:"
     ui-empty-owners: "[ なし、/plot claimで取得可能 ]"
+  wg-plot-info:
+    invalid-region: "{global#error}指定された区画が見つかりません。"
+    link-success: "{global#info}区画 {#var} がグループ {#var} にリンクされました。"
+    unlink-success: "{global#info}区画 {#var} のリンクが解除されました。"
+    invalid-group: "{global#error}指定されたグループが見つかりません。"
+    destroy-group-success: "{global#info}グループ {#var} が削除されました。"
+  wg-spawn-tp:
+    rg-tp-allow-set: "{global#info}区画 {#var} へのテレポートを許可しました。"
+    rg-tp-disallow-set: "{global#info}区画 {#var} へのテレポートを禁止しました。"
+    rg-spawn-set: "{global#info}区画 {#var} のテレポート地点を設定しました。"
+    rg-spawn-invalid: "{global#error}区画 {#var} のテレポート地点の設定に失敗しました。"
+    rg-spawn-clear: "{global#info}区画 {#var} のテレポート地点を削除しました。"

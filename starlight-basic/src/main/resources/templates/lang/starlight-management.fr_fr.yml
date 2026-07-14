@@ -15,7 +15,7 @@ language:
     broadcast: "{global#sys-info}Le joueur {#var} a été banni par {#var} pour {#var} jusqu'au {#var}."
   vm-garbage-cleaner:
     gc-start: "{global#sys-operation}Nettoyage de la mémoire démarré..."
-    gc-end: "{global#sys-operation}Nettoyage de la mémoire terminé, %d Mo libérés."
+    gc-end: "{global#sys-operation}Nettoyage de la mémoire terminé, {#var} Mo libérés."
   maintenance:
     start: "{global#sys-operation}Maintenance démarrée."
     end: "{global#sys-operation}Maintenance terminée."
@@ -88,3 +88,4 @@ language:
     sign-disable: "{global#sys-info}Le filtrage du contenu des panneaux a été {global#state-close}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
     action-flag-hint: "{global#info}Selon vos paramètres, cette bannière a été filtrée. (Ce message ne réapparaîtra pas durant cette session.)"
     action-sign-hint: "{global#info}Selon vos paramètres, ce panneau a été filtré. (Ce message ne réapparaîtra pas durant cette session.)"
+    action-flag-banned: "{global#warning}Le mode strict est activé sur le serveur ; cette bannière ne peut pas être placée."

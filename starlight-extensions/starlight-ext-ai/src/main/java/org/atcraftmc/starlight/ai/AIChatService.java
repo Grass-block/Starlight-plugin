@@ -11,42 +11,64 @@ import org.atcraftmc.starlight.framework.BukkitService;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 
-@ApplicationService(id = "ai-chat")
-public class AIChatService implements BukkitService {
-    public static final Logger LOGGER = SLPluginEnvironment.createLogger("AI-Chat");
-
+@ApplicationService(id = "ai-chat", impl = AIChatService.Impl.class)
+public interface AIChatService extends BukkitService {
+    Logger LOGGER = SLPluginEnvironment.createLogger("AI-Chat");
     @ServiceInject
-    public static final ServiceHolder<AIChatService> INSTANCE = new ServiceHolder<>();
-    private final Map<String, AIChatRequestHandler> handlers = new HashMap<>();
+    ServiceHolder<AIChatService> INSTANCE = new ServiceHolder<>();
 
     static AIChatService instance() {
         return INSTANCE.get();
     }
 
-    public AIChatRequestHandler handler(String name) {
-        return this.handlers.get(name);
-    }
+    AIChatRequestHandler handler(String name);
 
-    @Override
-    public void enable() {
-        AIChatRequestHandler.createDefaults();
+    AIChatRequestHandler defaultHandler();
 
-        var list = Configurations.groupedYML("ai-model", Set.of("example-astrobot.yml", "example-openai.yml"));
+    final class Impl implements AIChatService {
+        private final Map<String, AIChatRequestHandler> handlers = new HashMap<>();
+        private AIChatRequestHandler defaultHandler;
 
-        for (var c : list.entrySet()) {
-            var id = c.getKey();
-            if (id.startsWith("example")) {
-                return;
-            }
-            var config = c.getValue();
-
-            this.handlers.put(id, AIChatRequestHandler.create(config));
+        @Override
+        public AIChatRequestHandler handler(String name) {
+            return this.handlers.get(name);
         }
 
-        if (this.handlers.isEmpty()) {
-            LOGGER.warn("No services has created, please check your configuration.");
+        @Override
+        public AIChatRequestHandler defaultHandler() {
+            return this.defaultHandler;
+        }
+
+        @Override
+        public void enable() {
+            AIChatRequestHandler.createDefaults();
+
+            var dom = Configurations.standalone("ai-models");
+            var defaultId = dom.getString("default");
+            var services = dom.getConfigurationSection("services");
+
+            if (services == null) {
+                LOGGER.warn("No services has created, please check your configuration.");
+                return;
+            }
+
+            for (var id : services.getKeys(false)) {
+                this.handlers.put(id, AIChatRequestHandler.create(Objects.requireNonNull(services.getConfigurationSection(id))));
+            }
+
+            if (this.handlers.isEmpty()) {
+                LOGGER.warn("No services has created, please check your configuration.");
+            }
+
+            if (!this.handlers.containsKey(defaultId)) {
+                var fallbackId = this.handlers.keySet().iterator().next();
+                LOGGER.warn("No default exist, falling back to service {}", fallbackId);
+                this.defaultHandler = this.handlers.get(fallbackId);
+            } else {
+                this.defaultHandler = this.handlers.get(defaultId);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ language:
     broadcast: "{global#sys-info}Player {#var} was banned by {#var} for {#var} until {#var}."
   vm-garbage-cleaner:
     gc-start: "{global#sys-operation}Memory collection started..."
-    gc-end: "{global#sys-operation}Memory collection completed, freed %d MB."
+    gc-end: "{global#sys-operation}Memory collection completed, freed {#var} MB."
   maintenance:
     start: "{global#sys-operation}Maintenance started."
     end: "{global#sys-operation}Maintenance ended."
@@ -88,3 +88,4 @@ language:
     sign-disable: "{global#sys-info}Sign content filtering {global#state-close}. You may need to reload or move to see changes."
     action-flag-hint: "{global#info}Based on your settings, this banner content has been filtered. (This message will not appear again this session.)"
     action-sign-hint: "{global#info}Based on your settings, this sign content has been filtered. (This message will not appear again this session.)"
+    action-flag-banned: "{global#warning}Strict mode is enabled on the server; this banner is not allowed to be placed."

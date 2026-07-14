@@ -34,6 +34,7 @@ public final class SLGamePackage extends MultiPackageProvider {
         b.module(StairSeat.class);
         b.module(RealisticMinecart.class);
         b.module(SitOnPlayer.class);
+        b.module(QuickDeposit.class);
     }
 
     @ApplicationPackageProvider(id = "starlight-oddities")

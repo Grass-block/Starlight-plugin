@@ -4,7 +4,7 @@ plugins {
 
 group = "org.atcraftmc.starlight"
 
-project.setProperty("version", "26.6.0")
+project.setProperty("version", "26.6.1")
 
 apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 apply from: rootDir.getAbsolutePath() + "/info.gradle"

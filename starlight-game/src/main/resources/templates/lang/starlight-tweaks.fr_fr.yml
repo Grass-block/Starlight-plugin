@@ -11,6 +11,9 @@ language:
     realistic-minecart: Wagonnet réaliste
     sit-on-player: S'asseoir sur un joueur
     stair-seat: Siège d'escalier
+    quick-deposit: Dépôt rapide
+  quick-deposit:
+    deposit-info: "{global#sys-info}Déposé {#var} x {translate}{}{;}, total {#var} dans le conteneur"
   item-drop-secure:
     warn: "{global#warning}Vous ne pouvez pas jeter cet objet pour des raisons de sécurité, utilisez {#gold}/unlock-drop{#gray} ou {click(command,/unlock-drop)}{#white}[{#green}Cliquez{#white}]{;} {#gray} pour déverrouiller temporairement."
     unlock: "{global#info}Vous avez déverrouillé la sécurité de jet. Le verrouillage sera rétabli dans {#var} secondes."

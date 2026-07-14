@@ -11,6 +11,9 @@ language:
     realistic-minecart: リアル鉱車
     sit-on-player: プレイヤーの上に乗る
     stair-seat: 階段チェア
+    quick-deposit: クイック預け入れ
+  quick-deposit:
+    deposit-info: "{global#sys-info}{#var} 個の {translate}{}{;} を預けました、コンテナ内合計 {#var} 個"
   item-drop-secure:
     warn: "{global#warning}セキュリティ上の理由でこのアイテムを捨てることができません。{#gold}/unlock-drop{#gray} または {click(command,/unlock-drop)}{#white}[{#green}クリック{#white}]{;} {#gray}で一時的にロック解除できます。"
     unlock: "{global#info}アイテム落下防止ロックを解除しました。ロックは{#var}秒後に復帰します。"

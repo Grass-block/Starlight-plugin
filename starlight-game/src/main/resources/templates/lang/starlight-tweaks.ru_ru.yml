@@ -11,6 +11,9 @@ language:
     realistic-minecart: Реалистичная вагонетка
     sit-on-player: Сидеть на игроке
     stair-seat: Сидение на ступеньках
+    quick-deposit: Быстрое депонирование
+  quick-deposit:
+    deposit-info: "{global#sys-info}Депонировано {#var} x {translate}{}{;}, всего {#var} в контейнере"
   item-drop-secure:
     warn: "{global#warning}Вы не можете выбросить этот предмет по соображениям безопасности, используйте {#gold}/unlock-drop{#gray} или {click(command,/unlock-drop)}{#white}[{#green}Нажмите{#white}]{;} {#gray} для временной разблокировки."
     unlock: "{global#info}Вы сняли защиту от выбрасывания. Блокировка восстановится через {#var} сек."

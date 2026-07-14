@@ -257,7 +257,9 @@ public final class Waypoints extends SLCommandModule {
     public void list(CommandExecution context) {
         var sender = context.requireSenderAsPlayer();
         var locale = LocaleService.locale(sender);
-        var list = ((ComponentBlock) this.language.item("list").component(locale));
+        var list = new ComponentBlock();
+
+        list.add(this.language.item("list").component(locale).asComponent());
 
         try {
             this.service.listAccessible(sender.getUniqueId()).stream().filter((w) -> !w.getName().endsWith("#home")).forEach((w) -> {

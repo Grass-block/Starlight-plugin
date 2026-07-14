@@ -15,7 +15,7 @@ language:
     broadcast: "{global#sys-info}玩家{#var} 因 {#var} 被操作者 {#var} 封禁至 {#var}。"
   vm-garbage-cleaner:
     gc-start: "{global#sys-operation}内存回收开始..."
-    gc-end: "{global#sys-operation}内存回收完成, 释放 %d MB。"
+    gc-end: "{global#sys-operation}内存回收完成, 释放 {#var} MB。"
   maintenance:
     start: "{global#sys-operation}维护开始。"
     end: "{global#sys-operation}维护结束。"
@@ -88,3 +88,4 @@ language:
     sign-disable: "{global#sys-info}您已{global#state-close}告示牌内容屏蔽, 可能需要重新加载或位移来刷新更改。"
     action-flag-hint: "{global#info}按照您的设置，当前旗帜内容已被屏蔽。(本消息此会话内不再提示)"
     action-sign-hint: "{global#info}按照您的设置，当前告示牌内容已被屏蔽。(本消息此会话内不再提示)"
+    action-flag-banned: "{global#warning}服务端已开启严格模式，此旗帜禁止放置。"

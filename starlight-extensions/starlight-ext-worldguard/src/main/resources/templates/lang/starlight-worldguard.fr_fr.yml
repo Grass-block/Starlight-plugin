@@ -4,6 +4,10 @@ language:
     no-rg: "{global#error}Vous n'êtes sur aucune parcelle."
     rg-not-self: "{global#error}Cette parcelle ({#var}) ne vous appartient pas."
     cmd-error: "{global#error}Erreur lors de l'opération du système de gestion des régions. Veuillez contacter un administrateur."
+    rg-not-fount: "{global#error}Parcelle {#var} introuvable."
+    rg-tp-disallow: "{global#error}Téléportation vers {#var} non autorisée."
+    rg-tp-unset: "{global#error}Aucun point de téléportation défini pour {#var}."
+    rg-tp-complete: "{global#info}Téléporté vers {#var}."
   wg-we-check:
     region-limit: "{global#info}Votre opération WorldEdit a été soumise. Cette opération n'est effective que dans votre région actuelle."
     region-warn: "{global#warning}Votre opération WorldEdit a été soumise. Veuillez confirmer que vous êtes dans votre région."
@@ -22,3 +26,15 @@ language:
     ui-owner: "Propriétaire:"
     ui-id: "ID Région:"
     ui-empty-owners: "[ Aucun, utilisez /plot claim pour réclamer ]"
+  wg-plot-info:
+    invalid-region: "{global#error}Parcelle introuvable."
+    link-success: "{global#info}La parcelle {#var} a été liée au groupe {#var}."
+    unlink-success: "{global#info}La parcelle {#var} a été dissociée."
+    invalid-group: "{global#error}Groupe introuvable."
+    destroy-group-success: "{global#info}Le groupe {#var} a été supprimé."
+  wg-spawn-tp:
+    rg-tp-allow-set: "{global#info}Téléportation vers {#var} autorisée."
+    rg-tp-disallow-set: "{global#info}Téléportation vers {#var} interdite."
+    rg-spawn-set: "{global#info}Point de téléportation défini pour {#var}."
+    rg-spawn-invalid: "{global#error}Échec de la définition du point pour {#var}."
+    rg-spawn-clear: "{global#info}Point de téléportation de {#var} supprimé."

@@ -12,12 +12,12 @@ import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.qlib.texts.placeholder.StringObjectPlaceHolder;
+import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.VisualScoreboardService;
@@ -234,7 +234,10 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
         @Override
         public void checkCompatibility() throws APIIncompatibleException {
             Compatibility.requireClass(() -> Class.forName("io.papermc.paper.scoreboard.numbers.NumberFormat"));
-            Compatibility.assertion(ConfigContainer.getInstance().value("quark-display:player-name-header:below-name-enable").bool());
+            Compatibility.assertion(StarlightBukkitCore.instance()
+                                            .config()
+                                            .value("quark-display:player-name-header:below-name-enable")
+                                            .bool());
         }
 
         public Component build(Player player, MinecraftLocale locale) {

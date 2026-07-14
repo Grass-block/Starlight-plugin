@@ -19,15 +19,37 @@ import org.atcraftmc.starlight.worldguard.data.RegionKey_L;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @ApplicationService(id = "wg-region-service")
 public interface WGRegionService extends Service {
+
+
     @ServiceInject
     static void checkServiceCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("WorldGuard");
         Compatibility.requirePlugin("WorldEdit");
+    }
+
+    static Set<RegionKey> getAllKeys() {
+        var result = new HashSet<RegionKey>();
+        var container = WorldGuard.getInstance()
+                .getPlatform()
+                .getRegionContainer();
+
+        for (var world : Bukkit.getWorlds()) {
+            var manager = container.get(BukkitAdapter.adapt(world));
+            if (manager == null) {
+                continue;
+            }
+
+            manager.getRegions().forEach((id, region) -> result.add(new RegionKey(world.getName(), id)));
+        }
+
+        return result;
     }
 
     static Optional<ProtectedRegion> getRegion(RegionKey key) {
@@ -134,5 +156,4 @@ public interface WGRegionService extends Service {
         Compatibility.requirePlugin("WorldGuard");
         Compatibility.requirePlugin("WorldEdit");
     }
-
 }

@@ -43,7 +43,7 @@ public interface WGSpawnAPI {
     }
 
     static boolean setRegionSpawnLocation(World world, ProtectedRegion region, Vector3d pos) {
-        if (region.contains(BlockVector3.at(pos.x, pos.y, pos.z))) {
+        if (!region.contains(BlockVector3.at(pos.x, pos.y, pos.z))) {
             return false;
         }
 
@@ -57,7 +57,7 @@ public interface WGSpawnAPI {
     static Optional<Vector3d> getSpawnLocation(RegionKey key) {
         var data = WGPlotInfoService.instance().getData(key);
 
-        if (!ALLOW_PUB_TELEPORT.exist(data)) {
+        if (!SPAWN_LOCATION.exist(data)) {
             return Optional.empty();
         }
 

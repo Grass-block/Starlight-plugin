@@ -4,6 +4,10 @@ language:
     no-rg: "{global#error}您沒有踩在任何地塊上。"
     rg-not-self: "{global#error}這塊地皮({#var})不是您的領地。"
     cmd-error: "{global#error}操作領地管理系統時出錯，請聯繫管理員。"
+    rg-not-fount: "{global#error}未找到領地 {#var}。"
+    rg-tp-disallow: "{global#error}領地 {#var} 不允許傳送。"
+    rg-tp-unset: "{global#error}領地 {#var} 未設定傳送點。"
+    rg-tp-complete: "{global#info}已傳送至領地 {#var}。"
   wg-we-check:
     region-limit: "{global#info}您的WorldEdit操作已提交，此操作只對您當前的領地範圍內有效。"
     region-warn: "{global#warning}您的WorldEdit操作已提交，請確認您的位置在您的領地內。"
@@ -22,3 +26,15 @@ language:
     ui-owner: "所有者:"
     ui-id: "區域id:"
     ui-empty-owners: "[ 無, 可使用/plot claim佔領 ]"
+  wg-plot-info:
+    invalid-region: "{global#error}未找到指定的領地。"
+    link-success: "{global#info}領地 {#var} 已成功鏈接到群組 {#var}。"
+    unlink-success: "{global#info}領地 {#var} 已成功解除鏈接。"
+    invalid-group: "{global#error}未找到指定的群組。"
+    destroy-group-success: "{global#info}群組 {#var} 已成功刪除。"
+  wg-spawn-tp:
+    rg-tp-allow-set: "{global#info}已允許傳送至 {#var}。"
+    rg-tp-disallow-set: "{global#info}已禁止傳送至 {#var}。"
+    rg-spawn-set: "{global#info}領地 {#var} 傳送點已設定。"
+    rg-spawn-invalid: "{global#error}領地 {#var} 傳送點設定失敗。"
+    rg-spawn-clear: "{global#info}領地 {#var} 的傳送點已清除。"

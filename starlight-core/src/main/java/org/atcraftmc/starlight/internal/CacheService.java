@@ -12,6 +12,9 @@ import java.util.Map;
 @ApplicationService(id = "cache", impl = CacheService.Impl.class)
 public interface CacheService extends BukkitService {
 
+
+
+
     @ServiceInject
     ServiceHolder<CacheService> INSTANCE = new ServiceHolder<>();
 

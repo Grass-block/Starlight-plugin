@@ -84,6 +84,12 @@ public final class WorldObjectFilter extends BukkitAbstractModule {
         var type = event.getBlock().getType();
 
         if (type == Material.RED_BANNER || type == Material.WHITE_BANNER || type == Material.BLUE_BANNER) {
+            if(this.config().value("ban-flags").bool()){
+                event.setCancelled(true);
+                language().item("action-flag-banned").send(QLib.audience(event.getPlayer()));
+                return;
+            }
+
             if (!FILTER_FLAGS.get(JDBCData.PLAYER_SHARED, event.getPlayer().getUniqueId())) {
                 return;
             }

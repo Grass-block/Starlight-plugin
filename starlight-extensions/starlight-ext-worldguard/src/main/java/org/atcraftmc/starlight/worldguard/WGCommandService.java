@@ -10,14 +10,17 @@ import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
+import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
+import org.atcraftmc.starlight.worldguard.api.RegionKey;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ApplicationService(id = "wg-command")
 public interface WGCommandService extends Service {
@@ -41,6 +44,10 @@ public interface WGCommandService extends Service {
 
     static LanguageItem lang(String id) {
         return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-command:" + id);
+    }
+
+    static void suggestRegions(CommandSuggestion suggestion,int ptr){
+        suggestion.suggest(ptr, WGRegionService.getAllKeys().stream().map(RegionKey::toSearchId).collect(Collectors.toSet()));
     }
 
     static Optional<ProtectedRegion> getManageableRegion(CommandExecution context) {

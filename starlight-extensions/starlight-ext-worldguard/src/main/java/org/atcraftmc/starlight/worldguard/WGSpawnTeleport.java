@@ -10,6 +10,7 @@ import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.util.BukkitSound;
 import org.atcraftmc.starlight.util.StandaloneCommand;
 import org.atcraftmc.starlight.worldguard.api.RegionKey;
 import org.atcraftmc.starlight.worldguard.api.RegionRelatedCommand;
@@ -56,13 +57,13 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
             var region = WGRegionService.getRegion(rk);
 
             if (region.isEmpty()) {
-                WGCommandService.lang("rg-not-fount").send(QLib.audience(context.getSender()));
+                WGCommandService.lang("rg-not-fount").send(QLib.audience(context.getSender()), rk.toSearchId());
                 return;
             }
 
             if (!WGSpawnAPI.allowTP(rk)) {
                 if (region.get().getMembers().contains(player.getUniqueId())) {
-                    WGCommandService.lang("rg-tp-disallow").send(QLib.audience(context.getSender()));
+                    WGCommandService.lang("rg-tp-disallow").send(QLib.audience(context.getSender()), rk.toSearchId());
                     return;
                 }
             }
@@ -70,7 +71,7 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
             var spawn = WGSpawnAPI.getSpawnLocation(rk);
 
             if (spawn.isEmpty()) {
-                WGCommandService.lang("rg-tp-unset").send(QLib.audience(context.getSender()));
+                WGCommandService.lang("rg-tp-unset").send(QLib.audience(context.getSender()), rk.toSearchId());
                 return;
             }
 
@@ -79,13 +80,16 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
             var sy = s.y();
             var sz = s.z();
 
-            Players.teleport(player, new Location(Bukkit.getWorld(rk.getWorldId()), sx, sy, sz));
-            WGCommandService.lang("rg-tp-complete").send(QLib.audience(context.getSender()));
+            Players.teleport(player, new Location(Bukkit.getWorld(rk.getWorldId()), sx, sy, sz)).thenAccept((b) -> {
+                BukkitSound.WARP.play(player);
+                WGCommandService.lang("rg-tp-complete").send(QLib.audience(context.getSender()), rk.toSearchId());
+            });
+
         }
 
         @Override
         public void suggest(CommandSuggestion suggestion) {
-            super.suggest(suggestion);
+            WGCommandService.suggestRegions(suggestion, 0);
         }
     }
 
@@ -93,10 +97,12 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
     public static final class PlotTeleportPermissionCommand extends RegionRelatedCommand {
         @Override
         public void execute(Player player, ProtectedRegion region, CommandExecution context) {
-            if (WGSpawnAPI.toggleAllowTP(RegionKey.fromRegion(player, region))) {
-                lang("rg-tp-allow-set").send(QLib.audience(context.getSender()));
+            var rk = RegionKey.fromRegion(player, region);
+
+            if (WGSpawnAPI.toggleAllowTP(rk)) {
+                lang("rg-tp-allow-set").send(QLib.audience(context.getSender()), rk.toSearchId());
             } else {
-                lang("rg-tp-disallow-set").send(QLib.audience(context.getSender()));
+                lang("rg-tp-disallow-set").send(QLib.audience(context.getSender()), rk.toSearchId());
             }
         }
     }
@@ -107,11 +113,12 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
         public void execute(Player player, ProtectedRegion region, CommandExecution context) {
             var location = player.getLocation();
             var vec = new Vector3d(location.getX(), location.getY(), location.getZ());
+            var rk = RegionKey.fromRegion(player, region);
 
             if (WGSpawnAPI.setRegionSpawnLocation(player.getWorld(), region, vec)) {
-                lang("rg-spawn-set").send(QLib.audience(context.getSender()));
+                lang("rg-spawn-set").send(QLib.audience(context.getSender()), rk.toSearchId());
             } else {
-                lang("rg-spawn-invalid").send(QLib.audience(context.getSender()));
+                lang("rg-spawn-invalid").send(QLib.audience(context.getSender()), rk.toSearchId());
             }
         }
     }
@@ -120,9 +127,11 @@ public final class WGSpawnTeleport extends BukkitAbstractModule {
     public static final class PlotSpawnClearCommand extends RegionRelatedCommand {
         @Override
         public void execute(Player player, ProtectedRegion region, CommandExecution context) {
-            var data = WGPlotInfoService.instance().getData(RegionKey.fromRegion(player, region));
+            var rk = RegionKey.fromRegion(player, region);
+            var data = WGPlotInfoService.instance().getData(rk);
 
             WGSpawnAPI.SPAWN_LOCATION.set(data, WGSpawnAPI.UNKNOWN_POS);
+            lang("rg-spawn-clear").send(QLib.audience(context.getSender()), rk.toSearchId());
         }
     }
 }

@@ -38,6 +38,6 @@ public final class SLWorldGuardPackage extends MultiPackageProvider {
     @EarlyLoading
     public static void preload() {
         //deprecated
-        //WGExtraInfoService.validateFlag();
+        WGExtraInfoService.validateFlag();
     }
 }

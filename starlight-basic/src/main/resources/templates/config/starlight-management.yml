@@ -11,6 +11,7 @@ config:
   chat-report:
     append: '{click(command,/chat-report {});color(red)}[!]' #report interactive text
   world-object-filter:
+    ban-flags: false
     notify-gui:
       - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
       - " {msg#notify-title}"

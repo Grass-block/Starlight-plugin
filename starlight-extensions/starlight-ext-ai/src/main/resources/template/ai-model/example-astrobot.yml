@@ -1,4 +1,0 @@
-ai-model:
-  service: astro-bot
-  base-url: "http://localhost:6185"
-  api-key: "your-api-key"

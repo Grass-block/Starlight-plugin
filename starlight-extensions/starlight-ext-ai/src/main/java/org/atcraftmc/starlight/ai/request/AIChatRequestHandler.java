@@ -21,10 +21,10 @@ public interface AIChatRequestHandler {
             throw new IllegalArgumentException("Configuration section must contain 'service' key");
         }
 
-        var factory = FACTORIES.get(section.getString(Objects.requireNonNull(section.getString("service"))));
+        var factory = FACTORIES.get(Objects.requireNonNull(section.getString("service")));
 
         if (factory == null) {
-            throw new IllegalArgumentException("Unknown service " + section.getString(Objects.requireNonNull(section.getString("service"))));
+            throw new IllegalArgumentException("Unknown service " + Objects.requireNonNull(section.getString("service")));
         }
 
         return factory.apply(section);
@@ -40,7 +40,7 @@ public interface AIChatRequestHandler {
 
             return new OpenAICompatibleHandler(url, key, model, maxTokens, temperature);
         });
-        register("astro-bot", section -> {
+        register("astrbot", section -> {
             var url = Objects.requireNonNull(section.getString("base-url"));
             var key = Objects.requireNonNull(section.getString("api-key"));
 

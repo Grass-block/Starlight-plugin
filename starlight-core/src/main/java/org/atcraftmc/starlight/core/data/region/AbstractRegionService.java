@@ -2,10 +2,10 @@ package org.atcraftmc.starlight.core.data.region;
 
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
-import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
+import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
 import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
@@ -235,10 +235,14 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
         var result = new HashSet<R>();
 
         for (var uuid : cache.getRegionContained(loc.getBlockX(), loc.getBlockZ())) {
-            var r = cache.getRegion(uuid).getRegion();
+            var r = cache.getRegion(uuid);
 
-            if (r.asAABB().isVectorInside(new Vector3d(loc.getX(), loc.getY(), loc.getZ()))) {
-                result.add(r);
+            if (r == null) {
+                continue;
+            }
+
+            if (r.getRegion().asAABB().isVectorInside(new Vector3d(loc.getX(), loc.getY(), loc.getZ()))) {
+                result.add(r.getRegion());
             }
         }
 
@@ -311,7 +315,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
     }
 
     public WorldRegionMonitorCache<R> getCache(String world) {
-        return this.caches.computeIfAbsent(world, (k) -> new WorldRegionMonitorCache<R>(world, this));
+        return this.caches.computeIfAbsent(world, (k) -> new WorldRegionMonitorCache<>(world, this));
     }
 
     public Set<WorldAABB> queryRegions(PreparedStatement ps) throws SQLException {

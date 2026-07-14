@@ -2,16 +2,18 @@ package org.atcraftmc.starlight.ai.request;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.ai.AIChatService;
 import org.atcraftmc.starlight.ai.chat.ChatRequest;
 import org.atcraftmc.starlight.ai.chat.ChatResponse;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-//todo: test needed
 public final class AstroBotHandler implements AIChatRequestHandler {
     private final HttpClient client;
     private final String endpoint;
@@ -19,39 +21,61 @@ public final class AstroBotHandler implements AIChatRequestHandler {
 
     public AstroBotHandler(String baseUrl, String apiKey) {
         this.client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).build();
-        this.endpoint = baseUrl.replaceAll("/+$", "") + "/api/chat/send";
+        this.endpoint = baseUrl.replaceAll("/+$", "") + "/api/v1/chat";
         this.apiKey = apiKey;
+    }
+
+    private static String findDataLine(String event) {
+        for (var line : event.split("\n")) {
+            var trimmed = line.trim();
+            if (trimmed.startsWith("data:")) {
+                return trimmed.substring(5).trim();
+            }
+        }
+        return null;
     }
 
     @Override
     public ChatResponse chat(ChatRequest request) {
-        var body = buildRequest(request);
+        var obj = new JsonObject();
+
+        obj.addProperty("username", request.username());
+        obj.addProperty("session_id", request.contextId());
+        obj.addProperty("conversation_id", request.contextId());
+        obj.addProperty("message", request.userInput());
+
+        var body = HttpRequest.BodyPublishers.ofString(obj.toString());
         var req = HttpRequest.newBuilder()
                 .uri(URI.create(this.endpoint))
+                .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + this.apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .timeout(Duration.ofSeconds(60))
+                .header("X-API-Key", this.apiKey)
+                .method("POST", body)
                 .build();
 
         try {
             var response = this.client.send(req, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200) {
-                return ChatResponse.error("AstroBot error: HTTP " + response.statusCode() + " - " + response.body());
-            }
-            return parseResponse(response.body());
-        } catch (Exception e) {
-            return ChatResponse.error(e.getClass().getSimpleName() + ": " + e.getMessage());
-        }
-    }
 
-    private String buildRequest(ChatRequest request) {
-        var root = new JsonObject();
-        if (request.systemPrompt() != null && !request.systemPrompt().isEmpty()) {
-            root.addProperty("system_prompt", request.systemPrompt());
+            for (var line : response.body().split("\n")) {
+                if(!line.startsWith("data:")) {
+                    continue;
+                }
+
+                if(!line.contains("complete")){
+                    continue;
+                }
+
+                var json = JsonParser.parseString(line.substring(5)).getAsJsonObject();
+                return new ChatResponse(json.get("data").getAsString(), true, "");
+            }
+
+            AIChatService.LOGGER.error("Cannot dispatch return: ");
+            AIChatService.LOGGER.error(response.body());
+
+            return new ChatResponse("", false, "No message found");
+        } catch (IOException | InterruptedException e) {
+            return new ChatResponse("[ERROR]", false, e.getMessage());
         }
-        root.addProperty("message", request.userInput());
-        return root.toString();
     }
 
     private ChatResponse parseResponse(String body) {
@@ -77,15 +101,5 @@ public final class AstroBotHandler implements AIChatRequestHandler {
         } catch (Exception e) {
             return ChatResponse.error("parse failed: " + e.getMessage());
         }
-    }
-
-    private static String findDataLine(String event) {
-        for (var line : event.split("\n")) {
-            var trimmed = line.trim();
-            if (trimmed.startsWith("data:")) {
-                return trimmed.substring(5).trim();
-            }
-        }
-        return null;
     }
 }

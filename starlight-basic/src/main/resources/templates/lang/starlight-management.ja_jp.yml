@@ -15,7 +15,7 @@ language:
     broadcast: "{global#sys-info}プレイヤー {#var} が {#var} により実行者 {#var} によって {#var} までBANされました。"
   vm-garbage-cleaner:
     gc-start: "{global#sys-operation}メモリ回収を開始..."
-    gc-end: "{global#sys-operation}メモリ回収完了、%d MBを解放しました。"
+    gc-end: "{global#sys-operation}メモリ回収完了、{#var} MBを解放しました。"
   maintenance:
     start: "{global#sys-operation}メンテナンスを開始しました。"
     end: "{global#sys-operation}メンテナンスが終了しました。"
@@ -88,3 +88,4 @@ language:
     sign-disable: "{global#sys-info}看板内容フィルタリングを{global#state-close}しました。変更を反映するには再読み込みまたは移動が必要な場合があります。"
     action-flag-hint: "{global#info}設定に基づき、この旗の内容はフィルタリングされました。(このメッセージはこのセッションでは再表示されません。)"
     action-sign-hint: "{global#info}設定に基づき、この看板の内容はフィルタリングされました。(このメッセージはこのセッションでは再表示されません。)"
+    action-flag-banned: "{global#warning}サーバーで厳格モードが有効になっています。この旗は設置できません。"

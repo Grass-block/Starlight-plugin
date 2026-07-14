@@ -1,11 +1,21 @@
 ## V5: Now - Gluon engine
 
+### 26.6.2
+
+- Fixed service configuration unavailable on certain service.
+- Fixed command render issue on waypoint listing command.
+- Fixed error on hot-reloading.
+- Added QuickDeposit module.
+
 ### 26.6.1
 
 - Modern minecart sync now cover rest version incompatible.
 - Improved performance of events.
 - Added World-object-filter
 - Moved world-guard data from wg to local.
+- Fixed null error on handling explode event.
+- Fixed formatting error on GC report.
+- Fixed shulker box lost by thread delay.
 
 ### 26.6.0
 

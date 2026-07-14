@@ -4,6 +4,10 @@ language:
     no-rg: "{global#error}Вы не находитесь на каком-либо участке."
     rg-not-self: "{global#error}Этот участок ({#var}) не ваш."
     cmd-error: "{global#error}Ошибка при работе с системой управления регионами. Обратитесь к администратору."
+    rg-not-fount: "{global#error}Участок {#var} не найден."
+    rg-tp-disallow: "{global#error}Телепортация на участок {#var} запрещена."
+    rg-tp-unset: "{global#error}На участке {#var} не установлена точка телепортации."
+    rg-tp-complete: "{global#info}Телепортирован на участок {#var}."
   wg-we-check:
     region-limit: "{global#info}Ваша операция WorldEdit отправлена. Эта операция действует только в пределах вашего текущего региона."
     region-warn: "{global#warning}Ваша операция WorldEdit отправлена. Подтвердите, что вы находитесь в пределах своего региона."
@@ -22,3 +26,15 @@ language:
     ui-owner: "Владелец:"
     ui-id: "ID региона:"
     ui-empty-owners: "[ Нет, используйте /plot claim для захвата ]"
+  wg-plot-info:
+    invalid-region: "{global#error}Указанный участок не найден."
+    link-success: "{global#info}Участок {#var} привязан к группе {#var}."
+    unlink-success: "{global#info}Участок {#var} отвязан."
+    invalid-group: "{global#error}Указанная группа не найдена."
+    destroy-group-success: "{global#info}Группа {#var} удалена."
+  wg-spawn-tp:
+    rg-tp-allow-set: "{global#info}Телепортация на {#var} разрешена."
+    rg-tp-disallow-set: "{global#info}Телепортация на {#var} запрещена."
+    rg-spawn-set: "{global#info}Точка телепортации для {#var} установлена."
+    rg-spawn-invalid: "{global#error}Не удалось установить точку телепортации для {#var}."
+    rg-spawn-clear: "{global#info}Точка телепортации для {#var} удалена."

@@ -4,6 +4,10 @@ language:
     no-rg: "{global#error}You are not standing on any region."
     rg-not-self: "{global#error}This region ({#var}) is not yours."
     cmd-error: "{global#error}An error occurred while operating the region management system. Please contact an administrator."
+    rg-not-fount: "{global#error}Region {#var} not found."
+    rg-tp-disallow: "{global#error}Teleportation to region {#var} is not allowed."
+    rg-tp-unset: "{global#error}Region {#var} has no spawn point set."
+    rg-tp-complete: "{global#info}Teleported to region {#var}."
   wg-we-check:
     region-limit: "{global#info}Your WorldEdit operation has been submitted. This operation is only effective within your current region."
     region-warn: "{global#warning}Your WorldEdit operation has been submitted. Please confirm you are within your region."
@@ -22,3 +26,15 @@ language:
     ui-owner: "Owner:"
     ui-id: "Region ID:"
     ui-empty-owners: "[ None, use /plot claim to claim ]"
+  wg-plot-info:
+    invalid-region: "{global#error}The specified region was not found."
+    link-success: "{global#info}Region {#var} has been linked to group {#var}."
+    unlink-success: "{global#info}Region {#var} has been unlinked."
+    invalid-group: "{global#error}The specified group was not found."
+    destroy-group-success: "{global#info}Group {#var} has been deleted."
+  wg-spawn-tp:
+    rg-tp-allow-set: "{global#info}Teleport to {#var} is now allowed."
+    rg-tp-disallow-set: "{global#info}Teleport to {#var} is now disallowed."
+    rg-spawn-set: "{global#info}Spawn point for region {#var} has been set."
+    rg-spawn-invalid: "{global#error}Failed to set spawn point for region {#var}."
+    rg-spawn-clear: "{global#info}Spawn point for region {#var} has been cleared."
