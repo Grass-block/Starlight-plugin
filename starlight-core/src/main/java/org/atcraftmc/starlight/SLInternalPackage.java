@@ -51,8 +51,10 @@ public interface SLInternalPackage {
     static void core(ContentBuilder b) {
         b.service(PlayerIdentificationService.class);
         b.service(JDBCService.class);
+        b.service(PlayerReadyService.class);
 
         //b.service(LocaleService.class);
+
         b.service(BukkitLocaleService.class);
         b.service(PermissionService.class);
         b.service(ModuleDataService.class);//legacy

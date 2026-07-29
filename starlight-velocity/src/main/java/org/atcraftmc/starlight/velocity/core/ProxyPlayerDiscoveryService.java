@@ -13,6 +13,7 @@ import me.gb2022.apm.remote.event.message.RemoteMessageEvent;
 import me.gb2022.gluon.service.*;
 import me.gb2022.simpnet.util.BufferUtil;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.starlight.APMChannels;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.IRemoteMessageService;
 import org.atcraftmc.starlight.shared.RemoteMessageService;
@@ -28,12 +29,6 @@ import java.util.*;
 @ApplicationService(id = "proxy-player-track", impl = ProxyPlayerDiscoveryService.ServiceImpl.class, layer = ServiceLayer.USER)
 public interface ProxyPlayerDiscoveryService extends Service {
     Logger LOGGER = SLPluginEnvironment.createLogger("ProxyDiscoveryService");
-
-    String MSG_PROXY_JOIN = "sync:join";
-    String MSG_PROXY_LEAVE = "sync:leave";
-    String MSG_PROXY_CONNECT = "sync:connect";
-    String MSG_PROXY_ACT_CONNECT = "sync:act-connect";
-    String MSG_DISCOVER_PLAYER = "sync:discover";
 
     @ServiceInject
     ServiceHolder<ProxyPlayerDiscoveryService> INSTANCE = new ServiceHolder<>();
@@ -73,7 +68,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
 
         @Subscribe(order = PostOrder.LAST)
         public void onPlayerLeft(DisconnectEvent event) {
-            this.service.broadcast(MSG_PROXY_LEAVE, event.getPlayer().getUniqueId().toString());
+            this.service.broadcast(APMChannels.PROXY_LEAVE, event.getPlayer().getUniqueId().toString());
 
             var plugin = StarlightVelocity.instance();
 
@@ -93,14 +88,14 @@ public interface ProxyPlayerDiscoveryService extends Service {
             this.playerIdMap.put(event.getPlayer().getUsername(), player);
 
             if (ProxyJoinedEvent.isInitialConnect(event)) {
-                this.service.broadcast(MSG_PROXY_JOIN, (b) -> {
+                this.service.broadcast(APMChannels.PROXY_JOIN, (b) -> {
                     BufferUtil.writeString(b, event.getPlayer().getUniqueId().toString());
                     BufferUtil.writeString(b, event.getPlayer().getUsername());
                     BufferUtil.writeString(b, event.getServer().getServerInfo().getName());
                 });
             } else {
                 var prev = event.getPreviousServer().orElseThrow().getServerInfo().getName();
-                this.service.broadcast(MSG_PROXY_CONNECT, (b) -> {
+                this.service.broadcast(APMChannels.PROXY_CONNECT, (b) -> {
                     BufferUtil.writeString(b, event.getPlayer().getUniqueId().toString());
                     BufferUtil.writeString(b, event.getServer().getServerInfo().getName());
                     BufferUtil.writeString(b, prev);
@@ -111,10 +106,10 @@ public interface ProxyPlayerDiscoveryService extends Service {
         @APMRemoteEvent
         public void onConnectorReady(RemoteMessenger ctx, ConnectorReadyEvent event) {
             LOGGER.info("joined network, discovering players...");
-            ctx.broadcast(MSG_DISCOVER_PLAYER, "");
+            ctx.broadcast(APMChannels.PROXY_DISCOVER, "");
         }
 
-        @APMRemoteEvent(MSG_DISCOVER_PLAYER)
+        @APMRemoteEvent(APMChannels.PROXY_DISCOVER)
         public void onDiscoverPlayer(RemoteMessenger ctx, RemoteMessageEvent event) {
             LOGGER.info("Received discover request from {}, collecting...", event.sender());
 
@@ -129,7 +124,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
 
                 counter++;
 
-                ctx.message(event.sender(), MSG_PROXY_JOIN, (b) -> {
+                ctx.message(event.sender(), APMChannels.PROXY_JOIN, (b) -> {
                     BufferUtil.writeString(b, player.getUniqueId().toString());
                     BufferUtil.writeString(b, player.getUsername());
                     BufferUtil.writeString(b, sv.orElseThrow().getServerInfo().getName());
@@ -139,7 +134,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
             LOGGER.info("Sent {} players to {}.", counter, event.sender());
         }
 
-        @APMRemoteEvent(MSG_PROXY_JOIN)
+        @APMRemoteEvent(APMChannels.PROXY_JOIN)
         public void onPlayerJointed_R(RemoteMessenger ctx, RemoteMessageEvent event) {
             var proxy = event.sender();
             var msg = event.message();
@@ -158,7 +153,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
             fireEvent(new RemoteServerConnectEvent(player, player.getConnectedServer().orElseThrow(), null));
         }
 
-        @APMRemoteEvent(MSG_PROXY_LEAVE)
+        @APMRemoteEvent(APMChannels.PROXY_LEAVE)
         public void onPlayerLeft_R(RemoteMessenger ctx, RemoteMessageEvent event) {
             var uuid = UUID.fromString(event.decode(String.class));
             var player = getPlayer(uuid);
@@ -171,7 +166,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
             this.playerIdMap.remove(player.getUsername());
         }
 
-        @APMRemoteEvent(MSG_PROXY_CONNECT)
+        @APMRemoteEvent(APMChannels.PROXY_CONNECT)
         public void onPlayerConnected_R(RemoteMessenger ctx, RemoteMessageEvent event) {
             var b = event.message();
 
@@ -189,7 +184,7 @@ public interface ProxyPlayerDiscoveryService extends Service {
             fireEvent(new RemoteServerConnectEvent(player, ps, pv));
         }
 
-        @APMRemoteEvent(MSG_PROXY_ACT_CONNECT)
+        @APMRemoteEvent(APMChannels.PROXY_ACT_CONNECT)
         public void onRemoteConnectRequest(RemoteMessenger ctx, RemoteMessageEvent event) {
             var b = event.message();
 

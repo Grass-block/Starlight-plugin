@@ -6,6 +6,7 @@
 - Fixed command render issue on waypoint listing command.
 - Fixed error on hot-reloading.
 - Added QuickDeposit module.
+- changed data-gen module-index format.
 
 ### 26.6.1
 

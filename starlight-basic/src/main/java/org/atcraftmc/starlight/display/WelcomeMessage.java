@@ -23,7 +23,7 @@ import org.bukkit.event.EventHandler;
 public final class WelcomeMessage extends BukkitAbstractModule {
     @EventHandler
     public void onPlayerFirstJoin(PlayerFirstJoinEvent event) {
-        QLib.task().global().delay(5, () -> this.sendWelcomeMessage(event.getPlayer()));
+        QLib.task().global().delay(20, () -> this.sendWelcomeMessage(event.getPlayer()));
     }
 
     private void sendWelcomeMessage(Player player) {

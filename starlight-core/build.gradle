@@ -67,7 +67,7 @@ dependencies {
     implementation gbuildLib("org.atcraftmc.qlib:qlib-bukkit")
     implementation gbuildLib("me.gb2022:gluon-main")
 
-    implementation localStorage("me.gb2022.pluginsX-lib")
+    implementation projectLib("pluginsX")
 
     //provided by starlight dependency loader.
     compileOnly 'org.iq80.leveldb:leveldb:0.12'

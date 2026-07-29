@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 @ApplicationModule(id = "world-edit-commands", description = "Provides WorldEdit utility brush and editing commands")
-@CommandProvider({WorldEditCommands.MirrorCommand.class, WorldEditCommands.DrainWaterCommand.class, WorldEditCommands.FastBrushCommand.class, WorldEditCommands.BoxOutlineCommand.class})
+@CommandProvider({WorldEditCommands.MirrorCommand.class, WorldEditCommands.MirrorRotateCommand.class, WorldEditCommands.DrainWaterCommand.class, WorldEditCommands.FastBrushCommand.class, WorldEditCommands.BoxOutlineCommand.class})
 public final class WorldEditCommands extends BukkitAbstractModule {
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
@@ -140,6 +140,24 @@ public final class WorldEditCommands extends BukkitAbstractModule {
             public <T> @NotNull Optional<T> injectedValue(@NotNull Key<T> key, @NotNull InjectedValueAccess injectedValueAccess) {
                 return (Optional<T>) Optional.ofNullable(this.get(key.getTypeToken().getRawType()));
             }
+        }
+    }
+
+    @BukkitCommand(name = "mirror-rotate")
+    public static final class MirrorRotateCommand extends ModuleCommand<WorldEditCommands> {
+        @Override
+        public void execute(CommandExecution context) {
+            var player = context.requireSenderAsPlayer();
+
+            Bukkit.dispatchCommand(player, "/copy");
+            Bukkit.dispatchCommand(player, "/rotate 90");
+            Bukkit.dispatchCommand(player, "/paste");
+            Bukkit.dispatchCommand(player, "/rotate 90");
+            Bukkit.dispatchCommand(player, "/paste");
+            Bukkit.dispatchCommand(player, "/rotate 90");
+            Bukkit.dispatchCommand(player, "/paste");
+            Bukkit.dispatchCommand(player, "/rotate 90");
+            Bukkit.dispatchCommand(player, "/paste");
         }
     }
 

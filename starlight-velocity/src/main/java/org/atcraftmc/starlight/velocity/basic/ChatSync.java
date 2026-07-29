@@ -11,6 +11,7 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import org.atcraftmc.starlight.APMChannels;
 import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.framework.VelocityAbstractModule;
 import org.atcraftmc.starlight.velocity.util.ServerDisplayName;
@@ -30,7 +31,7 @@ public final class ChatSync extends VelocityAbstractModule {
         getProxy().getServer().getChannelRegistrar().register(CHANNEL);
     }
 
-    @APMRemoteEvent("starlight:chat-sync")
+    @APMRemoteEvent(APMChannels.CHAT_SYNC)
     public void onBroadcast(RemoteMessenger ctx, RemoteMessageEvent event) {
         var args = event.decode(String.class).split("::");
         var so = getProxyServer().getServer(event.sender());

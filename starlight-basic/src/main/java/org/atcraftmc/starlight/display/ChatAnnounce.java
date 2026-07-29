@@ -14,6 +14,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.*;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
+import org.atcraftmc.starlight.api.event.PlayerReadyEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
@@ -21,7 +22,6 @@ import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -46,7 +46,7 @@ public class ChatAnnounce extends BukkitAbstractModule {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerReadyEvent event) {
         if (config().value("send-tip-on-join").bool()) {
             showTip(event.getPlayer());
         }

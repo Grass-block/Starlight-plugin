@@ -8,3 +8,5 @@ config:
     query-target: proxy
   geyser-skin-redirect:
     prefix: "."
+  out-proxy-info-sync:
+    chat-sync-template: "{#gold}[{#reset}{}{#gold}]{#white}{}: "

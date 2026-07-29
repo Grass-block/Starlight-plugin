@@ -20,6 +20,7 @@ import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.SharedObjects;
+import org.atcraftmc.starlight.api.event.PlayerReadyEvent;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -41,7 +42,6 @@ import org.bukkit.BanList;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.net.InetSocketAddress;
 import java.util.Calendar;
@@ -184,7 +184,7 @@ public final class IPDefender extends BukkitAbstractModule implements PluginComm
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerReadyEvent event) {
         QLib.task().async().run(() -> this.check(event.getPlayer()));
     }
 

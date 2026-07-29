@@ -33,8 +33,10 @@ import java.util.UUID;
 public final class BukkitLocaleService extends LocaleService<CommandSender> implements BukkitService {
     @ServiceInject
     public static final ServiceHolder<BukkitLocaleService> INSTANCE = new ServiceHolder<>();
+    public static final String ID = "starlight:locale";
     private static final UUID CONSOLE_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private final Set<UUID> checked = new HashSet<>();
+
     @SuppressWarnings("Convert2MethodRef")
     MethodHandleRO0<Player, String> GET_LOCALE = MethodHandle.select((ctx) -> {
         ctx.attempt(() -> Player.class.getMethod("getLocale"), (p) -> p.getLocale());
@@ -69,10 +71,10 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
         StarlightCommandManager.getInstance().register(org.atcraftmc.starlight.core.LocaleService.LANGUAGE_COMMAND);
         BukkitUtil.registerEventListener(this);
 
-        Bukkit.getMessenger().registerOutgoingPluginChannel(Starlight.instance(), "starlight:locale");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(Starlight.instance(), ID);
         Bukkit.getMessenger().registerIncomingPluginChannel(
                 Starlight.instance(),
-                "starlight:locale",
+                ID,
                 (channel, player, message) -> testLocale(
                         player.getUniqueId(),
                         MinecraftLocale.minecraft(new String(
@@ -81,6 +83,8 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
                         )), true
                 )
         );
+
+        PlayerReadyService.instance().registerWait(ID);
     }
 
     @Override
@@ -88,27 +92,31 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
         StarlightCommandManager.getInstance().unregister(org.atcraftmc.starlight.core.LocaleService.LANGUAGE_COMMAND);
         BukkitUtil.unregisterEventListener(this);
 
-        Bukkit.getMessenger().unregisterIncomingPluginChannel(Starlight.instance(), "starlight:locale");
-        Bukkit.getMessenger().unregisterOutgoingPluginChannel(Starlight.instance(), "starlight:locale");
+        Bukkit.getMessenger().unregisterIncomingPluginChannel(Starlight.instance(), ID);
+        Bukkit.getMessenger().unregisterOutgoingPluginChannel(Starlight.instance(), ID);
+
+        PlayerReadyService.instance().unregisterWait(ID);
     }
 
     private void checkLocale(Player player, MinecraftLocale locale) {
         var preset = StarlightBukkitCore.instance().language().item("starlight-core.locale.preset");
         this.testLocale(player.getUniqueId(), locale, true);
         var display = org.atcraftmc.starlight.core.LocaleService.remapLanguageNames(getLocale(player).minecraft());
-
-        QLib.task().entity(player).delay(3, () -> QLib.audience(player).sendMessage(preset.message(display)));
-
         this.checked.add(player.getUniqueId());
 
         BukkitUtil.callEvent(new ClientLocaleChangeEvent(player, locale));
+        QLib.task().entity(player).delay(2, () -> {
+            QLib.audience(player).sendMessage(preset.message(display));
+            PlayerReadyService.instance().complete(player.getUniqueId(), ID);
+        });
+
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         var player = event.getPlayer();
 
-        QLib.task().entity(player).delay(15, () -> {
+        QLib.task().entity(player).delay(10, () -> {
             if (this.checked.contains(player.getUniqueId())) {
                 return;
             }

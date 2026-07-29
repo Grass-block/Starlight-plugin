@@ -5,9 +5,9 @@ import com.velocitypowered.api.proxy.ServerConnection;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.util.GameProfile;
 import me.gb2022.simpnet.util.BufferUtil;
+import org.atcraftmc.starlight.APMChannels;
 import org.atcraftmc.starlight.shared.RemoteMessageService;
 import org.atcraftmc.starlight.velocity.StarlightVelocity;
-import org.atcraftmc.starlight.velocity.core.ProxyPlayerDiscoveryService;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -82,7 +82,7 @@ public interface WrappedPlayer {
 
         @Override
         public void connect(RegisteredServer server) {
-            RemoteMessageService.instance().message(this.proxy, ProxyPlayerDiscoveryService.MSG_PROXY_ACT_CONNECT, (b) -> {
+            RemoteMessageService.instance().message(this.proxy, APMChannels.PROXY_ACT_CONNECT, (b) -> {
                 BufferUtil.writeString(b, this.getUniqueId().toString());
                 BufferUtil.writeString(b, server.getServerInfo().getName());
             });

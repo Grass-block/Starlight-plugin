@@ -5,6 +5,7 @@ import me.gb2022.gluon.FunctionalComponentStatus;
 import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import me.gb2022.gluon.module.ModuleManager;
+import me.gb2022.gluon.pack.ApplicationPackage;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -13,12 +14,14 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.MinecraftLocale;
+import org.atcraftmc.qlib.texts.ComponentBlock;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.framework.PluginModuleAttachment;
 import org.atcraftmc.starlight.framework.SLPluginHandle;
+import org.atcraftmc.starlight.util.IndexWriter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -40,6 +43,29 @@ public final class ModuleCommand extends CoreCommand {
         };
     }
 
+    private static Component buildModuleInfo(ModuleContainer m, MinecraftLocale locale) {
+        var prefix = "&f[%s&f]".formatted(switch (m.getStatus()) {
+            case UNKNOWN -> "&7U";
+            case REGISTER_FAILED, CONSTRUCT_FAILED, ENABLE_FAILED -> "&cF";
+            case REGISTER, DISABLED, CONSTRUCT -> "&7D";
+            case ENABLED -> "&aE";
+        });
+
+        var ns = m.getMetadata().key().namespace();
+        var key = m.getMetadata().key().id();
+
+        var info = Component.text(ChatColor.translateAlternateColorCodes(
+                '&',
+                prefix + m.getAttachment(PluginModuleAttachment.class)
+                        .displayName(locale)
+        ));
+
+        var hover = HoverEvent.showText(buildModuleHoverInfo(m));
+        var click = ClickEvent.openUrl("https://dev.atcraftmc.cn/starlight/content/%s/%s.html".formatted(ns, key));
+
+        return info.hoverEvent(hover).clickEvent(click);
+    }
+
     private void sendMessage(CommandSender sender, String id, String mid) {
         var module = this.handle.get(mid).orElseThrow();
         var name = module.getAttachment(PluginModuleAttachment.class).displayName(LocaleService.locale(sender));
@@ -50,7 +76,11 @@ public final class ModuleCommand extends CoreCommand {
     public void suggest(CommandSuggestion suggestion) {
         suggestion.suggest(0, "list", "enable", "disable", "reload", "info");
         suggestion.matchArgument(0, "list", (c) -> c.suggest(1, "<search meta>"));
-        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, StarlightBukkitCore.instance().getGluonContext().getPackageManager().getPackages().keySet()));
+        suggestion.matchArgument(0, "list", (c) -> c.suggest(1, StarlightBukkitCore.instance()
+                .getGluonContext()
+                .getPackageManager()
+                .getPackages()
+                .keySet()));
         suggestion.matchArgument(0, "enable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.FALSE)));
         suggestion.matchArgument(0, "disable", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
         suggestion.matchArgument(0, "reload", (c) -> c.suggest(1, this.handle.getIdsByStatus(TriState.TRUE)));
@@ -95,7 +125,8 @@ public final class ModuleCommand extends CoreCommand {
                 var groups = new HashMap<String, List<ModuleContainer>>();
 
                 for (var meta : nodes) {
-                    groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>()).add(meta);
+                    groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>())
+                            .add(meta);
                 }
 
                 for (var gid : groups.keySet()) {
@@ -103,14 +134,18 @@ public final class ModuleCommand extends CoreCommand {
                     var group = groups.get(gid);
 
                     var all = group.size();
-                    var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-                    var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginHandle.class).name(), enable, all);
+                    var enable = group.stream()
+                            .filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED))
+                            .count();
+                    var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginHandle.class)
+                            .name(), enable, all);
 
                     Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
                     TextSender.sendMessage(sender, msg1);
 
                     for (var meta : groups.get(gid)) {
-                        Component msg = Component.text("  ").append(buildModuleInfo(meta, LocaleService.locale(sender)));
+                        Component msg = Component.text("  ")
+                                .append(buildModuleInfo(meta, LocaleService.locale(sender)));
                         TextSender.sendMessage(sender, msg);
                     }
                 }
@@ -118,7 +153,7 @@ public final class ModuleCommand extends CoreCommand {
         }
     }
 
-    private Component buildModuleHoverInfo(ModuleContainer m) {
+    private static Component buildModuleHoverInfo(ModuleContainer m) {
         var statusColor = switch (m.getStatus()) {
             case UNKNOWN -> "&7";
             case REGISTER_FAILED, CONSTRUCT_FAILED, ENABLE_FAILED -> "&c";
@@ -132,7 +167,7 @@ public final class ModuleCommand extends CoreCommand {
                 &7Status: %s%s
                 &7Version: &d%s
                 &7Description: &d%s
-                
+                                
                 &6[Click: Open doc]
                 """.formatted(
                 m.getMetadata().key(),
@@ -145,64 +180,65 @@ public final class ModuleCommand extends CoreCommand {
         return Component.text(ChatColor.translateAlternateColorCodes('&', hover));
     }
 
-    private Component buildModuleInfo(ModuleContainer m, MinecraftLocale locale) {
-        var prefix = "&f[%s&f]".formatted(switch (m.getStatus()) {
-            case UNKNOWN -> "&7U";
-            case REGISTER_FAILED, CONSTRUCT_FAILED, ENABLE_FAILED -> "&cF";
-            case REGISTER, DISABLED, CONSTRUCT -> "&7D";
-            case ENABLED -> "&aE";
-        });
-
-        var ns = m.getMetadata().key().namespace();
-        var key = m.getMetadata().key().id();
-
-        var info = Component.text(ChatColor.translateAlternateColorCodes(
-                '&',
-                prefix + m.getAttachment(PluginModuleAttachment.class)
-                        .displayName(locale)
-        ));
-
-        var hover = HoverEvent.showText(buildModuleHoverInfo(m));
-        var click = ClickEvent.openUrl("https://dev.atcraftmc.cn/starlight/content/%s/%s.html".formatted(ns,key));
-
-        return info.hoverEvent(hover).clickEvent(click);
-    }
-
     private void list(CommandSender sender, String prefix) {
-        var nodes = this.handle.getModules().values().stream().filter((m) -> m.getMetadata()
-                .key()
-                .toString()
-                .contains(prefix)).toList();
-
         getLanguage().item("list").send(QLib.audience(sender), "");
-
-        var groups = new HashMap<String, List<ModuleContainer>>();
-
-        for (var meta : nodes) {
-            groups.computeIfAbsent(meta.getMetadata().fullId().split(":")[0], (k) -> new ArrayList<>()).add(meta);
-        }
-
-        for (var gid : groups.keySet()) {
-            var exampleMeta = groups.get(gid).get(0);
-            var group = groups.get(gid);
-
-            var all = group.size();
-            var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
-            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(gid, (exampleMeta.getParent()).holder(SLPluginHandle.class).name(), enable, all);
-
-            Component msg1 = Component.text(ChatColor.translateAlternateColorCodes('&', pack));
-
-            TextSender.sendMessage(sender, msg1);
-
-            for (var meta : groups.get(gid)) {
-                Component msg = Component.text("  ").append(buildModuleInfo(meta, LocaleService.locale(sender)));
-                TextSender.sendMessage(sender, msg);
-            }
-        }
+        IndexWriter.index(new ConsoleWriter(sender, prefix));
     }
 
     @Override
     public String getLanguageNamespace() {
         return "module";
+    }
+
+    public static final class ConsoleWriter implements IndexWriter {
+        private final ComponentBlock block = new ComponentBlock();
+        private final CommandSender sender;
+        private final String search;
+
+        public ConsoleWriter(CommandSender sender, String search) {
+            this.sender = sender;
+            this.search = search;
+        }
+
+        @Override
+        public void writePackageHeader(ApplicationPackage pkg) {
+            var group = pkg.getModules();
+
+            if(group.stream().allMatch((m)->!m.getMetadata().fullId().contains(this.search))){
+                return;
+            }
+
+            var all = group.size();
+            var enable = group.stream().filter((m) -> m.getStatus().equals(FunctionalComponentStatus.ENABLED)).count();
+            var jar = IndexWriter.getOwnerFile(pkg).getName();
+            var pack = "&6> &b%s&7[%s] (%d/%d)".formatted(pkg.meta().id(), jar, enable, all);
+
+            this.block.add(Component.text(ChatColor.translateAlternateColorCodes('&', pack)));
+        }
+
+        @Override
+        public void writeModuleInfo(ModuleContainer mod) {
+            if (!mod.getMetadata().fullId().contains(this.search)) {
+                return;
+            }
+
+            this.block.add(Component.text("  ").append(buildModuleInfo(mod, LocaleService.locale(sender))));
+        }
+
+        @Override
+        public void writePackageEnd(ApplicationPackage pkg) {
+            var group = pkg.getModules();
+
+            if(group.stream().allMatch((m)->!m.getMetadata().fullId().contains(this.search))){
+                return;
+            }
+
+            this.block.add(Component.text("  "));
+        }
+
+        @Override
+        public void close() {
+            this.sender.sendMessage(this.block);
+        }
     }
 }

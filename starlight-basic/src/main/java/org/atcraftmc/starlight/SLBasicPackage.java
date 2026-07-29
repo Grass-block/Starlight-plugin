@@ -127,6 +127,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(LegacyForwardingProtect.class);
         b.module(ProxyPing.class);
         b.module(ClientTransferSupport.class);
+        b.module(OutProxyInfoSync.class);
 
         p.config("starlight-proxy");
         p.language("starlight-proxy", "zh_cn");

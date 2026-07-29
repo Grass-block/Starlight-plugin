@@ -17,6 +17,7 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.api.event.PlayerReadyEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
@@ -30,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 @ApplicationModule(id = "world-object-filter", description = "Hide or filter contents on world objects.", defaultEnable = false)
 @CommandProvider(WorldObjectFilter.FilterCommand.class)
@@ -75,8 +75,8 @@ public final class WorldObjectFilter extends BukkitAbstractModule {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        QLib.task().entity(event.getPlayer()).delay(10, () -> notifyPlayer(event.getPlayer()));
+    public void onPlayerJoin(PlayerReadyEvent event) {
+        notifyPlayer(event.getPlayer());
     }
 
     @EventHandler

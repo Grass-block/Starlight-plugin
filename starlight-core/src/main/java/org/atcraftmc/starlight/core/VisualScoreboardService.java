@@ -409,7 +409,8 @@ public interface VisualScoreboardService extends BukkitService {
                         () -> Team.class.getMethod("setNameTagVisibility", NameTagVisibility.class),
                         (t) -> t.setNameTagVisibility(NameTagVisibility.ALWAYS)
                 );
-                ctx.dummy((t) -> {});
+                ctx.dummy((t) -> {
+                });
             });
             @SuppressWarnings("Convert2MethodRef")
             MethodHandleO3<Scoreboard, Player, Component, Component> SET_TEAM = MethodHandle.select((ctx) -> {
@@ -422,7 +423,7 @@ public interface VisualScoreboardService extends BukkitService {
             });
 
             static void set(Scoreboard scoreboard, Player target, Component prefix, Component postfix) {
-                var team = "sl@" + target.getName();
+                var team = "starlight_internal_" + target.getName().toLowerCase();
                 var t = scoreboard.getTeam(team);
 
                 if (t == null) {

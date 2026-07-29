@@ -52,6 +52,7 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
     public static final DocumentField<String> PLAYER_HEADER = DocumentField.string("name-header", "unset");
 
     private final Map<UUID, String> cache = new HashMap<>();
+
     MethodHandleO1<Player, Component> SET_NAME_HEADER = MethodHandle.select(ctx -> {
         ctx.attempt(() -> Player.class.getMethod("playerListName", Component.class), (p, c) -> {
             p.playerListName(c);
@@ -135,7 +136,6 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
         this.detach(event.getPlayer());
     }
 
-
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         this.attach(event.getPlayer());
@@ -154,14 +154,6 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
     public void attach(Player p) {
         var name = getPlayerName(p);
         SET_NAME_HEADER.invoke(p, name);
-
-        for (var target : Bukkit.getOnlinePlayers()) {
-            if (target.getUniqueId() == p.getUniqueId()) {
-                continue;
-            }
-            var board = VisualScoreboardService.instance().visualScoreboard(target);
-            mount(target, board);
-        }
     }
 
     public void detach(Player p) {

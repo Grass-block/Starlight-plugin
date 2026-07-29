@@ -5,6 +5,7 @@ import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.MultiPackageProvider;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
+import org.atcraftmc.starlight.oddities.CustomVehicle;
 import org.atcraftmc.starlight.oddities.Elevator;
 import org.atcraftmc.starlight.tweaks.*;
 
@@ -34,7 +35,8 @@ public final class SLGamePackage extends MultiPackageProvider {
         b.module(StairSeat.class);
         b.module(RealisticMinecart.class);
         b.module(SitOnPlayer.class);
-        b.module(QuickDeposit.class);
+        //todo: not added to git WTF
+        //b.module(QuickDeposit.class);
     }
 
     @ApplicationPackageProvider(id = "starlight-oddities")
@@ -50,5 +52,6 @@ public final class SLGamePackage extends MultiPackageProvider {
         i.language("starlight-oddities","zh_tw");
 
         b.module(Elevator.class);
+        b.module(CustomVehicle.class);
     }
 }

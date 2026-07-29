@@ -8,6 +8,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.starlight.api.event.PlayerReadyEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.platform.APIProfile;
@@ -19,7 +20,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.Permission;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -90,8 +90,8 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        QLib.task().global().delay(10, () -> this.calculatePlayerViewDistance(event.getPlayer(), true, false));
+    public void onPlayerJoin(PlayerReadyEvent event) {
+        this.calculatePlayerViewDistance(event.getPlayer(), true, false);
     }
 
     @EventHandler
@@ -100,7 +100,6 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
         event.getPlayer().setViewDistance(val);
         event.getPlayer().setSendViewDistance(val);
     }
-
 
     public void calculatePlayerViewDistance(final Player player, boolean remind, boolean forceRemind) {
         int value = Bukkit.getViewDistance();

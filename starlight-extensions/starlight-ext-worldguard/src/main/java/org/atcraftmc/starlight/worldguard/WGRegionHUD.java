@@ -58,7 +58,6 @@ public final class WGRegionHUD extends BukkitAbstractModule {
             return "";
         }
 
-
         var template = config().value("template").string();
 
         for (var p : PIPELINE.list()) {
