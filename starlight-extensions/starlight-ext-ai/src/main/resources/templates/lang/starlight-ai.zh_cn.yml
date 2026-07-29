@@ -1,0 +1,6 @@
+language:
+  ai-command-chat:
+    ai-name: "{#yellow}茉莉 [AI]"
+    ai-thinking: "{global#info}AI思考中，请稍候..."
+    ai-error: "{global#sys-error}AI响应出错: {#var}"
+    ai-report: "{msg#ai-name}{#white}: {#var} {#gray}({#var}s)"
