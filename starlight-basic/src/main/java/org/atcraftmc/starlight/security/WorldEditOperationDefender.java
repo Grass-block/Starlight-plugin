@@ -74,6 +74,10 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         var m = event.getMessage();
 
+        if (!m.startsWith("//copy") || m.startsWith("//flip") || m.startsWith("//rotate")||m.startsWith("//undo")) {
+            return;
+        }
+
         if (!m.startsWith("//") || m.startsWith("//pos") || m.startsWith("//confirm")) {
             return;
         }
@@ -85,7 +89,7 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
             }
 
             var len = Integer.parseInt(b[1]);
-            if (len > this.config().value("warn-stack-length").intValue(50)) {
+            if (len > this.config().value("warn-stack-length").intValue(64)) {
                 submitForCheck(event);
                 return;
             }

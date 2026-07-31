@@ -143,7 +143,7 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         }
     }
 
-    @BukkitCommand(name = "mirror-rotate")
+    @BukkitCommand(name = "/mirror-rotate")
     public static final class MirrorRotateCommand extends ModuleCommand<WorldEditCommands> {
         @Override
         public void execute(CommandExecution context) {

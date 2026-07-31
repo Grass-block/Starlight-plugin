@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.tweaks;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Material;
@@ -39,6 +38,10 @@ public final class QuickDeposit extends BukkitAbstractModule {
             return;
         }
 
+        if (!event.getPlayer().isSneaking()) {
+            return;
+        }
+
         var player = event.getPlayer();
         var item = player.getInventory().getItemInMainHand();
         if (item.getType() == Material.AIR) {
@@ -68,7 +71,7 @@ public final class QuickDeposit extends BukkitAbstractModule {
         var original = hand.getAmount();
         var type = hand.getType();
         var key = type.getKey();
-        var name = (type.isBlock()?"block.":"item.") + key.getNamespace() + "." + key.getKey();
+        var name = (type.isBlock() ? "block." : "item.") + key.getNamespace() + "." + key.getKey();
         var remaining = target.addItem(hand);
 
         int deposited;
