@@ -41,3 +41,8 @@ language:
     select-limited: "{global#error}La zone que vous sélectionnez (taille {#var}/{#var}/{#var}) dépasse la limite ({#var}) et a été annulée."
   end-protect:
     cristal-prevent: "{global#warning}Pour empêcher l''Ender Dragon de ressusciter accidentellement et d''endommager la carte, placer des cristaux de l''End ici est interdit."
+  item-defender:
+    illegal-item: '{global#warning}L''objet {#var} que vous tenez est illégal et a été confisqué et enregistré par le serveur.'
+    warning-item: '{global#warning}L''objet {#var} que vous tenez est dangereux et a été enregistré par le serveur.'
+    illegal-item-broadcast: '{global#warning}L''objet {#var} tenu par le joueur {#var} est illégal et a été confisqué.'
+    warning-item-broadcast: '{global#warning}L''objet {#var} tenu par le joueur {#var} est dangereux.'

@@ -41,3 +41,8 @@ language:
     select-limited: "{global#error}選択中の領域（サイズ{#var}/{#var}/{#var}）が制限（{#var}）を超えたためキャンセルされました。"
   end-protect:
     cristal-prevent: "{global#warning}エンダードラゴンが誤って復活しマップが損傷するのを防ぐため、ここにエンドクリスタルを設置することは禁止されています。"
+  item-defender:
+    illegal-item: '{global#warning}所持しているアイテム {#var} は違法アイテムであり、サーバーによって没収・記録されました。'
+    warning-item: '{global#warning}所持しているアイテム {#var} は危険物であり、サーバーによって記録されました。'
+    illegal-item-broadcast: '{global#warning}プレイヤー {#var} が所持するアイテム {#var} は違法アイテムであり、没収されました。'
+    warning-item-broadcast: '{global#warning}プレイヤー {#var} が所持するアイテム {#var} は危険物です。'

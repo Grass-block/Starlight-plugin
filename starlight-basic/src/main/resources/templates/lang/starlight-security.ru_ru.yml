@@ -41,3 +41,8 @@ language:
     select-limited: "{global#error}Выбираемая область (размер {#var}/{#var}/{#var}) превышает лимит ({#var}) и была отменена."
   end-protect:
     cristal-prevent: "{global#warning}Чтобы предотвратить случайное воскрешение Дракона Края и повреждение карты, размещение кристаллов Края здесь запрещено."
+  item-defender:
+    illegal-item: '{global#warning}Предмет {#var}, который вы держите, является нелегальным и был изъят и записан сервером.'
+    warning-item: '{global#warning}Предмет {#var}, который вы держите, опасен и был записан сервером.'
+    illegal-item-broadcast: '{global#warning}Предмет {#var}, который держит игрок {#var}, нелегален и был изъят.'
+    warning-item-broadcast: '{global#warning}Предмет {#var}, который держит игрок {#var}, опасен.'

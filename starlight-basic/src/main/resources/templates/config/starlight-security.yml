@@ -22,3 +22,15 @@ config:
     warn-stack-effect-size: 384
     max-selection-size: 128
     max-edit-size: 384
+  item-defender:
+    record: true #是否记录
+    broadcast: false #是否广播给管理员
+    op-ignore: true #OP是否可以豁免
+    illegal-list: #没收的列表(注: 其中填写 Minecraft ID)
+      - "projecte:rm_morning_star"
+      - "projecte:rm_sward"
+      - "projecte:rm_katar"
+    warning-list: #发出警告的列表
+      - "minecraft:tnt"
+      - "minecraft:flint_and_steel"
+      - "minecraft:lava_bucket"

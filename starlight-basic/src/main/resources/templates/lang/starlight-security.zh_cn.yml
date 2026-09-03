@@ -41,4 +41,8 @@ language:
     select-limited: "{global#error}您正在选择的区域(大小{#var}/{#var}/{#var})已超出限制({#var})并被取消。"
   end-protect:
     cristal-prevent: "{global#warning}为避免末影龙意外复活损毁地图，此处禁止放置末影水晶。"
-
+  item-defender:
+    illegal-item: '{global#warning}您所持有的物品 {#var} 属于非法物品，已被服务器没收并记录。'
+    warning-item: '{global#warning}您所持有的物品 {#var} 属于危险品，已被服务器记录。'
+    illegal-item-broadcast: '{global#warning}玩家 {#var} 持有的物品 {#var} 属于非法物品，已被没收。'
+    warning-item-broadcast: '{global#warning}玩家 {#var} 持有的物品 {#var} 属于危险品。'

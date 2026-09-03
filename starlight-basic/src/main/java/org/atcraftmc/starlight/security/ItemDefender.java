@@ -6,7 +6,6 @@ import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.data.record.RecordEntry;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
@@ -20,18 +19,14 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
-import java.util.Date;
 import java.util.List;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @ApplicationModule(id = "item-defender", version = "1.2.2")
-public class ItemDefender extends BukkitAbstractModule {
+public final class ItemDefender extends BukkitAbstractModule {
 
     @Inject
     private LanguageEntry language;
-
-    @Inject("item-defender;Time,Level,Player,World,X,Y,Z,Type,Action")
-    private RecordEntry record;
 
     @Inject("!starlight.security.item.bypass")
     private Permission permission;
@@ -100,11 +95,11 @@ public class ItemDefender extends BukkitAbstractModule {
 
     private boolean isItemIllegal(Material material) {
         List<String> list = ConfigAccessor.configList(config(), "illegal-list", String.class);
-        return list.contains(material.getKey().getKey());
+        return list.contains(material.getKey().asString());
     }
 
     private boolean isItemWarning(Material material) {
         List<String> list = ConfigAccessor.configList(config(), "warning-list", String.class);
-        return list.contains(material.getKey().getKey());
+        return list.contains(material.getKey().asString());
     }
 }

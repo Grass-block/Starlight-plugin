@@ -174,7 +174,7 @@ public interface BukkitUtil {
     }
 
     static String formatMSPT(double mspt) {
-        var col = (mspt < 25 ? ChatColor.GREEN : mspt < 50 ? ChatColor.YELLOW : ChatColor.RED);
+        var col = (mspt < 40 ? ChatColor.GREEN : mspt < 75 ? ChatColor.YELLOW : ChatColor.RED);
         return col + new DecimalFormat("0.00").format(mspt);
     }
 

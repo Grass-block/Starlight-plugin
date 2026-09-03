@@ -41,3 +41,8 @@ language:
     select-limited: "{global#error}您正在選擇的區域(大小{#var}/{#var}/{#var})已超出限制({#var})並被取消。"
   end-protect:
     cristal-prevent: "{global#warning}為避免終界龍意外復活損毀地圖，此處禁止放置終界水晶。"
+  item-defender:
+    illegal-item: '{global#warning}您所持有的物品 {#var} 屬於非法物品，已被伺服器沒收並記錄。'
+    warning-item: '{global#warning}您所持有的物品 {#var} 屬於危險品，已被伺服器記錄。'
+    illegal-item-broadcast: '{global#warning}玩家 {#var} 持有的物品 {#var} 屬於非法物品，已被沒收。'
+    warning-item-broadcast: '{global#warning}玩家 {#var} 持有的物品 {#var} 屬於危險品。'

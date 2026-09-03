@@ -41,3 +41,8 @@ language:
     select-limited: "{global#error}The area you are selecting (size {#var}/{#var}/{#var}) exceeds the limit ({#var}) and has been cancelled."
   end-protect:
     cristal-prevent: "{global#warning}To prevent the Ender Dragon from accidentally resurrecting and damaging the map, placing End Crystals here is prohibited."
+  item-defender:
+    illegal-item: '{global#warning}The item {#var} you hold is illegal and has been confiscated and logged by the server.'
+    warning-item: '{global#warning}The item {#var} you hold is dangerous and has been logged by the server.'
+    illegal-item-broadcast: '{global#warning}The item {#var} held by player {#var} is illegal and has been confiscated.'
+    warning-item-broadcast: '{global#warning}The item {#var} held by player {#var} is dangerous.'

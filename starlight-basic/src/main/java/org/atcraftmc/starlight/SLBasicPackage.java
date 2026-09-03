@@ -174,6 +174,7 @@ public final class SLBasicPackage extends MultiPackageProvider {
         b.module(GuestMode.class);
         b.module(EndProtect.class);
         b.module(PluginBackdoorScanner.class);
+        b.module(ItemDefender.class);
 
         p.config("starlight-security");
         p.language("starlight-security", "zh_cn");

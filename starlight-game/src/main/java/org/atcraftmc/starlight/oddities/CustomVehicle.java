@@ -29,18 +29,23 @@ public class CustomVehicle extends BukkitAbstractModule {
     @Override
     public void enable() {
         QLib.task().global().timer("starlight:vehicle-sync", 1, 1, () -> {
-            for (var world : Bukkit.getWorlds()) {
-                for (var entity : world.getEntitiesByClasses(Boat.class)) {
-                    var rx = entity.getLocation().getYaw();
-                    var ry = entity.getLocation().getPitch();
+            for (var player : Bukkit.getOnlinePlayers()) {
+                var v = player.getVehicle();
+                if (v == null) {
+                    continue;
+                }
+                if (!(v instanceof Boat)) {
+                    continue;
+                }
+                var rx = v.getLocation().getYaw();
+                var ry = v.getLocation().getPitch();
 
-                    for (var p : entity.getPassengers()) {
-                        for (var pp : p.getPassengers()) {
-                            if (pp instanceof Display d) {
-                                pp.setRotation(rx, ry);
-                                d.setInterpolationDelay(1);
-                                d.setInterpolationDuration(1);
-                            }
+                for (var p : v.getPassengers()) {
+                    for (var pp : p.getPassengers()) {
+                        if (pp instanceof Display d) {
+                            pp.setRotation(rx, ry);
+                            d.setInterpolationDelay(1);
+                            d.setInterpolationDuration(1);
                         }
                     }
                 }
@@ -56,7 +61,7 @@ public class CustomVehicle extends BukkitAbstractModule {
             var root = world.spawnEntity(location, EntityType.BOAT);
             var mount = world.spawn(location, BlockDisplay.class);
 
-            var models = CustomDisplayModel.create(location, this.asset.getFile("example-car.json"),new Vector3f(0,-0.15f,0));
+            var models = CustomDisplayModel.create(location, this.asset.getFile("example-car.json"), new Vector3f(0, -0.15f, 0));
 
             for (var model : models) {
                 mount.addPassenger(model);

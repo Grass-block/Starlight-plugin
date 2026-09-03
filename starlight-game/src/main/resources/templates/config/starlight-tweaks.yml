@@ -6,6 +6,10 @@ config:
   vein-miner:
     max-iterations: 64
     regex: "_ore|_leaves|_log|glowstone|ancient_debris"
+  extra-damage:
+    extra-damage: {}
+    percent-damage:
+      tacz:modern_kinetic_gun: 0.05
   item-drop-secure:
     unlock-time: 120
     list:
