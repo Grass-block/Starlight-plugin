@@ -19,7 +19,7 @@ import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import me.gb2022.commons.jdbc.document.NamedDocumentDataService;
-import org.atcgroup.starlight.api.RegionKey;
+import org.atcgroup.starlight.bundle.api.RegionKey;
 import org.bukkit.Bukkit;
 
 import java.io.FileInputStream;

@@ -14,7 +14,7 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
 import org.atcraftmc.starlight.core.platform.Compatibility;
-import org.atcgroup.starlight.api.RegionKey;
+import org.atcgroup.starlight.bundle.api.RegionKey;
 import org.atcgroup.starlight.bundle.worldguard.data.RegionKey_L;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

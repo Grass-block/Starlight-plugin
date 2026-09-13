@@ -2,11 +2,44 @@ plugins {
     id 'java'
 }
 
-apply from: '../starlight-package.build.gradle'
+apply from: "../gbuild.gradle"
+apply from: rootDir.getAbsolutePath() + "/info.gradle"
 
-repositories {
-    maven { url = "https://repo.viaversion.com" }
-    maven { url = 'https://maven.enginehub.org/repo/' }
+applyGlobalScript("Publish/MinecraftServerTest.gradle")
+applyGlobalScript("Publish/ProjectOutput.gradle")
+applyGlobalScript("Repo/MinecraftPlugins.gradle")
+applyGlobalScript("Dependencies.gradle")
+
+//platform libraries
+dependencies {
+    compileOnly 'org.jetbrains:annotations:24.0.0'
+    compileOnly 'net.kyori:adventure-api:4.17.0'
+
+    compileOnly gbuildLib('me.gb2022.commons:commons-nbt')
+    compileOnly gbuildLib('me.gb2022.commons:commons-math')
+    compileOnly gbuildLib('me.gb2022.commons:commons-container')
+    compileOnly gbuildLib('me.gb2022.commons:commons-general')
+    compileOnly gbuildLib('me.gb2022.commons:commons-event')
+    compileOnly gbuildLib('me.gb2022.commons:commons-reflection')
+    compileOnly gbuildLib('me.gb2022.commons:commons-compatibility')
+
+    compileOnly 'org.mongodb:bson:5.6.0'
+    compileOnly 'com.baomidou:mybatis-plus:3.5.15'
+
+    compileOnly gbuildLib('org.atcraftmc.qlib:qlib-bukkit')
+    compileOnly gbuildLib('me.gb2022.apm:apm-remote')
+    compileOnly gbuildLib('me.gb2022.apm:apm-plugin')
+}
+
+//api
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
+    compileOnly 'io.netty:netty-buffer:4.1.25.Final'
+    compileOnly 'io.netty:netty-codec-http:4.1.128.Final'
+    compileOnly project(":starlight-core")
+    compileOnly gbuildLib("me.gb2022:gluon-main")
+
+    implementation project(":starlight-bukkit-core")
 }
 
 dependencies {
@@ -15,8 +48,26 @@ dependencies {
     compileOnly "net.bytebuddy:byte-buddy:1.17.8"
     compileOnly "com.viaversion:viaversion-api:5.7.1"
 
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
     compileOnly projectLib("worldguard-bukkit-7.1.0-20220312.223410-2")
     compileOnly projectLib("worldguard-core-7.1.0-20220312.223410-2")
+
     implementation projectLib("paper-logger")
     compileOnly projectLib("ProtocolLib")
+}
+
+repositories {
+    maven { url = "https://repo.viaversion.com" }
+    maven { url = 'https://maven.enginehub.org/repo/' }
+}
+
+tasks.named('build').get().dependsOn(':starlight-core:build')
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

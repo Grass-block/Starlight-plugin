@@ -7,7 +7,7 @@ import net.kyori.adventure.text.ComponentLike;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
-import org.atcgroup.starlight.api.PlayerFirstJoinEvent;
+import org.atcgroup.starlight.bundle.api.PlayerFirstJoinEvent;
 import org.atcraftmc.starlight.core.LocaleService;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CommandProvider;

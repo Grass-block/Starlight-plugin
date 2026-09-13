@@ -16,7 +16,7 @@ import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcgroup.starlight.api.RegionKey;
+import org.atcgroup.starlight.bundle.api.RegionKey;
 
 import java.util.Comparator;
 import java.util.Optional;

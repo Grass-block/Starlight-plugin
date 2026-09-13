@@ -9,8 +9,8 @@ import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcgroup.starlight.api.RegionKey;
-import org.atcgroup.starlight.api.WGCustomNameAPI;
+import org.atcgroup.starlight.bundle.api.RegionKey;
+import org.atcgroup.starlight.bundle.api.WGCustomNameAPI;
 
 import java.util.Objects;
 

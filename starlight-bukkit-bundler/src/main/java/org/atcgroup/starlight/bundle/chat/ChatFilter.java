@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.config.Configurations;
-import org.atcgroup.starlight.api.ChatReportedEvent;
+import org.atcgroup.starlight.bundle.api.ChatReportedEvent;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;

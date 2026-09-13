@@ -2,7 +2,7 @@ package org.atcgroup.starlight.bundle.display;
 
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcgroup.starlight.api.PlayerFirstJoinEvent;
+import org.atcgroup.starlight.bundle.api.PlayerFirstJoinEvent;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import me.gb2022.commons.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.framework.BukkitService;

@@ -11,7 +11,7 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SharedObjects;
-import org.atcgroup.starlight.api.ChatReportedEvent;
+import org.atcgroup.starlight.bundle.api.ChatReportedEvent;
 import org.atcraftmc.starlight.api.CustomChatRenderer;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;

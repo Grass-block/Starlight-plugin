@@ -15,24 +15,37 @@ import org.atcgroup.starlight.bundle.lobby.PlayerProtect;
 import org.atcgroup.starlight.bundle.management.*;
 import org.atcgroup.starlight.bundle.music.MusicPlayer;
 import org.atcgroup.starlight.bundle.music.MusicService;
+import org.atcgroup.starlight.bundle.oddities.CustomVehicle;
+import org.atcgroup.starlight.bundle.oddities.Elevator;
 import org.atcgroup.starlight.bundle.proxy.*;
 import org.atcgroup.starlight.bundle.security.*;
 import org.atcgroup.starlight.bundle.security.scan.PluginBackdoorScanner;
 import org.atcgroup.starlight.bundle.sideload.InventoryMenu;
 import org.atcgroup.starlight.bundle.sideload.RecipeLoader;
 import org.atcgroup.starlight.bundle.sideload.ResourcePackLoader;
+import org.atcgroup.starlight.bundle.tweaks.*;
 import org.atcgroup.starlight.bundle.utilities.*;
 import org.atcgroup.starlight.bundle.warp.BackToDeath;
 import org.atcgroup.starlight.bundle.warp.RTP;
 import org.atcgroup.starlight.bundle.warp.TPA;
 import org.atcgroup.starlight.bundle.warp.Waypoints;
 import org.atcgroup.starlight.bundle.worldguard.*;
+import org.atcraftmc.starlight.bundle.BundledPackageProvider;
+import org.atcraftmc.starlight.bundle.BundlerRegistry;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
 import org.atcraftmc.starlight.util.EarlyLoading;
 
 @SLPackageProvider
+@BundlerRegistry
 public interface StarlightBukkitBundler {
+
+    @BundlerRegistry
+    static void create(BundledPackageProvider provider) {
+        provider.add("starlight-bukkit-bundler", StarlightBukkitBundler.class);
+    }
+
+
     @ApplicationPackageProvider(id = "starlight-music")
     static void music(ContentBuilder b) {
         var i = b.getAttachment(PluginPackageAttachment.class);
@@ -42,12 +55,12 @@ public interface StarlightBukkitBundler {
         //b.module(MusicGame.class);
 
         i.config("starlight-music");
-        i.language("starlight-music", "zh_cn");
-        i.language("starlight-music", "en_us");
-        i.language("starlight-music", "fr_fr");
-        i.language("starlight-music", "ja_jp");
-        i.language("starlight-music", "ru_ru");
-        i.language("starlight-music", "zh_tw");
+        i.language("/starlight-music", "zh_cn");
+        i.language("/starlight-music", "en_us");
+        i.language("/starlight-music", "fr_fr");
+        i.language("/starlight-music", "ja_jp");
+        i.language("/starlight-music", "ru_ru");
+        i.language("/starlight-music", "zh_tw");
     }
 
     @ApplicationPackageProvider(id = "starlight-ai")
@@ -324,5 +337,49 @@ public interface StarlightBukkitBundler {
     static void preload() {
         //deprecated
         WGExtraInfoService.validateFlag();
+    }
+
+
+    @ApplicationPackageProvider(id = "starlight-tweaks")
+    static void tweak(ContentBuilder b) {
+        var i = b.getAttachment(PluginPackageAttachment.class);
+
+        i.config("starlight-tweaks");
+        i.language("/starlight-tweaks", "zh_cn");
+        i.language("/starlight-tweaks", "en_us");
+        i.language("/starlight-tweaks", "fr_fr");
+        i.language("/starlight-tweaks", "ja_jp");
+        i.language("/starlight-tweaks", "ru_ru");
+        i.language("/starlight-tweaks", "zh_tw");
+
+        b.module(CropClickHarvest.class);
+        b.module(DispenserInteraction.class);
+        b.module(DoubleDoorSync.class);
+        b.module(RealisticSleep.class);
+        b.module(VeinMiner.class);
+        b.module(PortableFunctionalBlocks.class);
+        b.module(PortableShulkerBox.class);
+        b.module(ItemDropSecure.class);
+        b.module(StairSeat.class);
+        b.module(RealisticMinecart.class);
+        b.module(SitOnPlayer.class);
+        b.module(QuickDeposit.class);
+        b.module(ExtraDamage.class);
+    }
+
+    @ApplicationPackageProvider(id = "starlight-oddities")
+    static void oddities(ContentBuilder b) {
+        var i = b.getAttachment(PluginPackageAttachment.class);
+
+        i.config("starlight-oddities");
+        i.language("/starlight-oddities", "zh_cn");
+        i.language("/starlight-oddities", "en_us");
+        i.language("/starlight-oddities", "fr_fr");
+        i.language("/starlight-oddities", "ja_jp");
+        i.language("/starlight-oddities", "ru_ru");
+        i.language("/starlight-oddities", "zh_tw");
+
+        b.module(Elevator.class);
+        b.module(CustomVehicle.class);
     }
 }

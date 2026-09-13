@@ -13,7 +13,7 @@ task copyInfo(type: Copy) {
 tasks.processResources.dependsOn(copyInfo)
 
 def version() {
-    var pv = project(":starlight-core").property("version")
+    var pv = project(":starlight-bukkit-core").property("version")
 
     return pv
 }

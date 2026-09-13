@@ -1,0 +1,9 @@
+{
+  "build-time": "${build_time}",
+  "version": "${version}",
+  "api-version": 30,
+  "libraries": [
+    "org.ahocorasick:ahocorasick:0.6.3",
+    "net.bytebuddy:byte-buddy:1.17.8"
+  ]
+}

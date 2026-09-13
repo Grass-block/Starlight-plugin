@@ -2,97 +2,42 @@ plugins {
     id 'java'
 }
 
-group = "org.atcraftmc.starlight"
+apply from: "../gbuild.gradle"
 
-project.setProperty("version", "26.6.1")
-
-apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
-apply from: rootDir.getAbsolutePath() + "/info.gradle"
-
-applyGlobalScript("Publish/MinecraftServerTest.gradle")
 applyGlobalScript("Publish/ProjectOutput.gradle")
-applyGlobalScript("Publish/LocalStorage.gradle")
 
-applyGlobalScript("Repo/MinecraftPlugins.gradle")
-applyGlobalScript("/Dependencies.gradle")
+group = 'org.atcraftmc'
 
 repositories {
-    mavenCentral()
     papermcRepo()
-    spigotmcRepo()
-    papiRepo()
 }
 
-setJavaCompatibility(17)
-
-repositories {
-    maven { url = 'https://maven.enginehub.org/repo/' }
-}
-
-//other plugins
-dependencies {
-    compileOnly 'me.clip:placeholderapi:2.11.6'
-    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT'
-    compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
-    compileOnly projectLib("ProtocolLib")
-}
-
-//implemented by platform
 dependencies {
     compileOnly 'net.kyori:adventure-api:4.17.0'
-    compileOnly 'net.kyori:adventure-text-serializer-gson:4.17.0'
-    compileOnly 'net.kyori:adventure-text-serializer-legacy:4.17.0'
-    compileOnly 'net.kyori:adventure-text-serializer-plain:4.17.0'
-    compileOnly 'net.kyori:adventure-text-minimessage:4.17.0'
-
-    implementation projectLib('adventure-platform-api-4.4.1')
-    implementation projectLib('adventure-platform-bukkit-4.4.1')
-    implementation projectLib('adventure-platform-facet-4.4.1')
-}
-
-//integrated
-dependencies {
-    implementation project(":lib-starlight-shared")
-
-    implementation gbuildLib('me.gb2022.commons:commons-nbt')
-    implementation gbuildLib('me.gb2022.commons:commons-math')
-    implementation gbuildLib('me.gb2022.commons:commons-container')
-    implementation gbuildLib('me.gb2022.commons:commons-general')
-    implementation gbuildLib('me.gb2022.commons:commons-event')
-    implementation gbuildLib('me.gb2022.commons:commons-reflection')
-    implementation gbuildLib('me.gb2022.commons:commons-compatibility')
-
-    implementation gbuildLib("me.gb2022.apm:apm-remote")
-    implementation gbuildLib("me.gb2022.apm:apm-plugin")
-    implementation gbuildLib("org.atcraftmc.qlib:qlib-bukkit")
-    implementation gbuildLib("me.gb2022:gluon-main")
-
-    implementation projectLib("pluginsX")
-
-    //provided by starlight dependency loader.
-    compileOnly 'org.iq80.leveldb:leveldb:0.12'
-    compileOnly 'com.h2database:h2:2.3.232'
     compileOnly 'org.mongodb:bson:5.6.0'
+
+    compileOnly projectLib('bukkit-configurations-api')
+
+    compileOnly gbuildLib('me.gb2022.commons:commons-nbt')
+    compileOnly gbuildLib('me.gb2022.commons:commons-math')
+    compileOnly gbuildLib('me.gb2022.commons:commons-container')
+    compileOnly gbuildLib('me.gb2022.commons:commons-general')
+    compileOnly gbuildLib('me.gb2022.commons:commons-event')
+    compileOnly gbuildLib('me.gb2022.commons:commons-reflection')
+
+
+    compileOnly gbuildLib("me.gb2022.apm:apm-remote")
+    compileOnly gbuildLib("me.gb2022.apm:apm-plugin")
+
+    compileOnly gbuildLib("me.gb2022:gluon-main")
+    compileOnly gbuildLib("org.atcraftmc.qlib:qlib-base")
+
+    compileOnly 'io.netty:netty-buffer:4.1.100.Final'
+    compileOnly 'com.google.code.gson:gson:2.13.2'
+
+    compileOnly "org.apache.logging.log4j:log4j-api:2.8.1"
+    compileOnly 'com.google.guava:guava:31.0.1-jre'
+
     compileOnly 'com.baomidou:mybatis-plus:3.5.15'
-
-    //noinspection VulnerableLibrariesLocal
-    //platform
-    compileOnly 'io.netty:netty-codec-http:4.1.128.Final'
+    compileOnly 'com.zaxxer:HikariCP:7.0.2'
 }
-
-//platform api reference
-dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
-    compileOnly 'io.netty:netty-buffer:4.1.25.Final'
-
-    compileOnly projectLib('paper-plugin')
-}
-
-jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from sourceSets.main.output.filter { File file ->
-        (file.name != 'LICENSE.txt')
-    }
-}
-
-publish_gbuild()
