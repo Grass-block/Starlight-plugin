@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    block-update-locker: 方塊更新鎖定
+    calculator: 計算機
+    camera-movement: 自訂相機路徑
+    dynamic-view-distance: 自訂渲染距離
+    hitokoto: 「一言」
+    player-ping-command: 玩家延遲查詢
+    position-align: 位置對齊指令
+    position-lock: 位置鎖定指令
+    surrounding-refresh: 環境方塊刷新
+    particle-font: 粒子文本繪製
+    freecam: 自由視角
+    fly-command: 飛行控制指令
+    menu-item: 選單物品觸發器
+    client-environment-setting: 用戶端環境設定
+    modern-minecart-sync: 新版礦車移動相容
+  particle-font:
+    done: '{global#sys-info}渲染完成({#var}, {#var} 個粒子)。'
+    no-fonts: '{global#error}無字體，請在{#white}/assets/font{#gray}放入ttf或otf字體。'
+    trim: '{global#sys-info}成功調整 {#var} 個檔案名稱格式。'
+  position-lock:
+    lock: '{global#sys-info}您的位置已被鎖定。'
+    unlock: '{global#sys-info}您的位置已被解鎖。'
+    lock-player: '{global#sys-operation}您已鎖定 {#var} 的位置。'
+    unlock-player: '{global#sys-operation}您已解鎖 {#var} 的位置。'
+  position-align:
+    align: "{global#sys-success}已將您的座標調整至 [{#var},{#var},{#var}] [{#var}|{#var}]。"
+  calculator:
+    calc: "[{#blue}計算{#white}]{#gray} {#var} = {#var}"
+    --tip: "{#gray}使用{#gold}/calc [運算式]{#gray}進行簡便計算。"
+  player-ping-command:
+    ping-msg: "{global#sys-info}你的延遲是: {#var} {#gray}ms"
+    --tip: "{#gray}使用{#gold}/ping{#gray}來查詢當前的延遲！"
+  block-update-locker:
+    lock: "{global#sys-info}已鎖定方塊更新。"
+    unlock: "{global#sys-info}已解鎖方塊更新。"
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}已將玩家 {#var} 的視野距離設定為 {#var} 個區塊。"
+    reset-target: "{global#sys-operation}已重置玩家 {#var} 的視野距離設定。"
+    set-self: "{global#sys-info}你的視野距離已設定為 {#var} 個區塊。"
+    reset-self: "{global#sys-info}你的視野距離已被重置。"
+    --tip:
+      - "{#gray}您可以使用{#gold}/view-distance [玩家名字] [距離] {#gray}設定您的伺服器渲染距離。"
+      - "{#gray}如果您感覺到卡頓(高延遲)，您可以嘗試降低您的伺服器渲染距離。"
+  camera-movement:
+    cam-start: '{global#sys-info}鏡頭路徑開始({#var} ticks)'
+    cam-end: '{global#sys-info}鏡頭路徑結束。'
+  freecam:
+    start: "{global#info}自由視角已開啟。"
+    reset: "{global#info}自由視角已關閉。"
+    --tip: "{#gray}使用{#gold}/freecam{#gray}可以啟用或關閉自由視角，以便於您進行更好的探索。"
+    anti-cheat: "{global#sys-error}為保證遊戲公平性，請不要在自由視角下使用指令。"
+  fly-command:
+    cmd-speed-set: "{global#info}飛行速度已被設為 {#var} 。"
+    toggle: "{global#info}飛行模式已切換"
+    --tip: "{#gray}使用{#gold}/flyspeed [數值]{#gray}可以調節您的飛行速度"
+  surrounding-refresh:
+    to-big: '{global#error}半徑過大。'
+    not-found: '{global#error}目標玩家{#var}未找到。'
+    success: '{global#success}正在向{#var}發送區域重刷新請求。'
+    refresh-target: '{global#info}正在刷新您身邊{#var}半徑的區域，這可能導致卡頓，請不要移動。'
+    refresh-complete: '{global#info}成功刷新了您周圍的方塊資料。'
+    --tip: "{#gray}如果您遇到假方塊，使用{#gold}/refresh-area [半徑]{#gray}可以快速刷新您附近的方塊。"
+  force-sprint:
+    --tip: "{#gray}使用{#gold}/sprint{#gray}可以快速切換自動疾跑。"
+    enable: "{global#info}自動疾跑已開啟。"
+    disable: "{global#info}自動疾跑已關閉。"
+  item-custom-name:
+    bind: "{global#sys-info}已將物品 {#var} 綁定到自訂語言鍵 {#var}。"
+    unbind: "{global#sys-info}已將清除物品 {#var} 自訂語言鍵綁定。"
+    bind-fail: "{global#sys-error}無法將自訂語言鍵綁定到空手。"
+  tick-manager:
+    freeze: "{global#warn}伺服器已凍結。"
+    unfreeze: "{global#info}伺服器已解凍。"
+    step: "{global#info}伺服器已執行{#var}ticks。"
+  client-environment-setting:
+    weather-none: "{global#sys-info}您的用戶端天氣已設為 [{#white}晴{#gray}]"
+    weather-rain: "{global#sys-info}您的用戶端天氣已設為 [{#white}雨{#gray}]"
+    weather-off: "{global#sys-info}您的用戶端天氣已重置為實際天氣。"
+    time-offset: "{global#sys-info}您的用戶端時間已設為 [{#white}偏移: {} ticks{#gray}]"
+    time-fixed: "{global#sys-info}您的用戶端時間已設為 [{#white}固定: {} ticks{#gray}]"
+    time-off: "{global#sys-info}您的用戶端時間已重置為實際時間。"
+  hitokoto:
+    sentence: "{hover(text,文字來自 {#red}[{#white}一言{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}一言{#red}] {#white}{} {#gray}——{}({})"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}選單{#yellow} ||"
+    item-lore:
+      - '{#gray}一個用於開啟{#white}伺服器功能選單{#gray}的小物件，'
+      - '{#gray}進行任意點擊可以快速打開打開選單介面；'
+      - '{#gray}當然，不慎{#white}丟失這個物件{#gray}的話，'
+      - '{#gray}也可以使用指令"/menu-item"再拿一個。'

@@ -1,0 +1,36 @@
+language:
+  -module-name:
+    command-tab-fix: Correction de complétion de commande
+    entity-motion: Commande de mouvement d''entité
+    command-exec: Commande d''exécution proxy d''entité
+    item-command: Déclencheur de commande d''objet
+    world-edit-commands: Supplément de commandes WorldEdit
+    self-message: Envoyer un message
+    hat: Porter un chapeau
+    animate-block-command: Animation de blocs
+  entity-motion:
+    hint: "{global#sys-success}Mouvement défini pour {#var} entités : {#var}({#var},{#var},{#var})"
+  command-exec:
+    hint: "{global#sys-success}Commande exécutée pour {#var} entités : {#var}"
+  item-command:
+    bind: "{global#sys-info}Objet {#var} lié à la ligne de commande {#var}."
+    unbind: "{global#sys-info}Liaison de commande effacée pour l''objet {#var}."
+    bind-fail: "{global#sys-error}Impossible de lier une commande à une main vide."
+    --tip: "{#gray}Utilisez {#gold}/item-command{#gray} pour lier des commandes à votre objet,\nutilisez l''objet pour exécuter rapidement la commande."
+  animate-block-command:
+    size-invalid: "{global#error}La taille de l''axe {#var} de la sélection est invalide. Veuillez vérifier l''ordre des coordonnées et réessayer."
+    size-too-big: "{global#error}Sélection trop grande. Les trois axes doivent être inférieurs à {#var} blocs."
+    no-result: "{global#warning}Aucun bloc pour jouer l''animation. Tâche annulée."
+    success: "{global#success}Animation créée avec succès (contient {#var} blocs)."
+    --tip: "{#gray}Utilisez {#gold}/animate-block{#gray} pour faire bouger les blocs. {click(command,/custom-item animate-helper 1);underline}[Baguette]{;}{#gray} peut vous aider à créer des chemins."
+    item-name: '{#purple}Baguette de création d''animation'
+    item-lore:
+        - '{#gray}Cet outil vous aide à créer rapidement des chemins d''animation.'
+        - '{#gray}Après avoir sélectionné une région avec {#white}WorldEdit{#gray},'
+        - '{#gray}clic gauche pour marquer les blocs de commande, clic droit pour marquer les positions cibles'
+        - '{#gray}pour créer rapidement des chemins d''animation.'
+  hats:
+    empty: "{global#error}Vous ne tenez rien."
+    not-found: "{global#error}Le joueur spécifié n''existe pas."
+    failed: "{global#error}L''emplacement de casque du joueur n''est pas vide."
+    success: "{global#info}Chapeau remplacé avec succès."

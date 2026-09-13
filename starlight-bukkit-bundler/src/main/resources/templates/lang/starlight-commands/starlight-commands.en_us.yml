@@ -1,0 +1,36 @@
+language:
+  -module-name:
+    command-tab-fix: Command Tab Completion Fix
+    entity-motion: Entity Motion Command
+    command-exec: Entity Proxy Execute Command
+    item-command: Item Command Trigger
+    world-edit-commands: WorldEdit Command Supplement
+    self-message: Send Message
+    hat: Wear Hat
+    animate-block-command: Block Animation
+  entity-motion:
+    hint: "{global#sys-success}Set motion for {#var} entities: {#var}({#var},{#var},{#var})"
+  command-exec:
+    hint: "{global#sys-success}Executed command for {#var} entities: {#var}"
+  item-command:
+    bind: "{global#sys-info}Bound item {#var} to command line {#var}."
+    unbind: "{global#sys-info}Cleared command binding for item {#var}."
+    bind-fail: "{global#sys-error}Cannot bind command line to empty hand."
+    --tip: "{#gray}Use {#gold}/item-command{#gray} to bind commands to your item,\nuse the item to quickly execute the command."
+  animate-block-command:
+    size-invalid: "{global#error}The {#var}-axis size of the selection is invalid. Please check the coordinate order and try again."
+    size-too-big: "{global#error}Selection too large. All three axes must be smaller than {#var} blocks."
+    no-result: "{global#warning}No blocks to play animation. Task cancelled."
+    success: "{global#success}Animation created successfully (contains {#var} blocks)."
+    --tip: "{#gray}Use {#gold}/animate-block{#gray} to make blocks move. {click(command,/custom-item animate-helper 1);underline}[Wand]{;}{#gray} can help you create paths."
+    item-name: '{#purple}Animation Creation Wand'
+    item-lore:
+        - '{#gray}This tool helps you quickly create animation paths.'
+        - '{#gray}After selecting a region with {#white}WorldEdit{#gray},'
+        - '{#gray}left-click to mark command blocks, right-click to mark target positions'
+        - '{#gray}to quickly create animation paths.'
+  hats:
+    empty: "{global#error}You are not holding anything."
+    not-found: "{global#error}The specified player does not exist."
+    failed: "{global#error}The player''s helmet slot is not empty."
+    success: "{global#info}Hat replaced successfully."

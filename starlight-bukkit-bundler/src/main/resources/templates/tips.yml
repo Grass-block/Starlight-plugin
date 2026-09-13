@@ -1,0 +1,45 @@
+tips: #These are the default tips provided.
+  default-sleep:
+    zh-cn: "睡觉可以跳过夜晚，减少怪物生成。"
+    en-us: "Sleeping skips the night and reduces monster spawns."
+    zh-tw: "睡覺可以跳過夜晚，減少怪物生成。"
+    ja-jp: "寝ることで夜をスキップでき、モンスターの出現を減らせます。"
+    ko-kr: "잠을 자면 밤을 건너뛰고 몬스터 스폰을 줄일 수 있습니다."
+    ru-ru: "Сон позволяет пропустить ночь и уменьшить появление монстров."
+    es-es: "Dormir salta la noche y reduce la aparición de monstruos."
+    fr-fr: "Dormir permet de passer la nuit et de réduire l'apparition des monstres."
+    de-de: "Schlafen überspringt die Nacht und verringert das Spawnen von Monstern."
+
+  default-water:
+    zh-cn: "带上水桶可以防止高空坠落死亡。"
+    en-us: "Carrying a water bucket can prevent death from high falls."
+    zh-tw: "帶上水桶可以防止高空墜落死亡。"
+    ja-jp: "水入りバケツがあれば高所からの落下死を防げます。"
+    ko-kr: "물 양동이를 가지고 있으면 높은 곳에서 떨어져도 죽음을 방지할 수 있습니다."
+    ru-ru: "Ведро воды поможет избежать смерти при падении с высоты."
+    es-es: "Llevar un cubo de agua puede evitar morir por caídas desde gran altura."
+    fr-fr: "Avoir un seau d’eau peut éviter la mort due à une chute de grande hauteur."
+    de-de: "Ein Wassereimer kann vor dem Tod durch einen Sturz aus großer Höhe schützen."
+
+  default-mine:
+    zh-cn: "下界不要直线挖矿，岩浆很多。"
+    en-us: "Avoid strip mining in the Nether — there is a lot of lava."
+    zh-tw: "在地獄不要直線挖礦，岩漿很多。"
+    ja-jp: "ネザーでは直線掘りは避けましょう。溶岩が非常に多いです。"
+    ko-kr: "네더에서는 일직선 채굴을 피하세요. 용암이 매우 많습니다."
+    ru-ru: "Не копайте прямыми тоннелями в Незере — там много лавы."
+    es-es: "Evita minar en línea recta en el Nether: hay mucha lava."
+    fr-fr: "Évitez de miner en ligne droite dans le Nether : il y a beaucoup de lave."
+    de-de: "Vermeide Streifenabbau im Nether – dort gibt es viel Lava."
+
+  default-shield:
+    zh-cn: "用盾牌可以有效抵挡苦力怕爆炸伤害。"
+    en-us: "A shield can effectively block Creeper explosion damage."
+    zh-tw: "使用盾牌可以有效抵擋苦力怕的爆炸傷害。"
+    ja-jp: "盾を使えばクリーパーの爆発ダメージを効果的に防げます。"
+    ko-kr: "방패를 사용하면 크리퍼 폭발 피해를 효과적으로 막을 수 있습니다."
+    ru-ru: "Щит эффективно блокирует урон от взрыва крипера."
+    es-es: "Un escudo puede bloquear eficazmente el daño de la explosión de un Creeper."
+    fr-fr: "Un bouclier peut bloquer efficacement les dégâts d’explosion d’un Creeper."
+    de-de: "Ein Schild kann den Explosionsschaden eines Creepers effektiv blockieren."
+

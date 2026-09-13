@@ -1,0 +1,73 @@
+language:
+  -module-name:
+    tpa: 傳送請求
+    waypoint: 導航點
+    back-to-death: 回到死亡點
+    rtp: 隨機傳送
+  waypoint:
+    exist: '{global#sys-error}已存在導航點 {#var}。'
+    not-exist: '{global#sys-error}不存在導航點 {#var}。'
+    add-success: '{global#sys-operation}成功添加了導航點 {#var}。'
+    remove: '{global#sys-operation}成功移除了導航點 {#var}。'
+    remove-failed: '{global#sys-error}權限不足: 你不是 {#var} 的所有者, 且你沒有starlight.waypoint.admin權限組。'
+    no-access: '{global#sys-error}權限不足: 你不是 {#var} 的所有者/授權訪問者, 且你沒有starlight.waypoint.admin權限組。'
+    tp-success: '{global#sys-success}已將你傳送到導航點 {#var}。'
+    allow: '{global#sys-success}成功向玩家 {#var} 開放了 {#var} 導航點的訪問。'
+    allow-all: '{global#sys-success}成功向全部玩家開放了 {#var} 導航點的訪問。'
+    disallow: '{global#sys-success}成功向玩家 {#var} 關閉了 {#var} 導航點的訪問。'
+    disallow-all: '{global#sys-success}成功向全部玩家關閉了 {#var} 導航點的訪問。'
+    home-exist-warn: "{global#sys-warning}你已經設置了一個家。若要覆蓋，請使用 {#gold}/sethome -f"
+    home-set-success: "{global#sys-operation}設置成功。"
+    home-not-set: "{global#sys-error}你還沒有設置家,使用 {#gold}/sethome{#gray} 來設置一個!"
+    home-tp-success: "{global#sys-success}已將你傳送回家。"
+    --tip: "{#gray}使用{#gold}/waypoint{#gray}可以建立你自己的導航或者使用公共導航點。"
+    tip-home: "{#gray}使用{#gold}/sethome{#gray}添加一個家，用{#gold}/home{#gray}可以快速回家。"
+    list: '{#aqua}導航點列表: '
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
+    list-hover: |-
+      {color(#44FFAA)}名稱: {#white}{}
+       世界: {#white}{}
+       座標: {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       角度: {#purple}[{},{}]
+       所有者: {#white}{}
+       UUID: {#white}{}
+       {#gold}[點擊傳送]
+  back-to-death:
+    back-not-set: "{global#sys-error}你還沒死亡過。"
+    back-tp-success: "{global#sys-success}已將你傳送到上次死亡地點。"
+    back-hint: "{global#sys-info}你的死亡地點已經記錄。使用 {#gold}/back{#gray} 或 {click(command,/back)}{#white}[{#aqua}點此傳送{#white}]"
+    tip-back: "{#gray}使用{#gold}/back{#gray}可以快速回到死亡位置。"
+  tpa:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}接受{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}拒絕{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}你向玩家 {#var} 發送了傳送到你的請求。"
+    tpahere-request-target: "{global#sys-info}玩家 {#var} 向你發送了傳送到他/她的請求。{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}你同意了傳送到 {#var} 的請求, 正在傳送..."
+    tpahere-accept-target: "{global#sys-info}{#var} 同意了他/她傳送到你的請求。"
+    tpahere-deny-sender: "{global#sys-info}你拒絕了傳送到 {#var} 的請求。"
+    tpahere-deny-target: "{global#sys-info}{#var} 拒絕了他/她傳送到你的請求。"
+    tpahere-no-request: "{global#sys-info}{#var} 沒有向你發送傳送到他/她的請求。"
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}接受{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}拒絕{color(white)}]'
+    tpa-request-sender: "{global#sys-info}你向玩家 {#var} 發送了傳送到他/她的請求。"
+    tpa-request-target: "{global#sys-info}玩家 {#var} 向你發送了傳送到你的請求。{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}你同意了 {#var} 傳送到你的請求。"
+    tpa-accept-target: "{global#sys-info}{#var} 同意了你傳送到他/她的請求, 正在傳送..."
+    tpa-deny-sender: "{global#sys-info}你拒絕了 {#var} 傳送到你的請求。"
+    tpa-deny-target: "{global#sys-info}{#var} 拒絕了你傳送到他/她的請求。"
+    tpa-no-request: "{global#sys-info}{#var} 沒有向你發送他/她傳送到你的請求。"
+
+    send: '{global#info}你發送了向玩家 {#var} 的傳送請求。'
+    undo: '{global#info}你撤消了向玩家 {#var} 的傳送請求。'
+    accept: '{global#success}你已接受玩家 {#var} 的傳送請求。'
+    deny: '{global#info}你已拒絕玩家 {#var} 的傳送請求。'
+    send-announce: '{global#info}玩家 {#var} 向你發送了傳送請求。 {msg#accept-btn} {msg#deny-btn}'
+    denied: '{global#error}{#var} 拒絕了你的傳送請求。'
+    accepted: '{global#success}{#var} 同意了你你的傳送請求, 正在傳送...'
+    player-not-found: '{global#error}玩家不存在...'
+    list: '{global#info}以下是你未處理的傳送請求: {#return} {#var}'
+  rtp:
+    start: '{global#info}隨機傳送嘗試開始, 將在 {#var} 遊戲刻內尋找目標...'
+    success: '{global#success}隨機傳送成功! (目標位置: [{#var},{#var},{#var}])'
+    failed: '{global#error}未能在允許的尋找次數內找到目標地點, 傳送失敗。'

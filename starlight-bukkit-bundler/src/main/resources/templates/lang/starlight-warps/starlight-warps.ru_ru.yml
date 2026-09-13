@@ -1,0 +1,73 @@
+language:
+  -module-name:
+    tpa: Запрос на телепортацию
+    waypoint: Точка навигации
+    back-to-death: Возврат к месту смерти
+    rtp: Случайная телепортация
+  waypoint:
+    exist: '{global#sys-error}Точка навигации {#var} уже существует.'
+    not-exist: '{global#sys-error}Точка навигации {#var} не существует.'
+    add-success: '{global#sys-operation}Точка навигации {#var} успешно добавлена.'
+    remove: '{global#sys-operation}Точка навигации {#var} успешно удалена.'
+    remove-failed: '{global#sys-error}Недостаточно прав: вы не владелец {#var} и у вас нет группы прав starlight.waypoint.admin.'
+    no-access: '{global#sys-error}Недостаточно прав: вы не владелец/авторизованный посетитель {#var} и у вас нет группы прав starlight.waypoint.admin.'
+    tp-success: '{global#sys-success}Вы телепортированы к точке навигации {#var}.'
+    allow: '{global#sys-success}Игроку {#var} предоставлен доступ к точке навигации {#var}.'
+    allow-all: '{global#sys-success}Всем игрокам предоставлен доступ к точке навигации {#var}.'
+    disallow: '{global#sys-success}Игроку {#var} закрыт доступ к точке навигации {#var}.'
+    disallow-all: '{global#sys-success}Всем игрокам закрыт доступ к точке навигации {#var}.'
+    home-exist-warn: "{global#sys-warning}У вас уже установлен дом. Чтобы перезаписать, используйте {#gold}/sethome -f"
+    home-set-success: "{global#sys-operation}Успешно установлено."
+    home-not-set: "{global#sys-error}У вас ещё нет дома, используйте {#gold}/sethome{#gray} чтобы установить его!"
+    home-tp-success: "{global#sys-success}Вы телепортированы домой."
+    --tip: "{#gray}Используйте {#gold}/waypoint{#gray} чтобы создать свои точки навигации или использовать общественные."
+    tip-home: "{#gray}Используйте {#gold}/sethome{#gray} чтобы добавить дом, и {#gold}/home{#gray} чтобы быстро вернуться."
+    list: '{#aqua}Список точек навигации: '
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
+    list-hover: |-
+      {color(#44FFAA)}Имя: {#white}{}
+       Мир: {#white}{}
+       Координаты: {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       Угол: {#purple}[{},{}]
+       Владелец: {#white}{}
+       UUID: {#white}{}
+       {#gold}[Нажмите для телепортации]
+  back-to-death:
+    back-not-set: "{global#sys-error}Вы ещё не умирали."
+    back-tp-success: "{global#sys-success}Вы телепортированы к месту последней смерти."
+    back-hint: "{global#sys-info}Ваше место смерти записано. Используйте {#gold}/back{#gray} или {click(command,/back)}{#white}[{#aqua}Нажмите для телепортации{#white}]"
+    tip-back: "{#gray}Используйте {#gold}/back{#gray} чтобы быстро вернуться к месту смерти."
+  tpa:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}Принять{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}Отклонить{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}Вы отправили запрос на телепортацию к вам игроку {#var}."
+    tpahere-request-target: "{global#sys-info}Игрок {#var} отправил вам запрос на телепортацию к нему/ней.{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}Вы приняли запрос на телепортацию к {#var}, телепортация..."
+    tpahere-accept-target: "{global#sys-info}{#var} принял(а) запрос на телепортацию к вам."
+    tpahere-deny-sender: "{global#sys-info}Вы отклонили запрос на телепортацию к {#var}."
+    tpahere-deny-target: "{global#sys-info}{#var} отклонил(а) запрос на телепортацию к вам."
+    tpahere-no-request: "{global#sys-info}{#var} не отправлял(а) вам запрос на телепортацию к нему/ней."
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}Принять{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}Отклонить{color(white)}]'
+    tpa-request-sender: "{global#sys-info}Вы отправили запрос на телепортацию игроку {#var}."
+    tpa-request-target: "{global#sys-info}Игрок {#var} отправил вам запрос на телепортацию к вам.{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}Вы приняли запрос {#var} на телепортацию к вам."
+    tpa-accept-target: "{global#sys-info}{#var} принял(а) ваш запрос на телепортацию, телепортация..."
+    tpa-deny-sender: "{global#sys-info}Вы отклонили запрос {#var} на телепортацию к вам."
+    tpa-deny-target: "{global#sys-info}{#var} отклонил(а) ваш запрос на телепортацию."
+    tpa-no-request: "{global#sys-info}{#var} не отправлял(а) вам запрос на телепортацию к вам."
+
+    send: '{global#info}Вы отправили запрос на телепортацию игроку {#var}.'
+    undo: '{global#info}Вы отменили запрос на телепортацию игроку {#var}.'
+    accept: '{global#success}Вы приняли запрос на телепортацию от игрока {#var}.'
+    deny: '{global#info}Вы отклонили запрос на телепортацию от игрока {#var}.'
+    send-announce: '{global#info}Игрок {#var} отправил вам запрос на телепортацию. {msg#accept-btn} {msg#deny-btn}'
+    denied: '{global#error}{#var} отклонил(а) ваш запрос на телепортацию.'
+    accepted: '{global#success}{#var} принял(а) ваш запрос на телепортацию, телепортация...'
+    player-not-found: '{global#error}Игрок не найден...'
+    list: '{global#info}Вот ваши необработанные запросы на телепортацию: {#return} {#var}'
+  rtp:
+    start: '{global#info}Начинается случайная телепортация, поиск цели в течение {#var} тиков...'
+    success: '{global#success}Случайная телепортация успешна! (Место назначения: [{#var},{#var},{#var}])'
+    failed: '{global#error}Не удалось найти место назначения в пределах разрешённого количества попыток, телепортация не удалась.'

@@ -1,0 +1,75 @@
+package org.atcgroup.starlight.bundle.proxy;
+
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.execute.CommandExecution;
+import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
+import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+@ApplicationModule(id = "geyser-skin-redirect", description = "Redirects Bedrock player skins via Geyser integration")
+@AutoRegister({Registrations.SERVER_EVENT})
+@CommandProvider(GeyserSkinRedirect.RedirectSkinCommand.class)
+public class GeyserSkinRedirect extends BukkitAbstractModule implements PluginCommandExecutor {
+
+    @Override
+    public void checkCompatibility() throws APIIncompatibleException {
+        Compatibility.requireMethod(() -> OfflinePlayer.class.getMethod("getPlayerProfile"));
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        this.redirect(event.getPlayer());
+    }
+
+    public void redirect(Player player) {
+        var prefix = this.config().value("prefix").string();
+
+        if (!player.getName().startsWith(prefix)) {
+            return;
+        }
+
+        QLib.task().async().run(() -> {
+            this.handle().getLogger().info("redirecting player {}", player.getName());
+
+            var profile = player.getPlayerProfile();
+            var source = Bukkit.getOfflinePlayer(player.getName().substring(prefix.length())).getPlayerProfile();
+
+            profile.setTextures(source.getTextures());
+
+            QLib.task().global().run(() -> player.setPlayerProfile(profile));
+
+            this.handle().getLogger().info("redirected player {} to {}", player.getName(), source.getId());
+        });
+    }
+
+    @Override
+    public void execute(CommandExecution context) {
+        redirect(context.requirePlayer(0));
+    }
+
+    @Override
+    public void suggest(CommandSuggestion suggestion) {
+        suggestion.suggestPlayers(0);
+    }
+
+    @BukkitCommand(name = "redirect-be-skin", permission = "-quark.be.redirectskin")
+    public static class RedirectSkinCommand extends ModuleCommand<GeyserSkinRedirect> {
+        @Override
+        public void init(GeyserSkinRedirect module) {
+            setExecutor(module);
+        }
+    }
+}

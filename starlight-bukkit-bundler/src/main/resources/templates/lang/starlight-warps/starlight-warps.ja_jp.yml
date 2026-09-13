@@ -1,0 +1,73 @@
+language:
+  -module-name:
+    tpa: テレポートリクエスト
+    waypoint: ウェイポイント
+    back-to-death: 死亡地点に戻る
+    rtp: ランダムテレポート
+  waypoint:
+    exist: '{global#sys-error}ナビゲーションポイント {#var} は既に存在します。'
+    not-exist: '{global#sys-error}ナビゲーションポイント {#var} は存在しません。'
+    add-success: '{global#sys-operation}ナビゲーションポイント {#var} を追加しました。'
+    remove: '{global#sys-operation}ナビゲーションポイント {#var} を削除しました。'
+    remove-failed: '{global#sys-error}権限不足: あなたは {#var} の所有者ではなく、starlight.waypoint.admin権限グループを持っていません。'
+    no-access: '{global#sys-error}権限不足: あなたは {#var} の所有者/認証された訪問者ではなく、starlight.waypoint.admin権限グループを持っていません。'
+    tp-success: '{global#sys-success}ナビゲーションポイント {#var} にテレポートしました。'
+    allow: '{global#sys-success}プレイヤー {#var} に {#var} ナビゲーションポイントへのアクセスを開放しました。'
+    allow-all: '{global#sys-success}全てのプレイヤーに {#var} ナビゲーションポイントへのアクセスを開放しました。'
+    disallow: '{global#sys-success}プレイヤー {#var} の {#var} ナビゲーションポイントへのアクセスを閉鎖しました。'
+    disallow-all: '{global#sys-success}全てのプレイヤーの {#var} ナビゲーションポイントへのアクセスを閉鎖しました。'
+    home-exist-warn: "{global#sys-warning}既にホームが設定されています。上書きするには {#gold}/sethome -f を使用してください。"
+    home-set-success: "{global#sys-operation}設定に成功しました。"
+    home-not-set: "{global#sys-error}まだホームが設定されていません。{#gold}/sethome{#gray} で設定してください！"
+    home-tp-success: "{global#sys-success}ホームにテレポートしました。"
+    --tip: "{#gray}{#gold}/waypoint{#gray}を使用して独自のナビゲーションポイントを作成するか、公共ナビゲーションポイントを使用できます。"
+    tip-home: "{#gray}{#gold}/sethome{#gray}でホームを追加し、{#gold}/home{#gray}で素早く帰宅できます。"
+    list: '{#aqua}ナビゲーションポイント一覧: '
+    list-item: "{color(#44FFAA)}[{}]{#white}{}: {},{},{}{color(white);click(command,/waypoint remove {})} [{#red}X{#white}]"
+    list-hover: |-
+      {color(#44FFAA)}名前: {#white}{}
+       ワールド: {#white}{}
+       座標: {#white}[{#red}{}{#gray}, {#green}{}{#gray}, {#aqua}{}{#white}]
+       角度: {#purple}[{},{}]
+       所有者: {#white}{}
+       UUID: {#white}{}
+       {#gold}[クリックでテレポート]
+  back-to-death:
+    back-not-set: "{global#sys-error}まだ死亡したことがありません。"
+    back-tp-success: "{global#sys-success}前回の死亡地点にテレポートしました。"
+    back-hint: "{global#sys-info}死亡地点が記録されました。{#gold}/back{#gray} または {click(command,/back)}{#white}[{#aqua}クリックでテレポート{#white}]"
+    tip-back: "{#gray}{#gold}/back{#gray}で素早く死亡地点に戻れます。"
+  tpa:
+    tpahere-accept-btn: '{color(white)}[{color(green);click(command,/tpahere accept {})}承諾{color(white)}]'
+    tpahere-deny-btn: '{color(white)}[{color(red);click(command,/tpahere deny {})}拒否{color(white)}]'
+    tpahere-request-sender: "{global#sys-info}プレイヤー {#var} に、あなたへのテレポートリクエストを送信しました。"
+    tpahere-request-target: "{global#sys-info}プレイヤー {#var} から、あなたへのテレポートリクエストが送信されました。{msg#tpahere-accept-btn} {msg#tpahere-deny-btn}"
+    tpahere-accept-sender: "{global#sys-info}{#var} へのテレポートリクエストを承諾しました。テレポート中..."
+    tpahere-accept-target: "{global#sys-info}{#var} があなたへのテレポートリクエストを承諾しました。"
+    tpahere-deny-sender: "{global#sys-info}{#var} へのテレポートリクエストを拒否しました。"
+    tpahere-deny-target: "{global#sys-info}{#var} があなたへのテレポートリクエストを拒否しました。"
+    tpahere-no-request: "{global#sys-info}{#var} からあなたへのテレポートリクエストはありません。"
+
+    tpa-accept-btn: '{color(white)}[{color(green);click(command,/tpa accept {})}承諾{color(white)}]'
+    tpa-deny-btn: '{color(white)}[{color(red);click(command,/tpa deny {})}拒否{color(white)}]'
+    tpa-request-sender: "{global#sys-info}プレイヤー {#var} にテレポートリクエストを送信しました。"
+    tpa-request-target: "{global#sys-info}プレイヤー {#var} からテレポートリクエストが送信されました。{msg#tpa-accept-btn} {msg#tpa-deny-btn}"
+    tpa-accept-sender: "{global#sys-info}{#var} のテレポートリクエストを承諾しました。"
+    tpa-accept-target: "{global#sys-info}{#var} がテレポートリクエストを承諾しました。テレポート中..."
+    tpa-deny-sender: "{global#sys-info}{#var} のテレポートリクエストを拒否しました。"
+    tpa-deny-target: "{global#sys-info}{#var} がテレポートリクエストを拒否しました。"
+    tpa-no-request: "{global#sys-info}{#var} からテレポートリクエストは送信されていません。"
+
+    send: '{global#info}プレイヤー {#var} にテレポートリクエストを送信しました。'
+    undo: '{global#info}プレイヤー {#var} へのテレポートリクエストを取り消しました。'
+    accept: '{global#success}プレイヤー {#var} のテレポートリクエストを承諾しました。'
+    deny: '{global#info}プレイヤー {#var} のテレポートリクエストを拒否しました。'
+    send-announce: '{global#info}プレイヤー {#var} からテレポートリクエストが送信されました。 {msg#accept-btn} {msg#deny-btn}'
+    denied: '{global#error}{#var} がテレポートリクエストを拒否しました。'
+    accepted: '{global#success}{#var} がテレポートリクエストを承諾しました。テレポート中...'
+    player-not-found: '{global#error}プレイヤーが見つかりません...'
+    list: '{global#info}以下は未処理のテレポートリクエストです: {#return} {#var}'
+  rtp:
+    start: '{global#info}ランダムテレポートを開始します。{#var} ゲームティック以内に目的地を検索します...'
+    success: '{global#success}ランダムテレポート成功！ (目的地: [{#var},{#var},{#var}])'
+    failed: '{global#error}許可された検索回数内に目的地を見つけられませんでした。テレポート失敗。'

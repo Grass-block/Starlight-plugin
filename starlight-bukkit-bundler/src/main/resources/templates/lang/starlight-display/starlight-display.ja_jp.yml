@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    action-bar-hud: アクションバーHUD情報表示
+    afk: AFK検出
+    chat-format: チャット行フォーマット
+    custom-death-message: カスタム死亡メッセージ形式
+    custom-kick-message: カスタムキックメッセージ
+    custom-motd: カスタムMOTD情報
+    custom-scoreboard: カスタムスコアボード情報
+    drop-item-info: ドロップアイテムハイライト情報
+    hover-display: ホバーテキスト
+    player-name-header: プレイヤータイトル
+    tab-menu: TABメニュー情報
+    welcome-message: カスタム歓迎メッセージ
+    we-session-renderer: WorldEdit選択範囲レンダラー
+    player-join-message: プレイヤー参加通知
+    chat-announce: チャットお知らせ
+  player-join-message:
+    join: '{global#sys-info}{#gray}プレイヤー {#white}{#var}{#gray} がサーバーに参加しました。ようこそ。'
+    leave: '{global#sys-info}プレイヤー {#white}{#var}{#gray} がサーバーから退出しました。'
+    welcome-message: '{global#sys-info}ようこそ({#var}) {#server-name}{#gray} サーバーへ、お楽しみください。'
+  tab-menu:
+    welcome-header: '{#aqua}{#server-name}{#reset}サーバーへようこそ！'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    ping: '{#gray}Ping: {#white}{#ping}'
+    player: '{#gray}オンライン: {#white}{#player}'
+    max-player: '{#gray}最大: {#white}{#max-player}'
+    date: '{#gray}日付/時刻: {#white}{#date}'
+    website: '{#gray}公式サイト: {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    --view-setting-title: "{#aqua}[サイドバー]基本サイドバー表示"
+    --view-setting-desc:
+      - "サイドバー基本HUD表示内容、"
+      - "基本ゲーム情報監視を提供します。"
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}日付: {#white}{#date-day}'
+    time: '{#gray}時刻: {#white}{#date-time}'
+    player: '{#gray}プレイヤー: {#white}{player}'
+    rank: '{#gray}ランク: {#white}{#rank}'
+    play-time: '{#gray}プレイ時間: {#white}{#play-time}'
+    world-time: '{#gray}ワールド時間: {#white}{#world-time}'
+    player-count: '{#gray}オンライン: {#white}{#player}'
+    ping: '{#gray}遅延(参考): {#white}{#ping}'
+    tps: '{#gray}TPS: {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT: {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}QQグループ: {#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}{#var} のタイトルを {#var} に設定しました。'
+    clear-header: '{global#sys-operation}{#var} のタイトルをクリアしました。'
+    announce: '{global#sys-info}プレイヤー {#var} がタイトル {#var} を獲得しました。'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}WorldEdit選択範囲レンダーモードを [{#white}永続{#gray}] に設定しました"
+    mode-update: "{global#sys-info}WorldEdit選択範囲レンダーモードを [{#white}更新時{#gray}] に設定しました"
+    mode-off: "{global#sys-info}WorldEdit選択範囲レンダーモードを [{#white}オフ{#gray}] に設定しました"
+    render: "{global#sys-success}WorldEdit選択範囲がレンダリングされました（ハイライト）。"
+  afk:
+    left: "{global#info}プレイヤー {#var} は一時的に離席しています。"
+    left-self: "{global#info}あなたは一時的に離席しています。"
+    back: "{global#info}プレイヤー {#var} が {#var} の離席から戻りました。"
+    back-self: "{global#info}あなたは {#var} の離席から戻りました。"
+  action-bar-hud:
+    --view-setting-title: "{#green}[アクションバー]基本HUD情報表示"
+    --view-setting-desc:
+      - "アクションバー基本HUD表示内容、"
+      - "座標、バイオーム、時刻表示を提供します。"
+    time: "{#dark-aqua}ワールド時間: {#aqua}{#world-time}"
+    position: "{#dark-purple}位置: {#red}{}{#gray},{#green}{}{#gray},{#aqua}{}{#gray}"
+    biome: "{#dark-green}バイオーム: {translate;color(green)}biome.{}.{}{;}"
+    face: "{#dark-blue}向き: {#blue}{}(ピッチ),{}(ヨー)"
+  welcome-message:
+    title: '{#gold}ようこそ！'
+    content: '{#white}{#server-name}{#white}サーバーへようこそ、お楽しみください！'
+    callback: '{#gray}(このメッセージは {#gold}/welcome-message{#gray} で再表示できます)'
+  custom-motd:
+    motd-command: '{global#info}サーバーMOTD情報: '
+    icon-refresh: '{global#success}MOTD画像キャッシュを更新しました。'
+    text-refresh: '{global#success}MOTDテキストキャッシュを更新しました。'
+  custom-kick-message:
+    header: '{#white}{#server-name}{#white} サーバーからキックされました'
+    ban-header: '{#white}{#server-name}{#reset} からBANされました'
+    ban-name: '{#gray}申し訳ありません、あなたのプレイヤー名はこのサーバーからBANされています。'
+    ban-ip: '{#gray}申し訳ありません、あなたのIPアドレスはこのサーバーからBANされています。'
+    ban-hint: '{#gray}誤りと思われる場合は、サーバー管理者にお問い合わせください。'
+    ban-reason: '{#gray}BAN理由{#white}: {reason}'
+    ban-op: '{#gray}実行者{#white}: {source}'
+    ban-expire: '{#gray}このBANは {#white}{expire}{#gray} に終了します。'
+    website-hint: '{#gray}公式サイト: {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}もっと{#white}]"
+    tip-title: "{#dark-aqua}ヒント:"

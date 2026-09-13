@@ -1,0 +1,18 @@
+language:
+  -module-name:
+    clear-console: 控制台清理工具
+    console-execute: 控制台代理執行
+    custom-log-format: '[BETA]自訂日誌格式'
+    log-color-patch: '[BETA]日誌顏色修復'
+    stop-confirm: 停服確認
+  console-execute:
+    execute: "{global#sys-operation}已提交指令行: {#var}"
+  clear-console:
+    execute: "{global#sys-operation}已清除控制台指令緩衝區。"
+  stop-confirm:
+    hint: "{#red} 你確定要關閉伺服器嗎?這可能會導致服務終止。如果確定的話,請使用{#yellow}/stop confirm"
+  custom-log-format:
+    enable: "{global#sys-operation}{#gray}自訂伺服器端日誌格式已啟用。"
+    disable: "{global#sys-operation}{#gray}自訂伺服器端日誌格式已停用。"
+    reload: "{global#sys-operation}{#gray}已重載自訂伺服器端日誌格式。"
+    restore: "{global#sys-operation}{#gray}已重設自訂伺服器端日誌格式。"

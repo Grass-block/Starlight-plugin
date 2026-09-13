@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    action-bar-hud: Affichage HUD de la barre d'action
+    afk: Détection AFK
+    chat-format: Formatage des lignes de chat
+    custom-death-message: Format de message de mort personnalisé
+    custom-kick-message: Message d'expulsion personnalisé
+    custom-motd: Informations MOTD personnalisées
+    custom-scoreboard: Informations du tableau de score personnalisé
+    drop-item-info: Informations de surbrillance des objets au sol
+    hover-display: Texte de survol
+    player-name-header: Titre du joueur
+    tab-menu: Informations du menu TAB
+    welcome-message: Message de bienvenue personnalisé
+    we-session-renderer: Rendu de sélection WorldEdit
+    player-join-message: Notification de connexion du joueur
+    chat-announce: Annonces du chat
+  player-join-message:
+    join: '{global#sys-info}{#gray}Le joueur {#white}{#var}{#gray} a rejoint le serveur. Bienvenue.'
+    leave: '{global#sys-info}Le joueur {#white}{#var}{#gray} a quitté le serveur.'
+    welcome-message: '{global#sys-info}Bienvenue({#var}) sur le serveur {#server-name}{#gray}, amusez-vous bien.'
+  tab-menu:
+    welcome-header: 'Bienvenue sur le serveur {#aqua}{#server-name}{#reset} !'
+    tps: '{#gray}TPS : {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT : {#white}{#mspt}{#white}'
+    ping: '{#gray}Ping : {#white}{#ping}'
+    player: '{#gray}En ligne : {#white}{#player}'
+    max-player: '{#gray}Max : {#white}{#max-player}'
+    date: '{#gray}Date/Heure : {#white}{#date}'
+    website: '{#gray}Site web : {#aqua}{#underline}{#server-website}'
+  custom-scoreboard:
+    --view-setting-title: "{#aqua}[Barre latérale] Affichage de base de la barre latérale"
+    --view-setting-desc:
+      - "Contenu d'affichage HUD de base de la barre latérale,"
+      - "fournissant une surveillance des informations de jeu de base."
+    title: '{#aqua}{#server-name}{#reset}'
+    date: '{#gray}Date : {#white}{#date-day}'
+    time: '{#gray}Heure : {#white}{#date-time}'
+    player: '{#gray}Joueur : {#white}{player}'
+    rank: '{#gray}Rang : {#white}{#rank}'
+    play-time: '{#gray}Temps de jeu : {#white}{#play-time}'
+    world-time: '{#gray}Temps du monde : {#white}{#world-time}'
+    player-count: '{#gray}En ligne : {#white}{#player}'
+    ping: '{#gray}Ping (réf.) : {#white}{#ping}'
+    tps: '{#gray}TPS : {#white}{#tps}{#white}/20'
+    mspt: '{#gray}MSPT : {#white}{#mspt}{#white}'
+    website: '{#yellow}{#server-website}'
+    qq-group: '{#gray}Groupe QQ : {#aqua}{#underline}{#qq-group}'
+  player-name-header:
+    set-header: '{global#sys-operation}Le titre de {#var} a été défini sur {#var}.'
+    clear-header: '{global#sys-operation}Le titre de {#var} a été effacé.'
+    announce: '{global#sys-info}Le joueur {#var} a obtenu le titre {#var}.'
+  we-session-renderer:
+    mode-persistent: "{global#sys-info}Mode de rendu de la sélection WorldEdit défini sur [{#white}Persistant{#gray}]"
+    mode-update: "{global#sys-info}Mode de rendu de la sélection WorldEdit défini sur [{#white}Lors de la mise à jour{#gray}]"
+    mode-off: "{global#sys-info}Mode de rendu de la sélection WorldEdit défini sur [{#white}Désactivé{#gray}]"
+    render: "{global#sys-success}Votre sélection WorldEdit a été rendue (surlignée)."
+  afk:
+    left: "{global#info}Le joueur {#var} est temporairement absent."
+    left-self: "{global#info}Vous êtes temporairement absent."
+    back: "{global#info}Le joueur {#var} est revenu après une absence de {#var}."
+    back-self: "{global#info}Vous êtes revenu après une absence de {#var}."
+  action-bar-hud:
+    --view-setting-title: "{#green}[Barre d'action] Affichage HUD de base"
+    --view-setting-desc:
+      - "Contenu d'affichage HUD de base de la barre d'action,"
+      - "fournissant les coordonnées, le biome et l'heure."
+    time: "{#dark-aqua}Heure du monde : {#aqua}{#world-time}"
+    position: "{#dark-purple}Position : {#red}{}{#gray},{#green}{}{#gray},{#aqua}{}{#gray}"
+    biome: "{#dark-green}Biome : {translate;color(green)}biome.{}.{}{;}"
+    face: "{#dark-blue}Orientation : {#blue}{}(Tangage),{}(Lacet)"
+  welcome-message:
+    title: '{#gold}Bienvenue !'
+    content: '{#white}Bienvenue sur le serveur {#server-name}{#white}, amusez-vous bien !'
+    callback: '{#gray}(Ce message peut être rappelé avec {#gold}/welcome-message{#gray})'
+  custom-motd:
+    motd-command: '{global#info}MOTD du serveur : '
+    icon-refresh: '{global#success}Cache des images MOTD actualisé avec succès.'
+    text-refresh: '{global#success}Cache du texte MOTD actualisé avec succès.'
+  custom-kick-message:
+    header: '{#white}Vous avez été expulsé du serveur {#server-name}{#white}'
+    ban-header: '{#white}Vous avez été banni de {#server-name}{#reset}'
+    ban-name: '{#gray}Désolé, votre nom de joueur a été banni de ce serveur.'
+    ban-ip: '{#gray}Désolé, votre adresse IP a été bannie de ce serveur.'
+    ban-hint: '{#gray}Si vous pensez qu''il s''agit d''une erreur, veuillez contacter l''administrateur du serveur.'
+    ban-reason: '{#gray}Motif du bannissement{#white} : {reason}'
+    ban-op: '{#gray}Banni par{#white} : {source}'
+    ban-expire: '{#gray}Ce bannissement expirera le {#white}{expire}{#gray}.'
+    website-hint: '{#gray}Visitez notre site web : {#aqua}{#underline}{#server-website}'
+  chat-announce:
+    more-btn: "{click(command,/announce tips)}[{#green}Plus{#white}]"
+    tip-title: "{#dark-aqua}Astuce :"

@@ -1,0 +1,12 @@
+config:
+  bungee-connection-protect:
+    accept-delay: 350
+  chat-sync:
+    format: "{}{#gold} | {#white} {} {#gold}> {;}{#white}{}"
+  proxy-ping:
+    interval: 200
+    query-target: proxy
+  geyser-skin-redirect:
+    prefix: "."
+  out-proxy-info-sync:
+    chat-sync-template: "{#gold}[{#reset}{}{#gold}]{#white}{}: "

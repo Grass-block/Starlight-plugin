@@ -1,0 +1,121 @@
+package org.atcgroup.starlight.bundle.sideload;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpChunkedInput;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.stream.ChunkedFile;
+import me.gb2022.commons.file.FilePath;
+import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.commons.reflect.method.MethodHandle;
+import me.gb2022.commons.reflect.method.MethodHandleO4;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import net.kyori.adventure.text.Component;
+import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.execute.CommandExecution;
+import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.StarlightBukkitCore;
+import org.atcraftmc.starlight.core.ComponentSerializer;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.core.http.HttpHandler;
+import org.atcraftmc.starlight.core.http.HttpResponses;
+import org.atcraftmc.starlight.core.http.HttpService;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcgroup.starlight.bundle.sideload.resource.LocalPackManager;
+import org.atcgroup.starlight.bundle.sideload.resource.ResourcePackSourceInfo;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.io.RandomAccessFile;
+
+@ApplicationModule(id = "resource-pack-loader", description = "Serves resource packs to players via HTTP server")
+@AutoRegister({Registrations.SERVER_EVENT})
+@CommandProvider(ResourcePackLoader.GetResourceCommand.class)
+public final class ResourcePackLoader extends BukkitAbstractModule implements HttpHandler {
+    public static final MethodHandleO4<Player, Boolean, byte[], Component, String> SEND_RESOURCE_PACK = MethodHandle.select((c) -> {
+        c.attempt(
+                () -> Player.class.getMethod("setResourcePack", String.class, byte[].class, Component.class, boolean.class),
+                (player, force, hash, prompt, url) -> player.setResourcePack(url, hash, prompt, force)
+        );
+        c.attempt(
+                () -> Player.class.getMethod("setResourcePack", String.class, byte[].class, String.class, boolean.class),
+                (player, force, hash, prompt, url) -> player.setResourcePack(url, hash, ComponentSerializer.legacy(prompt), force)
+        );
+    });
+    private static final FilePath PATH = SLPluginEnvironment.getPathManager().getCurrentPluginFolder().append("assets").append(
+            "resource-packs");
+    private final LocalPackManager localPackManager = new LocalPackManager(PATH);
+
+    @Override
+    public void enable() throws Exception {
+        this.localPackManager.update();
+
+        HttpService.instance().ifPresent((i) -> i.addHandler("/resource-pack", this));
+    }
+
+    @Override
+    public void disable() throws Exception {
+        super.disable();
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        if (this.localPackManager.isEmpty()) {
+            return;
+        }
+
+        sendResourcePack(event.getPlayer());
+    }
+
+    //todo: prompt and enforce config
+    public void sendResourcePack(Player player) {
+        try {
+            var prompt = Component.text("");//language().item("prompt").component(LocaleService.locale(player)).asComponent();
+            var sha = ResourcePackSourceInfo.fileSHA1Raw(this.localPackManager.getCompiledFile());
+            var uri = "http://localhost:8080/resource-pack";
+
+            SEND_RESOURCE_PACK.invoke(player, true, sha, prompt, uri);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void request(FullHttpRequest request, ChannelHandlerContext ctx) {
+        var file = this.localPackManager.getCompiledFile();
+
+        if (!file.exists() || file.length() == 0) {
+            HttpResponses.error(ctx, HttpResponseStatus.INTERNAL_SERVER_ERROR);
+
+            return;
+        }
+
+        try (var raf = new RandomAccessFile(file, "r")) {
+            HttpResponses.header(ctx, raf.length(), (h) -> {
+                h.set(HttpHeaderNames.CONTENT_TYPE, "application/zip");
+                h.set(HttpHeaderNames.USER_AGENT, "starlight::" + Starlight.instance().getInstanceUUID());
+                h.set(HttpHeaderNames.ACCEPT_RANGES, "none");
+                h.set(HttpHeaderNames.CONNECTION, "close");
+            });
+
+            ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(raf))).sync();
+
+            HttpResponses.end(ctx);
+        } catch (Exception e) {
+            HttpResponses.error(ctx, HttpResponseStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @BukkitCommand(name = "get-resource")
+    public static final class GetResourceCommand extends ModuleCommand<ResourcePackLoader> {
+        @Override
+        public void execute(CommandExecution context) {
+            this.getModule().sendResourcePack(context.requireSenderAsPlayer());
+        }
+    }
+}

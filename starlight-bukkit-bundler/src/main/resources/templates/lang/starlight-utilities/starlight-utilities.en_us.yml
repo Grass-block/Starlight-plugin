@@ -1,0 +1,92 @@
+language:
+  -module-name:
+    block-update-locker: Block Update Locker
+    calculator: Calculator
+    camera-movement: Custom Camera Path
+    dynamic-view-distance: Custom View Distance
+    hitokoto: "Hitokoto"
+    player-ping-command: Player Ping Query
+    position-align: Position Alignment Command
+    position-lock: Position Lock Command
+    surrounding-refresh: Surrounding Block Refresh
+    particle-font: Particle Text Rendering
+    freecam: Free Camera
+    fly-command: Flight Control Commands
+    menu-item: Menu Item Trigger
+    client-environment-setting: Client Environment Settings
+    modern-minecart-sync: Modern Minecart Movement Compatibility
+  particle-font:
+    done: '{global#sys-info}Rendering complete ({#var}, {#var} particles).'
+    no-fonts: '{global#error}No fonts found. Please place ttf or otf fonts in {#white}/assets/font{#gray}.'
+    trim: '{global#sys-info}Successfully adjusted {#var} filename format(s).'
+  position-lock:
+    lock: '{global#sys-info}Your position has been locked.'
+    unlock: '{global#sys-info}Your position has been unlocked.'
+    lock-player: '{global#sys-operation}You have locked the position of {#var}.'
+    unlock-player: '{global#sys-operation}You have unlocked the position of {#var}.'
+  position-align:
+    align: "{global#sys-success}Your coordinates have been adjusted to [{#var},{#var},{#var}] [{#var}|{#var}]."
+  calculator:
+    calc: "[{#blue}Calc{#white}]{#gray} {#var} = {#var}"
+    --tip: "{#gray}Use {#gold}/calc [expression]{#gray} for simple calculations."
+  player-ping-command:
+    ping-msg: "{global#sys-info}Your ping is: {#var} {#gray}ms"
+    --tip: "{#gray}Use {#gold}/ping{#gray} to check your ping!"
+  block-update-locker:
+    lock: "{global#sys-info}Block updates locked."
+    unlock: "{global#sys-info}Block updates unlocked."
+  dynamic-view-distance:
+    set-target: "{global#sys-operation}Set view distance of player {#var} to {#var} chunks."
+    reset-target: "{global#sys-operation}Reset view distance setting for player {#var}."
+    set-self: "{global#sys-info}Your view distance has been set to {#var} chunks."
+    reset-self: "{global#sys-info}Your view distance has been reset."
+    --tip:
+      - "{#gray}You can use {#gold}/view-distance [player] [distance] {#gray}to set your server render distance."
+      - "{#gray}If you experience lag (high ping), try lowering your server render distance."
+  camera-movement:
+    cam-start: '{global#sys-info}Camera path started ({#var} ticks)'
+    cam-end: '{global#sys-info}Camera path ended.'
+  freecam:
+    start: "{global#info}Free camera enabled."
+    reset: "{global#info}Free camera disabled."
+    --tip: "{#gray}Use {#gold}/freecam{#gray} to toggle free camera for better exploration."
+    anti-cheat: "{global#sys-error}To ensure fair play, please do not use commands while in free camera mode."
+  fly-command:
+    cmd-speed-set: "{global#info}Flight speed has been set to {#var}."
+    toggle: "{global#info}Flight mode toggled"
+    --tip: "{#gray}Use {#gold}/flyspeed [value]{#gray} to adjust your flight speed."
+  surrounding-refresh:
+    to-big: '{global#error}Radius is too large.'
+    not-found: '{global#error}Target player {#var} not found.'
+    success: '{global#success}Sending area refresh request to {#var}.'
+    refresh-target: '{global#info}Refreshing blocks within a {#var} radius around you. This may cause lag, please do not move.'
+    refresh-complete: '{global#info}Successfully refreshed block data around you.'
+    --tip: "{#gray}If you encounter ghost blocks, use {#gold}/refresh-area [radius]{#gray} to quickly refresh blocks near you."
+  force-sprint:
+    --tip: "{#gray}Use {#gold}/sprint{#gray} to quickly toggle auto-sprint."
+    enable: "{global#info}Auto-sprint enabled."
+    disable: "{global#info}Auto-sprint disabled."
+  item-custom-name:
+    bind: "{global#sys-info}Bound item {#var} to custom language key {#var}."
+    unbind: "{global#sys-info}Unbound custom language key from item {#var}."
+    bind-fail: "{global#sys-error}Cannot bind a custom language key to an empty hand."
+  tick-manager:
+    freeze: "{global#warn}Server frozen."
+    unfreeze: "{global#info}Server unfrozen."
+    step: "{global#info}Server has run {#var} ticks."
+  client-environment-setting:
+    weather-none: "{global#sys-info}Your client weather has been set to [{#white}Clear{#gray}]"
+    weather-rain: "{global#sys-info}Your client weather has been set to [{#white}Rain{#gray}]"
+    weather-off: "{global#sys-info}Your client weather has been reset to actual weather."
+    time-offset: "{global#sys-info}Your client time has been set to [{#white}Offset: {} ticks{#gray}]"
+    time-fixed: "{global#sys-info}Your client time has been set to [{#white}Fixed: {} ticks{#gray}]"
+    time-off: "{global#sys-info}Your client time has been reset to actual time."
+  hitokoto:
+    sentence: "{hover(text,Quote from {#red}[{#white}Hitokoto{#red}]{#gray}(https://hitokoto.cn/))}{#red}[{#white}Hitokoto{#red}] {#white}{} {#gray}— {}({})"
+  menu-item:
+    item-name: "{#yellow}|| {#aqua}Menu{#yellow} ||"
+    item-lore:
+      - '{#gray}A small item used to open the {#white}server feature menu{#gray},'
+      - '{#gray}click anywhere to quickly open the menu interface;'
+      - '{#gray}of course, if you {#white}accidentally lose this item{#gray},'
+      - '{#gray}you can also use the command "/menu-item" to get another one.'

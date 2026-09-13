@@ -1,0 +1,18 @@
+language:
+  -module-name:
+    clear-console: Nettoyeur de console
+    console-execute: Exécution proxy de console
+    custom-log-format: '[BETA] Format de log personnalisé'
+    log-color-patch: '[BETA] Correctif de couleur de log'
+    stop-confirm: Confirmation d''arrêt
+  console-execute:
+    execute: "{global#sys-operation}Ligne de commande soumise : {#var}"
+  clear-console:
+    execute: "{global#sys-operation}Tampon de commandes de la console effacé."
+  stop-confirm:
+    hint: "{#red} Êtes-vous sûr de vouloir arrêter le serveur ? Cela peut terminer le service. Si sûr, utilisez {#yellow}/stop confirm"
+  custom-log-format:
+    enable: "{global#sys-operation}{#gray}Format de log personnalisé activé."
+    disable: "{global#sys-operation}{#gray}Format de log personnalisé désactivé."
+    reload: "{global#sys-operation}{#gray}Format de log personnalisé rechargé."
+    restore: "{global#sys-operation}{#gray}Format de log personnalisé réinitialisé."
