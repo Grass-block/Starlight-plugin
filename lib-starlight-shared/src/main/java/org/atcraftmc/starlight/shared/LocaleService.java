@@ -4,7 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import org.atcraftmc.starlight.shared.jdbc.document.DocumentField;
+import me.gb2022.commons.jdbc.document.DocumentField;
 
 import java.time.Duration;
 import java.util.Optional;

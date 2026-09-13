@@ -1,0 +1,30 @@
+language:
+  -module-name:
+    chat-at: チャットメンション
+    chat-component: リッチテキストチャット対応
+    mail: メール
+    chat-filter: チャットフィルター
+    chat-report: チャット通報
+    mute: チャットミュート
+  chat-component:
+    --tip:
+      - '{#gray}チャット、看板、コマンド（一部対応）で、リッチテキストタグを使用してテキストに効果を追加できます。'
+      - '{#gray}{click(link,wiki.atcraftmc.cn)}[こちら]{;}{#gray}をクリックして詳細をご覧ください。'
+  chat-filter:
+    reload: "{global#sys-success}ルールファイルをリロードしました。"
+    save: "{global#sys-success}デフォルトルールファイルを保存しました。"
+    reported-warn: "{global#sys-warning}あなたのメッセージ({#var})がプレイヤーにより通報され、システムが違反と判定しました。言動にご注意ください。"
+    outcome-warn: "{global#sys-success}通報したプレイヤー({#var})のメッセージ({#var})が違反と判定され、警告処理されました。コミュニティ秩序の維持にご協力いただきありがとうございます。"
+    outcome-punished: "{global#sys-success}通報したプレイヤー({#var})のメッセージ({#var})が違反と判定され、ミュート処理されました。コミュニティ秩序の維持にご協力いただきありがとうございます。"
+  chat-report:
+    not-exist: "{global#sys-error}通報するチャット履歴エントリが存在しません。既に通報されている可能性があります。"
+    not-self: "{global#sys-error}自分のチャットメッセージを通報することはできません。"
+    success: "{global#sys-success}{#var} のチャット通報({#var})を送信しました。"
+    --tip: '{#gray}不適切な内容を含むメッセージを見つけた場合、チャットテキストの後ろにある "[!]" をクリックして通報できます。'
+  mute:
+    message-banned: '{global#sys-info}あなたはミュートされています。ミュートは {#var} に解除されます。'
+    add: '{global#sys-info}プレイヤー {#var} を {#var} までミュートしました、理由: {#var}。'
+    add-target: '{global#sys-info}あなたは {#var} により {#var} のため {#var} までミュートされました！'
+    remove: '{global#sys-info}プレイヤー {#var} のミュートを解除しました。'
+    remove-target: '{global#sys-info}管理者 {#var} によりミュートが解除されました！'
+    message-unmuted: '{global#sys-error}エラー: プレイヤー {#var} はミュートされていません！'

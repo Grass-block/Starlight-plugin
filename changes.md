@@ -1,5 +1,10 @@
 ## V5: Now - Gluon engine
 
+### 26.6.3
+
+- `chat-filter` `mute` and `chat-report` are now moved to `starlight-chat` package;
+  ONLY VALUE CONFIG AND LANG ARE RELOCATED.
+
 ### 26.6.2
 
 - Fixed service configuration unavailable on certain service.

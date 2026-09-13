@@ -1,0 +1,67 @@
+package org.atcgroup.starlight.bundle.management;
+
+import me.gb2022.commons.reflect.Inject;
+import me.gb2022.gluon.module.ApplicationModule;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.migration.ConfigAccessor;
+import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.bukkit.command.CommandSender;
+
+@CommandProvider({VMGarbageCleaner.GCCommand.class})
+@ApplicationModule(id = "vm-garbage-cleaner", version = "1.3.0", description = "Periodically runs garbage collection to free memory")
+public final class VMGarbageCleaner extends BukkitAbstractModule {
+    public static final String GC_TASK_TID = "starlight:gc";
+
+    @Inject
+    private LanguageEntry language;
+
+    @Override
+    public void enable() {
+        int period = ConfigAccessor.getInt(this.config(), "period");
+        QLib.task().async().timer(GC_TASK_TID, period, period, this::gc);
+    }
+
+    @Override
+    public void disable() {
+        QLib.task().async().cancel(GC_TASK_TID);
+    }
+
+    public void gc() {
+        if (ConfigAccessor.getBool(this.config(), "broadcast")) {
+            MessageAccessor.broadcast(this.language, true, false, "gc-start");
+        }
+        long prev = Runtime.getRuntime().freeMemory();
+        System.gc();
+        long now = Runtime.getRuntime().freeMemory();
+        long collect = (now - prev) / 1048576;
+        if (ConfigAccessor.getBool(this.config(), "broadcast")) {
+            MessageAccessor.broadcast(this.language, true, false, "gc-end", collect);
+        }
+    }
+
+    public void manualGC(CommandSender sender) {
+        MessageAccessor.send(this.language, sender, "gc-start");
+
+        var prev = Runtime.getRuntime().freeMemory();
+        System.gc();
+        var now = Runtime.getRuntime().freeMemory();
+        var collect = (now - prev) / 1048576;
+
+        MessageAccessor.send(this.language, sender, "gc-end", collect);
+    }
+
+
+    @BukkitCommand(name = "system-gc", permission = "-starlight.management.gc")
+    public static final class GCCommand extends ModuleCommand<VMGarbageCleaner> {
+
+        @Override
+        public void onCommand(CommandSender sender, String[] args) {
+            this.getModule().manualGC(sender);
+        }
+    }
+}

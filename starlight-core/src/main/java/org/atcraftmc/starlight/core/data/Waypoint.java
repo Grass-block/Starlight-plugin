@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.atcraftmc.starlight.data.jdbc.pojo.LegacyStringListHandler;
-import org.atcraftmc.starlight.data.jdbc.pojo.LegacyUUIDTypeHandler;
+import me.gb2022.commons.jdbc.pojo.LegacyStringListHandler;
+import me.gb2022.commons.jdbc.pojo.LegacyUUIDTypeHandler;
 
 import java.util.Set;
 import java.util.UUID;

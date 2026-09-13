@@ -2,10 +2,9 @@ package org.atcraftmc.starlight.shared.jdbc.flex;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
-import org.atcraftmc.starlight.data.jdbc.source.WrappedConnection;
+import me.gb2022.commons.jdbc.source.SQLMapper;
+import me.gb2022.commons.jdbc.source.WrappedConnection;
 import org.atcraftmc.starlight.data.storage.DataEntry;
-import org.atcraftmc.starlight.shared.jdbc.JDBCBasedDataService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

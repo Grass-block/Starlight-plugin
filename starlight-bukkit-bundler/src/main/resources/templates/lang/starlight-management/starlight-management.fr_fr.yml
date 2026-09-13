@@ -1,0 +1,70 @@
+language:
+  -module-name:
+    ban: Commandes de bannissement
+    kick-on-reload: Expulsion automatique au rechargement
+    maintenance: Mode maintenance
+    plugin-manager-command: Gestionnaire de plugins en ligne de commande
+    server-info: Commandes d'information du serveur
+    tps-bar: Barre visuelle TPS
+    vm-garbage-cleaner: Nettoyage automatique de la mémoire
+  ban:
+    msg-ban-complete: "{global#sys-success}Joueur {#var} banni jusqu'au {#var}, motif : {#var}."
+    broadcast: "{global#sys-info}Le joueur {#var} a été banni par {#var} pour {#var} jusqu'au {#var}."
+  vm-garbage-cleaner:
+    gc-start: "{global#sys-operation}Nettoyage de la mémoire démarré..."
+    gc-end: "{global#sys-operation}Nettoyage de la mémoire terminé, {#var} Mo libérés."
+  maintenance:
+    start: "{global#sys-operation}Maintenance démarrée."
+    end: "{global#sys-operation}Maintenance terminée."
+    allow: "{global#sys-operation}Autorisé {#var}({#var}) à entrer pendant la maintenance."
+    disallow: "{global#sys-operation}Autorisation d'entrée pendant la maintenance retirée pour {#var}({#var})."
+    kick-message:
+      - 'Le serveur est actuellement en maintenance, vous ne pouvez pas entrer pour le moment.'
+      - 'La maintenance peut prendre un certain temps, veuillez patienter. Nous sommes sincèrement désolés pour le dérangement.'
+  kick-on-reload:
+    reload-hint:
+      - "{#white}Le serveur est en cours de rechargement. Pour assurer un fonctionnement correct, vous avez été temporairement expulsé."
+      - "{#white}Veuillez vous reconnecter sous peu.{#return}"
+    stop-hint:
+      - "{#white}Le serveur a été arrêté en raison d'un problème ou d'une maintenance."
+      - "{#white}Nous nous excusons pour le dérangement.{#return}"
+  plugin-manager-command:
+    list: "{global#sys-operation}Liste des plugins : {#var}"
+    info:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - "{#gray}>>{#aqua} {}: {#return}{}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+    info-name: "{#gold}Nom{#white}: {}[{}]"
+    info-version: "{#gold}Version{#white}: {}"
+    info-author: "{#gold}Auteur{#white}: {}"
+    info-desc: "{#gold}Description{#white}: {}"
+    info-api: "{#gold}Version API{#white}: {}"
+    info-depend: "{#gold}Dépendances{#white}: {}"
+    info-soft-depend: "{#gold}Dépendances facultatives{#white}: {}"
+    info-main: "{#gold}Classe principale{#white}: {}"
+    info-libs: "{#gold}Bibliothèques{#white}:"
+    file-not-found: "{global#error}Fichier du plugin {#var} introuvable."
+    plugin-not-found: "{global#error}Plugin {#var} introuvable."
+    load-failed: "{global#error}Échec du chargement du plugin {#var}."
+    unload-failed: "{global#error}Échec du déchargement du plugin {#var}."
+    enable: "{global#operation}Plugin {#var} activé avec succès."
+    disable: "{global#operation}Plugin {#var} désactivé avec succès."
+    restart: "{global#operation}Plugin {#var} redémarré avec succès."
+    load: "{global#operation}Plugin {#var} chargé avec succès."
+    unload: "{global#operation}Plugin {#var} déchargé avec succès."
+    reload: "{global#operation}Plugin {#var} rechargé avec succès."
+  tps-bar:
+    on: "{global#operation}Barre TPS affichée."
+    off: "{global#operation}Barre TPS masquée."
+  world-object-filter:
+    --tip: '{#gray}Vous pouvez utiliser {#gold}/world-filter{#gray} pour masquer les panneaux ou bannières que vous ne souhaitez pas voir.'
+    notify-title: "{#aqua}Vos paramètres de filtrage du contenu du monde :"
+    notify-state-flag: "{#gray}Filtre de bannières : {#aqua}{} {click(command,/world-filter flags)}{#white}[{#purple}Basculer{#white}]"
+    notify-state-signs: "{#gray}Filtre de panneaux : {#aqua}{} {click(command,/world-filter signs)}{#white}[{#purple}Basculer{#white}]"
+    flag-enable: "{global#sys-info}Le filtrage des textures de bannières a été {global#state-open}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    flag-disable: "{global#sys-info}Le filtrage des textures de bannières a été {global#state-close}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    sign-enable: "{global#sys-info}Le filtrage du contenu des panneaux a été {global#state-open}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    sign-disable: "{global#sys-info}Le filtrage du contenu des panneaux a été {global#state-close}. Un rechargement ou un déplacement peut être nécessaire pour voir les changements."
+    action-flag-hint: "{global#info}Selon vos paramètres, cette bannière a été filtrée. (Ce message ne réapparaîtra pas durant cette session.)"
+    action-sign-hint: "{global#info}Selon vos paramètres, ce panneau a été filtré. (Ce message ne réapparaîtra pas durant cette session.)"
+    action-flag-banned: "{global#warning}Le mode strict est activé sur le serveur ; cette bannière ne peut pas être placée."

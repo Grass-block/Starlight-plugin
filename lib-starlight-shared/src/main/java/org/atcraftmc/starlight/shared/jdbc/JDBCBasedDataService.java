@@ -2,7 +2,7 @@ package org.atcraftmc.starlight.shared.jdbc;
 
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.data.jdbc.JDBCDatabase;
+import me.gb2022.commons.jdbc.db.JDBCDatabase;
 
 import java.sql.*;
 import java.util.Map;

@@ -1,0 +1,30 @@
+language:
+  -module-name:
+    chat-at: Chat Mention
+    chat-component: Rich Text Chat Support
+    mail: Mail
+    chat-filter: Chat Filter
+    chat-report: Chat Report
+    mute: Chat Mute
+  chat-component:
+    --tip:
+      - '{#gray}In chat, signs and commands (partially supported), you can use rich text tags to add more effects to text.'
+      - '{#gray}Click {click(link,wiki.atcraftmc.cn)}[here]{;}{#gray} to learn more.'
+  chat-filter:
+    reload: "{global#sys-success}Successfully reloaded rule file."
+    save: "{global#sys-success}Successfully saved default rule file."
+    reported-warn: "{global#sys-warning}Your message ({#var}) has been reported and flagged as a violation by the system. Please mind your behavior."
+    outcome-warn: "{global#sys-success}The reported player ({#var})'s message ({#var}) has been flagged as a violation and warned. Thank you for helping maintain community order."
+    outcome-punished: "{global#sys-success}The reported player ({#var})'s message ({#var}) has been flagged as a violation and muted. Thank you for helping maintain community order."
+  chat-report:
+    not-exist: "{global#sys-error}The chat record entry you are trying to report does not exist, or it may have already been reported."
+    not-self: "{global#sys-error}You cannot report your own chat messages."
+    success: "{global#sys-success}You have submitted a chat report against {#var} ({#var})."
+    --tip: '{#gray}If a player sends a message containing inappropriate content, you can click the "[!]" after the chat text to report it.'
+  mute:
+    message-banned: '{global#sys-info}You are muted. Your mute will be lifted at {#var}.'
+    add: '{global#sys-info}Successfully muted player {#var} until {#var}, reason: {#var}.'
+    add-target: '{global#sys-info}You have been muted by {#var} for {#var} until {#var}!'
+    remove: '{global#sys-info}Successfully unmuted player {#var}.'
+    remove-target: '{global#sys-info}You have been unmuted by admin {#var}!'
+    message-unmuted: '{global#sys-error}Error: Player {#var} is not muted!'

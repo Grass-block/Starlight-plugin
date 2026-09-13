@@ -4,11 +4,11 @@ import me.gb2022.gluon.service.*;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.SLPluginEnvironment;
-import org.atcraftmc.starlight.data.jdbc.JDBCDatabase;
-import org.atcraftmc.starlight.data.jdbc.JDBCDatasourceManager;
-import org.atcraftmc.starlight.data.jdbc.JDBCDrivers;
+import me.gb2022.commons.jdbc.db.JDBCDatabase;
+import me.gb2022.commons.jdbc.db.JDBCDatasourceManager;
+import me.gb2022.commons.jdbc.db.JDBCDrivers;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
+import me.gb2022.commons.jdbc.JDBCDataService;
 
 import java.util.HashSet;
 import java.util.Optional;

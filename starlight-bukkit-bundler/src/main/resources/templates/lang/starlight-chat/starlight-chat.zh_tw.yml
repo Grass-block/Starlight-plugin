@@ -1,0 +1,30 @@
+language:
+  -module-name:
+    chat-at: 聊天提及
+    chat-component: 富文本聊天支援
+    mail: 郵件
+    chat-filter: 屏蔽詞
+    chat-report: 聊天舉報
+    mute: 聊天禁言
+  chat-component:
+    --tip:
+      - '{#gray}在聊天，告示牌和指令（部分支援）中，您可以使用富文本標籤對文字新增更多效果。'
+      - '{#gray}點擊{click(link,wiki.atcraftmc.cn)}[此處]{;}{#gray}了解更多。'
+  chat-filter:
+    reload: "{global#sys-success}成功重載規則檔案。"
+    save: "{global#sys-success}成功儲存預設規則檔案。"
+    reported-warn: "{global#sys-warning}您的訊息({#var})已被玩家舉報並被系統認定為違規，請注意您的言行舉止。"
+    outcome-warn: "{global#sys-success}您舉報的玩家({#var})的訊息({#var})已被系統認定為違規並警告處理。感謝您對社群秩序的維護。"
+    outcome-punished: "{global#sys-success}您舉報的玩家({#var})的訊息({#var})已被系統認定為違規並禁言處理。感謝您對社群秩序的維護。"
+  chat-report:
+    not-exist: "{global#sys-error}您要舉報的聊天記錄條目不存在, 或許它已經被舉報過了。"
+    not-self: "{global#sys-error}您不能舉報自己的聊天資訊。"
+    success: "{global#sys-success}您已提交對 {#var} 的聊天舉報 ({#var})。"
+    --tip: '{#gray}如果一位玩家發送的資訊包含了不合適的內容，你可以點擊聊天文本後面的"[!]"進行舉報。'
+  mute:
+    message-banned: '{global#sys-info}你被禁言了, 您的禁言將在 {#var} 解除。'
+    add: '{global#sys-info}成功將玩家 {#var} 禁言至 {#var}, 原因是 {#var}。'
+    add-target: '{global#sys-info}你被 {#var} 因 {#var} 禁言至 {#var}!'
+    remove: '{global#sys-info}成功將玩家 {#var} 解除禁言。'
+    remove-target: '{global#sys-info}你被管理員 {#var} 解除禁言!'
+    message-unmuted: '{global#sys-error}錯誤: 玩家 {#var} 未被禁言!'

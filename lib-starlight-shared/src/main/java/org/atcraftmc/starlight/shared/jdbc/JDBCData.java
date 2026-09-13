@@ -1,6 +1,6 @@
 package org.atcraftmc.starlight.shared.jdbc;
 
-import org.atcraftmc.starlight.shared.jdbc.document.DocumentDataService;
+import me.gb2022.commons.jdbc.document.DocumentDataService;
 import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
 
 public interface JDBCData  {

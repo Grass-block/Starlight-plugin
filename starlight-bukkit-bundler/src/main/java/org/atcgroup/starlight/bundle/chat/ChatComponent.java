@@ -1,0 +1,216 @@
+package org.atcgroup.starlight.bundle.chat;
+
+import io.papermc.paper.event.player.AsyncChatEvent;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.reflect.AutoRegister;
+import me.gb2022.commons.reflect.method.MethodHandle;
+import me.gb2022.commons.reflect.method.MethodHandleO2;
+import me.gb2022.commons.reflect.method.MethodHandleRO1;
+import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import me.gb2022.gluon.module.component.ComponentProvider;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.command.LegacyCommandManager;
+import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
+import org.atcraftmc.qlib.util.pipe.Pipeline;
+import org.atcraftmc.starlight.PlaceHolders;
+import org.atcgroup.starlight.bundle.api.AnvilRenameEvent;
+import org.atcraftmc.starlight.core.ComponentSerializer;
+import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
+import org.atcraftmc.starlight.core.platform.BukkitDataAccess;
+import org.atcraftmc.starlight.core.platform.BukkitUtil;
+import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.ui.InventoryUI;
+import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
+import org.atcraftmc.starlight.framework.module.SLModuleComponent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.regex.Pattern;
+
+
+@AutoRegister(Registrations.SERVER_EVENT)
+@ComponentProvider({ChatComponent.PaperChatListener.class, ChatComponent.PaperSignChangeListener.class})
+@ApplicationModule(id = "chat-component", version = "1.3.0", description = "Processes chat components and sign text formatting")
+public final class ChatComponent extends BukkitAbstractModule {
+    private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
+    private final GloballyPlaceHolder chatPH = PlaceHolders.chat();
+
+    public static String processIndirectChars(String input) {
+        StringBuilder output = new StringBuilder();
+        int processedIndex = 0;
+
+        int cap = input.length();
+        for (int i = 0; i < cap; i++) {
+            char current = input.charAt(i);
+
+            if (i < processedIndex) {
+                continue;
+            }
+            if (current != '\\') {
+                processedIndex += 1;
+                output.append(current);
+                continue;
+            }
+            if (cap - i < 2) {
+                processedIndex += 1;
+                output.append(current);
+                continue;
+            }
+            char next = input.charAt(i + 1);
+            if (next != 'u') {
+                processedIndex += 2;
+                switch (next) {
+                    case 'n' -> output.append('\n');
+                    case 't' -> output.append('\t');
+                    case 'r' -> output.append('\r');
+                    case 'b' -> output.append('\b');
+                    case 'f' -> output.append('\f');
+                    case '\'' -> output.append('\'');
+                    case '\"' -> output.append('\"');
+                    default -> output.append('\\');
+                }
+                continue;
+            }
+            processedIndex += 6;
+            String sequence = input.substring(i + 2, i + 6);
+            output.append(((char) Integer.parseInt(sequence, 16)));
+        }
+
+        return output.toString();
+    }
+
+    @Override
+    public void enable() {
+        this.pipeline.addLast("starlight:placeholder-global", (p, m) -> PlaceHolderService.format(m));
+        this.pipeline.addLast("starlight:placeholder-player", PlaceHolderService::formatPlayer);
+        this.pipeline.addLast("starlight:indirect-chars", (p, m) -> processIndirectChars(m));
+        this.pipeline.addLast("starlight:color-chars", (p, m) -> processColorChars(m));
+    }
+
+    @EventHandler
+    public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        if (!config().value("parse-command").bool()){
+            return;
+        }
+        if (LegacyCommandManager.isQLibCommand(event.getMessage().split(" ")[0].replace("/", ""))) {
+            return;
+        }
+        if (event.getMessage().contains("self-msg")) {
+            return;
+        }
+        var msg = event.getMessage();
+        for (var f : pipeline.list()) {
+            msg = f.apply(event.getPlayer(), msg);
+        }
+        event.setMessage(QLib.textBuilder().build(msg, false).toString());
+    }
+
+    public String processColorChars(String input) {
+        for (String s : chatPH.getRegisterKeys()) {
+            input = input.replace(s, chatPH.get(s));
+        }
+        return input;
+    }
+
+    @AutoRegister(Registrations.SERVER_EVENT)
+    public static final class PaperSignChangeListener extends SLModuleComponent<ChatComponent> {
+        private MethodHandleO2<SignChangeEvent, Integer, Component> setLine;
+        private MethodHandleRO1<SignChangeEvent, String, Integer> getLine;
+
+        @Override
+        public void checkCompatibility() throws me.gb2022.commons.compatibility.APIIncompatibleException {
+            Compatibility.requireClass(() -> Class.forName("org.bukkit.event.block.SignChangeEvent"));
+        }
+
+        @Override
+        public void enable() {
+            var t = SignChangeEvent.class;
+
+            this.setLine = MethodHandle.select((ctx) -> {
+                //noinspection Convert2MethodRef
+                ctx.attempt(() -> t.getMethod("line", int.class, Component.class), (o, i, c) -> o.line(i, c));
+                ctx.dummy((o, i, c) -> o.setLine(i, ComponentSerializer.legacy(c)));
+            });
+            this.getLine = MethodHandle.select((ctx) -> {
+                ctx.attempt(
+                        () -> t.getMethod("line", int.class),
+                        (o, i) -> ComponentSerializer.legacy(Objects.requireNonNullElse(o.line(i), Component.text("")))
+                );
+                //noinspection Convert2MethodRef
+                ctx.dummy((o, i) -> o.getLine(i));
+            });
+        }
+
+        @EventHandler
+        public void onSignEdit(SignChangeEvent event) {
+            for (int i = 0; i < event.lines().size(); i++) {
+                var text = this.getLine.invoke(event, i);
+                text = this.parent.processColorChars(text);
+                text = this.parent.processIndirectChars(text);
+
+                var matcher = Pattern.compile("§.").matcher(text);
+
+                while (matcher.find()) {
+                    var res = matcher.group();
+
+                    text = text.replace(res, "{#&" + res.substring(1) + "}");
+                }
+
+                this.setLine.invoke(event, i, QLib.textBuilder().buildComponent(text, false));
+            }
+        }
+    }
+
+    @AutoRegister(Registrations.SERVER_EVENT)
+    public static final class PaperChatListener extends SLModuleComponent<ChatComponent> {
+        @Override
+        public void checkCompatibility() throws APIIncompatibleException {
+            Compatibility.requireClass(() -> Class.forName("io.papermc.paper.event.player.AsyncChatEvent"));
+        }
+
+        @EventHandler
+        public void onChatting(AsyncChatEvent event) {
+            String msg = LegacyComponentSerializer.legacySection().serialize(event.message());
+            msg = this.parent.processColorChars(msg);
+            msg = PlaceHolderService.format(msg);
+            msg = PlaceHolderService.formatPlayer(event.getPlayer(), msg);
+            msg = processIndirectChars(msg);
+            event.message(QLib.textBuilder().buildComponent(msg, true));
+        }
+
+        @EventHandler
+        public void onAnvilRename(PrepareAnvilEvent event) {
+            var anvilInventory = event.getInventory();
+            var resultItem = event.getResult();
+            if (resultItem == null) {
+                return;
+            }
+
+            BukkitUtil.callEvent(new AnvilRenameEvent(anvilInventory, anvilInventory.getRenameText()), (ev) -> {
+                var renameText = ev.getOutcome();
+
+                if (renameText == null || renameText.isEmpty()) {
+                    return;
+                }
+
+                BukkitDataAccess.itemMeta(resultItem, (meta) -> {
+                    var msg = renameText;
+                    msg = this.parent.processColorChars(msg);
+                    msg = PlaceHolderService.format(msg);
+                    msg = PlaceHolderService.formatPlayer(((Player) event.getViewers().get(0)), msg);
+                    msg = processIndirectChars(msg);
+
+                    InventoryUI.SET_DISPLAY_NAME.invoke(meta, QLib.textBuilder().buildComponent(msg, false));
+                });
+            });
+        }
+    }
+}

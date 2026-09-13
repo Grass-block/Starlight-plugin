@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.core.data.region;
 
+import org.atcraftmc.starlight.util.UUIDMapped;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -10,7 +11,7 @@ import java.util.UUID;
 /**
  * separated xyz coordinate is ONLY for acceleration.
  */
-public class Region extends WorldAABB {
+public class Region extends WorldAABB implements UUIDMapped {
     private final UUID uuid;
     private final UUID owner;
     private final BsonDocument extraMetadata;

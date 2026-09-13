@@ -1,0 +1,19 @@
+config:
+  advanced-ban-command:
+    broadcast: true
+  kick-on-reload:
+    op-ignore: false
+  tps-bar:
+    line: "{#white}TPS: {tps}     {#white}MSPT: {mspt}"
+  vm-garbage-cleaner:
+    broadcast: false
+    period: 1000
+
+  world-object-filter:
+    ban-flags: false
+    notify-gui:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - " {msg#notify-title}"
+      - "  {msg#notify-state-flag}"
+      - "  {msg#notify-state-signs}"
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"

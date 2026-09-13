@@ -3,18 +3,24 @@ rootProject.name = 'Starlight-plugin'
 include 'lib-starlight-shared'
 include 'starlight-core'
 
-include 'starlight-basic'
+
 include 'starlight-game'
-include 'starlight-extensions:starlight-ext-lobby'
-include 'starlight-extensions:starlight-ext-music'
-include 'starlight-extensions:starlight-ext-plot'
+
+
+//include 'starlight-extensions:starlight-ext-lobby'
+//include 'starlight-extensions:starlight-ext-ai'
+//include 'starlight-extensions:starlight-ext-plot'
+//include 'starlight-extensions:starlight-ext-worldguard'
+//include 'starlight-basic'
+//include 'starlight-bundler'
+//include 'starlight-extensions:starlight-ext-music'
+
+
+
 //include 'starlight-adventure-loader'
 
 include 'starlight-velocity'
-include 'starlight-bundler'
-include 'starlight-extensions:starlight-ext-ai'
-findProject(':starlight-extensions:starlight-ext-ai')?.name = 'starlight-ext-ai'
-include 'starlight-extensions:starlight-ext-worldguard'
-findProject(':starlight-extensions:starlight-ext-worldguard')?.name = 'starlight-ext-worldguard'
 
+
+include 'starlight-bukkit-bundler'
 

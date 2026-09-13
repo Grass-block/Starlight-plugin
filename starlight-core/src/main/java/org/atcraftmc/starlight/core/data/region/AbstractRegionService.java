@@ -1,11 +1,13 @@
 package org.atcraftmc.starlight.core.data.region;
 
 import me.gb2022.gluon.Debug;
-import org.atcraftmc.starlight.data.jdbc.JDBCUtil;
-import org.atcraftmc.starlight.data.jdbc.source.SQLMappedDataSource;
-import org.atcraftmc.starlight.data.jdbc.source.SQLMapper;
+import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
+import org.atcraftmc.starlight.core.data.chunked.ChunkMonitorCache;
+import me.gb2022.commons.jdbc.JDBCUtil;
+import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import org.atcraftmc.starlight.shared.JDBCService;
-import org.atcraftmc.starlight.shared.jdbc.JDBCDataService;
+import me.gb2022.commons.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
@@ -23,9 +25,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public abstract class AbstractRegionService<R extends Region> extends JDBCDataService implements RegionDataProvider<R> {
+public abstract class AbstractRegionService<R extends Region> extends JDBCDataService implements ChunkedDataProvider<R> {
     private final String tableName;
-    private final ConcurrentHashMap<String, WorldRegionMonitorCache<R>> caches = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ChunkMonitorCache<R>> caches = new ConcurrentHashMap<>();
 
     public AbstractRegionService(String table) {
         this.tableName = table;
@@ -241,8 +243,8 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
                 continue;
             }
 
-            if (r.getRegion().asAABB().isVectorInside(new Vector3d(loc.getX(), loc.getY(), loc.getZ()))) {
-                result.add(r.getRegion());
+            if (r.get().asAABB().isVectorInside(new Vector3d(loc.getX(), loc.getY(), loc.getZ()))) {
+                result.add(r.get());
             }
         }
 
@@ -256,7 +258,7 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
         var result = new HashSet<R>();
 
         for (var uuid : cache.getRegionContained(region)) {
-            var r = cache.getRegion(uuid).getRegion();
+            var r = cache.getRegion(uuid).get();
 
             if (r.asAABB().intersects(region.asAABB())) {
                 result.add(r);
@@ -314,8 +316,8 @@ public abstract class AbstractRegionService<R extends Region> extends JDBCDataSe
         }
     }
 
-    public WorldRegionMonitorCache<R> getCache(String world) {
-        return this.caches.computeIfAbsent(world, (k) -> new WorldRegionMonitorCache<>(world, this));
+    public ChunkMonitorCache<R> getCache(String world) {
+        return this.caches.computeIfAbsent(world, (k) -> new ChunkMonitorCache<>(world, this));
     }
 
     public Set<WorldAABB> queryRegions(PreparedStatement ps) throws SQLException {

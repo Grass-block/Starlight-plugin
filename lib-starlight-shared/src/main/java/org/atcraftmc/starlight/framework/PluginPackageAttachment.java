@@ -8,6 +8,7 @@ import org.atcraftmc.qlib.PluginConcept;
 import org.atcraftmc.qlib.config.Configuration;
 import org.atcraftmc.qlib.language.LanguagePack;
 import org.atcraftmc.starlight.config.Configurations;
+import org.atcraftmc.starlight.config.NestedLanguagePack;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +41,11 @@ public final class PluginPackageAttachment implements PackageAttachment {
         }
 
         for (Pair<String, String> pack : this.languages) {
+            if(pack.getLeft().startsWith("/")){
+                this.languagePacks.add(new NestedLanguagePack(pack.getLeft().substring(1), pack.getRight(), wrap));
+                continue;
+            }
+
             this.languagePacks.add(new LanguagePack(pack.getLeft(), pack.getRight(), wrap));
         }
     }
