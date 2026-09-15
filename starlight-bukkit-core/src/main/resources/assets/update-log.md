@@ -6,6 +6,8 @@
 - Fixed command render issue on waypoint listing command.
 - Fixed error on hot-reloading.
 - Added QuickDeposit module.
+- [todo]Add commission system
+- [todo]Add reward system
 
 ### 26.6.1
 
