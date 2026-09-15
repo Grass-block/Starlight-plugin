@@ -6,8 +6,8 @@ group = "org.atcraftmc.starlight"
 
 project.setProperty("version", "26.6.3")
 
-apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
-apply from: rootDir.getAbsolutePath() + "/info.gradle"
+apply from: "../gbuild.gradle"
+apply from: "../info.gradle"
 
 applyGlobalScript("Publish/MinecraftServerTest.gradle")
 applyGlobalScript("Publish/ProjectOutput.gradle")

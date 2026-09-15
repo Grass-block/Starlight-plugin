@@ -8,6 +8,7 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
@@ -54,7 +55,7 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
                 return;
             }
 
-            var currentVersion = VersionInfo.parse(Starlight.instance().getDescription().getVersion());
+            var currentVersion = ProductInfo.VERSION;
             this.cachedVersion = latestVersion;
             var result = currentVersion.compareTo(latestVersion);
 

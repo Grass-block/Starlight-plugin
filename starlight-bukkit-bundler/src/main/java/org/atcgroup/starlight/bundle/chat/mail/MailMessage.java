@@ -1,5 +1,7 @@
 package org.atcgroup.starlight.bundle.chat.mail;
 
+import org.atcraftmc.starlight.util.PersistentItemStorage;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ public final class MailMessage {
     private Instant expireTime;
     private boolean isFavorite;
     private boolean isRead;
+    private PersistentItemStorage attachment;
 
     public MailMessage(long id, UUID sender, UUID recipient, boolean isAll, String title, String content, Instant sendTime) {
         this.id = id;
@@ -100,6 +103,14 @@ public final class MailMessage {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public PersistentItemStorage getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(PersistentItemStorage attachment) {
+        this.attachment = attachment;
     }
 
     @SuppressWarnings("ClassCanBeRecord")

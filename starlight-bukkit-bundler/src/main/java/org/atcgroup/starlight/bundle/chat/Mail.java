@@ -18,6 +18,11 @@ public class Mail extends BukkitAbstractModule {
         this.dataService.initService(JDBCService.dataSource(JDBCData.SL_SHARED));
     }
 
+
+
+
+
+
     @BukkitCommand(name = "mail", permission = "+starlight.mail", subCommands = {})
     public static final class MailCommand extends ModuleCommand<Mail> {
 

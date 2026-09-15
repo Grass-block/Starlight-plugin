@@ -6,6 +6,7 @@ import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.placeholder.BukkitPlaceHolders;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.internal.ProductService;
+import org.atcraftmc.starlight.util.version.VersionInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -15,36 +16,17 @@ import java.util.Properties;
 @SuppressWarnings("TrailingWhitespacesInTextBlock")
 public interface ProductInfo {
     Properties METADATA = new Properties();
+    VersionInfo VERSION = VersionInfo.parse(Starlight.instance().getDescription().getVersion());
+
+
     int API_VERSION = 80;
     int BSTATS_ID = 22683;
     String CORE_ID = "starlight-core";
-    String CORE_UA = "starlight-26.6.1,gluon-1.2.1";
+    String CORE_UA = "starlight-26.6.3,gluon-1.6.1";
 
     static String version() {
-        return Starlight.instance().getDescription().getVersion();
+        return VERSION.toString();
     }
-
-    static int archVersion() {
-        return Integer.parseInt(String.valueOf(version().charAt(0)));
-    }
-
-    static int apiMajorVersion() {
-        return Integer.parseInt(String.valueOf(version().charAt(2)));
-    }
-
-    static int apiMinorVersion() {
-        return Integer.parseInt(String.valueOf(version().charAt(3)));
-    }
-
-    static int minorVersion() {
-        return Integer.parseInt(String.valueOf(version().charAt(4)));
-    }
-
-
-    static int apiVersion() {
-        return apiMajorVersion() * 10 + apiMinorVersion();
-    }
-
 
     static String textLogo() {
         return "{color(purple)}Starlight {color(gray)} - {color(white)}v%s".formatted(version());
@@ -85,7 +67,7 @@ public interface ProductInfo {
         var pm = StarlightBukkitCore.instance().getGluonContext().getPackageManager();
 
         var text = ChatColor.translateAlternateColorCodes('&', dom.formatted(
-                version() + "/api_" + apiMajorVersion() + "." + apiMinorVersion(),
+                version(),
                 ProductInfo.METADATA.getProperty("build-time"),
                 mm.getIdsByStatus(TriState.TRUE).size(),
                 mm.getModules().size(),

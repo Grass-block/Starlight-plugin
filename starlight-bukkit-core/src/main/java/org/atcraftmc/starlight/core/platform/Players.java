@@ -11,7 +11,9 @@ import org.atcraftmc.starlight.internal.platform.SpigotReflection;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
@@ -107,6 +109,13 @@ public interface Players {
         SET_TAB.invoke(p, header, footer);
     }
 
+    static void give(Player player, ItemStack itemStack) {
+        var leftovers = player.getInventory().addItem(itemStack);
+
+        for (var item : leftovers.values()) {
+            player.getWorld().dropItemNaturally(player.getLocation(), item);
+        }
+    }
 
     //----[Utilities]----
     static void banPlayer(String target, BanList.Type type, String reason, Date expire, String source) {

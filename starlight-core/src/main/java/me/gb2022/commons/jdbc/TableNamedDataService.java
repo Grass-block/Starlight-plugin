@@ -22,6 +22,7 @@ public abstract class TableNamedDataService extends JDBCDataService implements G
     public void init(DataSource datasource, JDBCService service) {
         initMapper(this.mapper);
         super.init(new SQLMappedDataSource(datasource, this.mapper), service);
+        this.genericSource = this.datasource;
     }
 
     public SQLMapper getSQLMapper() {

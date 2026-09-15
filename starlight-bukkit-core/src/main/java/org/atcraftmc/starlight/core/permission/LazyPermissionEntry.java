@@ -41,7 +41,6 @@ public final class LazyPermissionEntry implements PermissionEntry {
         if (!path.endsWith("*")) {
             return Set.of(path);
         } else {
-
             String namespace = path.replace(".*", "");
             Set<String> result = new HashSet<>();
 

@@ -18,15 +18,16 @@ public final class JDBCMailDataService extends JDBCDataService {
                 CREATE TABLE sl_mail_message
                 (
                     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-                    sender      VARCHAR(36)  NOT NULL,
+                    sender      VARCHAR(36)   NOT NULL,
                     recipient   VARCHAR(36),
-                    global      BOOLEAN      NOT NULL DEFAULT FALSE,
-                    title       VARCHAR(255) NOT NULL,
-                    content     TEXT         NOT NULL,
-                    send_time   TIMESTAMP    NOT NULL,
-                    expire_time TIMESTAMP    NULL,
-                    favorite    BOOLEAN      NOT NULL DEFAULT FALSE,
-                    read        BOOLEAN      NOT NULL DEFAULT FALSE
+                    global      BOOLEAN       NOT NULL DEFAULT FALSE,
+                    title       VARCHAR(255)  NOT NULL,
+                    content     TEXT          NOT NULL,
+                    send_time   TIMESTAMP     NOT NULL,
+                    expire_time TIMESTAMP     NULL,
+                    favorite    BOOLEAN       NOT NULL DEFAULT FALSE,
+                    read        BOOLEAN       NOT NULL DEFAULT FALSE
+                    attachment  VARCHAR(8192) NOT NULL,
                 );
                 """;
         return conn.prepareStatement(sql);
@@ -37,7 +38,7 @@ public final class JDBCMailDataService extends JDBCDataService {
         String sql = """
                 INSERT INTO sl_mail_message
                 (sender, recipient, global, title, content, send_time, expire_time,
-                 favorite, read)
+                 favorite, read, attachment)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 

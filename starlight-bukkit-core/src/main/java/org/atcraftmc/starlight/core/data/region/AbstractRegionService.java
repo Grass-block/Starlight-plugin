@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.core.data.region;
 
+import me.gb2022.commons.jdbc.TableNamedDataService;
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
 import org.atcraftmc.starlight.core.data.chunked.ChunkMonitorCache;
@@ -25,17 +26,11 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public abstract class AbstractRegionService<R extends Region> extends JDBCDataService implements ChunkedDataProvider<R> {
-    private final String tableName;
+public abstract class AbstractRegionService<R extends Region> extends TableNamedDataService implements ChunkedDataProvider<R> {
     private final ConcurrentHashMap<String, ChunkMonitorCache<R>> caches = new ConcurrentHashMap<>();
 
     public AbstractRegionService(String table) {
-        this.tableName = table;
-    }
-
-    @Override
-    public void init(DataSource datasource, JDBCService service) {
-        super.init(new SQLMappedDataSource(datasource, SQLMapper.single("_region_", this.tableName)), service);
+        super(table);
     }
 
     @Override

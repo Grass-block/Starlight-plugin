@@ -66,6 +66,8 @@ public interface BukkitPlaceHolders {
     }
 
     static GloballyPlaceHolder quarkStats() {
+        var metadata = Starlight.instance().getMetadata();
+
         GloballyPlaceHolder holder = new GloballyPlaceHolder();
 
         holder.register(
@@ -81,8 +83,7 @@ public interface BukkitPlaceHolders {
                         .size())
         );
         holder.register("plugin-version", (StringPlaceHolder) ProductInfo::version);
-        holder.register("plugin-framework_version", GlobalPlaceHolder.object(ProductInfo::apiVersion));
-        holder.register("build-time", GlobalPlaceHolder.object(() -> ProductInfo.METADATA.getProperty("build-time")));
+        holder.register("build-time", GlobalPlaceHolder.object(metadata::getBuildTime));
 
         return holder;
     }
