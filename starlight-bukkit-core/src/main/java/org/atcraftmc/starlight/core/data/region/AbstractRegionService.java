@@ -5,16 +5,11 @@ import me.gb2022.gluon.Debug;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
 import org.atcraftmc.starlight.core.data.chunked.ChunkMonitorCache;
 import me.gb2022.commons.jdbc.JDBCUtil;
-import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
-import me.gb2022.commons.jdbc.source.SQLMapper;
-import org.atcraftmc.starlight.shared.JDBCService;
-import me.gb2022.commons.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
 import org.joml.Vector3d;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -232,7 +227,7 @@ public abstract class AbstractRegionService<R extends Region> extends TableNamed
         var result = new HashSet<R>();
 
         for (var uuid : cache.getRegionContained(loc.getBlockX(), loc.getBlockZ())) {
-            var r = cache.getRegion(uuid);
+            var r = cache.get(uuid);
 
             if (r == null) {
                 continue;
@@ -253,7 +248,7 @@ public abstract class AbstractRegionService<R extends Region> extends TableNamed
         var result = new HashSet<R>();
 
         for (var uuid : cache.getRegionContained(region)) {
-            var r = cache.getRegion(uuid).get();
+            var r = cache.get(uuid).get();
 
             if (r.asAABB().intersects(region.asAABB())) {
                 result.add(r);

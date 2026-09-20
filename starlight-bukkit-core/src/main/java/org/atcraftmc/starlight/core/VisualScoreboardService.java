@@ -17,6 +17,8 @@ import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.platform.Compatibility;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.view.PlayerViewChannelRenderer;
 import org.atcraftmc.starlight.core.view.ScoreboardTrackingStateCallback;
 import org.atcraftmc.starlight.framework.BukkitService;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
@@ -33,6 +35,7 @@ import org.bukkit.scoreboard.*;
 
 import java.util.*;
 
+//todo: 这里改成lazy, 允许多个前缀（header sv）
 @ApplicationService(id = "visual-scoreboard")
 public interface VisualScoreboardService extends BukkitService {
     @ServiceInject
@@ -74,8 +77,15 @@ public interface VisualScoreboardService extends BukkitService {
 
         public abstract VisualScoreboard create(UUID uuid);
 
+
         @Override
         public void enable() {
+            PlayerUIService.instance().registerRendererChannel("starlight:scoreboard-sidebar", (v) -> {
+                var view = new PlayerViewChannelRenderer("starlight:scoreboard-sidebar", v);
+                view.setCleanupAction((p) -> visualScoreboard(p).stopSidebarRendering());
+                return view;
+            });
+
             for (var player : Bukkit.getOnlinePlayers()) {
                 this.loadScoreboard(player);
             }
@@ -85,6 +95,8 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void disable() {
+            PlayerUIService.instance().unregisterRendererChannel("starlight:scoreboard-sidebar");
+
             BukkitUtil.unregisterEventListener(this);
 
             for (var player : Bukkit.getOnlinePlayers()) {
@@ -218,229 +230,288 @@ public interface VisualScoreboardService extends BukkitService {
         }
     }
 
-    final class BukkitVisualScoreboard implements VisualScoreboard {
-        public static final String CRITERIA = "sl-display-visual";
-
-        public static final String BUFFER_1 = "sidebar-buffer1";
-        public static final String BUFFER_2 = "sidebar-buffer2";
-        public static final String PLAYER_LIST = "tab-buffer";
-        private final Logger logger;
-        private final UUID uuid;
-        private Scoreboard scoreboard;
-
-        public BukkitVisualScoreboard(UUID uuid) {
-            this.logger = SLPluginEnvironment.createLogger("Scoreboard/" + uuid);
-            this.uuid = uuid;
-        }
-
-        public Player handle() throws InvalidPlayerHandleException {
-            var p = Bukkit.getPlayer(uuid);
-
-            if (p == null) {
-                throw new InvalidPlayerHandleException(uuid);
-            }
-
-            return p;
-        }
-
-        @Override
-        public void mount() {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> {
-                this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-
-                var player = Bukkit.getPlayer(this.uuid);
-                if (player == null || !player.isOnline()) {
-                    return;
-                }
-
-                var mgr = Bukkit.getScoreboardManager();
-                var tempBoard = mgr.getNewScoreboard();
-
-                bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-                player.setScoreboard(tempBoard);
-                player.setScoreboard(this.scoreboard);
-            });
-        }
-
-        @Override
-        public void destroy() {
-            this.stopSidebarRendering();
-        }
-
-
-        private Objective getObjective(String name) {
-            var builder = this.scoreboard.getObjective(name);
-
-            if (builder == null) {
-                builder = this.scoreboard.registerNewObjective(name, CRITERIA);
-            }
-
-            return builder;
-        }
-
-        private void bindScoreboard(Scoreboard scoreboard) {
-            Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(scoreboard));
-        }
-
-        private void setDisplayName(Objective objective, Component title) {
-            if (APIProfileTest.isPaperCompat()) {
-                objective.displayName(title.asComponent());
-            } else {
-                objective.setDisplayName(LegacyComponentSerializer.legacySection().serialize(title.asComponent()));
-            }
-        }
-
-        private void build(Objective builder, Component title, List<String> columns) {
-            setDisplayName(builder, title);
-            var existing = new HashMap<String, Integer>();
-            for (int i = 0; i < columns.size(); i++) {
-                String column = columns.get(i);
-                if (existing.containsKey(column)) {
-                    int fix = existing.get(column);
-                    existing.put(column, fix + 1);
-                    column = column + " ".repeat(fix + 1);
-                } else {
-                    existing.put(column, 0);
-                }
-                builder.getScore(column).setScore(columns.size() - i);
-            }
-        }
-
-        public Scoreboard getScoreboard() {
-            return scoreboard;
-        }
-
-        public UUID getUuid() {
-            return uuid;
-        }
-
-        @Override
-        public void renderSidebar(Component title, List<String> columns) {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> {
-                var buffer1 = getObjective(BUFFER_1);
-                var buffer2 = getObjective(BUFFER_2);
-
-                Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(this.scoreboard));
-
-                if (buffer1.getDisplaySlot() == null) {
-                    try {
-                        buffer1.unregister();
-                        buffer1 = getObjective(BUFFER_1);
-                        this.build(buffer1, title, columns);
-                        buffer1.setDisplaySlot(DisplaySlot.SIDEBAR);
-                        buffer2.setDisplaySlot(null);
-                    } catch (NullPointerException | IllegalStateException e) {
-                        stopSidebarRendering();
-                    }
-                } else {
-                    try {
-                        buffer2.unregister();
-                        buffer2 = getObjective(BUFFER_2);
-                        this.build(buffer2, title, columns);
-                        buffer2.setDisplaySlot(DisplaySlot.SIDEBAR);
-                        buffer1.setDisplaySlot(null);
-                    } catch (NullPointerException | IllegalStateException e) {
-                        stopSidebarRendering();
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void stopSidebarRendering() {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> {
-                this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
-                this.scoreboard.getObjectives().forEach((o) -> {
-                    try {
-                        o.unregister();
-                    } catch (Exception e) {
-                        this.logger.warn("Failed to unregister {}: {}", o.getName(), e.getMessage());
-                    }
-                });
-
-                bindScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-                bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-            });
-        }
-
-        @Override
-        public synchronized void setNameTag(Player target, Component prefix, Component postfix) {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix));
-        }
-
-        @Override
-        public synchronized void setTabColumn(Player target, int value, Component title) {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> {
-                var tab = getObjective(PLAYER_LIST);
-                tab.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-                tab.getScore(target).setScore(value);
-                setDisplayName(tab, title);
-            });
-        }
-
-        @Override
-        public synchronized void clearTabColumn() {
-            Entity entity = handle();
-            QLib.task().entity(entity).run(() -> getObjective(PLAYER_LIST).unregister());
-        }
-
-        interface TeamAPI {
-            MethodHandleO2<Team, Component, Component> TEAM_PREFIX = MethodHandle.select((ctx) -> {
-                ctx.attempt(() -> Team.class.getMethod("prefix", Component.class), (t, c1, c2) -> {
-                    t.prefix(c1);
-                    t.suffix(c2);
-                });
-                ctx.dummy((t, c1, c2) -> {
-                    t.setPrefix(ComponentSerializer.legacy(c1));
-                    t.setSuffix(ComponentSerializer.legacy(c2));
-                });
-            });
-            MethodHandleO0<Team> SET_NAME_TAG_VISIBILITY = MethodHandle.select((ctx) -> {
-                ctx.attempt(() -> {
-                    Class.forName("org.bukkit.scoreboard.Team.Option");
-                    return null;
-                }, (t) -> t.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS));
-                ctx.attempt(
-                        () -> Team.class.getMethod("setNameTagVisibility", NameTagVisibility.class),
-                        (t) -> t.setNameTagVisibility(NameTagVisibility.ALWAYS)
-                );
-                ctx.dummy((t) -> {
-                });
-            });
-            @SuppressWarnings("Convert2MethodRef")
-            MethodHandleO3<Scoreboard, Player, Component, Component> SET_TEAM = MethodHandle.select((ctx) -> {
-                ctx.attempt(() -> {
-                    Compatibility.blackListPlatform(APIProfile.FOLIA);
-                    return Class.forName("org.bukkit.scoreboard.Team").getEnclosingMethod();
-                }, (s, p, pr, po) -> set(s, p, pr, po));
-                ctx.dummy((s, p, pr, po) -> {
-                });
-            });
-
-            static void set(Scoreboard scoreboard, Player target, Component prefix, Component postfix) {
-                var team = "starlight_internal_" + target.getName().toLowerCase();
-                var t = scoreboard.getTeam(team);
-
-                if (t == null) {
-                    t = scoreboard.registerNewTeam(team);
-                }
-
-                SET_NAME_TAG_VISIBILITY.invoke(t);
-                TEAM_PREFIX.invoke(t, prefix, postfix);
-                t.addPlayer(target);
-            }
-        }
-    }
-
     final class BukkitScoreboardService extends AbstractScoreboardService {
         @Override
         public VisualScoreboard create(UUID uuid) {
             return new BukkitVisualScoreboard(uuid);
+        }
+
+
+        public static final class BukkitVisualScoreboard implements VisualScoreboard {
+            public static final String CRITERIA = "sl-display-visual";
+
+            public static final String BUFFER_1 = "sidebar-buffer1";
+            public static final String BUFFER_2 = "sidebar-buffer2";
+            public static final String PLAYER_LIST = "tab-buffer";
+
+            private final Set<DisplaySlot> activeSlots = new HashSet<>();
+            private final Logger logger;
+            private final UUID uuid;
+            private Scoreboard scoreboard;
+
+
+            public BukkitVisualScoreboard(UUID uuid) {
+                this.logger = SLPluginEnvironment.createLogger("Scoreboard/" + uuid);
+                this.uuid = uuid;
+                QLib.task().entity(this.handle()).timer("scoreboard-syncer", 0, 2, this::syncScores);
+            }
+
+            private void syncScores() {
+                if (this.scoreboard == null) {
+                    return;
+                }
+
+                if(!this.activeSlots.contains(DisplaySlot.SIDEBAR)) {
+                    Optional.ofNullable(this.scoreboard.getObjective(BUFFER_1)).ifPresent(Objective::unregister);
+                    Optional.ofNullable(this.scoreboard.getObjective(BUFFER_2)).ifPresent(Objective::unregister);
+                }
+
+                var main = Bukkit.getScoreboardManager().getMainScoreboard();
+
+                for (var objective : main.getObjectives()) {
+                    if (this.activeSlots.contains(objective.getDisplaySlot())) {
+                        continue;
+                    }
+
+                    var target = this.scoreboard.getObjective(objective.getName());
+
+                    if (target == null) {
+                        target = this.scoreboard.registerNewObjective(objective.getName(), objective.getCriteria());
+                    }
+
+                    target.setDisplaySlot(objective.getDisplaySlot());
+
+                    if (APIProfileTest.isPaperCompat()) {
+                        target.displayName(objective.displayName());
+                    } else {
+                        target.setDisplayName(objective.getDisplayName());
+                    }
+
+                    for (var e : main.getEntries()) {
+                        if(objective.getScore(e).isScoreSet()){
+                            target.getScore(e).setScore(objective.getScore(e).getScore());
+                        }
+                    }
+                }
+            }
+
+            private void active(DisplaySlot slot) {
+                this.activeSlots.add(slot);
+            }
+
+            private void inactive(DisplaySlot slot) {
+                this.activeSlots.remove(slot);
+            }
+
+
+            public Player handle() throws InvalidPlayerHandleException {
+                var p = Bukkit.getPlayer(this.uuid);
+
+                if (p == null) {
+                    throw new InvalidPlayerHandleException(this.uuid);
+                }
+
+                return p;
+            }
+
+            @Override
+            public void mount() {
+                Entity entity = handle();
+                QLib.task().entity(entity).run(() -> {
+                    this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+
+                    var player = Bukkit.getPlayer(this.uuid);
+                    if (player == null || !player.isOnline()) {
+                        return;
+                    }
+
+                    var mgr = Bukkit.getScoreboardManager();
+                    var tempBoard = mgr.getNewScoreboard();
+
+                    bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+                    player.setScoreboard(tempBoard);
+                    player.setScoreboard(this.scoreboard);
+                });
+            }
+
+            @Override
+            public void destroy() {
+                this.activeSlots.clear();
+                this.stopSidebarRendering();
+
+                QLib.task().entity(this.handle()).cancel("scoreboard-syncer");
+                QLib.task().entity(this.handle()).run(() -> {
+                    this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
+                    this.scoreboard.getObjectives().forEach((o) -> {
+                        try {
+                            o.unregister();
+                        } catch (Exception e) {
+                            this.logger.warn("Failed to unregister {}: {}", o.getName(), e.getMessage());
+                        }
+                    });
+
+                    bindScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                    bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+                });
+            }
+
+
+            private Objective getObjective(String name) {
+                var builder = this.scoreboard.getObjective(name);
+
+                if (builder == null) {
+                    builder = this.scoreboard.registerNewObjective(name, CRITERIA);
+                }
+
+                return builder;
+            }
+
+            private void bindScoreboard(Scoreboard scoreboard) {
+                Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(scoreboard));
+            }
+
+            private void setDisplayName(Objective objective, Component title) {
+                if (APIProfileTest.isPaperCompat()) {
+                    objective.displayName(title.asComponent());
+                } else {
+                    objective.setDisplayName(LegacyComponentSerializer.legacySection().serialize(title.asComponent()));
+                }
+            }
+
+            private void build(Objective builder, Component title, List<String> columns) {
+                setDisplayName(builder, title);
+                var existing = new HashMap<String, Integer>();
+                for (int i = 0; i < columns.size(); i++) {
+                    String column = columns.get(i);
+                    if (existing.containsKey(column)) {
+                        int fix = existing.get(column);
+                        existing.put(column, fix + 1);
+                        column = column + " ".repeat(fix + 1);
+                    } else {
+                        existing.put(column, 0);
+                    }
+                    builder.getScore(column).setScore(columns.size() - i);
+                }
+            }
+
+            public Scoreboard getScoreboard() {
+                return scoreboard;
+            }
+
+            public UUID getUuid() {
+                return uuid;
+            }
+
+            @Override
+            public void renderSidebar(Component title, List<String> columns) {
+                var entity = handle();
+
+                this.active(DisplaySlot.SIDEBAR);
+
+                QLib.task().entity(entity).run(() -> {
+                    var buffer1 = getObjective(BUFFER_1);
+                    var buffer2 = getObjective(BUFFER_2);
+
+                    Optional.ofNullable(Bukkit.getPlayer(this.uuid)).ifPresent((p) -> p.setScoreboard(this.scoreboard));
+
+                    if (buffer1.getDisplaySlot() == null) {
+                        try {
+                            buffer1.unregister();
+                            buffer1 = getObjective(BUFFER_1);
+                            this.build(buffer1, title, columns);
+                            buffer1.setDisplaySlot(DisplaySlot.SIDEBAR);
+                            buffer2.setDisplaySlot(null);
+                        } catch (NullPointerException | IllegalStateException e) {
+                            stopSidebarRendering();
+                        }
+                    } else {
+                        try {
+                            buffer2.unregister();
+                            buffer2 = getObjective(BUFFER_2);
+                            this.build(buffer2, title, columns);
+                            buffer2.setDisplaySlot(DisplaySlot.SIDEBAR);
+                            buffer1.setDisplaySlot(null);
+                        } catch (NullPointerException | IllegalStateException e) {
+                            stopSidebarRendering();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void stopSidebarRendering() {
+                inactive(DisplaySlot.SIDEBAR);
+            }
+
+            @Override
+            public synchronized void setNameTag(Player target, Component prefix, Component postfix) {
+                Entity entity = handle();
+                QLib.task().entity(entity).run(() -> TeamAPI.SET_TEAM.invoke(this.scoreboard, target, prefix, postfix));
+            }
+
+            @Override
+            public synchronized void setTabColumn(Player target, int value, Component title) {
+                Entity entity = handle();
+                QLib.task().entity(entity).run(() -> {
+                    var tab = getObjective(PLAYER_LIST);
+                    tab.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+                    tab.getScore(target).setScore(value);
+                    setDisplayName(tab, title);
+                });
+            }
+
+            @Override
+            public synchronized void clearTabColumn() {
+                Entity entity = handle();
+                QLib.task().entity(entity).run(() -> getObjective(PLAYER_LIST).unregister());
+            }
+
+            interface TeamAPI {
+                MethodHandleO2<Team, Component, Component> TEAM_PREFIX = MethodHandle.select((ctx) -> {
+                    ctx.attempt(() -> Team.class.getMethod("prefix", Component.class), (t, c1, c2) -> {
+                        t.prefix(c1);
+                        t.suffix(c2);
+                    });
+                    ctx.dummy((t, c1, c2) -> {
+                        t.setPrefix(ComponentSerializer.legacy(c1));
+                        t.setSuffix(ComponentSerializer.legacy(c2));
+                    });
+                });
+                MethodHandleO0<Team> SET_NAME_TAG_VISIBILITY = MethodHandle.select((ctx) -> {
+                    ctx.attempt(() -> {
+                        Class.forName("org.bukkit.scoreboard.Team.Option");
+                        return null;
+                    }, (t) -> t.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS));
+                    ctx.attempt(
+                            () -> Team.class.getMethod("setNameTagVisibility", NameTagVisibility.class),
+                            (t) -> t.setNameTagVisibility(NameTagVisibility.ALWAYS)
+                    );
+                    ctx.dummy((t) -> {
+                    });
+                });
+                @SuppressWarnings("Convert2MethodRef")
+                MethodHandleO3<Scoreboard, Player, Component, Component> SET_TEAM = MethodHandle.select((ctx) -> {
+                    ctx.attempt(() -> {
+                        Compatibility.blackListPlatform(APIProfile.FOLIA);
+                        return Class.forName("org.bukkit.scoreboard.Team").getEnclosingMethod();
+                    }, (s, p, pr, po) -> set(s, p, pr, po));
+                    ctx.dummy((s, p, pr, po) -> {
+                    });
+                });
+
+                static void set(Scoreboard scoreboard, Player target, Component prefix, Component postfix) {
+                    var team = "starlight_internal_" + target.getName().toLowerCase();
+                    var t = scoreboard.getTeam(team);
+
+                    if (t == null) {
+                        t = scoreboard.registerNewTeam(team);
+                    }
+
+                    SET_NAME_TAG_VISIBILITY.invoke(t);
+                    TEAM_PREFIX.invoke(t, prefix, postfix);
+                    t.addPlayer(target);
+                }
+            }
         }
     }
 }

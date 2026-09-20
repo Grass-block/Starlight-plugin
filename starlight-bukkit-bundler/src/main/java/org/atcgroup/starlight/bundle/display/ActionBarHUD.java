@@ -45,7 +45,7 @@ public final class ActionBarHUD extends BukkitAbstractModule implements UITracki
 
     @Override
     public void startRender(Player player, PlayerView ui) {
-        PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
+        PlayerUIService.getInstance(player).getActionbar().registerIntervalProcess(
                 this.getFullId(),
                 -10,
                 3,
@@ -59,6 +59,6 @@ public final class ActionBarHUD extends BukkitAbstractModule implements UITracki
 
     @Override
     public void stopRender(Player player, PlayerView ui) {
-        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.getFullId());
+        PlayerUIService.getInstance(player).getActionbar().removeProcess(this.getFullId());
     }
 }

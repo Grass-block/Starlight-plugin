@@ -32,7 +32,7 @@ public final class BundledPackageProvider {
         }
     }
 
-    public void add(String id, Class<?> registry) {
+    public void add(String id, Class<?>... registry) {
         this.containers.add(new BundledPluginContainer(id, registry));
     }
 
@@ -79,7 +79,9 @@ public final class BundledPackageProvider {
         }
 
         for (var c : this.containers) {
-            EarlyLoadingManager.scan(c.getHandle(), this);
+            for (var cl : c.getHandles()) {
+                EarlyLoadingManager.scan(cl, this);
+            }
         }
     }
 

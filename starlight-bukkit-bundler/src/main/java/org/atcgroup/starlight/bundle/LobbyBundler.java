@@ -10,8 +10,7 @@ import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
 
 @SLPackageProvider
-public
-interface LobbyBundler {
+public interface LobbyBundler {
     @ApplicationPackageProvider(id = "starlight-lobby")
     static void lobby(ContentBuilder b) {
         var i = b.getAttachment(PluginPackageAttachment.class);

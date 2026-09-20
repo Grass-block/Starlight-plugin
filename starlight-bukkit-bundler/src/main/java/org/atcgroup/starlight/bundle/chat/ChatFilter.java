@@ -8,6 +8,7 @@ import net.kyori.adventure.text.TextReplacementConfig;
 import org.ahocorasick.trie.Trie;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
+import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.config.Configurations;
 import org.atcgroup.starlight.bundle.api.ChatReportedEvent;
@@ -236,8 +237,24 @@ public final class ChatFilter extends BukkitAbstractModule {
             event.setOutcome(this.language.item("outcome-punished"));
         }
     }
+    /*
+    *         try {
+            var f = config().getClass().getDeclaredField("parent");
+            f.setAccessible(true);
+            var i = ((ConfigContainer)f.get(config())).getItems();
+
+            for (var k:i.keySet()) {
+                System.out.println(k+" -> "+i.get(k));
+            }
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    *
+    * */
 
     public String process(String msg) {
+        System.out.println(config().value("cover-char").string());
+
         var exceptPlayer = config().value("except-player").bool();
         var cover = config().value("cover").bool();
         var coverChar = config().value("cover-char").string().charAt(0);

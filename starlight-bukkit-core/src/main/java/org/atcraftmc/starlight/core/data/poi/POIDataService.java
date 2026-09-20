@@ -1,13 +1,15 @@
 package org.atcraftmc.starlight.core.data.poi;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import me.gb2022.commons.jdbc.trait.NameQuery;
 import me.gb2022.commons.jdbc.trait.UUIDQuery;
 import me.gb2022.gluon.Debug;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedObjectDataService;
 import me.gb2022.commons.jdbc.JDBCUtil;
 import me.gb2022.commons.jdbc.source.SQLMapper;
-import org.atcraftmc.starlight.util.BsonCodec;
 import org.joml.Vector3d;
 
 import java.sql.Connection;
@@ -45,6 +47,23 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
     }
 
     @Override
+    public boolean delete(String name) throws SQLException {
+        var data = byName(name);
+
+        if(data.isEmpty()) {
+            return false;
+        }
+
+        data.get().destroy();
+
+        var res = NameQuery.super.delete(name);
+        for (var cache:this.getCaches().values()){
+            cache.remove(data.get().getUuid());
+        }
+        return res;
+    }
+
+    @Override
     public final Set<R> load(String worldId, int wx0, int wz0, int wx1, int wz1) {
         var sql = """
                 SELECT * FROM _poi_ WHERE world = ? AND(x>=? AND x<=?) AND (z>=? AND z<=?)
@@ -67,6 +86,10 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
 
             Debug.log().info("[POI] %s:[%s/%s - %s/%s] -> %d".formatted(worldId, wx0, wz0, wx1, wz1, result.size()));
 
+            for (var r : result) {
+                QLib.task().global().run(r::create);
+            }
+
             return result;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -80,11 +103,11 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
                 rs.getString("name"),
                 rs.getString("world"),
                 new Vector3d(rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z")),
-                rs.getString("data")
+                JsonParser.parseString(rs.getString("data")).getAsJsonObject()
         );
     }
 
-    public abstract R create(UUID id, String name, String world, Vector3d p, String payload);
+    public abstract R create(UUID id, String name, String world, Vector3d p, JsonObject payload);
 
     public void move(UUID uuid, String nw, double nx, double ny, double nz) throws SQLException {
         var prev = byUUID(uuid);
@@ -145,7 +168,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
             ps.setDouble(4, data.getX());
             ps.setDouble(5, data.getY());
             ps.setDouble(6, data.getZ());
-            ps.setString(7, data.getData());
+            ps.setString(7, data.serializeData().toString());
 
             onUpdate();
 
@@ -162,12 +185,18 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
             ps.setDouble(3, data.getX());
             ps.setDouble(4, data.getY());
             ps.setDouble(5, data.getZ());
-            ps.setString(6, data.getData());
+            ps.setString(6, data.serializeData().toString());
             ps.setString(7, data.getUuid().toString());
 
             invalidateCache();
 
             return ps.executeUpdate() > 0;
         }
+    }
+
+
+    @Override
+    public void handleRemove(R r) {
+        r.destroy();
     }
 }

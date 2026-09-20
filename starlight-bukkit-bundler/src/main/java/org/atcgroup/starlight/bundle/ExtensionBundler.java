@@ -8,6 +8,8 @@ import org.atcgroup.starlight.bundle.music.MusicPlayer;
 import org.atcgroup.starlight.bundle.music.MusicService;
 import org.atcgroup.starlight.bundle.oddities.CustomVehicle;
 import org.atcgroup.starlight.bundle.oddities.Elevator;
+import org.atcgroup.starlight.bundle.mission.CommissionService;
+import org.atcgroup.starlight.bundle.mission.RewardService;
 import org.atcgroup.starlight.bundle.tweaks.*;
 import org.atcgroup.starlight.bundle.warp.BackToDeath;
 import org.atcgroup.starlight.bundle.warp.RTP;
@@ -18,8 +20,7 @@ import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
 
 @SLPackageProvider
-public
-interface ExtensionBundler {
+public interface ExtensionBundler {
     @ApplicationPackageProvider(id = "starlight-warps")
     static void warps(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
@@ -135,8 +136,18 @@ interface ExtensionBundler {
         p.language("/starlight-worldguard", "zh_tw");
     }
 
-    @ApplicationPackageProvider(id = "starlight-task")
+    @ApplicationPackageProvider(id = "starlight-mission")
     static void task(ContentBuilder b) {
+        var p = b.getAttachment(PluginPackageAttachment.class);
 
+        b.service(CommissionService.class);
+        b.service(RewardService.class);
+
+        p.language("/starlight-mission", "zh_cn");
+        p.language("/starlight-mission", "zh_tw");
+        p.language("/starlight-mission", "en_us");
+        p.language("/starlight-mission", "fr_fr");
+        p.language("/starlight-mission", "ja_jp");
+        p.language("/starlight-mission", "ru_ru");
     }
 }

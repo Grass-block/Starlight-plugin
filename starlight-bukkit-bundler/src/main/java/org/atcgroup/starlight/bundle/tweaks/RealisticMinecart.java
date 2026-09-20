@@ -129,7 +129,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
             return;
         }
 
-        var view = PlayerUIService.getInstance(p).getActionbar_v2();
+        var view = PlayerUIService.getInstance(p).getActionbar();
         view.removeProcess("quark:realistic-minecart:ui");
 
         playerWorldCache().updatePlayerWorld(p);
@@ -149,7 +149,7 @@ public final class RealisticMinecart extends BukkitAbstractModule {
     }
 
     private void initUI(Minecart m, Player p) {
-        var view = PlayerUIService.getInstance(p).getActionbar_v2();
+        var view = PlayerUIService.getInstance(p).getActionbar();
 
         view.registerIntervalProcess("quark:realistic-minecart:ui", 999, 2, SchedulerProvider.ENTITY, (a, t) -> {
             var thrustLevel = p.getInventory().getHeldItemSlot() - 4;

@@ -4,6 +4,8 @@
 
 - `chat-filter` `mute` and `chat-report` are now moved to `starlight-chat` package;
   ONLY VALUE CONFIG AND LANG ARE RELOCATED.
+- fixed unloading failure on certain version.
+- Fixed scoreboard forwarding issue.
 
 ### 26.6.2
 

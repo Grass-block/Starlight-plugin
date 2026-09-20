@@ -68,7 +68,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
     }
 
     private void startRender(Player player) {
-        PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
+        PlayerUIService.getInstance(player).getActionbar().registerIntervalProcess(
                 this.getFullId(),
                 0,
                 2,
@@ -81,7 +81,7 @@ public final class WGRegionHUD extends BukkitAbstractModule {
     }
 
     private void stopRender(Player player) {
-        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.getFullId());
+        PlayerUIService.getInstance(player).getActionbar().removeProcess(this.getFullId());
     }
 
     public void tick(Player player) {

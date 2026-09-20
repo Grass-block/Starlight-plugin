@@ -12,19 +12,21 @@ import java.util.Set;
 
 public final class BundledPluginContainer implements SLPluginHandle {
     private final String id;
-    private final Class<?> handle;
+    private final Class<?>[] handles;
     private final ProductMetadata metadata;
     private final Set<ApplicationPackage> packages = new HashSet<>();
 
-    public BundledPluginContainer(String id, Class<?> handle) {
+    public BundledPluginContainer(String id, Class<?>... handles) {
         this.id = id;
-        this.handle = handle;
+        this.handles = handles;
         this.metadata = ProductMetadata.createFromResource(this);
     }
 
     public void enable() {
         LibraryManager.prepareEnvironment(SLPluginEnvironment.getLibraryManager(), this);
-        SLPluginEnvironment.getContext().registerPackage(this, this.handle);
+        for (var handle : this.handles) {
+            this.packages.addAll(SLPluginEnvironment.getContext().registerPackage(this, handle));
+        }
     }
 
     public void disable() {
@@ -58,7 +60,7 @@ public final class BundledPluginContainer implements SLPluginHandle {
         return this.id;
     }
 
-    public Class<?> getHandle() {
-        return handle;
+    public Class<?>[] getHandles() {
+        return this.handles;
     }
 }

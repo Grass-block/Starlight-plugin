@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.core.data.poi;
 
+import com.google.gson.JsonObject;
 import org.atcraftmc.starlight.util.UUIDMapped;
 import org.bukkit.Location;
 
@@ -12,22 +13,24 @@ public abstract class POIObject implements UUIDMapped {
     protected double x;
     protected double y;
     protected double z;
-    protected String data;
 
-    public POIObject(UUID uuid, String name, String world, double x, double y, double z, String data) {
+    public POIObject(UUID uuid, String name, String world, double x, double y, double z, JsonObject data) {
         this.uuid = uuid;
         this.name = name;
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.data = data;
         this.deserializeData(data);
     }
 
-    public abstract void deserializeData(String data);
+    public abstract void deserializeData(JsonObject data);
 
-    public abstract String serializeData();
+    public abstract JsonObject serializeData();
+
+    public abstract void create();
+
+    public abstract void destroy();
 
     public void onTeleported(Location location) {
     }
@@ -38,16 +41,6 @@ public abstract class POIObject implements UUIDMapped {
         this.z = location.getZ();
         this.world = location.getWorld().getName();
         this.onTeleported(location);
-    }
-
-    public void setData(String data) {
-        this.data = data;
-        this.deserializeData(data);
-    }
-
-    public String getData() {
-        this.data = this.serializeData();
-        return data;
     }
 
     public double getX() {

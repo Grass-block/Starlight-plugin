@@ -1,6 +1,6 @@
-package org.atcgroup.starlight.bundle.task.reward;
+package org.atcgroup.starlight.bundle.mission.reward;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -9,11 +9,11 @@ public final class RewardInstance {
     private final UUID uuid;
     private final String type;
     private final UUID receiver;
-    private final JsonObject metadata;
+    private final JsonElement metadata;
     private boolean claimed;
     private Instant created;
 
-    public RewardInstance(UUID uuid, String type, UUID receiver, JsonObject metadata, boolean claimed, Instant created) {
+    public RewardInstance(UUID uuid, String type, UUID receiver, JsonElement metadata, boolean claimed, Instant created) {
         this.uuid = uuid;
         this.type = type;
         this.receiver = receiver;
@@ -22,19 +22,19 @@ public final class RewardInstance {
         this.created = created;
     }
 
-    public RewardInstance(UUID uuid, String type, UUID receiver, JsonObject metadata) {
+    public RewardInstance(UUID uuid, String type, UUID receiver, JsonElement metadata) {
         this(uuid, type, receiver, metadata, false, Instant.now());
     }
 
-    public RewardInstance(String type, UUID receiver, JsonObject metadata) {
+    public RewardInstance(String type, UUID receiver, JsonElement metadata) {
         this(UUID.randomUUID(), type, receiver, metadata);
     }
 
-    public UUID getUuid() {
+    public UUID getUuid() { 
         return uuid;
     }
 
-    public JsonObject getMetadata() {
+    public JsonElement getMetadata() {
         return metadata;
     }
 

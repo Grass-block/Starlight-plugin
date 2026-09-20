@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.task;
+package org.atcgroup.starlight.bundle.mission;
 
 import com.google.gson.JsonParser;
 import me.gb2022.commons.jdbc.TableNamedDataService;
@@ -7,30 +7,71 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.apache.logging.log4j.Logger;
-import org.atcgroup.starlight.bundle.task.reward.RewardInstance;
+import org.atcgroup.starlight.bundle.mission.reward.Reward;
+import org.atcgroup.starlight.bundle.mission.reward.RewardInstance;
+import org.atcgroup.starlight.bundle.mission.reward.RewardProviderRegistry;
 import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.bukkit.Bukkit;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-@ApplicationService(id = "reward", impl = RewardService.RewardServiceImpl.class)
+@ApplicationService(id = "reward", export = true, impl = RewardService.RewardServiceImpl.class)
 public interface RewardService extends Service {
     Logger LOGGER = SLPluginEnvironment.createLogger("RewardService");
 
     @ServiceInject
     ServiceHolder<RewardService> INSTANCE = new ServiceHolder<>();
 
+    static RewardService instance() {
+        return INSTANCE.get();
+    }
+
+    RewardProviderRegistry getProviderRegistry();
+
+    <E> void triggerEvent(UUID receiver, E event);
+
+    boolean add(RewardInstance instance);
+
+    boolean update(RewardInstance instance);
+
+    boolean delete(UUID uuid);
+
+    int purge();
+
+    Optional<RewardInstance> byUUID(UUID uuid);
+
+    Set<RewardInstance> getToReceive(UUID receiver);
+
     final class RewardServiceImpl extends TableNamedDataService implements RewardService {
+        private final RewardProviderRegistry providerRegistry = new RewardProviderRegistry();
+        private final Map<String, Reward> registry = new HashMap<>();
+
         public RewardServiceImpl() {
             super("sl_rewards");
+        }
+
+        @Override
+        public RewardProviderRegistry getProviderRegistry() {
+            return providerRegistry;
+        }
+
+        @Override
+        public <E> void triggerEvent(UUID receiver, E event) {
+            var results = this.providerRegistry.triggerEvent(receiver, event);
+            for (var res : results) {
+                add(res);
+            }
+
+            for (var result : results) {
+                var type = result.getType();
+
+                if (!this.registry.containsKey(type)) {
+                    continue;
+                }
+                this.registry.get(type).add(Bukkit.getPlayer(receiver), result);
+            }
         }
 
         @Override
@@ -49,6 +90,7 @@ public interface RewardService extends Service {
             return conn.prepareStatement(sql);
         }
 
+        @Override
         public boolean add(RewardInstance instance) {
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
                     "INSERT INTO sl_rewards (uuid, reward_type, receiver, metadata, claimed, created) VALUES (?,?,?,?,?,?)")) {
@@ -64,6 +106,7 @@ public interface RewardService extends Service {
             }
         }
 
+        @Override
         public boolean update(RewardInstance instance) {
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
                     "UPDATE sl_rewards SET reward_type=?, receiver=?, metadata=?, claimed=?, created=? WHERE uuid=?")) {
@@ -79,6 +122,7 @@ public interface RewardService extends Service {
             }
         }
 
+        @Override
         public boolean delete(UUID uuid) {
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("DELETE FROM sl_rewards WHERE uuid=?")) {
                 ps.setString(1, uuid.toString());
@@ -88,6 +132,7 @@ public interface RewardService extends Service {
             }
         }
 
+        @Override
         public int purge() {
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
                     "DELETE FROM sl_rewards WHERE claimed=? AND created<?")) {
@@ -99,6 +144,7 @@ public interface RewardService extends Service {
             }
         }
 
+        @Override
         public Optional<RewardInstance> byUUID(UUID uuid) {
             try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM sl_rewards WHERE uuid=?")) {
                 ps.setString(1, uuid.toString());
@@ -114,8 +160,9 @@ public interface RewardService extends Service {
             }
         }
 
-        public Set<RewardInstance> byReceiver(UUID receiver) {
-            try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM sl_rewards WHERE receiver=?")) {
+        @Override
+        public Set<RewardInstance> getToReceive(UUID receiver) {
+            try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM sl_rewards WHERE receiver=? AND claimed=false")) {
                 ps.setString(1, receiver.toString());
 
                 var result = new HashSet<RewardInstance>();
@@ -137,7 +184,7 @@ public interface RewardService extends Service {
                     UUID.fromString(rs.getString("uuid")),
                     rs.getString("reward_type"),
                     UUID.fromString(rs.getString("receiver")),
-                    JsonParser.parseString(rs.getString("metadata")).getAsJsonObject(),
+                    JsonParser.parseString(rs.getString("metadata")),
                     rs.getBoolean("claimed"),
                     rs.getTimestamp("created").toInstant()
             );

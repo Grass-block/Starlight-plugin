@@ -18,14 +18,16 @@ import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
 
 @SLPackageProvider
-public
-interface BaseBundler {
+public interface BaseBundler {
     @ApplicationPackageProvider(id = "starlight-chat")
     static void chat(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
         b.module(ChatAt.class);
         b.module(ChatComponent.class);
+        b.module(Mute.class);
+        b.module(ChatFilter.class);
+        b.module(ChatReport.class);
 
         p.config("starlight-chat");
         p.language("/starlight-chat", "zh_cn");
@@ -41,10 +43,7 @@ interface BaseBundler {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
         b.module(Ban.class);
-        b.module(ChatFilter.class);
-        b.module(ChatReport.class);
         b.module(Maintenance.class);
-        b.module(Mute.class);
         b.module(TPSBar.class);
         b.module(ServerInfo.class);
         b.module(KickOnReload.class);

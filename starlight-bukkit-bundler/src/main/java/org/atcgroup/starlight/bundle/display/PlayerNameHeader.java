@@ -253,7 +253,7 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
 
         public void render() {
             for (Player view : Bukkit.getOnlinePlayers()) {
-                var scoreboard = ((VisualScoreboardService.BukkitVisualScoreboard) VisualScoreboardService.instance()
+                var scoreboard = ((VisualScoreboardService.BukkitScoreboardService.BukkitVisualScoreboard) VisualScoreboardService.instance()
                         .visualScoreboard(view)).getScoreboard();
 
                 var obj = scoreboard.getObjective("below-name");

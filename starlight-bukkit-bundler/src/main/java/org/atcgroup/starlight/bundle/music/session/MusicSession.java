@@ -36,13 +36,13 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
     @Override
     public void end(MusicTask task, MusicData music) {
         for (var player : this.players.getPlayerObjects()) {
-            PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.rendererID());
+            PlayerUIService.getInstance(player).getActionbar().removeProcess(this.rendererID());
         }
     }
 
 
     public void startRender(Player player) {
-        PlayerUIService.getInstance(player).getActionbar_v2().registerIntervalProcess(
+        PlayerUIService.getInstance(player).getActionbar().registerIntervalProcess(
                 this.rendererID(),
                 5,
                 3,
@@ -123,7 +123,7 @@ public abstract class MusicSession implements Runnable, MusicTask.TaskCallback {
 
     public final void removePlayer(Player player) {
         this.players.remove(player);
-        PlayerUIService.getInstance(player).getActionbar_v2().removeProcess(this.rendererID());
+        PlayerUIService.getInstance(player).getActionbar().removeProcess(this.rendererID());
     }
 
 }

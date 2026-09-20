@@ -122,6 +122,7 @@ public final class ChunkMonitorCache<V extends UUIDMapped> {
         }
 
         if (container.getLocks().isEmpty()) {
+            this.listener.handleRemove(container.get());
             return;
         }
 
@@ -173,8 +174,12 @@ public final class ChunkMonitorCache<V extends UUIDMapped> {
         return result;
     }
 
-    public ChunkedObjectContainer<V> getRegion(UUID uuid) {
+    public ChunkedObjectContainer<V> get(UUID uuid) {
         return this.regionCache.asMap().get(uuid);
+    }
+
+    public void remove(UUID uuid) {
+        this.regionCache.asMap().remove(uuid);
     }
 
 

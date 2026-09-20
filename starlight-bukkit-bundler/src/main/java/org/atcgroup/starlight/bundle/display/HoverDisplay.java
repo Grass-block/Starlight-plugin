@@ -1,5 +1,7 @@
 package org.atcgroup.starlight.bundle.display;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.nbt.NBTTagCompound;
 import me.gb2022.commons.nbt.NBTTagList;
@@ -11,7 +13,6 @@ import me.gb2022.commons.reflect.method.MethodHandleO1;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
@@ -40,15 +41,22 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.joml.Vector3d;
 
-import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.*;
 
 @ApplicationModule(id = "hover-display", description = "Displays hover texts for items and entities")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(HoverDisplay.HoverDisplayCommand.class)
 public final class HoverDisplay extends BukkitAbstractModule implements PluginCommandExecutor {
-    private final Map<String, ArmorStandGroup> stands = new HashMap<>();
+    @SuppressWarnings("Convert2MethodRef")
+    public static final MethodHandleO1<ArmorStand, Component> CUSTOM_NAME = MethodHandle.select((ctx) -> {
+        ctx.attempt(() -> Nameable.class.getMethod("customName", Component.class), (p, c) -> p.customName(c));
+        ctx.dummy((a, c) -> a.setCustomName(ComponentSerializer.legacy(c)));
+    });
+
     private final HoverDisplayStorageService storage = new HoverDisplayStorageService();
+    private final Map<String, ArmorStandGroup> stands = new HashMap<>();
+
 
     @Inject
     private Logger logger;
@@ -84,8 +92,6 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
             this.stands.put(k, group);
         });
-
-        this.logger.info("created %s texts".formatted(stands.size()));
     }
 
     @Override
@@ -114,10 +120,6 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
     }
 
     public void clearAll() {
-        for (ArmorStandGroup s : stands.values()) {
-            s.destroy();
-        }
-
         for (World world : Bukkit.getWorlds()) {
             for (Entity entity : world.getEntities()) {
 
@@ -139,8 +141,11 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
     }
 
     public void create(String id, Location loc, List<Component> text) {
-        var group = new ArmorStandGroup(loc, text);
-        this.stands.put(id, group);
+        try {
+            this.storage.add(new VirtualArmorStand(UUID.randomUUID(),id,loc,text));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -175,7 +180,11 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
                 MessageAccessor.send(this.language, sender, "create", name);
             }
             case "delete" -> {
-                QLib.task().global().run(() -> stands.remove(name).destroy());
+                try {
+                    this.storage.delete(name);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 MessageAccessor.send(this.language, sender, "delete", name);
             }
             case "edit" -> {
@@ -208,10 +217,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
     }
 
     public static final class ArmorStandGroup {
-        public static final MethodHandleO1<ArmorStand, Component> CUSTOM_NAME = MethodHandle.select((ctx) -> {
-            ctx.attempt(() -> Nameable.class.getMethod("customName", Component.class), (p, c) -> p.customName(c));
-            ctx.dummy((a, c) -> a.setCustomName(ComponentSerializer.legacy(c)));
-        });
+
 
         private final Set<ArmorStand> components = new HashSet<>();
         private final List<Component> texts = new ArrayList<>();
@@ -235,7 +241,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
             for (int i = 0; i < this.texts.size(); i++) {
                 var text = this.texts.get(i);
-                var location = this.anchor.clone().subtract(0, 0.244 * i, 0);
+                var location = this.anchor.clone().subtract(0, 0.244 * i, 0);//What the fuck?
 
                 create(location, text);
             }
@@ -274,35 +280,78 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
 
     public static final class VirtualArmorStand extends POIObject {
-        public static final char SERIALIZE_SPLIT = '\ufffa';
-
         private final List<Component> components = new ArrayList<>(16);
         private final Set<ArmorStand> handles = new HashSet<>();
 
-        public VirtualArmorStand(UUID uuid, String name, String world, double x, double y, double z, String data) {
+        public VirtualArmorStand(UUID uuid, String name, String world, double x, double y, double z, JsonObject data) {
             super(uuid, name, world, x, y, z, data);
+        }
+
+        public VirtualArmorStand(UUID uuid, String id, Location loc, List<Component> text) {
+            super(uuid,id,loc.getWorld().getName(),loc.getX(), loc.getY(), loc.getZ(), new JsonObject());
+            this.components.addAll(text);
+        }
+
+        @Override
+        public void create() {
+            var anchor = new Location(Bukkit.getWorld(this.world), this.x, this.y, this.z);
+
+            for (int i = 0; i < this.components.size(); i++) {
+                var text = this.components.get(i);
+                var location = anchor.clone().subtract(0, 0.244 * i, 0);
+
+                var stand = location.getWorld().spawn(location, ArmorStand.class);
+                CustomMeta.setPDCIdentifier(stand, "quark:hover-text");
+
+                stand.teleport(location);
+
+                stand.setMarker(true);
+                stand.setSmall(true);
+                stand.setGravity(false);
+                stand.setInvulnerable(true);
+                stand.setVisible(false);
+                CUSTOM_NAME.invoke(stand, text);
+                stand.setCustomNameVisible(true);
+
+                this.handles.add(stand);
+            }
+        }
+
+        @Override
+        public void destroy() {
+            for (var handle : this.handles) {
+                handle.remove();
+            }
+            this.handles.clear();
         }
 
 
         @Override
         public void onTeleported(Location location) {
-            super.onTeleported(location);
+            this.destroy();
+            this.create();
         }
 
         @Override
-        public void deserializeData(String data) {
-            this.components.clear();
-            for (var string : data.split(String.valueOf(SERIALIZE_SPLIT))) {
-                this.components.add(JSONComponentSerializer.json().deserialize(string));
+        public void deserializeData(JsonObject data) {
+            var arr = data.get("text").getAsJsonArray();
+            for (var e : arr) {
+                this.components.add(ComponentSerializer.json(e.getAsString()));
             }
         }
 
         @Override
-        public String serializeData() {
-            return String.join(
-                    String.valueOf(SERIALIZE_SPLIT),
-                    this.components.stream().map(JSONComponentSerializer.json()::serialize).toList()
-            );
+        public JsonObject serializeData() {
+            var json = new JsonObject();
+            var comps = new JsonArray();
+
+            json.add("text", comps);
+
+            for (var c : this.components) {
+                comps.add(ComponentSerializer.json(c));
+            }
+
+            return json;
         }
     }
 
@@ -312,7 +361,7 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
         }
 
         @Override
-        public VirtualArmorStand create(UUID id, String name, String world, Vector3d p, String payload) {
+        public VirtualArmorStand create(UUID id, String name, String world, Vector3d p, JsonObject payload) {
             return new VirtualArmorStand(id, name, world, p.x(), p.y(), p.z(), payload);
         }
     }

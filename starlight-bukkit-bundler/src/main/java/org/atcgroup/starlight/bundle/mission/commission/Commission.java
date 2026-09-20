@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.task.data;
+package org.atcgroup.starlight.bundle.mission.commission;
 
 import com.google.gson.JsonObject;
 
@@ -22,7 +22,7 @@ public abstract class Commission {
         this.creator = creator;
     }
 
-    public void init(String name, String desc, int maxParticipants,JsonObject metaData) {
+    public void init(String name, String desc, int maxParticipants, JsonObject metaData) {
         this.name = name;
         this.desc = desc;
         this.participantLimit = maxParticipants;
@@ -51,6 +51,10 @@ public abstract class Commission {
 
     public void setStatus(CommissionStatus status) {
         this.status = status;
+    }
+
+    public String getType(CommissionRegistry registry) {
+        return registry.id(getClass());
     }
 
     public final boolean addParticipant(final UUID participant) {
@@ -95,5 +99,9 @@ public abstract class Commission {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public String getFormattedMetadata() {
+        return "[No INFO]";
     }
 }

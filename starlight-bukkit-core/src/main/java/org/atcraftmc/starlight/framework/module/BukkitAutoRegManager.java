@@ -16,8 +16,8 @@ public final class BukkitAutoRegManager extends PluginAutoRegManager {
         Builder.build(this, (i) -> {
             i.attach(Registrations.SERVER_EVENT, (o) -> BukkitUtil.registerEventListener(((Listener) o)));
             i.detach(Registrations.SERVER_EVENT, (o) -> BukkitUtil.unregisterEventListener(((Listener) o)));
-            i.attach(PlayerUIService.TRACKING, (o) -> PlayerUIService.TRACKER.attachCallback(((UITrackingStateCallback) o)));
-            i.detach(PlayerUIService.TRACKING, (o) -> PlayerUIService.TRACKER.detachCallback(((UITrackingStateCallback) o)));
+            i.attach(PlayerUIService.TRACKING, (o) -> PlayerUIService.instance().attachCallback(((UITrackingStateCallback) o)));
+            i.detach(PlayerUIService.TRACKING, (o) -> PlayerUIService.instance().detachCallback(((UITrackingStateCallback) o)));
             i.attach(
                     VisualScoreboardService.TRACKING,
                     (o) -> VisualScoreboardService.instance().attachCallback(((ScoreboardTrackingStateCallback) o))

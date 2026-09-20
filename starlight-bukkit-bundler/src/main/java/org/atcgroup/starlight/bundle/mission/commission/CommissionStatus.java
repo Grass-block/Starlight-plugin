@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.task.data;
+package org.atcgroup.starlight.bundle.mission.commission;
 
 public enum CommissionStatus {
     OPEN(1),

@@ -35,5 +35,7 @@ public abstract class ChunkedObjectDataService<V extends UUIDMapped> extends Tab
         return this.caches.computeIfAbsent(wid, (w) -> new ChunkMonitorCache<>(w, this));
     }
 
-
+    public ConcurrentHashMap<String, ChunkMonitorCache<V>> getCaches() {
+        return caches;
+    }
 }

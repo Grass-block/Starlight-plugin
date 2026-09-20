@@ -3,6 +3,7 @@ package org.atcgroup.starlight.bundle.worldguard;
 import com.google.gson.JsonObject;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.file.FilePath;
 import me.gb2022.commons.nbt.*;
 import me.gb2022.gluon.service.ApplicationService;
@@ -16,6 +17,7 @@ import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.core.command.CoreCommand;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import me.gb2022.commons.jdbc.document.NamedDocumentDataService;
@@ -72,6 +74,11 @@ public interface WGPlotInfoService extends Service {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        @Override
+        public void checkCompatibility() throws APIIncompatibleException {
+            Compatibility.requirePlugin("WorldGuard");
         }
 
         @Override
