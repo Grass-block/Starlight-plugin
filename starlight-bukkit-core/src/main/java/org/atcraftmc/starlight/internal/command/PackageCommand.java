@@ -128,7 +128,6 @@ public final class PackageCommand extends CoreCommand {
     private Component buildModuleInfo(ApplicationPackage pkg) {
         var state = this.handle.isEnabled(pkg.meta().id()) ? "&aE" : "&cD";
         var owner = pkg.holder(SLPluginHandle.class).name();
-        //var ownerVer = pkg.holder(Plugin.class).getDescription().getVersion();
         var line = "&f[%s&f]%s".formatted(state, pkg.meta().id());
 
         var command = "/starlight module list %s";
