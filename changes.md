@@ -5,7 +5,9 @@
 - `chat-filter` `mute` and `chat-report` are now moved to `starlight-chat` package;
   ONLY VALUE CONFIG AND LANG ARE RELOCATED.
 - Fixed scoreboard forwarding issue.
-- Fixed error on displaying stats and package list.
+- Fixed error on displaying stats.
+- Fixed status error on displaying package list.
+- Added AI chatting module.
 
 ### 26.6.2
 

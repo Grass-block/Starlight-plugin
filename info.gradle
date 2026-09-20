@@ -19,7 +19,7 @@ def expandFiles = Set.of(
 )
 
 def expandProps = [
-        'version'   : project(":starlight-bukkit-core").property("version"),
+        'version'   : '26.6.3',
         'build_time': new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date())
 ]
 

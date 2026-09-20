@@ -4,8 +4,6 @@ plugins {
 
 group = "org.atcraftmc.starlight"
 
-project.setProperty("version", "26.6.3")
-
 apply from: "../gbuild.gradle"
 apply from: "../info.gradle"
 

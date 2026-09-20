@@ -136,8 +136,9 @@ public interface ExtensionBundler {
         p.language("/starlight-worldguard", "zh_tw");
     }
 
-    @ApplicationPackageProvider(id = "starlight-mission")
-    static void task(ContentBuilder b) {
+    //还没做完
+    //@ApplicationPackageProvider(id = "starlight-mission")
+    static void mission(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
         b.service(CommissionService.class);
