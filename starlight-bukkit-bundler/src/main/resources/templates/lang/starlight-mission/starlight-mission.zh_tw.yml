@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: 委託中心
+  commission:
+    info-not-exist: '{global#sys-error}未找到委託 {#var}。'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}發佈者: {#white}{}'
+    info-type: '{#yellow}類型: {}'
+    info-max: '{#purple}人數上限: {#white}{#var}'
+    info-other: '{#purple}附加資訊: {#white}{#var}'
+    info-description: '{#green}描述:\n {#white}{}'
+    info-uuid: '{#gray}UUID: {#var}'
+    remind-new: '{global#info}有新的委託可以完成! {color(gold);click(command,/commission list)}[查看列表]'
+    list-header: '{color(#85C1E9)}委託列表: '
+    list-control: 'click(command,{}){#white}[{#yellow}上一頁{#white}] click(command,{}){#white}[{#yellow}下一頁{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}查看{#white}]{click(command,/commission join {})} {#white}[{#green}加入{#white}]'
+    join: '{global#success}你已成功加入該委託，正在初始化...'
+    leave: '{global#success}你已成功退出委託，將不會收到獎勵結算。'
+    kick: '{global#success}你已成功將 {#var} 移出委託，委託獎勵已提前計算。'
+    complete: '{global#success}委託已成功關閉, 所有參與委託的玩家已收到獎勵。'

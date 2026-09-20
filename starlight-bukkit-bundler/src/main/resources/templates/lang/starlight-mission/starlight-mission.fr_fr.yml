@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: Centre des commissions
+  commission:
+    info-not-exist: '{global#sys-error}Commission {#var} introuvable.'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}Créateur : {#white}{}'
+    info-type: '{#yellow}Type : {}'
+    info-max: '{#purple}Limite de participants : {#white}{#var}'
+    info-other: '{#purple}Informations supplémentaires : {#white}{#var}'
+    info-description: '{#green}Description :\n {#white}{}'
+    info-uuid: '{#gray}UUID : {#var}'
+    remind-new: '{global#info}De nouvelles commissions sont disponibles ! {color(gold);click(command,/commission list)}[Voir la liste]'
+    list-header: '{color(#85C1E9)}Liste des commissions : '
+    list-control: 'click(command,{}){#white}[{#yellow}Précédent{#white}] click(command,{}){#white}[{#yellow}Suivant{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}Voir{#white}]{click(command,/commission join {})} {#white}[{#green}Rejoindre{#white}]'
+    join: '{global#success}Vous avez rejoint la commission, initialisation...'
+    leave: '{global#success}Vous avez quitté la commission et ne recevrez pas le règlement des récompenses.'
+    kick: '{global#success}Vous avez retiré {#var} de la commission ; la récompense a été calculée à l''avance.'
+    complete: '{global#success}La commission a été clôturée et tous les participants ont reçu leurs récompenses.'

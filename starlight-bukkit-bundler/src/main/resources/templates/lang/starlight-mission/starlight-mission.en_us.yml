@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: Commission Center
+  commission:
+    info-not-exist: '{global#sys-error}Commission {#var} not found.'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}Creator: {#white}{}'
+    info-type: '{#yellow}Type: {}'
+    info-max: '{#purple}Participant limit: {#white}{#var}'
+    info-other: '{#purple}Extra info: {#white}{#var}'
+    info-description: '{#green}Description:\n {#white}{}'
+    info-uuid: '{#gray}UUID: {#var}'
+    remind-new: '{global#info}New commissions are available! {color(gold);click(command,/commission list)}[View list]'
+    list-header: '{color(#85C1E9)}Commission list: '
+    list-control: 'click(command,{}){#white}[{#yellow}Previous{#white}] click(command,{}){#white}[{#yellow}Next{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}View{#white}]{click(command,/commission join {})} {#white}[{#green}Join{#white}]'
+    join: '{global#success}You have joined the commission, initializing...'
+    leave: '{global#success}You have left the commission and will not receive the reward settlement.'
+    kick: '{global#success}You have removed {#var} from the commission; the reward has been calculated in advance.'
+    complete: '{global#success}The commission has been closed and all participants have received their rewards.'

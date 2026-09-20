@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: Центр заказов
+  commission:
+    info-not-exist: '{global#sys-error}Заказ {#var} не найден.'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}Создатель: {#white}{}'
+    info-type: '{#yellow}Тип: {}'
+    info-max: '{#purple}Лимит участников: {#white}{#var}'
+    info-other: '{#purple}Дополнительно: {#white}{#var}'
+    info-description: '{#green}Описание:\n {#white}{}'
+    info-uuid: '{#gray}UUID: {#var}'
+    remind-new: '{global#info}Доступны новые заказы! {color(gold);click(command,/commission list)}[Список]'
+    list-header: '{color(#85C1E9)}Список заказов: '
+    list-control: 'click(command,{}){#white}[{#yellow}Назад{#white}] click(command,{}){#white}[{#yellow}Вперёд{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}Просмотр{#white}]{click(command,/commission join {})} {#white}[{#green}Присоединиться{#white}]'
+    join: '{global#success}Вы присоединились к заказу, инициализация...'
+    leave: '{global#success}Вы покинули заказ и не получите награду.'
+    kick: '{global#success}Вы исключили {#var} из заказа; награда рассчитана заранее.'
+    complete: '{global#success}Заказ закрыт, все участники получили награды.'

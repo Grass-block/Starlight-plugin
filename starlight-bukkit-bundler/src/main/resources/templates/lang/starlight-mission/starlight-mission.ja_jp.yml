@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: 依頼センター
+  commission:
+    info-not-exist: '{global#sys-error}依頼 {#var} が見つかりません。'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}作成者: {#white}{}'
+    info-type: '{#yellow}種類: {}'
+    info-max: '{#purple}参加上限: {#white}{#var}'
+    info-other: '{#purple}追加情報: {#white}{#var}'
+    info-description: '{#green}説明:\n {#white}{}'
+    info-uuid: '{#gray}UUID: {#var}'
+    remind-new: '{global#info}新しい依頼があります！ {color(gold);click(command,/commission list)}[リストを見る]'
+    list-header: '{color(#85C1E9)}依頼リスト: '
+    list-control: 'click(command,{}){#white}[{#yellow}前へ{#white}] click(command,{}){#white}[{#yellow}次へ{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}詳細{#white}]{click(command,/commission join {})} {#white}[{#green}参加{#white}]'
+    join: '{global#success}依頼に参加しました。初期化中...'
+    leave: '{global#success}依頼から退出しました。報酬の受け取りは行われません。'
+    kick: '{global#success}{#var} を依頼から退出させました。報酬は事前に計算されています。'
+    complete: '{global#success}依頼を閉鎖しました。参加した全プレイヤーが報酬を受け取りました。'

@@ -1,0 +1,20 @@
+language:
+  -module-name:
+    commission: 委托中心
+  commission:
+    info-not-exist: '{global#sys-error}未找到委托 {#var}。'
+    info-name: '{#aqua}{} {#gray}[{}]'
+    info-creator: '{#green}发布者: {#white}{}'
+    info-type: '{#yellow}类型: {}'
+    info-max: '{#purple}人数上限: {#white}{#var}'
+    info-other: '{#purple}附加信息: {#white}{#var}'
+    info-description: '{#green}描述:\n {#white}{}'
+    info-uuid: '{#gray}UUID: {#var}'
+    remind-new: '{global#info}有新的委托可以完成! {color(gold);click(command,/commission list)}[查看列表]'
+    list-header: '{color(#85C1E9)}委托列表: '
+    list-control: 'click(command,{}){#white}[{#yellow}上一页{#white}] click(command,{}){#white}[{#yellow}下一页{#white}]'
+    list-entry: '{#yellow}> {} {click(command,/commission info {})} {#white}[{#purple}查看{#white}]{click(command,/commission join {})} {#white}[{#green}加入{#white}]'
+    join: '{global#success}你已成功加入该委托，正在初始化...'
+    leave: '{global#success}你已成功退出委托，将不会收到奖励结算。'
+    kick: '{global#success}你已成功将 {#var} 移出委托，委托奖励已提前计算。'
+    complete: '{global#success}委托已成功关闭, 所有参与委托的玩家已收到奖励。'
