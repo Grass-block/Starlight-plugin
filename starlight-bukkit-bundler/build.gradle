@@ -3,7 +3,7 @@ plugins {
 }
 
 apply from: "../gbuild.gradle"
-apply from: rootDir.getAbsolutePath() + "/info.gradle"
+apply from: "../info.gradle"
 
 applyGlobalScript("Publish/MinecraftServerTest.gradle")
 applyGlobalScript("Publish/ProjectOutput.gradle")

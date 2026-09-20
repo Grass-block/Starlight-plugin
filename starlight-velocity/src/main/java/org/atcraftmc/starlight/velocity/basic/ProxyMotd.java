@@ -10,6 +10,7 @@ import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import org.apache.logging.log4j.Logger;
+import org.atcraftmc.qlib.QLib;
 import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.config.ConfigDataModel;
@@ -25,7 +26,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-//todo: refresh command
 @ApplicationModule(id = "proxy-motd", description = "Customizes the proxy server list MOTD display")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class ProxyMotd extends VelocityAbstractModule {

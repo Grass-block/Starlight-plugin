@@ -11,21 +11,38 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
+import java.io.IOException;
 import java.util.Properties;
 
-@SuppressWarnings("TrailingWhitespacesInTextBlock")
+@SuppressWarnings("deprecation")
 public interface ProductInfo {
-    Properties METADATA = new Properties();
-    VersionInfo VERSION = VersionInfo.parse(Starlight.instance().getDescription().getVersion());
-
-
-    int API_VERSION = 80;
-    int BSTATS_ID = 22683;
+    Properties BUILD_CONSTANTS = loadBuildConstants();
+    VersionInfo VERSION = VersionInfo.parse(buildConstant("version"));
+    String BUILD_TIME = buildConstant("build-time");
     String CORE_ID = "starlight-core";
-    String CORE_UA = "starlight-26.6.3,gluon-1.6.1";
+    int API_VERSION = 82;
+    int BSTATS_ID = 22683;
+
+    static String versionIdentifier() {
+        return "starlight-bukkit-%s, gluon-1.6.3".formatted(VERSION);
+    }
 
     static String version() {
         return VERSION.toString();
+    }
+
+    static Properties loadBuildConstants() {
+        var prop = new Properties();
+        try {
+            prop.load(ProductInfo.class.getResourceAsStream("/product-info.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return prop;
+    }
+
+    static String buildConstant(String key) {
+        return BUILD_CONSTANTS.getProperty(key);
     }
 
     static String textLogo() {
@@ -34,50 +51,38 @@ public interface ProductInfo {
 
     static String logo() {
         return ChatColor.translateAlternateColorCodes('&', """
-                &d一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
-                &d&l      ____ __              __ _        __   __\s
-                &d&l    / __// /_ ___ _ ____ / /(_)___ _ / /  / /_
-                &d&l   _\\ \\ / __// _ `// __// // // _ `// _ \\/ __/
-                &d&l  /___/ \\__/ \\_,_//_/  /_//_/ \\_, //_//_/\\__/\s
-                &d&l                         /___/                    -&fv%s
-                
-                &7 Artifact by &fGrassBlock2022, &7Copyright &f[C]A.T.C Group 2025.
-                &d一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
+                &d&l 一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
+                &d&l       ____ __              __ _        __   __
+                &d&l     / __// /_ ___ _ ____ / /(_)___ _ / /  / /_
+                &d&l    _\\ \\ / __// _ `// __// // // _ `// _ \\/ __/
+                &d&l   /___/ \\__/ \\_,_//_/  /_//_/ \\_, //_//_/\\__/
+                &d&l                          /___/                    -&fv%s
+                &7&l   Artifact by &fGrassBlock2022&7, Copyright &f[C]A.T.C Group 2025.
+                &d&l 一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """.formatted(version()));
     }
 
     static void sendStatsDisplay(CommandSender sender) {
-        String dom = """
-                {#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
-                Statistics:
-                  &7Version: &f%s
-                  &7BuildTime: &f%s
-                  &7Modules: &b%d&7/&f%d {click(command,/starlight module list);color(gold)}[view]{;}
-                  &7Packages: &b%d&7/&f%d {click(command,/starlight package list);color(gold)}[view]{;}
-                  &7Services: &b%d&7
+        var dom = """
+                 &e 一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
+                 &e Statistics:
+                 &7 Version: &f%s
+                 &7 BuildTime: &f%s
+                 &7 Modules: &b%d&7/&f%d {click(command,/starlight module list);color(gold)}[view]{;}
+                 &7 Packages: &b%d&7/&f%d {click(command,/starlight package list);color(gold)}[view]{;}
+                 &7 Services: &b%d&7
                 
-                  &7CoreUA: &f%s 
-                  &7InstanceID: {click(copy,%s);color(gold)}[copy]{;}
-                  &7ProductID: {click(copy,%s);color(gold)}[copy]{;}
-                {#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
+                 &7 CoreUA: &f%s
+                 &7 InstanceID: {click(copy,%s);color(gold)}[copy]{;}
+                 &7 ProductID: {click(copy,%s);color(gold)}[copy]{;}
+                 &e 一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一
                 """;
 
         var mm = StarlightBukkitCore.instance().getGluonContext().getModuleManager();
         var sm = StarlightBukkitCore.instance().getGluonContext().getServiceManager();
         var pm = StarlightBukkitCore.instance().getGluonContext().getPackageManager();
 
-        var text = ChatColor.translateAlternateColorCodes('&', dom.formatted(
-                version(),
-                ProductInfo.METADATA.getProperty("build-time"),
-                mm.getIdsByStatus(TriState.TRUE).size(),
-                mm.getModules().size(),
-                pm.getIdsByStatus(TriState.TRUE).size(),
-                pm.getAllPackages().size(),
-                sm.all().size(),
-                CORE_UA,
-                Starlight.instance().getInstanceUUID(),
-                ProductService.getSystemIdentifier()
-        ));
+        var text = ChatColor.translateAlternateColorCodes('&', dom.formatted(VERSION, BUILD_TIME, mm.getIdsByStatus(TriState.TRUE).size(), mm.getModules().size(), pm.getIdsByStatus(TriState.TRUE).size(), pm.getAllPackages().size(), sm.all().size(), versionIdentifier(), Starlight.instance().getInstanceUUID(), ProductService.getSystemIdentifier()));
         TextSender.sendBlock(sender, QLib.textBuilder().build(PlaceHolderService.format(text, BukkitPlaceHolders.quarkStats())));
     }
 

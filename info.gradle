@@ -12,26 +12,21 @@ task copyInfo(type: Copy) {
 
 tasks.processResources.dependsOn(copyInfo)
 
-def version() {
-    var pv = project(":starlight-bukkit-core").property("version")
+def expandFiles = Set.of(
+        '**/*.product-meta.json',
+        '**/product-info.properties',
+        '**/plugin.yml'
+)
 
-    return pv
-}
-
+def expandProps = [
+        'version'   : project(":starlight-bukkit-core").property("version"),
+        'build_time': new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date())
+]
 
 processResources {
     doFirst {
-        filesMatching('**/*.product-meta.json') {
-            expand([
-                    'version'   : version(),
-                    'build_time': buildTime()
-            ])
-        }
-        filesMatching("**/plugin.yml") {
-            expand([
-                    'version': version()
-            ])
+        filesMatching(expandFiles) {
+            expand(expandProps)
         }
     }
 }
-

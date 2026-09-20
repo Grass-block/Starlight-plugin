@@ -144,13 +144,6 @@ public final class Starlight extends BukkitPluginConcept implements SLPluginHand
 
         Timer.restartTiming();
 
-        try {
-            ProductInfo.METADATA.load(getClass().getClassLoader().getResourceAsStream("product-info.properties"));
-        } catch (IOException e) {
-            LOGGER.info("FAILED TO LOAD PRODUCT INFO, ABORTING STARTUP!");
-            throw new RuntimeException(e);
-        }
-
         loadEnv();
 
         this.initializePluginEnv();

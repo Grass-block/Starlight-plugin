@@ -71,7 +71,7 @@ public final class StarlightBukkitCore implements PluginApplication {
         this.gluonContext.initialize();
         this.qLibContext.init();
 
-        this.gluonContext.registerPackage(this, SLInternalPackage.class);
+        this.gluonContext.registerPackage(this.plugin, SLInternalPackage.class);
     }
 
     public void shutdown() {

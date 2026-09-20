@@ -35,7 +35,6 @@ import org.bukkit.scoreboard.*;
 
 import java.util.*;
 
-//todo: 这里改成lazy, 允许多个前缀（header sv）
 @ApplicationService(id = "visual-scoreboard")
 public interface VisualScoreboardService extends BukkitService {
     @ServiceInject
@@ -76,7 +75,6 @@ public interface VisualScoreboardService extends BukkitService {
         private final Set<ScoreboardTrackingStateCallback> callbacks = new HashSet<>();
 
         public abstract VisualScoreboard create(UUID uuid);
-
 
         @Override
         public void enable() {
@@ -124,8 +122,20 @@ public interface VisualScoreboardService extends BukkitService {
             this.unloadScoreboard(event.getEntity());
         }
 
+        @Override
+        public final VisualScoreboard visualScoreboard(Player player) {
+            if (player == null) {
+                return EmptyVisualScoreboard.INSTANCE;
+            }
 
-        public void attachCallback(final ScoreboardTrackingStateCallback callback) {
+            if (!this.handles.containsKey(player.getUniqueId())) {
+                this.loadScoreboard(player);
+            }
+
+            return this.handles.get(player.getUniqueId());
+        }
+
+        public final void attachCallback(final ScoreboardTrackingStateCallback callback) {
             for (var entry : this.handles.entrySet()) {
                 var player = Bukkit.getPlayer(entry.getKey());
                 if (player == null) {
@@ -140,7 +150,7 @@ public interface VisualScoreboardService extends BukkitService {
             this.callbacks.add(callback);
         }
 
-        public void detachCallback(final ScoreboardTrackingStateCallback callback) {
+        public final void detachCallback(final ScoreboardTrackingStateCallback callback) {
             this.callbacks.remove(callback);
 
             for (var entry : this.handles.entrySet()) {
@@ -181,19 +191,6 @@ public interface VisualScoreboardService extends BukkitService {
 
             instance.destroy();
         }
-
-        @Override
-        public VisualScoreboard visualScoreboard(Player player) {
-            if (player == null) {
-                return EmptyVisualScoreboard.INSTANCE;
-            }
-
-            if (!this.handles.containsKey(player.getUniqueId())) {
-                this.loadScoreboard(player);
-            }
-
-            return this.handles.get(player.getUniqueId());
-        }
     }
 
     final class EmptyVisualScoreboard implements VisualScoreboard {
@@ -201,7 +198,6 @@ public interface VisualScoreboardService extends BukkitService {
 
         @Override
         public void mount() {
-
         }
 
         @Override
@@ -236,7 +232,6 @@ public interface VisualScoreboardService extends BukkitService {
             return new BukkitVisualScoreboard(uuid);
         }
 
-
         public static final class BukkitVisualScoreboard implements VisualScoreboard {
             public static final String CRITERIA = "sl-display-visual";
 
@@ -261,7 +256,7 @@ public interface VisualScoreboardService extends BukkitService {
                     return;
                 }
 
-                if(!this.activeSlots.contains(DisplaySlot.SIDEBAR)) {
+                if (!this.activeSlots.contains(DisplaySlot.SIDEBAR)) {
                     Optional.ofNullable(this.scoreboard.getObjective(BUFFER_1)).ifPresent(Objective::unregister);
                     Optional.ofNullable(this.scoreboard.getObjective(BUFFER_2)).ifPresent(Objective::unregister);
                 }
@@ -288,7 +283,7 @@ public interface VisualScoreboardService extends BukkitService {
                     }
 
                     for (var e : main.getEntries()) {
-                        if(objective.getScore(e).isScoreSet()){
+                        if (objective.getScore(e).isScoreSet()) {
                             target.getScore(e).setScore(objective.getScore(e).getScore());
                         }
                     }
@@ -354,7 +349,6 @@ public interface VisualScoreboardService extends BukkitService {
                     bindScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
                 });
             }
-
 
             private Objective getObjective(String name) {
                 var builder = this.scoreboard.getObjective(name);
@@ -482,10 +476,7 @@ public interface VisualScoreboardService extends BukkitService {
                         Class.forName("org.bukkit.scoreboard.Team.Option");
                         return null;
                     }, (t) -> t.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS));
-                    ctx.attempt(
-                            () -> Team.class.getMethod("setNameTagVisibility", NameTagVisibility.class),
-                            (t) -> t.setNameTagVisibility(NameTagVisibility.ALWAYS)
-                    );
+                    ctx.attempt(() -> Team.class.getMethod("setNameTagVisibility", NameTagVisibility.class), (t) -> t.setNameTagVisibility(NameTagVisibility.ALWAYS));
                     ctx.dummy((t) -> {
                     });
                 });
