@@ -32,7 +32,8 @@ public final class AnimateBlockCommand extends SLCommandModule {
     @SuppressWarnings("Convert2MethodRef")
     static MethodHandleO1<FallingBlock, Boolean> SET_PHYSICS = MethodHandle.select((c) -> {
         c.attempt(() -> FallingBlock.class.getMethod("setNoPhysics", boolean.class), (e, a) -> e.setNoPhysics(a));
-        c.dummy((e, a) -> {});
+        c.dummy((e, a) -> {
+        });
     });
 
     static MethodHandleO1<Block, Material> SET_TYPE = MethodHandle.select((c) -> {
@@ -50,14 +51,14 @@ public final class AnimateBlockCommand extends SLCommandModule {
     private LanguageItem tip;
 
     @Override
-    public void enable() throws Exception{
+    public void enable() throws Exception {
         super.enable();
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.add(this.tip));
         CustomBlockService.instance().registerItem(this.item);
     }
 
     @Override
-    public void disable() throws Exception{
+    public void disable() throws Exception {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
         CustomBlockService.instance().unregisterItem("animate-block-helper");
         super.disable();

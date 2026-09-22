@@ -7,6 +7,7 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
+import org.atcgroup.starlight.bundle.api.RegionKey;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -16,7 +17,6 @@ import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcgroup.starlight.bundle.api.RegionKey;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public interface WGCommandService extends Service {
         return SLPluginEnvironment.getApplication().language().item("starlight-worldguard:wg-command:" + id);
     }
 
-    static void suggestRegions(CommandSuggestion suggestion,int ptr){
+    static void suggestRegions(CommandSuggestion suggestion, int ptr) {
         suggestion.suggest(ptr, WGRegionService.getAllKeys().stream().map(RegionKey::toSearchId).collect(Collectors.toSet()));
     }
 

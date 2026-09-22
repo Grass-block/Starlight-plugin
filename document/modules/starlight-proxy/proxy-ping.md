@@ -12,11 +12,12 @@
 
 ## 描述
 
-该模块在 Bungeecord 集群环境中通过远程消息服务同步代理端获取的玩家 Ping 值。子服务器上的占位符系统可据此获取真实的客户端 Ping 值，而非子服务器到代理端的延迟。支持配置同步间隔和查询目标。
+该模块在 Bungeecord 集群环境中通过远程消息服务同步代理端获取的玩家 Ping 值。子服务器上的占位符系统可据此获取真实的客户端
+Ping 值，而非子服务器到代理端的延迟。支持配置同步间隔和查询目标。
 
 ## 可配置项目
 
-| 配置路径 | 类型 | 默认值 | 描述 |
-|----------|------|--------|------|
-| `config.proxy-ping.interval` | integer | `200` | Ping 值同步间隔(ms) |
-| `config.proxy-ping.query-target` | string | `proxy` | Ping 查询目标标识 |
+| 配置路径                             | 类型      | 默认值     | 描述             |
+|----------------------------------|---------|---------|----------------|
+| `config.proxy-ping.interval`     | integer | `200`   | Ping 值同步间隔(ms) |
+| `config.proxy-ping.query-target` | string  | `proxy` | Ping 查询目标标识    |

@@ -282,22 +282,22 @@ public final class LogColorPatch extends BukkitAbstractModule {
             @Override
             public String replace(String origin) {
                 return super.replace(origin.replace("§0", "\033[30m")
-                                             .replace("§1", "\034[34m")
-                                             .replace("§2", "\033[32m")
-                                             .replace("§3", "\033[36m")
-                                             .replace("§4", "\033[31m")
-                                             .replace("§5", "\033[35m")
-                                             .replace("§6", "\033[33m")
-                                             .replace("§7", "\033[37m")
-                                             .replace("§8", "\033[90m")
-                                             .replace("§9", "\033[94m")
-                                             .replace("§a", "\033[92m")
-                                             .replace("§b", "\033[96m")
-                                             .replace("§c", "\033[91m")
-                                             .replace("§d", "\033[95m")
-                                             .replace("§e", "\033[93m")
-                                             .replace("§f", "\033[39m")
-                                             .replace("§r", "\033[39m"));
+                        .replace("§1", "\034[34m")
+                        .replace("§2", "\033[32m")
+                        .replace("§3", "\033[36m")
+                        .replace("§4", "\033[31m")
+                        .replace("§5", "\033[35m")
+                        .replace("§6", "\033[33m")
+                        .replace("§7", "\033[37m")
+                        .replace("§8", "\033[90m")
+                        .replace("§9", "\033[94m")
+                        .replace("§a", "\033[92m")
+                        .replace("§b", "\033[96m")
+                        .replace("§c", "\033[91m")
+                        .replace("§d", "\033[95m")
+                        .replace("§e", "\033[93m")
+                        .replace("§f", "\033[39m")
+                        .replace("§r", "\033[39m"));
             }
         }
     }

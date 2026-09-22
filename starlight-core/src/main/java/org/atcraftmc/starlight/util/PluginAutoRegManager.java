@@ -52,18 +52,18 @@ public class PluginAutoRegManager extends AutoRegisterManager<Object> {
             i.attach(Registrations.PLUGIN_VPN_LISTENER, Builder.apmEvent((l, s) -> s.addListener(l)));
             i.detach(Registrations.PLUGIN_VPN_LISTENER, Builder.apmEvent((l, s) -> s.removeListener(l)));
             i.attach(Registrations.CLIENT_MESSAGE, (l) -> LOGGER.warn("deprecated register: client message API"));
-            i.detach(Registrations.CLIENT_MESSAGE, (l) -> LOGGER.warn("deprecated register: client message API"));
+            i.detach(Registrations.CLIENT_MESSAGE, (l) -> LOGGER.warn("deprecated unregister: client message API"));
         });
     }
 
     @Override
     public void handleAttachFailed(Object object, String type) {
-        LOGGER.warn("{} > no module service named {}",this, type);
+        LOGGER.warn("{}[attach] > no module service named {}", this, type);
     }
 
     @Override
     public void handleDetachFailed(Object object, String type) {
-        LOGGER.warn("{} > no module service named {}",this, type);
+        LOGGER.warn("{}[detach] > no module service named {}", this, type);
     }
 
 

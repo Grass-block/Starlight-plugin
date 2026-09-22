@@ -16,12 +16,14 @@
 
 ## 可配置项目
 
-| 配置项 | 类型 | 说明 |
-|--------|------|------|
+| 配置项  | 类型             | 说明          |
+|------|----------------|-------------|
 | `ui` | List\<String\> | 计分板各行显示文本模板 |
 
 ui默认值：
-- ` `, `{msg#date}`, `{msg#time}`, ` `, `{msg#player}`, `{msg#rank}`, `{msg#play-time}`, `{msg#world-time}`, ` `, `{msg#player-count}`, `{msg#ping}`, ` `, `{msg#qq-group}`, `{msg#website}`, ` `
+
+- ` `, `{msg#date}`, `{msg#time}`, ` `, `{msg#player}`, `{msg#rank}`, `{msg#play-time}`, `{msg#world-time}`, ` `,
+  `{msg#player-count}`, `{msg#ping}`, ` `, `{msg#qq-group}`, `{msg#website}`, ` `
 
 ## 命令
 

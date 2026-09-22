@@ -4,7 +4,6 @@ import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcraftmc.starlight.core.*;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
 import org.atcraftmc.starlight.core.http.HttpService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
@@ -54,10 +53,10 @@ public interface SLInternalPackage {
         b.service(PlayerReadyService.class);
 
         //b.service(LocaleService.class);
+        //b.service(ModuleDataService.class);//legacy
 
         b.service(BukkitLocaleService.class);
         b.service(PermissionService.class);
-        b.service(ModuleDataService.class);//legacy
         b.service(ProductService.class);
 
         b.service(CacheService.class);

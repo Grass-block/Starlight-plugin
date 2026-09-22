@@ -12,7 +12,9 @@
 
 ## 描述
 
-修正Minecraft客户端Tab补全时过滤逻辑不正确的问题，确保输入字符能正确过滤补全列表。同时为`/reload`命令补充`confirm`参数提示。附带WorldEdit补全增强组件，为`schematic load/delete`提供schematics文件夹内的文件名补全，为`/set`和`/replace`补充`hand`提示。
+修正Minecraft客户端Tab补全时过滤逻辑不正确的问题，确保输入字符能正确过滤补全列表。同时为`/reload`命令补充`confirm`
+参数提示。附带WorldEdit补全增强组件，为`schematic load/delete`提供schematics文件夹内的文件名补全，为`/set`和`/replace`补充
+`hand`提示。
 
 ## 可配置项目
 

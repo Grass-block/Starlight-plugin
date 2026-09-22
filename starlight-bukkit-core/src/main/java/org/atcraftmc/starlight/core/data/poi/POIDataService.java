@@ -1,15 +1,16 @@
 package org.atcraftmc.starlight.core.data.poi;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.gb2022.commons.jdbc.JDBCUtil;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.trait.NameQuery;
 import me.gb2022.commons.jdbc.trait.UUIDQuery;
 import me.gb2022.gluon.Debug;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
 import org.atcraftmc.starlight.core.data.chunked.ChunkedObjectDataService;
-import me.gb2022.commons.jdbc.JDBCUtil;
-import me.gb2022.commons.jdbc.source.SQLMapper;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.joml.Vector3d;
 
 import java.sql.Connection;
@@ -22,6 +23,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
     public POIDataService(String tableName) {
         super(tableName);
     }
+
 
     @Override
     public final void initMapper(SQLMapper mapper) {
@@ -36,10 +38,10 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
                     uuid char(36) PRIMARY KEY,
                     name varchar(255) NOT NULL UNIQUE,
                     world varchar(64),
-                    x double,
-                    y double,
-                    z double,
-                    data varchar(1024)
+                    x DOUBLE NOT NULL,
+                    y DOUBLE NOT NULL,
+                    z DOUBLE NOT NULL,
+                    metadata varchar(1024)
                 )
                 """;
 
@@ -50,14 +52,14 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
     public boolean delete(String name) throws SQLException {
         var data = byName(name);
 
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             return false;
         }
 
         data.get().destroy();
 
         var res = NameQuery.super.delete(name);
-        for (var cache:this.getCaches().values()){
+        for (var cache : this.getCaches().values()) {
             cache.remove(data.get().getUuid());
         }
         return res;
@@ -84,7 +86,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
                 }
             }
 
-            Debug.log().info("[POI] %s:[%s/%s - %s/%s] -> %d".formatted(worldId, wx0, wz0, wx1, wz1, result.size()));
+            Debug.log().info("[POI]Load: {}[({}, {}) - ({}, {})] -> {}", worldId, wx0, wz0, wx1, wz1, result.size());
 
             for (var r : result) {
                 QLib.task().global().run(r::create);
@@ -98,35 +100,49 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
 
     @Override
     public final R decode(ResultSet rs) throws SQLException {
-        return create(
+        var object = create(
                 UUID.fromString(rs.getString("uuid")),
                 rs.getString("name"),
                 rs.getString("world"),
-                new Vector3d(rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z")),
-                JsonParser.parseString(rs.getString("data")).getAsJsonObject()
+                new Vector3d(rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"))
         );
+        object.deserializeData(JsonParser.parseString(rs.getString("metadata")).getAsJsonObject());
+        return object;
     }
 
-    public abstract R create(UUID id, String name, String world, Vector3d p, JsonObject payload);
+    public abstract R create(UUID id, String name, String world, Vector3d p);
 
-    public void move(UUID uuid, String nw, double nx, double ny, double nz) throws SQLException {
+    public void move(UUID uuid, Location location) throws SQLException {
         var prev = byUUID(uuid);
 
+        _move(location, prev);
+    }
+
+    public void move(String name, Location location) throws SQLException {
+        var prev = byName(name);
+
+        _move(location, prev);
+    }
+
+    private void _move(Location location, Optional<R> prev) {
         if (prev.isEmpty()) {
             return;
         }
 
         var previous = prev.get();
-        this.getCache(nw).invalidate();
+        var nw = location.getWorld().getName();
+        var pw = previous.world;
 
-        if (!Objects.equals(previous.world, nw)) {
-            this.getCache(previous.world).invalidate();
+        previous.teleport(location);
+        update(previous);
+
+        this.getCache(nw).invalidate();
+        if (!Objects.equals(pw, nw)) {
+            this.getCache(pw).invalidate();
         }
     }
 
     public final boolean set(R data) {
-        var meta = data.serializeData();
-
         try {
             return _add(data);
         } catch (SQLException e) {
@@ -144,7 +160,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
 
     public final boolean update(R data) {
         try {
-            return _add(data);
+            return _update(data);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -160,7 +176,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
 
     private boolean _add(R data) throws SQLException {
         try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
-                "INSERT INTO _region_ (uuid, name, world, x, y, z, data) VALUES (?,?, ?, ?, ?, ?.?)")) {
+                "INSERT INTO _poi_ (uuid, name, world, x, y, z, metadata) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             ps.setString(1, data.getUuid().toString());
             ps.setString(2, data.getName());
@@ -178,7 +194,7 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
 
     private boolean _update(R data) throws SQLException {
         try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(
-                "UPDATE _region_ SET name=?,owner=?, world=?, x=?, y=?, z=?, data=? where uuid = ?")) {
+                "UPDATE _poi_ SET name=?, world=?, x=?, y=?, z=?, metadata=? where uuid = ?")) {
 
             ps.setString(1, data.getName());
             ps.setString(2, data.getWorld());
@@ -194,9 +210,15 @@ public abstract class POIDataService<R extends POIObject> extends ChunkedObjectD
         }
     }
 
-
     @Override
     public void handleRemove(R r) {
         r.destroy();
+    }
+
+    public void tick() {
+        for (var player : Bukkit.getOnlinePlayers()) {
+            var loc = player.getLocation();
+            this.getCache(loc.getWorld().getName()).addTicket(loc.getBlockX(), loc.getBlockZ());
+        }
     }
 }

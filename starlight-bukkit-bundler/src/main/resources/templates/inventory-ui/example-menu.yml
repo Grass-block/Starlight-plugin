@@ -37,7 +37,7 @@ inventory-ui:
     28: "open-music-player"
     30: "enter-freecam"
     32:
-      icon: {type: 'beacon'}
+      icon: { type: 'beacon' }
       name: { text: "{#dark_green}刷新周围方块" }
       lore:
         - { text: "{#gray}重新发送你周围的方块信息。" }
@@ -49,7 +49,7 @@ inventory-ui:
         - "[sound]ui.button.click"
         - "[command]/refresh-area 7"
     34:
-      icon: {type: 'ender_eye'}
+      icon: { type: 'ender_eye' }
       name: { text: "{#dark_green}调整服务器渲染距离" }
       lore:
         - { text: "{#gray}修改服务器向你的客户端发送数据的范围。" }

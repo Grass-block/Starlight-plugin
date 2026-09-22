@@ -1,10 +1,8 @@
 package org.atcgroup.starlight.bundle.security.scan;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -26,9 +24,9 @@ public final class ClassTreeNode {
     }
 
     public Stream<String> childrenNames() {
-        return children.values().stream().map((n)->{
-            if(n.classNode){
-                return n.getName()+".class";
+        return children.values().stream().map((n) -> {
+            if (n.classNode) {
+                return n.getName() + ".class";
             }
             return n.getName();
         });

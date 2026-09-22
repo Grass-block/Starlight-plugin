@@ -22,7 +22,7 @@
 
 ## 命令
 
-| 命令 | 权限 | 描述 |
-|------|------|------|
-| `/plot claim` | `+starlight.worldguard.claim` | 认领当前所在位置的无人领地 |
+| 命令              | 权限                            | 描述             |
+|-----------------|-------------------------------|----------------|
+| `/plot claim`   | `+starlight.worldguard.claim` | 认领当前所在位置的无人领地  |
 | `/plot unclaim` | `+starlight.worldguard.claim` | 放弃当前所在位置的领地所有权 |

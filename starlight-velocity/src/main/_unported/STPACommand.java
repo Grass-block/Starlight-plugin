@@ -167,7 +167,7 @@ public final class STPACommand extends ProxyModule {
             var senderOrigin = sender.getCurrentServer().orElseThrow().getServerInfo();
 
             for (var player : getProxy().getAllPlayers()) {
-                if(player.getCurrentServer().orElseThrow().getServerInfo().equals(senderOrigin)){
+                if (player.getCurrentServer().orElseThrow().getServerInfo().equals(senderOrigin)) {
                     continue;
                 }
 

@@ -71,7 +71,8 @@ public final class EntityMotion extends SLCommandModule {
             emitCommand(context, target, mode, add, condition, x, y, z);
         } else {
             Supplier<EndCondition> condition = switch (context.requireEnum(2, "time", "direction")) {
-                case "time" -> () -> new EndCondition.Time(context.requireArgumentInteger(3, NumberLimitation.moreThan(0)));
+                case "time" ->
+                        () -> new EndCondition.Time(context.requireArgumentInteger(3, NumberLimitation.moreThan(0)));
                 case "direction" -> {
                     var arg = context.requireArgumentAt(3).split(":");
 

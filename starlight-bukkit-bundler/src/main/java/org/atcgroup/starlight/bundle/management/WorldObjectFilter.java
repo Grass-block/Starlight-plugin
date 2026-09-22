@@ -8,6 +8,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.nbt.NbtCompound;
 import com.comphenix.protocol.wrappers.nbt.NbtFactory;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.jdbc.document.DocumentField;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
@@ -23,7 +24,6 @@ import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.util.SingleNotificationContainer;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -84,7 +84,7 @@ public final class WorldObjectFilter extends BukkitAbstractModule {
         var type = event.getBlock().getType();
 
         if (type == Material.RED_BANNER || type == Material.WHITE_BANNER || type == Material.BLUE_BANNER) {
-            if(this.config().value("ban-flags").bool()){
+            if (this.config().value("ban-flags").bool()) {
                 event.setCancelled(true);
                 language().item("action-flag-banned").send(QLib.audience(event.getPlayer()));
                 return;

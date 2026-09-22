@@ -21,7 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
@@ -33,13 +32,20 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
         Compatibility.requirePlugin("ViaVersion");
+        Compatibility.requirePlugin("ProtocolLib");
+
+        if (Bukkit.getMinecraftVersion().compareTo("1.21.2") < 0) {
+            throw new APIIncompatibleException("Minecart logic not present before 1.21.2.");
+        }
+
         try {
             ProtocolVersion.class.getDeclaredField("v1_21_2");
         } catch (NoSuchFieldException e) {
-            throw new APIIncompatibleException("ViaVersion does not present V1_21_2");
+            throw new APIIncompatibleException("ViaVersion does not present V1_21_2 protocol.");
         }
     }
 
+    @SuppressWarnings("unchecked") //As via DO NOT provide <T> to use.
     private boolean isLegacy(Player player) {
         return Via.getAPI().getPlayerProtocolVersion(player).olderThan(ProtocolVersion.v1_21_2);
     }
@@ -115,18 +121,6 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
 
             this.protocol.sendServerPacket(audience, packet);
         }
-
-        public void velocity(Player audience, Entity entity, Vector speed) {
-            var packet = this.protocol.createPacket(PacketType.Play.Server.ENTITY_VELOCITY);
-
-            packet.getIntegers().write(0, entity.getEntityId());
-
-            packet.getShorts().write(1, (short) (speed.getX() * 8000));
-            packet.getShorts().write(2, (short) (speed.getY() * 8000));
-            packet.getShorts().write(3, (short) (speed.getZ() * 8000));
-
-            this.protocol.sendServerPacket(audience, packet);
-        }
     }
 
     private static final class MinecartTracker implements Runnable {
@@ -154,7 +148,7 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
             var audiences = new ArrayList<Player>();
 
             for (var player : Bukkit.getOnlinePlayers()) {
-                if(!this.handle.isLegacy(player)){
+                if (!this.handle.isLegacy(player)) {
                     continue;
                 }
 
@@ -178,10 +172,6 @@ public final class ModernMinecartSync extends BukkitAbstractModule {
                 for (var p : audiences) {
                     this.handle.protocolManager.moveAndLook(p, this.minecart, dx, dy, dz, cp.getYaw(), cp.getPitch());
                 }
-            }
-
-            for (var p : audiences) {
-                //this.handle.protocolManager.velocity(p, this.minecart, this.minecart.getVelocity());
             }
 
             this.previousLocation = cp;

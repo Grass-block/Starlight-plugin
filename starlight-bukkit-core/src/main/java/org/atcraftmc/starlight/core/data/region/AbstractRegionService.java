@@ -1,10 +1,8 @@
 package org.atcraftmc.starlight.core.data.region;
 
-import me.gb2022.commons.jdbc.TableNamedDataService;
-import me.gb2022.gluon.Debug;
-import org.atcraftmc.starlight.core.data.chunked.ChunkedDataProvider;
-import org.atcraftmc.starlight.core.data.chunked.ChunkMonitorCache;
 import me.gb2022.commons.jdbc.JDBCUtil;
+import me.gb2022.gluon.Debug;
+import org.atcraftmc.starlight.core.data.chunked.ChunkedObjectDataService;
 import org.atcraftmc.starlight.util.BsonCodec;
 import org.bson.BsonDocument;
 import org.bukkit.Location;
@@ -18,12 +16,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
-
-public abstract class AbstractRegionService<R extends Region> extends TableNamedDataService implements ChunkedDataProvider<R> {
-    private final ConcurrentHashMap<String, ChunkMonitorCache<R>> caches = new ConcurrentHashMap<>();
-
+public abstract class AbstractRegionService<R extends Region> extends ChunkedObjectDataService<R> {
     public AbstractRegionService(String table) {
         super(table);
     }
@@ -258,13 +252,6 @@ public abstract class AbstractRegionService<R extends Region> extends TableNamed
         return result;
     }
 
-    public void invalidateCache() {
-        for (var rc : this.caches.values()) {
-            rc.invalidate();
-        }
-    }
-
-
     public boolean rename(UUID owner, String origin, String dest) throws SQLException {
         try (var c = this.datasource.getConnection(); var p = c.prepareStatement("UPDATE _region_ SET name = ? WHERE name = ? AND owner = ?")) {
             p.setString(1, dest);
@@ -304,10 +291,6 @@ public abstract class AbstractRegionService<R extends Region> extends TableNamed
         } catch (SQLException e) {
             return false;
         }
-    }
-
-    public ChunkMonitorCache<R> getCache(String world) {
-        return this.caches.computeIfAbsent(world, (k) -> new ChunkMonitorCache<>(world, this));
     }
 
     public Set<WorldAABB> queryRegions(PreparedStatement ps) throws SQLException {

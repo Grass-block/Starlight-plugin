@@ -1,7 +1,6 @@
 package org.atcgroup.starlight.bundle.api;
 
 import me.gb2022.commons.jdbc.document.DocumentField;
-import org.atcgroup.starlight.bundle.worldguard.WGExtraInfoService;
 import org.atcgroup.starlight.bundle.worldguard.WGPlotInfoService;
 
 public interface WGCustomNameAPI {
@@ -10,6 +9,7 @@ public interface WGCustomNameAPI {
 
     static String getRegionCustomName(RegionKey key) {
         var dom = WGPlotInfoService.instance().getData(key);
+        /*
 
         if (!WGCustomNameAPI.REGION_CUSTOM_NAME.exist(dom)) {
             var h = WGExtraInfoService.getInstance().getDataHandle(key.legacy());
@@ -18,6 +18,8 @@ public interface WGCustomNameAPI {
                 WGCustomNameAPI.REGION_CUSTOM_NAME.set(dom, h.getString("custom-name", WGCustomNameAPI.DEFAULT_VALUE));
             }
         }
+
+         */
 
         return WGCustomNameAPI.REGION_CUSTOM_NAME.get(dom);
     }

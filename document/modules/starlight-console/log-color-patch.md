@@ -12,7 +12,8 @@
 
 ## 描述
 
-该模块通过 log4j2 的 RewriteAppender 机制对服务端日志输出进行颜色标记，根据日志级别（INFO、WARN、ERROR 等）自动应用 ANSI 颜色代码，使控制台日志更易于区分。由于不同终端对 ANSI 转义序列支持程度不同，该功能仍处于 Beta 阶段。
+该模块通过 log4j2 的 RewriteAppender 机制对服务端日志输出进行颜色标记，根据日志级别（INFO、WARN、ERROR 等）自动应用 ANSI
+颜色代码，使控制台日志更易于区分。由于不同终端对 ANSI 转义序列支持程度不同，该功能仍处于 Beta 阶段。
 
 ## 可配置项目
 

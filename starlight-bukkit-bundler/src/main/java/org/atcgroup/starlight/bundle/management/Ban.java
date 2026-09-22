@@ -2,8 +2,8 @@ package org.atcgroup.starlight.bundle.management;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.core.platform.Players;
@@ -66,9 +66,9 @@ public final class Ban extends SLCommandModule {
         Players.banPlayer(player, BanList.Type.NAME, reason, calender.getTime(), sender.getName());
 
         MessageAccessor.send(this.language, sender, "msg-ban-complete",
-                             player,
-                             date,
-                             reason
+                player,
+                date,
+                reason
         );
 
         if (ConfigAccessor.getBool(this.config(), "broadcast")) {

@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @ApplicationModule(id = "out-proxy-info-sync", defaultEnable = false)
 @ComponentProvider({OutProxyInfoSync.PaperListener.class, OutProxyInfoSync.BukkitListener.class})
-@AutoRegister({Registrations.PLUGIN_VPN_EVENT,Registrations.SERVER_EVENT})
+@AutoRegister({Registrations.PLUGIN_VPN_EVENT, Registrations.SERVER_EVENT})
 public final class OutProxyInfoSync extends BukkitAbstractModule {
     private final Map<String, String> remotePlayers = new ConcurrentHashMap<>();
     private final Map<String, String> remotePlayerServers = new ConcurrentHashMap<>();
@@ -46,11 +46,11 @@ public final class OutProxyInfoSync extends BukkitAbstractModule {
         var server = args[1];
         var message = ComponentSerializer.json(args[2]);
 
-        var template = Language.format(config().value("chat-sync-template").string(),server, player);
+        var template = Language.format(config().value("chat-sync-template").string(), server, player);
         var line = QLib.textBuilder().buildComponent(template).append(message);
 
         audience.players().sendMessage(line);
-        audience.console().sendMessage(Component.text("[proxy]"+player+": ").append(message));
+        audience.console().sendMessage(Component.text("[proxy]" + player + ": ").append(message));
     }
 
     @APMRemoteEvent(APMChannels.PROXY_JOIN)
@@ -126,7 +126,7 @@ public final class OutProxyInfoSync extends BukkitAbstractModule {
     @AutoRegister({Registrations.SERVER_EVENT})
     public static final class PaperListener extends SLModuleComponent<OutProxyInfoSync> {
         @Override
-        public void checkCompatibility()   throws APIIncompatibleException {
+        public void checkCompatibility() throws APIIncompatibleException {
             Compatibility.requireClass(() -> Class.forName("io.papermc.paper.event.player.AsyncChatEvent"));
         }
 

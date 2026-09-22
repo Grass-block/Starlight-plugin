@@ -1,11 +1,11 @@
 package org.atcgroup.starlight.bundle.music.session;
 
-import org.atcraftmc.starlight.core.view.PlayerUIService;
-import org.atcraftmc.starlight.core.view.SchedulerProvider;
 import org.atcgroup.starlight.bundle.music.MusicService;
 import org.atcgroup.starlight.bundle.music.PlayerUIRenderer;
 import org.atcgroup.starlight.bundle.music.resolve.MusicData;
 import org.atcgroup.starlight.bundle.music.resolve.MusicNode;
+import org.atcraftmc.starlight.core.view.PlayerUIService;
+import org.atcraftmc.starlight.core.view.SchedulerProvider;
 import org.atcraftmc.starlight.util.PlayerList;
 import org.bukkit.entity.Player;
 

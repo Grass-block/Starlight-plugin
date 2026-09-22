@@ -5,11 +5,13 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.file.FilePath;
+import me.gb2022.commons.jdbc.document.NamedDocumentDataService;
 import me.gb2022.commons.nbt.*;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
+import org.atcgroup.starlight.bundle.api.RegionKey;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -20,8 +22,6 @@ import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.document.NamedDocumentDataService;
-import org.atcgroup.starlight.bundle.api.RegionKey;
 import org.bukkit.Bukkit;
 
 import java.io.FileInputStream;
@@ -65,11 +65,11 @@ public interface WGPlotInfoService extends Service {
 
             var file = linkFile().file();
 
-            if(!file.exists()||file.length()==0) {
+            if (!file.exists() || file.length() == 0) {
                 return;
             }
 
-            try(var in = new FileInputStream(file)) {
+            try (var in = new FileInputStream(file)) {
                 this.linkHandler.load((NBTTagCompound) NBT.readZipped(in));
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -149,7 +149,7 @@ public interface WGPlotInfoService extends Service {
                     }
 
                     delete.add(k);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     delete.add(k);
                 }
             }

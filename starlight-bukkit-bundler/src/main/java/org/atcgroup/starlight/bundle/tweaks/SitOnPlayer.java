@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.permissions.Permission;
 
 @AutoRegister({Registrations.SERVER_EVENT})
-@ApplicationModule(id = "sit-on-player",description = "Enable player to sit on others by right-click.")
+@ApplicationModule(id = "sit-on-player", description = "Enable player to sit on others by right-click.")
 public final class SitOnPlayer extends BukkitAbstractModule {
 
     @Inject("+starlight.misc.sit")

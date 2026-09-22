@@ -36,7 +36,7 @@ project.ext.gbuildLib = { lib ->
         return files(local_path)
     }
 
-    if(remote_valid){
+    if (remote_valid) {
         if (remote.lastModified() > local.lastModified() || remote.length() != local.length()) {
             println("Updating lib ${lib} (${remote.lastModified()} > ${local.lastModified()})")
             Files.copy(remote.toPath(), local.toPath(), StandardCopyOption.REPLACE_EXISTING)

@@ -2,6 +2,7 @@ package org.atcgroup.starlight.bundle.security;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import me.gb2022.commons.jdbc.JDBCDataService;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
@@ -17,16 +18,15 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.Starlight;
+import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.permission.PermissionEntry;
-import me.gb2022.commons.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.config.Configurations;
-import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -270,14 +270,14 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             return conn.prepareStatement(sql);
         }
-        
+
         public void encode(PreparedStatement ps, PermissionData data) throws SQLException {
             ps.setString(1, data.group);
             ps.setString(2, String.join(";", data.tags));
             ps.setString(3, String.join(";", data.allowedPermissions));
             ps.setString(4, String.join(";", data.disallowedPermissions));
         }
-        
+
         public PermissionData decode(ResultSet rs) throws SQLException {
             var group = rs.getString("perm_group");
             var tags = new HashSet<>(List.of(rs.getString("perm_tags").split(";")));
@@ -300,7 +300,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         }
 
         public boolean exist(UUID uuid) throws SQLException {
-            try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT uuid FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
+            try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT uuid FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
                 p.setString(1, uuid.toString());
                 try (var rs = p.executeQuery()) {
                     return rs.next();
@@ -315,7 +315,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             this.cache.put(uuid, data);
 
-            try (var c = this.datasource.getConnection();var p = c.prepareStatement(
+            try (var c = this.datasource.getConnection(); var p = c.prepareStatement(
                     "INSERT INTO SL_PERMISSION (perm_group, perm_tags, perm_allowed, perm_disallowed,uuid) VALUES (?, ?, ?, ?, ?)")) {
                 encode(p, data);
                 p.setString(5, uuid.toString());
@@ -328,7 +328,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
 
             this.cache.put(uuid, data);
 
-            try (var c = this.datasource.getConnection();var p = c.prepareStatement(sql)) {
+            try (var c = this.datasource.getConnection(); var p = c.prepareStatement(sql)) {
                 encode(p, data);
                 p.setString(5, uuid.toString());
                 return p.executeUpdate() > 0;
@@ -338,7 +338,7 @@ public final class PermissionManager extends BukkitAbstractModule implements Plu
         public Optional<PermissionData> get(UUID uuid) throws SQLException {
             try {
                 return Optional.of(this.cache.get(uuid, () -> {
-                    try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT * FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
+                    try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT * FROM SL_PERMISSION WHERE uuid = ? LIMIT 1")) {
                         p.setString(1, uuid.toString());
                         try (var rs = p.executeQuery()) {
                             if (rs.next()) {

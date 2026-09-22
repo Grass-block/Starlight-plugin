@@ -41,7 +41,7 @@ public final class PluginPackageAttachment implements PackageAttachment {
         }
 
         for (Pair<String, String> pack : this.languages) {
-            if(pack.getLeft().startsWith("/")){
+            if (pack.getLeft().startsWith("/")) {
                 this.languagePacks.add(new NestedLanguagePack(pack.getLeft().substring(1), pack.getRight(), wrap));
                 continue;
             }

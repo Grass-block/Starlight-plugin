@@ -13,7 +13,7 @@ public final class SQLMappedDataSource extends WrappedDataSource {
 
     @Override
     protected Connection wrapConnection(Connection connection) {
-        return new WrappedConnection(connection,this.mapper);
+        return new WrappedConnection(connection, this.mapper);
     }
 
     public SQLMapper getMapper() {

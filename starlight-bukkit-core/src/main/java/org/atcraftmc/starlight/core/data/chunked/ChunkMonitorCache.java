@@ -2,6 +2,7 @@ package org.atcraftmc.starlight.core.data.chunked;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
@@ -15,12 +16,13 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-public final class ChunkMonitorCache<V extends UUIDMapped> {
+public final class ChunkMonitorCache<V extends UUIDMapped> implements RemovalListener<Long, Object> {
     public static final int MAX_CAPACITY = 65536;
     public static final int V_CHUNK_SIZE = 64;
     public static final int V_CHUNK_SIZE_BIT = 6;
 
     private final Cache<UUID, ChunkedObjectContainer<V>> regionCache;
+    private final Cache<Long, Object> trackingChunks = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(1)).removalListener(this).build();
     private final Long2ObjectMap<VirtualChunk> virtualChunkCache = new Long2ObjectOpenHashMap<>(MAX_CAPACITY);
     private final Cache<Long, Object> virtualChunkTrackCache;
     private final ChunkedDataProvider<V> listener;
@@ -184,8 +186,39 @@ public final class ChunkMonitorCache<V extends UUIDMapped> {
 
 
     public void invalidate() {
+        for (var vc : this.regionCache.asMap().values()) {
+            vc.getLocks().clear();
+        }
+
         this.regionCache.invalidateAll();
         this.virtualChunkCache.clear();
         this.virtualChunkTrackCache.invalidateAll();
+    }
+
+
+    public void addTicket(int wx, int wz) {
+        var cx = wx >> V_CHUNK_SIZE_BIT;
+        var cz = wz >> V_CHUNK_SIZE_BIT;
+
+        try {
+            for (var x = cx - 1; x <= cx + 1; x++) {
+                for (var z = cz - 1; z <= cz + 1; z++) {
+                    this.trackingChunks.get(getEncoded(x, z), Object::new);
+                    this.markLoadCP(x, z);
+                }
+            }
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void onRemoval(RemovalNotification<Long, Object> notification) {
+        assert notification.getKey() != null;
+
+        var cx = unpackX(notification.getKey());
+        var cz = unpackY(notification.getKey());
+
+        unload(cx, cz);
     }
 }

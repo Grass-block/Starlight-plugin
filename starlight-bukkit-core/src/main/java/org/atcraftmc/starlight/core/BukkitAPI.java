@@ -46,6 +46,7 @@ public interface BukkitAPI {
             var bc = ComponentSerializer.bungee(c);
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, bc);
         });
-        ACTIONBAR_TITLE.addLast("qlib:no-op", () -> true, (p, c) -> {});
+        ACTIONBAR_TITLE.addLast("qlib:no-op", () -> true, (p, c) -> {
+        });
     }
 }

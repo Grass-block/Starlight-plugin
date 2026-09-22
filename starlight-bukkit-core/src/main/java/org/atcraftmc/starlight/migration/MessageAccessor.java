@@ -11,11 +11,11 @@ public interface MessageAccessor {
     static void broadcast(LanguageEntry language, boolean b, boolean b1, String s, Object... format) {
         var audience = QLib.context().audiences().players();
 
-        if(b1){
+        if (b1) {
             audience.forwarding().add(QLib.context().audiences().console().pointed());
         }
 
-        if(b){
+        if (b) {
             audience.forwarding().getAudiences().removeIf(audience1 -> !audience1.getPointer(CommandSender.class).isOp());
         }
 

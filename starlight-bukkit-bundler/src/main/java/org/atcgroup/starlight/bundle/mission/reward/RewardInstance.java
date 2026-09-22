@@ -30,7 +30,7 @@ public final class RewardInstance {
         this(UUID.randomUUID(), type, receiver, metadata);
     }
 
-    public UUID getUuid() { 
+    public UUID getUuid() {
         return uuid;
     }
 

@@ -12,7 +12,8 @@
 
 ## 描述
 
-该模块允许玩家手持工作台（Crafting Table）或末影箱（Ender Chest）时，右键空气直接打开对应的界面，无需将方块放置到世界中。通过子组件（`NetherUpdate`, `VillageUpdate`）可扩展更多手持功能方块的支持。仅响应右键空气事件，不影响对方块本身的交互。
+该模块允许玩家手持工作台（Crafting Table）或末影箱（Ender Chest）时，右键空气直接打开对应的界面，无需将方块放置到世界中。通过子组件（
+`NetherUpdate`, `VillageUpdate`）可扩展更多手持功能方块的支持。仅响应右键空气事件，不影响对方块本身的交互。
 
 ## 可配置项目
 

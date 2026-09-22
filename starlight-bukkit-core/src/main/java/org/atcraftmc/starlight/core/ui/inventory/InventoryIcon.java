@@ -24,7 +24,7 @@ public final class InventoryIcon {
     }
 
     public InventoryIcon(ItemStack s1) {
-        this((p)->s1.getItemMeta().getDisplayName(), s1.getType(), s1.getAmount());
+        this((p) -> s1.getItemMeta().getDisplayName(), s1.getType(), s1.getAmount());
     }
 
     public ItemStack render(Player player) {

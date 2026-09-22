@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 
-@ApplicationModule(id = "menu-item",description = "provides an item for accessing menu quicker")
+@ApplicationModule(id = "menu-item", description = "provides an item for accessing menu quicker")
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(MenuItem.ClaimMenuItemCommand.class)
 public final class MenuItem extends BukkitAbstractModule {

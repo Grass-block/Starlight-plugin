@@ -19,6 +19,7 @@ import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.config.PathManager;
 import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.PluginServiceManager;
+import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.atcraftmc.starlight.util.ProductMetadata;
 import org.atcraftmc.starlight.util.SLLogProvider;
 import org.atcraftmc.starlight.util.dependency.LibraryManager;
@@ -31,7 +32,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 @Plugin(id = "starlight-velocity", version = "26.1.0", authors = "GrassBlock2022")
-public final class StarlightVelocity implements PluginApplication {
+public final class StarlightVelocity implements PluginApplication, SLPluginHandle {
     public static final org.apache.logging.log4j.Logger LOGGER = SLPluginEnvironment.createLogger("Starlight-Velocity");
     public static final ObjectContainer<StarlightVelocity> INSTANCE = new ObjectContainer<>();
 
@@ -58,7 +59,7 @@ public final class StarlightVelocity implements PluginApplication {
         var b = PluginApplication.createContext(application);
         b.moduleManager(VelocityModuleManager::new);
         b.serviceManager(PluginServiceManager::new);
-        b.logProvider((c)->new SLLogProvider());
+        b.logProvider((c) -> new SLLogProvider());
         b.applicationName("Starlight");
 
         return b.build();

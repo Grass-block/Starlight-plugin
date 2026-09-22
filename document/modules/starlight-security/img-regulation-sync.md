@@ -12,7 +12,8 @@
 
 ## 描述
 
-监听 `PlayerExtraBanCheckEvent`，通过 `IMGRegulationService` 查询玩家 UUID 是否存在于广电联合封禁数据库中。若查询到封禁记录，则对玩家设置持续至 9999 年的封禁。
+监听 `PlayerExtraBanCheckEvent`，通过 `IMGRegulationService` 查询玩家 UUID 是否存在于广电联合封禁数据库中。若查询到封禁记录，则对玩家设置持续至
+9999 年的封禁。
 
 封禁消息会获取对应语言环境的算子名称（`ban-operator`）显示。查询结果会被缓存 5 分钟以减少重复请求。
 

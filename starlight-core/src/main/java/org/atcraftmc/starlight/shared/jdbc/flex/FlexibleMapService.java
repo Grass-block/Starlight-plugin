@@ -1,9 +1,9 @@
 package org.atcraftmc.starlight.shared.jdbc.flex;
 
+import me.gb2022.commons.jdbc.JDBCDataService;
 import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
 import me.gb2022.commons.jdbc.source.SQLMapper;
 import org.atcraftmc.starlight.shared.JDBCService;
-import me.gb2022.commons.jdbc.JDBCDataService;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

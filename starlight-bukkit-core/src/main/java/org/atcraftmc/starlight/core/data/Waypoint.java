@@ -28,7 +28,8 @@ public final class Waypoint {
     @TableField(typeHandler = LegacyStringListHandler.class)
     private Set<String> allowed;
 
-    public Waypoint() {}
+    public Waypoint() {
+    }
 
     public Waypoint(UUID uuid, String name, String world, double x, double y, double z, float yaw, float pitch, UUID owner, Set<String> allowed) {
         this.uuid = uuid.toString();

@@ -90,3 +90,11 @@ language:
   chat-announce:
     more-btn: "{click(command,/announce tips)}[{#green}もっと{#white}]"
     tip-title: "{#dark-aqua}ヒント:"
+  hover-display:
+    delete-all: '{global#sys-operation}すべてのホバーテキストを削除しました。'
+    exist: '{global#sys-error}ホバーテキスト {#var} は既に存在します。'
+    not-found: '{global#sys-error}ホバーテキスト {#var} が見つかりません。'
+    create: '{global#sys-success}ホバーテキスト {#var} を作成しました。'
+    delete: '{global#sys-success}ホバーテキスト {#var} を削除しました。'
+    edit: '{global#sys-success}ホバーテキスト {#var} を編集しました。'
+    teleport: '{global#sys-success}ホバーテキスト {#var} を現在位置に移動しました。'

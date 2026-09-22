@@ -5,8 +5,8 @@ import org.atcraftmc.starlight.core.data.BanEntryService;
 import org.atcraftmc.starlight.core.data.WaypointService;
 import org.atcraftmc.starlight.core.data.region.SimpleRegionService;
 import org.atcraftmc.starlight.core.permission.PermissionService;
-import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
 import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
 import org.atcraftmc.starlight.util.PluginDependencyInjector;
 import org.bukkit.permissions.Permission;
 

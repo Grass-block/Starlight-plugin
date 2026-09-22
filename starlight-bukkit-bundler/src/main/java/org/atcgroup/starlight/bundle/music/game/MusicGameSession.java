@@ -1,10 +1,10 @@
 package org.atcgroup.starlight.bundle.music.game;
 
-import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcgroup.starlight.bundle.music.MusicGame;
 import org.atcgroup.starlight.bundle.music.PlayerUIRenderer;
 import org.atcgroup.starlight.bundle.music.resolve.MusicData;
 import org.atcgroup.starlight.bundle.music.session.MusicSession;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -18,7 +18,7 @@ public final class MusicGameSession extends MusicSession {
     private final boolean edit;
 
     public MusicGameSession(PlayerUIRenderer renderer, MusicData data, Location origin, Player audience, boolean edit) {
-        super(renderer,false);
+        super(renderer, false);
         this.data = data;
         this.origin = origin;
         this.audience = audience;

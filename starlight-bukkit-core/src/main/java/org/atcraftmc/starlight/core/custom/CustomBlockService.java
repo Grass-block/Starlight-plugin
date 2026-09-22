@@ -8,8 +8,6 @@ import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
 import org.atcraftmc.starlight.core.LocaleService;

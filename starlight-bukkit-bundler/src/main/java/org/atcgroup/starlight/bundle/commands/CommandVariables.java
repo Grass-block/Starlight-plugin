@@ -2,6 +2,7 @@ package org.atcgroup.starlight.bundle.commands;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import me.gb2022.commons.jdbc.JDBCDataService;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
@@ -13,8 +14,6 @@ import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
-import me.gb2022.commons.jdbc.JDBCDataService;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.event.EventHandler;
@@ -25,10 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
@@ -202,25 +198,18 @@ public class CommandVariables extends BukkitAbstractModule implements PluginComm
 
             @Override
             public void set(String name, String value) {
-                var data = ModuleDataService.get("variables");
-                data.setString(name, value);
-                data.save();
+
             }
 
             @Override
             public Collection<String> list() {
-                var data = ModuleDataService.get("variables");
-                return data.getTagMap().keySet();
+                return Set.of();
             }
 
             @Override
             public void clear(String name) {
-                var data = ModuleDataService.get("variables");
-                data.remove(name);
-                data.save();
+
             }
-
-
         }
     }
 

@@ -25,10 +25,10 @@ language:
     --tip: "{#gray}Utilisez {#gold}/animate-block{#gray} pour faire bouger les blocs. {click(command,/custom-item animate-helper 1);underline}[Baguette]{;}{#gray} peut vous aider à créer des chemins."
     item-name: '{#purple}Baguette de création d''animation'
     item-lore:
-        - '{#gray}Cet outil vous aide à créer rapidement des chemins d''animation.'
-        - '{#gray}Après avoir sélectionné une région avec {#white}WorldEdit{#gray},'
-        - '{#gray}clic gauche pour marquer les blocs de commande, clic droit pour marquer les positions cibles'
-        - '{#gray}pour créer rapidement des chemins d''animation.'
+      - '{#gray}Cet outil vous aide à créer rapidement des chemins d''animation.'
+      - '{#gray}Après avoir sélectionné une région avec {#white}WorldEdit{#gray},'
+      - '{#gray}clic gauche pour marquer les blocs de commande, clic droit pour marquer les positions cibles'
+      - '{#gray}pour créer rapidement des chemins d''animation.'
   hats:
     empty: "{global#error}Vous ne tenez rien."
     not-found: "{global#error}Le joueur spécifié n''existe pas."

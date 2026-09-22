@@ -5,7 +5,6 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceContainer;
 import me.gb2022.gluon.service.ServiceManager;
 import org.atcraftmc.qlib.PluginConcept;
-import org.atcraftmc.qlib.config.ConfigContainer;
 
 public class PluginServiceManager extends ServiceManager {
     public PluginServiceManager(ModularApplicationContext context) {

@@ -1,8 +1,8 @@
 package org.atcraftmc.starlight.core.data;
 
-import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.JDBCDataService;
 import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public final class WaypointService extends JDBCDataService {
     private final String tableName;
-    
+
     public WaypointService(String table) {
         this.tableName = table;
     }
@@ -38,7 +38,7 @@ public final class WaypointService extends JDBCDataService {
 
         return new Waypoint(uuid, name, world, x, y, z, yaw, pitch, owner, allowed);
     }
-    
+
     public void encode(PreparedStatement ps, Waypoint data) throws SQLException {
         ps.setString(1, data.getUuid().toString());
         ps.setString(2, data.getName());
@@ -77,7 +77,7 @@ public final class WaypointService extends JDBCDataService {
             throw new SQLException("名称已存在: " + waypoint.getName());
         }
 
-        try (var c = this.datasource.getConnection();var p = c.prepareStatement(
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement(
                 "INSERT INTO _waypoint_ (uuid, name, world, x, y, z, yaw, pitch, owner, allowed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             encode(p, waypoint);
             return p.executeUpdate() > 0;
@@ -85,7 +85,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public boolean rename(String origin, String dest) throws SQLException {
-        try (var c = this.datasource.getConnection();var p = c.prepareStatement("UPDATE _waypoint_ SET name = ? WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("UPDATE _waypoint_ SET name = ? WHERE name = ?")) {
             p.setString(1, dest);
             p.setString(2, origin);
             return p.executeUpdate() > 0;
@@ -93,7 +93,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public boolean delete(String name) throws SQLException {
-        try (var c = this.datasource.getConnection();var p = c.prepareStatement("DELETE FROM _waypoint_ WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("DELETE FROM _waypoint_ WHERE name = ?")) {
             p.setString(1, name);
             return p.executeUpdate() > 0;
         }
@@ -111,7 +111,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public boolean existName(String name) throws SQLException {
-        try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT uuid FROM _waypoint_ WHERE name = ? LIMIT 1")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT uuid FROM _waypoint_ WHERE name = ? LIMIT 1")) {
             p.setString(1, name);
             try (var rs = p.executeQuery()) {
                 return rs.next();
@@ -120,14 +120,14 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public Set<String> listNameOwned(UUID user) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT name FROM _waypoint_ WHERE owner=?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT name FROM _waypoint_ WHERE owner=?")) {
             ps.setString(1, user.toString());
             return queryNames(ps);
         }
     }
 
     public Set<String> listNameAccessible(UUID user) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT name FROM _waypoint_ WHERE owner=? OR allowed LIKE '%all%' OR allowed LIKE ?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT name FROM _waypoint_ WHERE owner=? OR allowed LIKE '%all%' OR allowed LIKE ?")) {
             ps.setString(1, user.toString());
             ps.setString(2, user.toString());
             return queryNames(ps);
@@ -135,7 +135,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public boolean hasAccess(UUID user, String name) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT allowed,owner FROM _waypoint_ WHERE name=?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT allowed,owner FROM _waypoint_ WHERE name=?")) {
             ps.setString(1, name);
 
             try (var rs = ps.executeQuery()) {
@@ -153,7 +153,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public boolean hasControl(UUID user, String name) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT owner FROM _waypoint_ WHERE name=?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT owner FROM _waypoint_ WHERE name=?")) {
             ps.setString(1, name);
 
             try (var rs = ps.executeQuery()) {
@@ -179,14 +179,14 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public Set<Waypoint> listOwned(UUID user) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT * FROM _waypoint_ WHERE owner=?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM _waypoint_ WHERE owner=?")) {
             ps.setString(1, user.toString());
             return queryWaypoints(ps);
         }
     }
 
     public Set<Waypoint> listAccessible(UUID user) throws SQLException {
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement("SELECT * FROM _waypoint_ WHERE owner=? OR allowed LIKE '%all%' OR allowed LIKE ?")) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement("SELECT * FROM _waypoint_ WHERE owner=? OR allowed LIKE '%all%' OR allowed LIKE ?")) {
             ps.setString(1, user.toString());
             ps.setString(2, user.toString());
             return queryWaypoints(ps);
@@ -197,7 +197,7 @@ public final class WaypointService extends JDBCDataService {
         String sql = "UPDATE _waypoint_ SET name = ?, world = ?, x = ?, y = ?, z = ?, " +
                 "yaw = ?, pitch = ?, owner = ?, allowed = ? WHERE uuid = ?";
 
-        try (var c = this.datasource.getConnection();var ps = c.prepareStatement(sql)) {
+        try (var c = this.datasource.getConnection(); var ps = c.prepareStatement(sql)) {
             ps.setString(1, data.getName());
             ps.setString(2, data.getWorld());
             ps.setDouble(3, data.getX());
@@ -213,7 +213,7 @@ public final class WaypointService extends JDBCDataService {
     }
 
     public Optional<Waypoint> byName(String name) throws SQLException {
-        try (var c = this.datasource.getConnection();var p = c.prepareStatement("SELECT * FROM _waypoint_ WHERE name = ?")) {
+        try (var c = this.datasource.getConnection(); var p = c.prepareStatement("SELECT * FROM _waypoint_ WHERE name = ?")) {
             p.setString(1, name);
             try (var rs = p.executeQuery()) {
                 if (rs.next()) {

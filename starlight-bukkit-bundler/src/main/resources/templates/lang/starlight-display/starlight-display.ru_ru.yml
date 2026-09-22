@@ -90,3 +90,11 @@ language:
   chat-announce:
     more-btn: "{click(command,/announce tips)}[{#green}Ещё{#white}]"
     tip-title: "{#dark-aqua}Совет:"
+  hover-display:
+    delete-all: '{global#sys-operation}Все тексты наведения удалены.'
+    exist: '{global#sys-error}Текст наведения {#var} уже существует.'
+    not-found: '{global#sys-error}Текст наведения {#var} не найден.'
+    create: '{global#sys-success}Текст наведения {#var} создан.'
+    delete: '{global#sys-success}Текст наведения {#var} удалён.'
+    edit: '{global#sys-success}Текст наведения {#var} изменён.'
+    teleport: '{global#sys-success}Текст наведения {#var} перемещён к вашей позиции.'

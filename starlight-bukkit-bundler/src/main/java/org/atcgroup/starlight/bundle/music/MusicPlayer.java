@@ -362,7 +362,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "prev")))
+                                .item("common", "ui", "prev")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 48);
             }
@@ -371,7 +371,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
                 UI.builder()
                         .icon(UI.icon(Material.BLUE_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "next")))
+                                .item("common", "ui", "next")))
                         .operation((v, player, action) -> v.setData(renderData(v, page + 1)))
                         .operation(UI.SOUND_CLICK)
                         .build(builder, 50);
@@ -379,7 +379,7 @@ public final class MusicPlayer extends BukkitAbstractModule implements PlayerUIR
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "next")))
+                                .item("common", "ui", "next")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 50);
             }

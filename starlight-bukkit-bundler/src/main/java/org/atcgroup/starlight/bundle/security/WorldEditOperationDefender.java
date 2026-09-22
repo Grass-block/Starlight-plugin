@@ -74,7 +74,7 @@ public final class WorldEditOperationDefender extends BukkitAbstractModule {
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         var m = event.getMessage();
 
-        if (!m.startsWith("//copy") || m.startsWith("//flip") || m.startsWith("//rotate")||m.startsWith("//undo")) {
+        if (!m.startsWith("//copy") || m.startsWith("//flip") || m.startsWith("//rotate") || m.startsWith("//undo")) {
             return;
         }
 

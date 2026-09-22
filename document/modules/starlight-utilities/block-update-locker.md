@@ -20,7 +20,7 @@
 
 ## 命令
 
-| 命令 | 权限 | 描述 |
-|------|------|------|
-| `/block-update-locker lock` | OP | 锁定方块更新 |
+| 命令                            | 权限 | 描述     |
+|-------------------------------|----|--------|
+| `/block-update-locker lock`   | OP | 锁定方块更新 |
 | `/block-update-locker unlock` | OP | 解锁方块更新 |

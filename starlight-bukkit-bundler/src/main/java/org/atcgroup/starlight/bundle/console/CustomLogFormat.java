@@ -5,10 +5,10 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.atcraftmc.qlib.command.BukkitCommand;
+import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.framework.module.BlacklistPlatform;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-@ApplicationModule(id="custom-log-format",version = "1.0.0", defaultEnable = false, description = "Configures custom log format patterns")
+@ApplicationModule(id = "custom-log-format", version = "1.0.0", defaultEnable = false, description = "Configures custom log format patterns")
 @BlacklistPlatform({APIProfile.BUKKIT, APIProfile.SPIGOT, APIProfile.ARCLIGHT, APIProfile.BANNER})
 @BukkitCommand(name = "log-format", permission = "-starlight.console.format")
 public final class CustomLogFormat extends SLCommandModule {

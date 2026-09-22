@@ -27,6 +27,6 @@ public interface ComponentSerializer {
     }
 
     static String plain(Component component) {
-        return PlainTextComponentSerializer.plainText().serialize(component).replaceAll("§([0-9]|[a-f]|m|n|o|k)","");
+        return PlainTextComponentSerializer.plainText().serialize(component).replaceAll("§([0-9]|[a-f]|m|n|o|k)", "");
     }
 }

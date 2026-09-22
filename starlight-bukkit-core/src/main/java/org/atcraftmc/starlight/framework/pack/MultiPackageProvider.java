@@ -23,7 +23,7 @@ public abstract class MultiPackageProvider extends JavaPlugin implements Package
 
     @Override
     public final void onEnable() {
-        LibraryManager.prepareEnvironment(Starlight.instance().getLibraryManager(),this);
+        LibraryManager.prepareEnvironment(Starlight.instance().getLibraryManager(), this);
 
         this.coreInstanceId = Starlight.instance().getInstanceUUID();
         if (!this.isCoreExist()) {

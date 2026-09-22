@@ -56,11 +56,11 @@ public final class AstroBotHandler implements AIChatRequestHandler {
             var response = this.client.send(req, HttpResponse.BodyHandlers.ofString());
 
             for (var line : response.body().split("\n")) {
-                if(!line.startsWith("data:")) {
+                if (!line.startsWith("data:")) {
                     continue;
                 }
 
-                if(!line.contains("complete")){
+                if (!line.contains("complete")) {
                     continue;
                 }
 

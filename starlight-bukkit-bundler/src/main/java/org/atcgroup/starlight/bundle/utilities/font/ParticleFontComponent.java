@@ -84,8 +84,8 @@ public final class ParticleFontComponent {
     public void drawPixel(double px, double py) {
         if (this.quaternion == null) {
             this.quaternion = new Quaternionf().rotationXYZ((float) Math.toRadians(rotX + 180),
-                                                            (float) Math.toRadians(rotY),
-                                                            (float) Math.toRadians(rotZ)
+                    (float) Math.toRadians(rotY),
+                    (float) Math.toRadians(rotZ)
             );
         }
 
@@ -93,7 +93,7 @@ public final class ParticleFontComponent {
 
         this.quaternion.transform(p); // 四元数进行三维旋转
         this.count++;
-        this.world.spawnParticle(Particle.END_ROD, baseX + p.x, baseY + p.y, baseZ + p.z, 0, 0, 0, 0,0,null,true);
+        this.world.spawnParticle(Particle.END_ROD, baseX + p.x, baseY + p.y, baseZ + p.z, 0, 0, 0, 0, 0, null, true);
     }
 
     public int getCount() {
@@ -101,7 +101,7 @@ public final class ParticleFontComponent {
     }
 
     public Location location() {
-        var loc=new Location(world(), baseX(),baseY(),baseZ());
+        var loc = new Location(world(), baseX(), baseY(), baseZ());
         loc.setYaw(this.rotX());
         loc.setPitch(this.rotY());
         return loc;

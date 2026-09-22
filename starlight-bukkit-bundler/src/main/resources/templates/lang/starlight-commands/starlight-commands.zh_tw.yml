@@ -25,10 +25,10 @@ language:
     --tip: "{#gray}使用{#gold}/animate-block{#gray}可以讓方塊動起來，{click(command,/custom-item animate-helper 1);underline}[法杖]{;}{#gray}可以幫助您建立路徑。"
     item-name: '{#purple}動畫建立法杖'
     item-lore:
-        - '{#gray}此工具可方便您快速建立動畫路徑。'
-        - '{#gray}使用{#white}WorldEdit{#gray}標記選區後，'
-        - '{#gray}利用左鍵標記指令方塊，右鍵標記目標位置'
-        - '{#gray}可以快速建立動畫路徑。'
+      - '{#gray}此工具可方便您快速建立動畫路徑。'
+      - '{#gray}使用{#white}WorldEdit{#gray}標記選區後，'
+      - '{#gray}利用左鍵標記指令方塊，右鍵標記目標位置'
+      - '{#gray}可以快速建立動畫路徑。'
   hats:
     empty: "{global#error}你沒有拿著任何東西。"
     not-found: "{global#error}指定的玩家不存在。"

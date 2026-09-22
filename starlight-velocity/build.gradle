@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-apply from: rootDir.getAbsolutePath()+"/gbuild.gradle"
+apply from: rootDir.getAbsolutePath() + "/gbuild.gradle"
 
 applyGlobalScript("Publish/ProjectOutput.gradle")
 

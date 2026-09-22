@@ -12,7 +12,7 @@ public final class DocumentEntry {
         this.object = JsonParser.parseString(rawDOM).getAsJsonObject();
     }
 
-    public DocumentEntry(){
+    public DocumentEntry() {
         this.object = new JsonObject();
         this.rawDOM = "{}";
     }
@@ -21,9 +21,9 @@ public final class DocumentEntry {
         return this.object.toString();
     }
 
-    public boolean dirty(){
+    public boolean dirty() {
         var current = this.object.toString();
-        if(current.equals(this.rawDOM)){
+        if (current.equals(this.rawDOM)) {
             return false;
         }
 

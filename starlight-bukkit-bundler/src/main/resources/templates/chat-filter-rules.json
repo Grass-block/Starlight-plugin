@@ -1,4 +1,7 @@
 {
   "lastUpdateDate": "2025/07/25",
-  "words": ["Fuck"] //this is where trchat rules can be imported.
+  "words": [
+    "Fuck"
+  ]
+  //this is where trchat rules can be imported.
 }

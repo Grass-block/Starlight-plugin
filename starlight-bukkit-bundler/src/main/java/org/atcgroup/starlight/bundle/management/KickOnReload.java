@@ -2,9 +2,9 @@ package org.atcgroup.starlight.bundle.management;
 
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.core.LocaleService;
-import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.bukkit.Bukkit;
@@ -16,7 +16,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 import java.util.function.Function;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id="kick-on-reload",version = "1.0.0", description = "Kicks players on server reload to prevent issues")
+@ApplicationModule(id = "kick-on-reload", version = "1.0.0", description = "Kicks players on server reload to prevent issues")
 public final class KickOnReload extends BukkitAbstractModule {
 
     @EventHandler(priority = EventPriority.HIGHEST)

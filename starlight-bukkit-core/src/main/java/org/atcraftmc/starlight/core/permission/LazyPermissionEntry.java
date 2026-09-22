@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.core.permission;
 
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.PermissionAttachment;
 
@@ -45,7 +44,7 @@ public final class LazyPermissionEntry implements PermissionEntry {
             Set<String> result = new HashSet<>();
 
             for (String item : PermissionEntry.getAllPermissions()) {
-                if(item.startsWith(namespace)){
+                if (item.startsWith(namespace)) {
                     result.add(item);
                 }
             }

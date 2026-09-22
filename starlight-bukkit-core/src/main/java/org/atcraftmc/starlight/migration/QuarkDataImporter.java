@@ -29,6 +29,7 @@ public interface QuarkDataImporter {
     String PROTECTION_AREA = "173d7900baec575e2a557825d667ceba7f00d793";
     String EXPLOSION_WHITELIST = "81dcc2e7eea9fbd8ca2fc861decf117a077ce255";
     String POTATO_WAR = "8f81d78722151a0001a6d1cd9b2b3615b5c98f26";
+    String HOVER_TEXT = "2feaf0137d877e9eea3156425127b84055a46278";
 
     Map<String, BiConsumer<UUID, NBTTagCompound>> PLAYER_DATA_HANDLERS = new HashMap<>();
     Map<String, Pair<String, Consumer<NBTTagCompound>>> MODULE_DATA_HANDLERS = new HashMap<>();

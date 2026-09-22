@@ -16,13 +16,13 @@ VMGarbageCleaner 模块按固定周期调用 `System.gc()` 触发JVM垃圾回收
 
 ## 可配置项目
 
-| 配置项 | 类型 | 默认值 | 描述 |
-|--------|------|--------|------|
-| `vm-garbage-cleaner.broadcast` | Boolean | `false` | 是否向全服广播垃圾回收开始和结束信息 |
-| `vm-garbage-cleaner.period` | Integer | `1000` | 自动垃圾回收的执行间隔（单位：tick） |
+| 配置项                            | 类型      | 默认值     | 描述                   |
+|--------------------------------|---------|---------|----------------------|
+| `vm-garbage-cleaner.broadcast` | Boolean | `false` | 是否向全服广播垃圾回收开始和结束信息   |
+| `vm-garbage-cleaner.period`    | Integer | `1000`  | 自动垃圾回收的执行间隔（单位：tick） |
 
 ## 命令
 
-| 命令 | 权限 | 描述 |
-|------|------|------|
+| 命令           | 权限                        | 描述            |
+|--------------|---------------------------|---------------|
 | `/system-gc` | `starlight.management.gc` | 手动执行一次JVM垃圾回收 |

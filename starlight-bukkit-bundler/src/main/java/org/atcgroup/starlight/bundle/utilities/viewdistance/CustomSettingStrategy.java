@@ -1,7 +1,7 @@
 package org.atcgroup.starlight.bundle.utilities.viewdistance;
 
-import me.gb2022.commons.math.MathHelper;
 import me.gb2022.commons.jdbc.document.DocumentField;
+import me.gb2022.commons.math.MathHelper;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.entity.Player;
 

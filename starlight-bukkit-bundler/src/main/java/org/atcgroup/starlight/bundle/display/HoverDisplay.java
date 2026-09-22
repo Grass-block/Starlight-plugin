@@ -4,8 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.nbt.NBTTagCompound;
-import me.gb2022.commons.nbt.NBTTagList;
-import me.gb2022.commons.nbt.NBTTagString;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
@@ -19,19 +17,20 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.qlib.texts.TextBuilder;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.custom.CustomMeta;
-import org.atcraftmc.starlight.core.data.ModuleDataService;
-import org.atcraftmc.starlight.core.data.poi.POIObject;
 import org.atcraftmc.starlight.core.data.poi.POIDataService;
+import org.atcraftmc.starlight.core.data.poi.POIObject;
 import org.atcraftmc.starlight.core.platform.BukkitCodec;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
+import org.atcraftmc.starlight.migration.QuarkDataImporter;
+import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Nameable;
@@ -55,8 +54,6 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
     });
 
     private final HoverDisplayStorageService storage = new HoverDisplayStorageService();
-    private final Map<String, ArmorStandGroup> stands = new HashMap<>();
-
 
     @Inject
     private Logger logger;
@@ -72,51 +69,35 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
     @Override
     public void enable() {
-        NBTTagCompound entry = ModuleDataService.getEntry(this.getFullId());
+        this.storage.initService(JDBCService.dataSource(JDBCData.SL_LOCAL));
 
-        entry.getTagMap().forEach((k, v) -> {
-            var location = BukkitCodec.location(((NBTTagCompound) v).getCompoundTag("location"));
-            var texts = new ArrayList<Component>();
+        QLib.task().async().timer("hover-display:tick-timer", 0, 20, () -> this.storage.tick());
 
-            if (!((NBTTagCompound) v).hasKey("texts")) {
-                texts.add(ComponentSerializer.json(((NBTTagCompound) v).getString("text")));
-            } else {
-                var list = ((NBTTagCompound) v).getTagList("texts");
+        QuarkDataImporter.registerModuleDataHandler("starlight:hover-text", QuarkDataImporter.HOVER_TEXT, (tag) -> {
+            tag.getTagMap().forEach((k, v) -> {
+                var location = BukkitCodec.location(((NBTTagCompound) v).getCompoundTag("location"));
+                var texts = new ArrayList<Component>();
 
-                for (int i = 0; i < list.size(); i++) {
-                    texts.add(ComponentSerializer.json(list.get(i).toString()));
+                if (!((NBTTagCompound) v).hasKey("texts")) {
+                    texts.add(ComponentSerializer.json(((NBTTagCompound) v).getString("text")));
+                } else {
+                    var list = ((NBTTagCompound) v).getTagList("texts");
+
+                    for (int i = 0; i < list.size(); i++) {
+                        texts.add(ComponentSerializer.json(list.get(i).toString()));
+                    }
                 }
-            }
 
-            var group = new ArmorStandGroup(location, texts);
-
-            this.stands.put(k, group);
+                create(k, location, texts);
+            });
         });
     }
 
     @Override
     public void disable() {
-        NBTTagCompound entry = ModuleDataService.getEntry(this.getFullId());
-
-        entry.getTagMap().clear();
-
-        this.stands.forEach((id, s) -> {
-            NBTTagCompound tag = new NBTTagCompound();
-            var texts = new NBTTagList<>();
-
-            for (var text : s.texts) {
-                texts.add(new NBTTagString(ComponentSerializer.json(text)));
-            }
-
-            tag.setTag("texts", texts);
-            tag.setCompoundTag("location", BukkitCodec.nbt(s.anchor));
-
-            entry.setCompoundTag(id, tag);
-        });
-
-        ModuleDataService.save(this.getFullId());
-        this.stands.clear();
+        QLib.task().async().cancel("hover-display:tick-timer");
         QLib.task().global().run(this::clearAll);
+        this.storage.cleanup();
     }
 
     public void clearAll() {
@@ -142,12 +123,11 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
     public void create(String id, Location loc, List<Component> text) {
         try {
-            this.storage.add(new VirtualArmorStand(UUID.randomUUID(),id,loc,text));
+            this.storage.add(new VirtualArmorStand(UUID.randomUUID(), id, loc, text));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public void execute(CommandExecution context) {
@@ -163,16 +143,19 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
 
         var name = context.requireArgumentAt(1);
 
-        if (Objects.equals(op, "create")) {
-            if (stands.containsKey(name)) {
-                MessageAccessor.send(this.language, sender, "exist", name);
+        try {
+            if (Objects.equals(op, "create")) {
+                if (this.storage.existName(name)) {
+                    MessageAccessor.send(this.language, sender, "exist", name);
+                    return;
+                }
+            } else if (!this.storage.existName(name)) {
+                MessageAccessor.send(this.language, sender, "not-found", name);
                 return;
             }
-        } else if (!stands.containsKey(name)) {
-            MessageAccessor.send(this.language, sender, "not-found", name);
-            return;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
 
         switch (op) {
             case "create" -> {
@@ -188,27 +171,42 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
                 MessageAccessor.send(this.language, sender, "delete", name);
             }
             case "edit" -> {
-                this.stands.get(name).edit(buildText(context));
+                try {
+                    var data = this.storage.byName(name).orElseThrow();
+                    data.edit(buildText(context));
+                    this.storage.update(data);
+                    data.destroy();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 MessageAccessor.send(this.language, sender, "edit", name);
             }
             case "tp" -> {
-                stands.get(name).teleport(sender.getLocation().add(0, 1.37, 0));
+                try {
+                    this.storage.move(name, sender.getLocation().add(0, 1.37, 0));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 MessageAccessor.send(this.language, sender, "teleport", name);
             }
         }
     }
 
     private List<Component> buildText(CommandExecution context) {
-        return Arrays.stream(context.requireRemainAsParagraph(2, true).split("\\{#return}")).map(TextBuilder::buildComponent).toList();
+        return Arrays.stream(context.requireRemainAsParagraph(2, true).split("\\{#return}")).map(QLib.textBuilder()::buildComponent).toList();
     }
 
     @Override
     public void suggest(CommandSuggestion suggestion) {
         suggestion.suggest(0, "create", "delete", "edit", "tp");
-        suggestion.suggest(1, stands.keySet());
+        try {
+            suggestion.suggest(1, this.storage.listNames());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @BukkitCommand(name = "hover-display", permission = "-quark.hoverdisplay")
+    @BukkitCommand(name = "hover-display", permission = "-starlight.hoverdisplay")
     public static final class HoverDisplayCommand extends ModuleCommand<HoverDisplay> {
         @Override
         public void init(HoverDisplay module) {
@@ -216,79 +214,16 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
         }
     }
 
-    public static final class ArmorStandGroup {
-
-
-        private final Set<ArmorStand> components = new HashSet<>();
-        private final List<Component> texts = new ArrayList<>();
-        private Location anchor;
-
-        public ArmorStandGroup(Location anchor, List<Component> texts) {
-            this.anchor = anchor;
-            this.texts.addAll(texts);
-            regenerate();
-        }
-
-        private void destroy() {
-            for (ArmorStand s : this.components) {
-                s.remove();
-            }
-            this.components.clear();
-        }
-
-        private void regenerate() {
-            this.destroy();
-
-            for (int i = 0; i < this.texts.size(); i++) {
-                var text = this.texts.get(i);
-                var location = this.anchor.clone().subtract(0, 0.244 * i, 0);//What the fuck?
-
-                create(location, text);
-            }
-        }
-
-        public void edit(List<Component> texts) {
-            this.destroy();
-            this.texts.clear();
-            this.texts.addAll(texts);
-            regenerate();
-        }
-
-        public void teleport(Location location) {
-            this.destroy();
-            this.anchor = location;
-            regenerate();
-        }
-
-        public void create(Location loc, Component text) {
-            var stand = loc.getWorld().spawn(loc, ArmorStand.class);
-            CustomMeta.setPDCIdentifier(stand, "quark:hover-text");
-
-            stand.teleport(loc);
-
-            stand.setMarker(true);
-            stand.setSmall(true);
-            stand.setGravity(false);
-            stand.setInvulnerable(true);
-            stand.setVisible(false);
-            CUSTOM_NAME.invoke(stand, text);
-            stand.setCustomNameVisible(true);
-
-            this.components.add(stand);
-        }
-    }
-
-
     public static final class VirtualArmorStand extends POIObject {
         private final List<Component> components = new ArrayList<>(16);
         private final Set<ArmorStand> handles = new HashSet<>();
 
-        public VirtualArmorStand(UUID uuid, String name, String world, double x, double y, double z, JsonObject data) {
-            super(uuid, name, world, x, y, z, data);
+        public VirtualArmorStand(UUID uuid, String name, String world, double x, double y, double z) {
+            super(uuid, name, world, x, y, z);
         }
 
         public VirtualArmorStand(UUID uuid, String id, Location loc, List<Component> text) {
-            super(uuid,id,loc.getWorld().getName(),loc.getX(), loc.getY(), loc.getZ(), new JsonObject());
+            super(uuid, id, loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
             this.components.addAll(text);
         }
 
@@ -300,40 +235,47 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
                 var text = this.components.get(i);
                 var location = anchor.clone().subtract(0, 0.244 * i, 0);
 
-                var stand = location.getWorld().spawn(location, ArmorStand.class);
-                CustomMeta.setPDCIdentifier(stand, "quark:hover-text");
+                QLib.task().global().run(() -> {
+                    var stand = location.getWorld().spawn(location, ArmorStand.class);
+                    CustomMeta.setPDCIdentifier(stand, "quark:hover-text");
 
-                stand.teleport(location);
+                    stand.teleport(location);
 
-                stand.setMarker(true);
-                stand.setSmall(true);
-                stand.setGravity(false);
-                stand.setInvulnerable(true);
-                stand.setVisible(false);
-                CUSTOM_NAME.invoke(stand, text);
-                stand.setCustomNameVisible(true);
+                    stand.setMarker(true);
+                    stand.setSmall(true);
+                    stand.setGravity(false);
+                    stand.setInvulnerable(true);
+                    stand.setVisible(false);
+                    CUSTOM_NAME.invoke(stand, text);
+                    stand.setCustomNameVisible(true);
 
-                this.handles.add(stand);
+                    this.handles.add(stand);
+                });
             }
         }
 
         @Override
         public void destroy() {
-            for (var handle : this.handles) {
-                handle.remove();
-            }
-            this.handles.clear();
+            QLib.task().global().run(() -> {
+                for (var handle : this.handles) {
+                    handle.remove();
+                }
+                this.handles.clear();
+            });
         }
 
-
-        @Override
-        public void onTeleported(Location location) {
+        public void edit(List<Component> texts) {
             this.destroy();
+            this.components.clear();
+            this.components.addAll(texts);
             this.create();
         }
 
         @Override
         public void deserializeData(JsonObject data) {
+            if (!data.has("text")) {
+                return;
+            }
             var arr = data.get("text").getAsJsonArray();
             for (var e : arr) {
                 this.components.add(ComponentSerializer.json(e.getAsString()));
@@ -361,8 +303,8 @@ public final class HoverDisplay extends BukkitAbstractModule implements PluginCo
         }
 
         @Override
-        public VirtualArmorStand create(UUID id, String name, String world, Vector3d p, JsonObject payload) {
-            return new VirtualArmorStand(id, name, world, p.x(), p.y(), p.z(), payload);
+        public VirtualArmorStand create(UUID id, String name, String world, Vector3d p) {
+            return new VirtualArmorStand(id, name, world, p.x(), p.y(), p.z());
         }
     }
 }

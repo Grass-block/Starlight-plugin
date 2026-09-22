@@ -1,10 +1,10 @@
 package org.atcgroup.starlight.bundle.ai;
 
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcgroup.starlight.bundle.ai.chat.ChatRequest;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
-import org.atcgroup.starlight.bundle.ai.chat.ChatRequest;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 
 @BukkitCommand(name = "ai", permission = "+starlight.ai.chat")

@@ -98,7 +98,7 @@ public final class DropItemInfo extends BukkitAbstractModule {
 
 
     @EventHandler
-    public void onDropCreate(ItemCreateEvent event){
+    public void onDropCreate(ItemCreateEvent event) {
         setId(event.getItem());
     }
 
@@ -128,7 +128,7 @@ public final class DropItemInfo extends BukkitAbstractModule {
             item.customName(QLib.textBuilder().buildComponent(s.replace(
                     "{id}",
                     ComponentSerializer.legacy(Objects.requireNonNull(stack.getItemMeta()
-                                                                              .displayName()))
+                            .displayName()))
             )));
         } else {
             item.customName(QLib.textBuilder().buildComponent(s.replace("{id}", id)));

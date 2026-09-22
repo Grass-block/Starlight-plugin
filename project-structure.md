@@ -3,6 +3,7 @@
 > this document can be feed to LLM.
 
 ## Java modules
+
 - starlight-core: bukkit plugin engine and core components.
 - starlight-bundler: bukkit bundler module.
 - starlight-velocity: velocity plugin bundler.

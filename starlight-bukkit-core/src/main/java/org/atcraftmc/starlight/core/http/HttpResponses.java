@@ -54,14 +54,14 @@ public interface HttpResponses {
         System.out.println(sb);
     }
 
-    static void header(ChannelHandlerContext ctx, long len, Consumer<HttpHeaders> headers){
+    static void header(ChannelHandlerContext ctx, long len, Consumer<HttpHeaders> headers) {
         var response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         var head = response.headers();
 
         head.set(HttpHeaderNames.CONTENT_LENGTH, len);
         headers.accept(head);
 
-        if(len == 0){
+        if (len == 0) {
             ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
             return;
         }
@@ -69,11 +69,11 @@ public interface HttpResponses {
         ctx.write(response);
     }
 
-    static void end(ChannelHandlerContext ctx){
+    static void end(ChannelHandlerContext ctx) {
         ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener(ChannelFutureListener.CLOSE);
     }
 
-    static void error(ChannelHandlerContext ctx, HttpResponseStatus status){
+    static void error(ChannelHandlerContext ctx, HttpResponseStatus status) {
         var response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status);
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }

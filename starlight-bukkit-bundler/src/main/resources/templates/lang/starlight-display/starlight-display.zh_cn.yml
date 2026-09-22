@@ -90,3 +90,11 @@ language:
   chat-announce:
     more-btn: "{click(command,/announce tips)}[{#green}更多{#white}]"
     tip-title: "{#dark-aqua}小技巧:"
+  hover-display:
+    delete-all: '{global#sys-operation}已清除全部悬浮文本。'
+    exist: '{global#sys-error}悬浮文本 {#var} 已存在。'
+    not-found: '{global#sys-error}未找到悬浮文本 {#var}。'
+    create: '{global#sys-success}已创建悬浮文本 {#var}。'
+    delete: '{global#sys-success}已删除悬浮文本 {#var}。'
+    edit: '{global#sys-success}已编辑悬浮文本 {#var}。'
+    teleport: '{global#sys-success}已将悬浮文本 {#var} 移动到当前位置。'

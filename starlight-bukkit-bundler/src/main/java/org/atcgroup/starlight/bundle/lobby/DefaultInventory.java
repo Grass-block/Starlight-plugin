@@ -6,11 +6,10 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.config.Configurations;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -20,15 +19,15 @@ import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 @ApplicationModule(id = "lobby-default-inventory", description = "Gives players a configurable default inventory in lobby")
 @BukkitCommand(name = "lobby-default-inventory", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class DefaultInventory extends SLCommandModule {
-    public static final String TITLE = ChatColor.LIGHT_PURPLE + "Default Inventory Editor";
-    Inventory inventory = Bukkit.createInventory(null, InventoryType.PLAYER, TITLE);
+    public static final String TITLE = "Default-Inventory Editor";
 
+    @SuppressWarnings("deprecation") //We use only legacy here.
+    Inventory inventory = Bukkit.createInventory(null, InventoryType.PLAYER, TITLE);
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -70,14 +69,9 @@ public final class DefaultInventory extends SLCommandModule {
         load();
     }
 
-    @Override
-    public void disable() throws Exception {
-        super.disable();
-    }
-
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if (event.getInventory() != this.inventory) {
+        if (event.getInventory().hashCode() != this.inventory.hashCode()) {
             return;
         }
 
@@ -87,7 +81,7 @@ public final class DefaultInventory extends SLCommandModule {
     }
 
     private void load() {
-        var conf = Configurations.standalone("lobby-default-inventory");
+        var conf = Configurations.standalone("lobby-default-inventory", false);
 
         this.inventory.clear();
 
@@ -106,7 +100,11 @@ public final class DefaultInventory extends SLCommandModule {
             conf.set(k, null);
         }
 
-        for (ItemStack stack : this.inventory.getContents()) {
+        for (var slot = 0; slot < this.inventory.getSize(); slot++) {
+            conf.set(String.valueOf(slot), null);
+        }
+
+        for (var stack : this.inventory.getContents()) {
             if (stack == null) {
                 index++;
                 continue;

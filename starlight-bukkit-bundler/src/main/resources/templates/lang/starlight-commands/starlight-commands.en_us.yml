@@ -25,10 +25,10 @@ language:
     --tip: "{#gray}Use {#gold}/animate-block{#gray} to make blocks move. {click(command,/custom-item animate-helper 1);underline}[Wand]{;}{#gray} can help you create paths."
     item-name: '{#purple}Animation Creation Wand'
     item-lore:
-        - '{#gray}This tool helps you quickly create animation paths.'
-        - '{#gray}After selecting a region with {#white}WorldEdit{#gray},'
-        - '{#gray}left-click to mark command blocks, right-click to mark target positions'
-        - '{#gray}to quickly create animation paths.'
+      - '{#gray}This tool helps you quickly create animation paths.'
+      - '{#gray}After selecting a region with {#white}WorldEdit{#gray},'
+      - '{#gray}left-click to mark command blocks, right-click to mark target positions'
+      - '{#gray}to quickly create animation paths.'
   hats:
     empty: "{global#error}You are not holding anything."
     not-found: "{global#error}The specified player does not exist."

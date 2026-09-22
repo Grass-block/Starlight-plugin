@@ -1,6 +1,10 @@
 package org.atcgroup.starlight.bundle.music;
 
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcgroup.starlight.bundle.music.game.MusicGameData;
+import org.atcgroup.starlight.bundle.music.game.MusicGameMeta;
+import org.atcgroup.starlight.bundle.music.game.MusicGameSession;
+import org.atcgroup.starlight.bundle.music.resolve.MusicData;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
@@ -10,10 +14,6 @@ import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.custom.CustomBlockService;
 import org.atcraftmc.starlight.core.custom.CustomItem;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcgroup.starlight.bundle.music.game.MusicGameData;
-import org.atcgroup.starlight.bundle.music.game.MusicGameMeta;
-import org.atcgroup.starlight.bundle.music.game.MusicGameSession;
-import org.atcgroup.starlight.bundle.music.resolve.MusicData;
 import org.atcraftmc.starlight.util.PlayerMap;
 import org.bukkit.Location;
 import org.bukkit.Material;

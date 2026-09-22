@@ -178,7 +178,7 @@ public final class SpigotReflection {
     }
 
     public double mspt() {
-        if(F_NMS_RECENT_MSPT == null) {
+        if (F_NMS_RECENT_MSPT == null) {
             return 0.00;
         }
 

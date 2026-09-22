@@ -194,7 +194,8 @@ public interface MusicService extends BukkitService {
             var language = language("starlight-music:music-service");
 
             switch (context.requireEnum(0, "save-defaults", "trim")) {
-                case "trim" -> language.item("trim").send(QLib.audience(context.getSender()), MusicService.instance().trim());
+                case "trim" ->
+                        language.item("trim").send(QLib.audience(context.getSender()), MusicService.instance().trim());
                 case "save-defaults" -> {
                     MusicService.instance().saveDefaults();
                     language.item("restore-defaults").send(QLib.audience(context.getSender()));

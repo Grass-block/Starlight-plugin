@@ -2,6 +2,7 @@ package org.atcgroup.starlight.bundle.display;
 
 import io.papermc.paper.scoreboard.numbers.NumberFormat;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
+import me.gb2022.commons.jdbc.document.DocumentField;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.commons.reflect.method.MethodHandle;
@@ -28,7 +29,6 @@ import org.atcraftmc.starlight.framework.module.SLCommandModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
 import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.document.DocumentField;
 import org.atcraftmc.starlight.shared.jdbc.flex.TableColumn;
 import org.atcraftmc.starlight.util.CachedInfo;
 import org.bukkit.Bukkit;
@@ -200,10 +200,10 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
             return Component.text(player.getName());
         }
         return QLib.textBuilder().buildComponent(PlaceHolderService.format(template.replace("{player}", player.getName())
-                                                                                   .replace(
-                                                                                           "{header}",
-                                                                                           header + TextBuilder.EMPTY_COMPONENT
-                                                                                   )));
+                .replace(
+                        "{header}",
+                        header + TextBuilder.EMPTY_COMPONENT
+                )));
     }
 
     public Component getPlayerSuffix(Player player) {
@@ -227,9 +227,9 @@ public final class PlayerNameHeader extends SLCommandModule implements Scoreboar
         public void checkCompatibility() throws APIIncompatibleException {
             Compatibility.requireClass(() -> Class.forName("io.papermc.paper.scoreboard.numbers.NumberFormat"));
             Compatibility.assertion(StarlightBukkitCore.instance()
-                                            .config()
-                                            .value("quark-display:player-name-header:below-name-enable")
-                                            .bool());
+                    .config()
+                    .value("quark-display:player-name-header:below-name-enable")
+                    .bool());
         }
 
         public Component build(Player player, MinecraftLocale locale) {

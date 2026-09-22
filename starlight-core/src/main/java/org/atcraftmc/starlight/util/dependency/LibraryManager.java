@@ -95,7 +95,7 @@ public final class LibraryManager {
                 } catch (Throwable e) {
                     this.loadFailedClasses.add(className);
                     if (e.getClass() == UnsupportedClassVersionError.class) {
-                       // LOGGER.info("Failed to load class {} of unsupported version.", className);
+                        // LOGGER.info("Failed to load class {} of unsupported version.", className);
                         continue;
                     }
 

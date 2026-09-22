@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import me.gb2022.commons.jdbc.JDBCDataService;
+import me.gb2022.commons.jdbc.db.JDBCDatabase;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import me.gb2022.commons.jdbc.db.JDBCDatabase;
 import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;

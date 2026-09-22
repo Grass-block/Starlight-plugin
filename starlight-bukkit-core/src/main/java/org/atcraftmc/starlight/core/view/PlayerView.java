@@ -3,7 +3,6 @@ package org.atcraftmc.starlight.core.view;
 import net.kyori.adventure.text.Component;
 import org.atcraftmc.qlib.bukkit.task.Task;
 import org.atcraftmc.starlight.core.TextSender;
-import org.atcraftmc.starlight.core.VisualScoreboardService;
 import org.atcraftmc.starlight.util.InvalidPlayerHandleException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -27,13 +26,13 @@ public final class PlayerView {
     }
 
     public void destroy() {
-        for (var r:this.renderers.values()) {
+        for (var r : this.renderers.values()) {
             r.destroy();
         }
     }
 
     public void update() {
-        for (var r:this.renderers.values()) {
+        for (var r : this.renderers.values()) {
             r.update();
         }
     }

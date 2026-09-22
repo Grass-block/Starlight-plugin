@@ -187,7 +187,6 @@ public interface BaseBundler {
         b.module(CustomMotd.class);
         b.module(CustomScoreboard.class);
         b.module(DropItemInfo.class);
-        //i.module("hover-display", HoverDisplay.class); //todo [DFU] refine + import hover data
         b.module(PlayerNameHeader.class); //todo [DFU] import header
         b.module(TabMenu.class);
         b.module(WelcomeMessage.class);
@@ -195,6 +194,7 @@ public interface BaseBundler {
         b.module(CustomKickMessage.class);
         b.module(PlayerJoinMessage.class);
         b.module(ChatAnnounce.class);
+        b.module(HoverDisplay.class);
 
         b.service(PlayerWelcomeService.class);
 

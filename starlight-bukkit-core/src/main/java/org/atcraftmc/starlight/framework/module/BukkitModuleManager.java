@@ -4,7 +4,6 @@ import me.gb2022.gluon.ModularApplicationContext;
 import me.gb2022.gluon.ObjectOperationResult;
 import me.gb2022.gluon.module.ModuleContainer;
 import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ModuleEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;

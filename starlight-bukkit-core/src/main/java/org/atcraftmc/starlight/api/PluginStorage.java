@@ -1,7 +1,6 @@
 package org.atcraftmc.starlight.api;
 
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;

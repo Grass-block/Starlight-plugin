@@ -39,7 +39,7 @@ public final class ValueChanger implements InventoryComponent, InventoryActionLi
         }
         this.handler.invoke(p, ui, this.value);
         //ui.getInventory().setItem(this.baseY * 9 + this.baseX );
-       // ui.setIcon(this.baseX, this.baseY, Material.GRAY_STAINED_GLASS_PANE, this.value);
+        // ui.setIcon(this.baseX, this.baseY, Material.GRAY_STAINED_GLASS_PANE, this.value);
     }
 
     private boolean test(int delta) {

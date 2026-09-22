@@ -1,8 +1,8 @@
 package org.atcgroup.starlight.bundle.music.session;
 
-import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcgroup.starlight.bundle.music.resolve.MusicData;
 import org.atcgroup.starlight.bundle.music.resolve.MusicNode;
+import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.util.AsyncLock;
 
 import java.util.concurrent.atomic.AtomicBoolean;

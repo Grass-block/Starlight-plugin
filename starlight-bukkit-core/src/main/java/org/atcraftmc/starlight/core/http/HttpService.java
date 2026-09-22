@@ -113,7 +113,8 @@ public interface HttpService extends Service {
                         StandardCharsets.UTF_8
                 );
 
-                HttpResponses.header(ctx, content.writerIndex(), (h) -> {});
+                HttpResponses.header(ctx, content.writerIndex(), (h) -> {
+                });
 
                 ctx.write(content);
 

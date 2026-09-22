@@ -90,3 +90,11 @@ language:
   chat-announce:
     more-btn: "{click(command,/announce tips)}[{#green}Plus{#white}]"
     tip-title: "{#dark-aqua}Astuce :"
+  hover-display:
+    delete-all: '{global#sys-operation}Tous les textes de survol ont été supprimés.'
+    exist: '{global#sys-error}Le texte de survol {#var} existe déjà.'
+    not-found: '{global#sys-error}Texte de survol {#var} introuvable.'
+    create: '{global#sys-success}Texte de survol {#var} créé.'
+    delete: '{global#sys-success}Texte de survol {#var} supprimé.'
+    edit: '{global#sys-success}Texte de survol {#var} modifié.'
+    teleport: '{global#sys-success}Texte de survol {#var} déplacé vers votre position.'

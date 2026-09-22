@@ -36,7 +36,7 @@ public interface AIChatRequestHandler {
             var key = Objects.requireNonNull(section.getString("api-key"));
             var model = Objects.requireNonNull(section.getString("model"));
             var maxTokens = section.getInt("max-tokens", 256);
-            var temperature = section.getDouble("temperature",0.7);
+            var temperature = section.getDouble("temperature", 0.7);
 
             return new OpenAICompatibleHandler(url, key, model, maxTokens, temperature);
         });

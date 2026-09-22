@@ -1,9 +1,9 @@
 package org.atcgroup.starlight.bundle.api;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import org.atcgroup.starlight.bundle.worldguard.WGCommandService;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcgroup.starlight.bundle.worldguard.WGCommandService;
 import org.bukkit.entity.Player;
 
 public abstract class RegionRelatedCommand extends StandaloneCommand {

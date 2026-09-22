@@ -6,7 +6,7 @@ import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;
 
-public abstract class TableNamedDataService extends JDBCDataService implements GenericQueryDatasourceProvider{
+public abstract class TableNamedDataService extends JDBCDataService implements GenericQueryDatasourceProvider {
     private final SQLMapper mapper = new SQLMapper();
     private final String tableName;
 
@@ -14,8 +14,8 @@ public abstract class TableNamedDataService extends JDBCDataService implements G
         this.tableName = tableName;
     }
 
-    public void initMapper(SQLMapper mapper){
-        mapper.replaceSQL("_table_",this.tableName);
+    public void initMapper(SQLMapper mapper) {
+        mapper.replaceSQL("_table_", this.tableName);
     }
 
     @Override

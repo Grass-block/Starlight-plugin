@@ -44,7 +44,6 @@ public class ModdedServerSupport extends VelocityAbstractModule {
         event.setResult(ServerPreConnectEvent.ServerResult.denied());
 
 
-
         Config.language("mod-server-support").sendMessage(player, "message");
     }
 }

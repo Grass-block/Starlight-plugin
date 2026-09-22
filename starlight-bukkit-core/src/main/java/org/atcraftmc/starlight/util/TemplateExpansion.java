@@ -11,11 +11,11 @@ public final class TemplateExpansion {
         this.map = map;
     }
 
-    public static builder builder(){
+    public static builder builder() {
         return new builder();
     }
 
-    public static TemplateExpansion build(Consumer<builder> context){
+    public static TemplateExpansion build(Consumer<builder> context) {
         var builder = builder();
         context.accept(builder);
         return builder.build();

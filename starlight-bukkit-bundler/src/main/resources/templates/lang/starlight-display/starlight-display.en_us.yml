@@ -86,3 +86,11 @@ language:
   chat-announce:
     more-btn: "{click(command,/announce tips)}[{#green}More{#white}]"
     tip-title: "{#dark-aqua}Tips:"
+  hover-display:
+    delete-all: '{global#sys-operation}All hover texts have been cleared.'
+    exist: '{global#sys-error}Hover text {#var} already exists.'
+    not-found: '{global#sys-error}Hover text {#var} not found.'
+    create: '{global#sys-success}Created hover text {#var}.'
+    delete: '{global#sys-success}Deleted hover text {#var}.'
+    edit: '{global#sys-success}Edited hover text {#var}.'
+    teleport: '{global#sys-success}Moved hover text {#var} to your location.'

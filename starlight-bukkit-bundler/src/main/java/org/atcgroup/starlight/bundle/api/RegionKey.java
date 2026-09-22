@@ -1,8 +1,6 @@
 package org.atcgroup.starlight.bundle.api;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.atcgroup.starlight.bundle.worldguard.data.RegionKey_L;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -92,9 +90,5 @@ public final class RegionKey {
     @Override
     protected RegionKey clone() {
         return this;
-    }
-
-    public RegionKey_L legacy() {
-        return new RegionKey_L(Bukkit.getWorld(this.worldId), this.regionId);
     }
 }

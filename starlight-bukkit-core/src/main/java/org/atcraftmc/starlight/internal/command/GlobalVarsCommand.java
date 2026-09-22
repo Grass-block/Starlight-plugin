@@ -2,7 +2,6 @@ package org.atcraftmc.starlight.internal.command;
 
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.CoreCommand;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;

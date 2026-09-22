@@ -1,0 +1,19 @@
+{
+  "base": {
+    "type": "starlight:item",
+    "data": [
+      {
+        "type": "minecraft:iron_ingot",
+        "amount": 4
+      },
+      {
+        "type": "minecraft:gold_ingot",
+        "amount": 2
+      },
+      {
+        "type": "minecraft:diamond",
+        "amount": 1
+      }
+    ]
+  }
+}

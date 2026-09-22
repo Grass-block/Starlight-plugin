@@ -13,8 +13,6 @@ import java.util.Map;
 public interface CacheService extends BukkitService {
 
 
-
-
     @ServiceInject
     ServiceHolder<CacheService> INSTANCE = new ServiceHolder<>();
 

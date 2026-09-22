@@ -1,6 +1,8 @@
 package org.atcgroup.starlight.bundle.worldguard;
 
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcgroup.starlight.bundle.api.RegionKey;
+import org.atcgroup.starlight.bundle.api.WGCustomNameAPI;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
@@ -9,8 +11,6 @@ import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.util.StandaloneCommand;
-import org.atcgroup.starlight.bundle.api.RegionKey;
-import org.atcgroup.starlight.bundle.api.WGCustomNameAPI;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public final class WGCustomName extends BukkitAbstractModule {
         WGCommandService.COMMAND.registerSubCommand(this.cmd);
 
         WGRegionHUD.PIPELINE.addFirst("starlight:custom-name", (r, w, s) -> {
-            var name = WGCustomNameAPI.getRegionCustomName(RegionKey.fromRegion(w,r));
+            var name = WGCustomNameAPI.getRegionCustomName(RegionKey.fromRegion(w, r));
 
             if (Objects.equals(name, WGCustomNameAPI.DEFAULT_VALUE)) {
                 return s;
@@ -62,7 +62,7 @@ public final class WGCustomName extends BukkitAbstractModule {
             var player = context.requireSenderAsPlayer();
             var target = t.get();
             var line = context.requireRemainAsParagraph(0, true);
-            WGCustomNameAPI.setRegionCustomName(RegionKey.fromRegion(player,target),line);
+            WGCustomNameAPI.setRegionCustomName(RegionKey.fromRegion(player, target), line);
 
             lang("rg-rename").send(QLib.audience(context.getSender()), line);
         }

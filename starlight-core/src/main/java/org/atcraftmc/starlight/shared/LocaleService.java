@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.shared;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import me.gb2022.commons.jdbc.document.DocumentField;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.document.DocumentField;
 
 import java.time.Duration;
 import java.util.Optional;
@@ -28,10 +28,10 @@ public abstract class LocaleService<A> {
             return tested.get();
         }
 
-        return testLocale(uuid, getLocaleNatively(audience),false);
+        return testLocale(uuid, getLocaleNatively(audience), false);
     }
 
-    public MinecraftLocale testLocale(UUID uuid, MinecraftLocale fetched,boolean enforceChange) {
+    public MinecraftLocale testLocale(UUID uuid, MinecraftLocale fetched, boolean enforceChange) {
         var custom = Storage.getCustom(uuid);
 
         if (custom.isPresent()) {
@@ -39,7 +39,7 @@ public abstract class LocaleService<A> {
             return custom.get();
         }
 
-        if(enforceChange){
+        if (enforceChange) {
             Storage.setTested(uuid, fetched);
         }
         this.cache.put(uuid, fetched);

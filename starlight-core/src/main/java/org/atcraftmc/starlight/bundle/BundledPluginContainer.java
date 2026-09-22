@@ -63,4 +63,18 @@ public final class BundledPluginContainer implements SLPluginHandle {
     public Class<?>[] getHandles() {
         return this.handles;
     }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BundledPluginContainer container)) {
+            return false;
+        }
+
+        return container.id.equals(this.id);
+    }
 }

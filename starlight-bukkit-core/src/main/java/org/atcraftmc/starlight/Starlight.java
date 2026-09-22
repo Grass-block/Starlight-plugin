@@ -32,7 +32,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -40,7 +39,10 @@ import java.util.UUID;
 
 /**
  * <h3>This SHIT could work... Wait WTF how does it worked???</h3>
- * ——GrassBlock2022, Main developer
+ * ——GrassBlock2022, Main developer<br><br>
+ *
+ * <h3>这坨大的可算跑起来了... 等会我草**它怎么跑起来的???</h3>
+ * ——GrassBlock2022, 开发者
  */
 public final class Starlight extends BukkitPluginConcept implements SLPluginHandle {
     public static final String BUNDLE_LOADER = "org.atcgroup.starlight.bundle.StarlightBukkitBundler";

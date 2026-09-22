@@ -4,12 +4,13 @@ import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
 import org.atcgroup.starlight.bundle.ai.AIChatService;
 import org.atcgroup.starlight.bundle.ai.AICommandChat;
-import org.atcgroup.starlight.bundle.music.MusicPlayer;
-import org.atcgroup.starlight.bundle.music.MusicService;
-import org.atcgroup.starlight.bundle.oddities.CustomVehicle;
-import org.atcgroup.starlight.bundle.oddities.Elevator;
 import org.atcgroup.starlight.bundle.mission.CommissionService;
 import org.atcgroup.starlight.bundle.mission.RewardService;
+import org.atcgroup.starlight.bundle.music.MusicPlayer;
+import org.atcgroup.starlight.bundle.music.MusicService;
+import org.atcgroup.starlight.bundle.oddities.ChinesePeopleCanFly;
+import org.atcgroup.starlight.bundle.oddities.CustomVehicle;
+import org.atcgroup.starlight.bundle.oddities.Elevator;
 import org.atcgroup.starlight.bundle.tweaks.*;
 import org.atcgroup.starlight.bundle.warp.BackToDeath;
 import org.atcgroup.starlight.bundle.warp.RTP;
@@ -79,6 +80,8 @@ public interface ExtensionBundler {
         i.language("/starlight-oddities", "zh_tw");
 
         b.module(Elevator.class);
+        b.module(ChinesePeopleCanFly.class);
+
         b.module(CustomVehicle.class);
     }
 
@@ -112,9 +115,6 @@ public interface ExtensionBundler {
     @ApplicationPackageProvider(id = "starlight-worldguard")
     static void worldguard(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
-
-        //deprecated
-        b.service(WGExtraInfoService.class);
 
         b.service(WGRegionService.class);
         b.service(WGCommandService.class);

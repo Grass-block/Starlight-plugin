@@ -34,10 +34,10 @@ public final class Elevator extends BukkitAbstractModule {
     @Override
     public void enable() {
         this.recipe = RecipeBuilder.shaped("elevator", "@#@;#*#;@#@",
-                                           block.createItem(2),
-                                           RecipeBuilder.symbol('#', Material.IRON_INGOT),
-                                           RecipeBuilder.symbol('*', Material.PISTON),
-                                           RecipeBuilder.symbol('@', Material.REDSTONE)
+                block.createItem(2),
+                RecipeBuilder.symbol('#', Material.IRON_INGOT),
+                RecipeBuilder.symbol('*', Material.PISTON),
+                RecipeBuilder.symbol('@', Material.REDSTONE)
         );
         RecipeManager.register(recipe);
         CustomBlockService.instance().registerBlock(this.block);

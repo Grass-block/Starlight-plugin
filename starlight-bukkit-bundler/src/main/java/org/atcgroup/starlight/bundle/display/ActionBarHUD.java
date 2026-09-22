@@ -17,7 +17,7 @@ import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.entity.Player;
 
 @ApplicationModule(id = "action-bar-hud", description = "Create a HUD display on actionbar title.")
-@AutoRegister({Registrations.SERVER_EVENT,PlayerUIService.TRACKING})
+@AutoRegister({Registrations.SERVER_EVENT, PlayerUIService.TRACKING})
 public final class ActionBarHUD extends BukkitAbstractModule implements UITrackingStateCallback {
     @Inject
     private LanguageEntry language;

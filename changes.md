@@ -1,5 +1,13 @@
 ## V5: Now - Gluon engine
 
+### 26.6.4
+
+- Re-added Hover-Display module.
+- Fixed crashing when disable module failed on shut-down.
+- Fixed lobby-default-inventory saving issue.
+- Fixed global-config saving issue.
+- Removed the deprecated WG_REGION_DATA api.
+
 ### 26.6.3
 
 - `chat-filter` `mute` and `chat-report` are now moved to `starlight-chat` package;

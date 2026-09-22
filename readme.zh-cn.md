@@ -118,140 +118,249 @@ config:
 <summary>Content: </summary>
 
 ### starlight-commands:
-- Entity Proxy Execute Command: 以其他实体或玩家的身份执行命令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/command-exec.html)
-- Send Message: 向发送者发送格式化消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/self-message.html)
-- Item Command Trigger: 将命令和行为绑定到物品上 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/item-command.html)
+
+- Entity Proxy Execute Command:
+  以其他实体或玩家的身份执行命令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/command-exec.html)
+- Send Message:
+  向发送者发送格式化消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/self-message.html)
+- Item Command Trigger:
+  将命令和行为绑定到物品上 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/item-command.html)
 - Wear Hat: 将手持物品装备到头部 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/hat.html)
-- Block Animation: 使用掉落物方块效果播放方块动画 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/animate-block-command.html)
-- WorldEdit Command Supplement: 提供 WorldEdit 实用画笔和编辑命令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/world-edit-commands.html)
-- Entity Motion Command: 通过速度指令控制实体运动 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/entity-motion.html)
-- Command Tab Completion Fix: 修复服务器命令的 Tab 补全 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/command-tab-fix.html)
+- Block Animation:
+  使用掉落物方块效果播放方块动画 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/animate-block-command.html)
+- WorldEdit Command Supplement: 提供 WorldEdit
+  实用画笔和编辑命令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/world-edit-commands.html)
+- Entity Motion Command:
+  通过速度指令控制实体运动 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/entity-motion.html)
+- Command Tab Completion Fix: 修复服务器命令的 Tab
+  补全 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-commands/command-tab-fix.html)
 
 ### starlight-warps:
+
 - Waypoint: 创建和管理玩家传送点 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/waypoint.html)
-- Back to Death Point: 将玩家传送回死亡位置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/back-to-death.html)
-- Teleport Request: 处理玩家间的传送请求与接受 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/tpa.html)
-- Random teleport: 将玩家随机传送到世界中的安全位置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/rtp.html)
+- Back to Death Point:
+  将玩家传送回死亡位置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/back-to-death.html)
+- Teleport Request:
+  处理玩家间的传送请求与接受 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/tpa.html)
+- Random teleport:
+  将玩家随机传送到世界中的安全位置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-warps/rtp.html)
 
 ### starlight-security:
-- WorldEdit Operation Monitor: 通过确认机制防止未经授权的 WorldEdit 操作 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/we-operation-defender.html)
-- IP Address Detection: 检测恶意 IP 连接并提供 IP 查询指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/ip-defender.html)
-- Explosion Defender: 通过白名单机制防护方块和实体爆炸 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/explosion-defender.html)
-- Advanced Permission Control: 控制聊天、交互、破坏等高级玩家权限 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/advanced-permission-control.html)
-- plugin-backdoor-scanner: 扫描插件中的恶意后门代码 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/plugin-backdoor-scanner.html)
-- Guest Mode: 在指定世界中限制访客玩家的操作 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/guest-mode.html)
-- IMG Regulation Sync: 从广电封禁服务同步玩家封禁记录 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/img-regulation-sync.html)
-- end-protect: 防止在末地放置末影水晶 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/end-protect.html)
-- Simple Permission Control: 通过 JDBC 存储和命令管理玩家权限 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/permission-manager.html)
+
+- WorldEdit Operation Monitor: 通过确认机制防止未经授权的 WorldEdit
+  操作 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/we-operation-defender.html)
+- IP Address Detection: 检测恶意 IP 连接并提供 IP
+  查询指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/ip-defender.html)
+- Explosion Defender:
+  通过白名单机制防护方块和实体爆炸 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/explosion-defender.html)
+- Advanced Permission Control:
+  控制聊天、交互、破坏等高级玩家权限 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/advanced-permission-control.html)
+- plugin-backdoor-scanner:
+  扫描插件中的恶意后门代码 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/plugin-backdoor-scanner.html)
+- Guest Mode:
+  在指定世界中限制访客玩家的操作 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/guest-mode.html)
+- IMG Regulation Sync:
+  从广电封禁服务同步玩家封禁记录 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/img-regulation-sync.html)
+- end-protect:
+  防止在末地放置末影水晶 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/end-protect.html)
+- Simple Permission Control: 通过 JDBC
+  存储和命令管理玩家权限 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-security/permission-manager.html)
 
 ### starlight-oddities:
-- Elevator Block: 创建类似 OpenBlock 风格的电梯方块 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-oddities/elevator.html)
+
+- Elevator Block: 创建类似 OpenBlock
+  风格的电梯方块 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-oddities/elevator.html)
 
 ### starlight-tweaks:
-- Sit on players: 允许玩家右键坐在他人头上 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/sit-on-player.html)
-- Portable Functional Blocks: 从手持物品打开功能方块界面 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/portable-functional-blocks.html)
+
+- Sit on players:
+  允许玩家右键坐在他人头上 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/sit-on-player.html)
+- Portable Functional Blocks:
+  从手持物品打开功能方块界面 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/portable-functional-blocks.html)
 - Stair Seat: 允许玩家坐在楼梯方块上 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/stair-seat.html)
-- Realistic Minecart: 增强矿车行为，提供真实物理和控制 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/realistic-minecart.html)
-- Quick Open Shulker Box: 从物品栏直接打开潜影盒 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/portable-shulker-box.html)
-- Crop Click Harvest: 右键点击即可收获作物 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/crop-click-harvest.html)
-- Double Door Synchronization: 同步相邻木门同时打开 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/double-door-sync.html)
-- Dispenser Interaction Imporovement: 增强发射器的自定义交互行为 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/dispenser-interaction.html)
-- Realistic Sleep: 需要多数玩家睡觉才能跳过夜晚 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/realistic-sleep.html)
-- Vein Miner: 一次破坏整条连接的矿石矿脉 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/vein-miner.html)
-- Drop Prevention: 防止意外丢弃受保护的物品 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/item-drop-secure.html)
+- Realistic Minecart:
+  增强矿车行为，提供真实物理和控制 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/realistic-minecart.html)
+- Quick Open Shulker Box:
+  从物品栏直接打开潜影盒 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/portable-shulker-box.html)
+- Crop Click Harvest:
+  右键点击即可收获作物 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/crop-click-harvest.html)
+- Double Door Synchronization:
+  同步相邻木门同时打开 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/double-door-sync.html)
+- Dispenser Interaction Imporovement:
+  增强发射器的自定义交互行为 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/dispenser-interaction.html)
+- Realistic Sleep:
+  需要多数玩家睡觉才能跳过夜晚 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/realistic-sleep.html)
+- Vein Miner:
+  一次破坏整条连接的矿石矿脉 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/vein-miner.html)
+- Drop Prevention:
+  防止意外丢弃受保护的物品 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-tweaks/item-drop-secure.html)
 
 ### starlight-proxy:
-- Cluster Chat Sync: 跨代理服务器实例同步聊天消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/chat-sync.html)
-- Cluster Ping Metrics Fix: 监控并广播跨代理的玩家延迟 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/proxy-ping.html)
-- Geyser Skin Remapping: 通过 Geyser 集成重定向基岩版玩家皮肤 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/geyser-skin-redirect.html)
-- BungeeCord Cluster Protection: 防止未经授权的旧版转发连接 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/legacy-forwarding-protect.html)
-- Client Transfer Mod Support: 支持在代理服务器间转移玩家 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/client-transfer-support.html)
+
+- Cluster Chat Sync:
+  跨代理服务器实例同步聊天消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/chat-sync.html)
+- Cluster Ping Metrics Fix:
+  监控并广播跨代理的玩家延迟 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/proxy-ping.html)
+- Geyser Skin Remapping: 通过 Geyser
+  集成重定向基岩版玩家皮肤 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/geyser-skin-redirect.html)
+- BungeeCord Cluster Protection:
+  防止未经授权的旧版转发连接 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/legacy-forwarding-protect.html)
+- Client Transfer Mod Support:
+  支持在代理服务器间转移玩家 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-proxy/client-transfer-support.html)
 
 ### starlight-chat:
-- Rich Text Chat Support: 处理聊天组件和告示牌文本格式化 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-chat/chat-component.html)
-- Chat Mention: 处理聊天中的 @提及和玩家补全 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-chat/chat-at.html)
+
+- Rich Text Chat Support:
+  处理聊天组件和告示牌文本格式化 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-chat/chat-component.html)
+- Chat Mention: 处理聊天中的
+  @提及和玩家补全 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-chat/chat-at.html)
 
 ### starlight-sideload:
-- inventory-menu: 为玩家提供自定义物品栏 GUI 菜单 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/inventory-menu.html)
-- recipe-loader: 从配置文件加载自定义合成配方 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/recipe-loader.html)
-- resource-pack-loader: 通过 HTTP 服务器向玩家提供资源包 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/resource-pack-loader.html)
+
+- inventory-menu: 为玩家提供自定义物品栏 GUI
+  菜单 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/inventory-menu.html)
+- recipe-loader:
+  从配置文件加载自定义合成配方 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/recipe-loader.html)
+- resource-pack-loader: 通过 HTTP
+  服务器向玩家提供资源包 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-sideload/resource-pack-loader.html)
 
 ### starlight-display:
-- Player Title: 在玩家名称前显示头衔 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/player-name-header.html)
-- Custom Welcome Message: 玩家首次加入时显示欢迎信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/welcome-message.html)
-- Dropped Item Highlight Information: 掉落在地面时显示物品信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/drop-item-info.html)
-- Custom Scoreboard Information: 为玩家渲染自定义计分板 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-scoreboard.html)
-- TAB Menu Information: 提供 TAB 列表显示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/tab-menu.html)
-- Chat Announcements: 定时向玩家广播公告 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/chat-announce.html)
-- Chat Line Formatting: 重新格式化聊天消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/chat-format.html)
-- AFK Detection: 玩家进入/离开挂机状态时广播通知 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/afk.html)
-- Custom MOTD Information: 自定义服务器列表消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-motd.html)
-- Custom Death Message Format: 格式化玩家死亡消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-death-message.html)
-- WorldEdit Selection Renderer: 可视化渲染玩家的 WorldEdit 选区 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/we-session-renderer.html)
-- Player Join Notification: 玩家加入/离开时显示提示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/player-join-message.html)
-- Custom Kick Message: 自定义踢出和封禁消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-kick-message.html)
-- Action Bar HUD Information Display: 在快捷栏位置创建 HUD 显示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/action-bar-hud.html)
+
+- Player Title:
+  在玩家名称前显示头衔 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/player-name-header.html)
+- Custom Welcome Message:
+  玩家首次加入时显示欢迎信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/welcome-message.html)
+- Dropped Item Highlight Information:
+  掉落在地面时显示物品信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/drop-item-info.html)
+- Custom Scoreboard Information:
+  为玩家渲染自定义计分板 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-scoreboard.html)
+- TAB Menu Information: 提供 TAB
+  列表显示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/tab-menu.html)
+- Chat Announcements:
+  定时向玩家广播公告 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/chat-announce.html)
+- Chat Line Formatting:
+  重新格式化聊天消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/chat-format.html)
+- AFK Detection:
+  玩家进入/离开挂机状态时广播通知 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/afk.html)
+- Custom MOTD Information:
+  自定义服务器列表消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-motd.html)
+- Custom Death Message Format:
+  格式化玩家死亡消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-death-message.html)
+- WorldEdit Selection Renderer: 可视化渲染玩家的 WorldEdit
+  选区 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/we-session-renderer.html)
+- Player Join Notification:
+  玩家加入/离开时显示提示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/player-join-message.html)
+- Custom Kick Message:
+  自定义踢出和封禁消息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/custom-kick-message.html)
+- Action Bar HUD Information Display: 在快捷栏位置创建 HUD
+  显示 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-display/action-bar-hud.html)
 
 ### starlight-utilities:
-- Hitokoto: 从 hitokoto API 获取随机励志语句 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/hitokoto.html)
+
+- Hitokoto: 从 hitokoto API
+  获取随机励志语句 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/hitokoto.html)
 - tick-manager: 冻结、解冻和步进服务器刻
-- Free Camera: 允许玩家将摄像机从身体上分离 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/freecam.html)
-- Flight Control Commands: 控制玩家飞行速度和开关 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/fly-command.html)
-- Block Update Locker: 锁定活塞、红石等方块更新 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/block-update-locker.html)
-- Particle Text Rendering: 使用粒子效果在世界中渲染文字 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/particle-font.html)
-- Menu Item Trigger: 提供用于快速打开菜单的物品 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/menu-item.html)
-- Client Environment Settings: 允许玩家设置本地天气和时间 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/client-environment-setting.html)
-- Position Lock Command: 防止被锁定的玩家移动 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/position-lock.html)
-- inventory-profile: 加载和检查玩家物品栏 NBT 数据 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/inventory-profile.html)
-- Custom View Distance: 根据玩家数量动态调整服务端视野距离 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/dynamic-view-distance.html)
-- Calculator: 通过聊天指令计算数学表达式 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/calculator.html)
-- Surrounding Block Refresh: 刷新玩家周围的方块和区块 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/surrounding-refresh.html)
-- Custom Camera Path: 沿预设路径移动玩家镜头 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/camera-movement.html)
-- Modern Minecart Movement Compatibility: 为旧版客户端提供新版协议信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/modern-minecart-sync.html)
-- Player Ping Query: 显示玩家的延迟/Ping 信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/player-ping-command.html)
-- Position Alignment Command: 将玩家位置对齐到最近的方块中心 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/position-align.html)
+- Free Camera:
+  允许玩家将摄像机从身体上分离 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/freecam.html)
+- Flight Control Commands:
+  控制玩家飞行速度和开关 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/fly-command.html)
+- Block Update Locker:
+  锁定活塞、红石等方块更新 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/block-update-locker.html)
+- Particle Text Rendering:
+  使用粒子效果在世界中渲染文字 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/particle-font.html)
+- Menu Item Trigger:
+  提供用于快速打开菜单的物品 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/menu-item.html)
+- Client Environment Settings:
+  允许玩家设置本地天气和时间 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/client-environment-setting.html)
+- Position Lock Command:
+  防止被锁定的玩家移动 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/position-lock.html)
+- inventory-profile: 加载和检查玩家物品栏 NBT
+  数据 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/inventory-profile.html)
+- Custom View Distance:
+  根据玩家数量动态调整服务端视野距离 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/dynamic-view-distance.html)
+- Calculator:
+  通过聊天指令计算数学表达式 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/calculator.html)
+- Surrounding Block Refresh:
+  刷新玩家周围的方块和区块 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/surrounding-refresh.html)
+- Custom Camera Path:
+  沿预设路径移动玩家镜头 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/camera-movement.html)
+- Modern Minecart Movement Compatibility:
+  为旧版客户端提供新版协议信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/modern-minecart-sync.html)
+- Player Ping Query: 显示玩家的延迟/Ping
+  信息 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/player-ping-command.html)
+- Position Alignment Command:
+  将玩家位置对齐到最近的方块中心 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-utilities/position-align.html)
 
 ### starlight-management:
-- Maintenance Mode: 开启维护模式以限制玩家进入 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/maintenance.html)
-- Chat Report: 通过哈希验证处理聊天举报 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/chat-report.html)
+
+- Maintenance Mode:
+  开启维护模式以限制玩家进入 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/maintenance.html)
+- Chat Report:
+  通过哈希验证处理聊天举报 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/chat-report.html)
 - Ban Commands: 管理基于时长的玩家封禁 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/ban.html)
 - Chat Mute: 管理基于时长的玩家禁言 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/mute.html)
-- Server Information Commands: 显示服务器信息和性能统计 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/server-info.html)
-- Auto-Kick on Reload: 服务器重载时踢出所有玩家以防问题 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/kick-on-reload.html)
-- Automatic Garbage Collection: 定时运行垃圾回收释放内存 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/vm-garbage-cleaner.html)
-- Command-Line Plugin Manager: 提供插件列表和开关等管理指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/plugin-manager-command.html)
-- Chat Filter: 过滤聊天和告示牌中的不当词汇 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/chat-filter.html)
-- TPS Visual Bar: 通过 Boss 血条显示 TPS 和 MSPT [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/tps-bar.html)
+- Server Information Commands:
+  显示服务器信息和性能统计 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/server-info.html)
+- Auto-Kick on Reload:
+  服务器重载时踢出所有玩家以防问题 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/kick-on-reload.html)
+- Automatic Garbage Collection:
+  定时运行垃圾回收释放内存 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/vm-garbage-cleaner.html)
+- Command-Line Plugin Manager:
+  提供插件列表和开关等管理指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/plugin-manager-command.html)
+- Chat Filter:
+  过滤聊天和告示牌中的不当词汇 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/chat-filter.html)
+- TPS Visual Bar: 通过 Boss 血条显示 TPS 和
+  MSPT [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-management/tps-bar.html)
 
 ### starlight-console:
-- [BETA] Custom Log Format: 配置自定义日志格式模式 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/custom-log-format.html)
-- Stop Confirmation: 关闭服务器前要求确认 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/stop-confirm.html)
-- Console Proxy Execution: 从服务端控制台执行指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/console-execute.html)
-- [BETA] Log Color Patch: 使用 ANSI 颜色修复日志输出 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/log-color-patch.html)
-- Console Cleaner: 清除控制台屏幕 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/clear-console.html)
+
+- [BETA] Custom Log Format:
+  配置自定义日志格式模式 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/custom-log-format.html)
+- Stop Confirmation:
+  关闭服务器前要求确认 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/stop-confirm.html)
+- Console Proxy Execution:
+  从服务端控制台执行指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/console-execute.html)
+- [BETA] Log Color Patch: 使用 ANSI
+  颜色修复日志输出 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/log-color-patch.html)
+- Console Cleaner:
+  清除控制台屏幕 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-console/clear-console.html)
 
 ### starlight-core:
-- [Core] Custom Plugin Language Loader: 从外部 zip 档案加载第三方语言资源包 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/custom-language-pack-loader.html)
-- [Core] PlaceHolderAPI Interaction Support: 提供占位符 API 支持 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/papi-support.html)
-- [Core] Player View Customization : 自定义玩家视角和 UI 设置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/player-view-customization.html)
-- [Core] Installation Integrity Check: 验证插件安装并检测配置问题 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/installation-check.html)
-- [Core] Modrinth Update Service: 在 Modrinth 上检查插件更新 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/modrinth-version-check.html)
-- [Core] Platform Difference Patcher: 为特定平台提供修复 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/platform-patcher.html)
-- [Core] ProtocolLib Platform Proxy: 通过 ProtocolLib 实现更兼容的消息发送 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/protocol-lib-injector.html)
-- [Core] Update Log Viewer: 向玩家展示版本更新日志 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/version-log-viewer.html)
+
+- [Core] Custom Plugin Language Loader: 从外部 zip
+  档案加载第三方语言资源包 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/custom-language-pack-loader.html)
+- [Core] PlaceHolderAPI Interaction Support: 提供占位符 API
+  支持 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/papi-support.html)
+- [Core] Player View Customization : 自定义玩家视角和 UI
+  设置 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/player-view-customization.html)
+- [Core] Installation Integrity Check:
+  验证插件安装并检测配置问题 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/installation-check.html)
+- [Core] Modrinth Update Service: 在 Modrinth
+  上检查插件更新 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/modrinth-version-check.html)
+- [Core] Platform Difference Patcher:
+  为特定平台提供修复 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/platform-patcher.html)
+- [Core] ProtocolLib Platform Proxy: 通过 ProtocolLib
+  实现更兼容的消息发送 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/protocol-lib-injector.html)
+- [Core] Update Log Viewer:
+  向玩家展示版本更新日志 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-core/version-log-viewer.html)
 
 ### starlight-worldguard:
-- wg-region-hud: 创建显示 WorldGuard 领地信息的 HUD [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-region-hud.html)
-- wg-custom-name: 允许为 WorldGuard 区域设置自定义显示名称 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-custom-name.html)
-- wg-we-check: 验证 WorldEdit 编辑是否在领地权限范围内 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-we-check.html)
-- wg-claim: 提供 WorldGuard 区域认领和放弃指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-claim.html)
+
+- wg-region-hud: 创建显示 WorldGuard 领地信息的
+  HUD [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-region-hud.html)
+- wg-custom-name: 允许为 WorldGuard
+  区域设置自定义显示名称 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-custom-name.html)
+- wg-we-check: 验证 WorldEdit
+  编辑是否在领地权限范围内 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-we-check.html)
+- wg-claim: 提供 WorldGuard
+  区域认领和放弃指令 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-worldguard/wg-claim.html)
 
 ### starlight-music:
-- Music Player: 在服务器上为玩家播放自定义音乐 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-music/music-player.html)
+
+- Music Player:
+  在服务器上为玩家播放自定义音乐 [doc↗](https://dev.atcraftmc.cn/starlight/content/starlight-music/music-player.html)
 
 </details>
-
-
 
 ## Compatibility
 
@@ -260,47 +369,47 @@ config:
 
 > 版本页面显示的版本仅为占位，所有版本均可在 [1.13-1.20] 范围内工作。
 
-| Platform | Features | Interactive Text | Support | Description                    |
-|----------|----------|------------------|---------|--------------------------------|
-| Paper    | 完整     | 完整             | 完整    | 推荐                           |
-| Spigot   | 大部分   | 完整             | 仅修Bug |                                |
-| Bukkit   | 少量     | 无               | 测试    |                                |
-| Folia    | 大部分   | 完整             | 仅修Bug | 不支持热重载                    |
-| Mohist   | 少量     | 无               | 测试    | UnexpectedBlockChange 不同步   |
+| Platform | Features | Interactive Text | Support | Description               |
+|----------|----------|------------------|---------|---------------------------|
+| Paper    | 完整       | 完整               | 完整      | 推荐                        |
+| Spigot   | 大部分      | 完整               | 仅修Bug   |                           |
+| Bukkit   | 少量       | 无                | 测试      |                           |
+| Folia    | 大部分      | 完整               | 仅修Bug   | 不支持热重载                    |
+| Mohist   | 少量       | 无                | 测试      | UnexpectedBlockChange 不同步 |
 
 ## Used Third-party libraries:
 
-| Dependency                                          | Scope         | Usage                     |
-|-----------------------------------------------------|---------------|---------------------------|
-| com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT | reference     | 插件相关扩展               |
-| com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT   | reference     | 插件相关扩展               |
-| me.clip:placeholderapi:2.11.6                       | reference     | 占位符支持                 |
-| org.ahocorasick:ahocorasick:0.6.3                   | downloaded    | 聊天过滤算法               |
-| net.bytebuddy:byte-buddy:1.17.8                     | downloaded    | 字节码扫描                 |
-| net.kyori:adventure-api:4.17.0                      | auto-complete | Adventure API              |
-| net.kyori:adventure-text-serializer-gson:4.17.0     | auto-complete | Adventure 序列化           |
-| net.kyori:adventure-text-serializer-legacy:4.17.0   | auto-complete | Adventure 序列化           |
-| net.kyori:adventure-text-serializer-plain:4.17.0    | auto-complete | Adventure 序列化           |
-| net.kyori:adventure-text-minimessage:4.17.0         | auto-complete | MiniMessage 支持           |
-| com.h2database:h2:2.3.232                           | reference     | 数据库支持                 |
-| com.baomidou:mybatis-plus:3.5.15                    | reference     | ORM 框架集成               |
-| io.netty:netty-codec-http:4.1.128.Final             | reference     | HTTP 服务                  |
-| adventure-platform-api-4.4.1                        | packaged      | Adventure 平台桥接         |
-| adventure-platform-bukkit-4.4.1                     | packaged      | Adventure Bukkit 支持      |
-| adventure-platform-facet-4.4.1                      | packaged      | Adventure 平台切面         |
-| :lib-starlight-shared                               | packaged      | 共享内部库                 |
-| me.gb2022.commons:commons-nbt                       | packaged      | NBT 工具                   |
-| me.gb2022.commons:commons-math                      | packaged      | 数学工具                   |
-| me.gb2022.commons:commons-container                 | packaged      | 容器工具                   |
-| me.gb2022.commons:commons-general                   | packaged      | 通用工具                   |
-| me.gb2022.commons:commons-event                     | packaged      | 事件框架                   |
-| me.gb2022.commons:commons-reflection                | packaged      | 反射工具                   |
-| me.gb2022.commons:commons-compatibility             | packaged      | 兼容层                     |
-| me.gb2022.apm:apm-remote                            | packaged      | APM 远程模块               |
-| me.gb2022.apm:apm-plugin                            | packaged      | APM 插件模块               |
-| org.atcraftmc.qlib:qlib-bukkit                      | packaged      | QLib Bukkit 集成           |
-| me.gb2022:gluon-main                                | packaged      | Gluon 框架运行时           |
-| me.gb2022.pluginsX-lib                              | packaged      | 内部插件库                 |
+| Dependency                                          | Scope         | Usage               |
+|-----------------------------------------------------|---------------|---------------------|
+| com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT | reference     | 插件相关扩展              |
+| com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT   | reference     | 插件相关扩展              |
+| me.clip:placeholderapi:2.11.6                       | reference     | 占位符支持               |
+| org.ahocorasick:ahocorasick:0.6.3                   | downloaded    | 聊天过滤算法              |
+| net.bytebuddy:byte-buddy:1.17.8                     | downloaded    | 字节码扫描               |
+| net.kyori:adventure-api:4.17.0                      | auto-complete | Adventure API       |
+| net.kyori:adventure-text-serializer-gson:4.17.0     | auto-complete | Adventure 序列化       |
+| net.kyori:adventure-text-serializer-legacy:4.17.0   | auto-complete | Adventure 序列化       |
+| net.kyori:adventure-text-serializer-plain:4.17.0    | auto-complete | Adventure 序列化       |
+| net.kyori:adventure-text-minimessage:4.17.0         | auto-complete | MiniMessage 支持      |
+| com.h2database:h2:2.3.232                           | reference     | 数据库支持               |
+| com.baomidou:mybatis-plus:3.5.15                    | reference     | ORM 框架集成            |
+| io.netty:netty-codec-http:4.1.128.Final             | reference     | HTTP 服务             |
+| adventure-platform-api-4.4.1                        | packaged      | Adventure 平台桥接      |
+| adventure-platform-bukkit-4.4.1                     | packaged      | Adventure Bukkit 支持 |
+| adventure-platform-facet-4.4.1                      | packaged      | Adventure 平台切面      |
+| :lib-starlight-shared                               | packaged      | 共享内部库               |
+| me.gb2022.commons:commons-nbt                       | packaged      | NBT 工具              |
+| me.gb2022.commons:commons-math                      | packaged      | 数学工具                |
+| me.gb2022.commons:commons-container                 | packaged      | 容器工具                |
+| me.gb2022.commons:commons-general                   | packaged      | 通用工具                |
+| me.gb2022.commons:commons-event                     | packaged      | 事件框架                |
+| me.gb2022.commons:commons-reflection                | packaged      | 反射工具                |
+| me.gb2022.commons:commons-compatibility             | packaged      | 兼容层                 |
+| me.gb2022.apm:apm-remote                            | packaged      | APM 远程模块            |
+| me.gb2022.apm:apm-plugin                            | packaged      | APM 插件模块            |
+| org.atcraftmc.qlib:qlib-bukkit                      | packaged      | QLib Bukkit 集成      |
+| me.gb2022:gluon-main                                | packaged      | Gluon 框架运行时         |
+| me.gb2022.pluginsX-lib                              | packaged      | 内部插件库               |
 
 ## FAQ
 

@@ -11,12 +11,12 @@ import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.atcgroup.starlight.bundle.api.AnvilRenameEvent;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.PlaceHolders;
-import org.atcgroup.starlight.bundle.api.AnvilRenameEvent;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.BukkitDataAccess;
@@ -97,7 +97,7 @@ public final class ChatComponent extends BukkitAbstractModule {
 
     @EventHandler
     public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
-        if (!config().value("parse-command").bool()){
+        if (!config().value("parse-command").bool()) {
             return;
         }
         if (LegacyCommandManager.isQLibCommand(event.getMessage().split(" ")[0].replace("/", ""))) {

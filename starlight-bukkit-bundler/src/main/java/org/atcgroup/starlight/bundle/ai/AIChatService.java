@@ -4,8 +4,8 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcgroup.starlight.bundle.ai.request.AIChatRequestHandler;
+import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.framework.BukkitService;
 

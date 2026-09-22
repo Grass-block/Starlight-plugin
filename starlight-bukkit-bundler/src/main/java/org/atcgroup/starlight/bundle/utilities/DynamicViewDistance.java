@@ -3,46 +3,46 @@ package org.atcgroup.starlight.bundle.utilities;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
+import org.atcgroup.starlight.bundle.utilities.viewdistance.CustomSettingStrategy;
+import org.atcgroup.starlight.bundle.utilities.viewdistance.PlayerCountStrategy;
+import org.atcgroup.starlight.bundle.utilities.viewdistance.ViewDistanceStrategy;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
+import org.atcraftmc.qlib.language.LanguageEntry;
+import org.atcraftmc.qlib.language.LanguageItem;
+import org.atcraftmc.starlight.api.PluginMessages;
+import org.atcraftmc.starlight.api.PluginStorage;
 import org.atcraftmc.starlight.api.event.PlayerReadyEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
+import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
 import org.atcraftmc.starlight.core.platform.APIProfile;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
-import org.atcgroup.starlight.bundle.utilities.viewdistance.CustomSettingStrategy;
-import org.atcgroup.starlight.bundle.utilities.viewdistance.PlayerCountStrategy;
-import org.atcgroup.starlight.bundle.utilities.viewdistance.ViewDistanceStrategy;
+import org.atcraftmc.starlight.migration.MessageAccessor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.Permission;
-import org.atcraftmc.starlight.core.command.ModuleCommand;
-import org.atcraftmc.starlight.migration.MessageAccessor;
-import org.atcraftmc.starlight.api.PluginMessages;
-import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.qlib.language.LanguageItem;
-import org.atcraftmc.starlight.core.platform.Compatibility;
-import me.gb2022.gluon.module.ApplicationModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @AutoRegister(Registrations.SERVER_EVENT)
 @CommandProvider(DynamicViewDistance.ViewDistanceCommand.class)
-@ApplicationModule(id="dynamic-view-distance",version = "1.0.0", description = "Dynamically adjusts server view distance based on player count")
+@ApplicationModule(id = "dynamic-view-distance", version = "1.0.0", description = "Dynamically adjusts server view distance based on player count")
 public final class DynamicViewDistance extends BukkitAbstractModule implements PluginCommandExecutor {
     private final List<ViewDistanceStrategy> pipeline = new ArrayList<>();
 
     @Inject
     private LanguageEntry language;
-    
+
     @Inject("-quark.viewdistance.other")
     private Permission setOtherPermission;
 
@@ -83,7 +83,7 @@ public final class DynamicViewDistance extends BukkitAbstractModule implements P
             try {
                 p.setViewDistance(val);
                 p.setSendViewDistance(val);
-            }catch (IllegalStateException ignored){
+            } catch (IllegalStateException ignored) {
                 //who cares?
             }
         }

@@ -2,6 +2,8 @@ package org.atcgroup.starlight.bundle.utilities;
 
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.module.ApplicationModule;
+import org.atcgroup.starlight.bundle.utilities.font.ParticleFontComponent;
+import org.atcgroup.starlight.bundle.utilities.font.ParticleFontRenderer;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.assertion.NumberLimitation;
@@ -9,8 +11,6 @@ import org.atcraftmc.qlib.command.execute.CommandExecution;
 import org.atcraftmc.qlib.command.execute.CommandSuggestion;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
 import org.atcraftmc.starlight.framework.module.SLCommandModule;
-import org.atcgroup.starlight.bundle.utilities.font.ParticleFontComponent;
-import org.atcgroup.starlight.bundle.utilities.font.ParticleFontRenderer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

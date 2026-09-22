@@ -10,7 +10,6 @@ import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.PlayerExtraBanCheckEvent;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.event.EventHandler;

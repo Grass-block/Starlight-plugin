@@ -20,8 +20,8 @@
 
 ## 命令
 
-| 命令 | 权限 | 描述 |
-|------|------|------|
-| `/server-tick freeze` | `-quark.tick` | 冻结服务器刻 |
-| `/server-tick unfreeze` | `-quark.tick` | 解冻服务器刻 |
+| 命令                       | 权限            | 描述         |
+|--------------------------|---------------|------------|
+| `/server-tick freeze`    | `-quark.tick` | 冻结服务器刻     |
+| `/server-tick unfreeze`  | `-quark.tick` | 解冻服务器刻     |
 | `/server-tick step <数量>` | `-quark.tick` | 步进指定数量的游戏刻 |

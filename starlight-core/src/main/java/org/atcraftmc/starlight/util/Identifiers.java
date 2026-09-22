@@ -21,19 +21,19 @@ public interface Identifiers {
         return internal(ns + SEPARATOR + id);
     }
 
-    static String internalNS(String id){
+    static String internalNS(String id) {
         return internal(id.split(String.valueOf(SEPARATOR))[0]);
     }
 
-    static String externalNS(String id){
+    static String externalNS(String id) {
         return external(id.split(String.valueOf(SEPARATOR))[0]);
     }
 
-    static String internalId(String id){
+    static String internalId(String id) {
         return internal(id.split(String.valueOf(SEPARATOR))[1]);
     }
 
-    static String externalId(String id){
+    static String externalId(String id) {
         return external(id.split(String.valueOf(SEPARATOR))[1]);
     }
 }

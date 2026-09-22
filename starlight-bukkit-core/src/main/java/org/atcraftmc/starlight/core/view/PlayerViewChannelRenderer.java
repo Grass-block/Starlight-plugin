@@ -15,7 +15,8 @@ public final class PlayerViewChannelRenderer {
     private final AtomicReference<ViewRenderProcess> current = new AtomicReference<>();
     private final PlayerView holder;
     private final UUID player;
-    private Consumer<Player> cleanupAction = (p) -> {};
+    private Consumer<Player> cleanupAction = (p) -> {
+    };
 
     public PlayerViewChannelRenderer(String id, PlayerView holder) {
         this.id = id;

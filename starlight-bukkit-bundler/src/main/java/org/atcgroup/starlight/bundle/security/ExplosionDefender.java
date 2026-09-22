@@ -53,6 +53,11 @@ public final class ExplosionDefender extends BukkitAbstractModule {
     @Inject("starlight:default/explosion_whitelist_v2")
     private SimpleRegionService service;
 
+    @Override
+    public void enable() throws Exception {
+        this.service.cleanup();
+    }
+
     public boolean matchRegion(Location loc) {
         return !this.service.getIntersected(loc).isEmpty();
     }

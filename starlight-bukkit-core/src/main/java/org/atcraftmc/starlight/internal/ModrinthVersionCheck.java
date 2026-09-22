@@ -9,11 +9,9 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.ProductInfo;
-import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.command.PluginCommandExecutor;
-import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.util.version.ModrinthVersionAPI;
 import org.atcraftmc.starlight.util.version.VersionInfo;
@@ -21,7 +19,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
-import org.bukkit.plugin.Plugin;
 
 import java.util.function.BiConsumer;
 
@@ -99,7 +96,8 @@ public final class ModrinthVersionCheck extends BukkitAbstractModule implements 
         this.language.item("checking").send(QLib.audience(sender));
         this.check((state, version) -> {
             switch (state) {
-                case TRUE -> language.item("require").send(QLib.audience(sender), version, VERSION_PAGE.formatted(this.cachedVersion));
+                case TRUE ->
+                        language.item("require").send(QLib.audience(sender), version, VERSION_PAGE.formatted(this.cachedVersion));
                 case FALSE -> language.item("no-require").send(QLib.audience(sender), version);
                 case UNKNOWN -> language.item("exception").send(QLib.audience(sender));
             }

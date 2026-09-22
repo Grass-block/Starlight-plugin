@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface DataServiceAttachment<V> extends GenericQueryDatasourceProvider {
-    default void onUpdate(){
+    default void onUpdate() {
     }
 
     V decode(ResultSet rs) throws SQLException;

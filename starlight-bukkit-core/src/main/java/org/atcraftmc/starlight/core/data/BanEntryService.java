@@ -2,9 +2,9 @@ package org.atcraftmc.starlight.core.data;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.JDBCDataService;
 import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;

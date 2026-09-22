@@ -16,7 +16,7 @@ public interface ResourcePackSourceInfo {
             var result = new HashSet<String>();
             var arr = new String(in.readAllBytes()).split(";");
 
-            for (var s:arr){
+            for (var s : arr) {
                 result.add(s.trim());
             }
 

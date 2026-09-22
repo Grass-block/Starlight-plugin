@@ -65,7 +65,7 @@ public final class Crafty {
             throw new IllegalStateException(String.format("Couldn't find a class! NMS: '%s' or '%s'.", nms, Arrays.toString(classNames)));
         }
     }
-    
+
     public static Class<?> findClass(String className) {
         try {
             return Class.forName(className);

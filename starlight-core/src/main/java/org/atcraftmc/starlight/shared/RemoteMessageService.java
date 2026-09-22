@@ -8,8 +8,8 @@ import me.gb2022.apm.remote.event.MessengerEventChannel;
 import me.gb2022.apm.remote.event.channel.MessageChannel;
 import me.gb2022.gluon.service.*;
 import org.apache.logging.log4j.Logger;
-import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.atcraftmc.starlight.config.Configurations;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -20,7 +20,8 @@ import java.util.function.Consumer;
 @ApplicationService(id = "remote-message-service", export = true, impl = RemoteMessageService.class, layer = ServiceLayer.FRAMEWORK)
 public final class RemoteMessageService implements Service, IRemoteMessageService {
     public static final Logger LOGGER = SLPluginEnvironment.createLogger("RemoteMessageService");
-    public static final Runnable EMPTY_ACTION = () -> {};
+    public static final Runnable EMPTY_ACTION = () -> {
+    };
 
     @ServiceInject
     public static final ServiceHolder<RemoteMessageService> INSTANCE = new ServiceHolder<>();
@@ -241,7 +242,8 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
 
         @Override
         public RemoteQuery<ByteBuf> query(String target, String channel, ByteBuf msg) {
-            return new RemoteQuery<>(UUID.randomUUID().toString(), ByteBuf.class, (s) -> {});
+            return new RemoteQuery<>(UUID.randomUUID().toString(), ByteBuf.class, (s) -> {
+            });
         }
 
         @Override
@@ -261,7 +263,8 @@ public final class RemoteMessageService implements Service, IRemoteMessageServic
 
         @Override
         public RemoteQuery<ByteBuf> query(String target, String channel, Consumer<ByteBuf> writer) {
-            return new RemoteQuery<>(UUID.randomUUID().toString(), ByteBuf.class, (s) -> {});
+            return new RemoteQuery<>(UUID.randomUUID().toString(), ByteBuf.class, (s) -> {
+            });
         }
 
         @Override

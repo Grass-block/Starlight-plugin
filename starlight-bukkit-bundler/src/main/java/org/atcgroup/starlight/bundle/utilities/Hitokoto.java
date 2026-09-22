@@ -23,10 +23,10 @@ public final class Hitokoto extends SLCommandModule {
             var json = JsonParser.parseString(FETCH.request()).getAsJsonObject();
 
             MessageAccessor.send(this.language(), sender,
-                                 "sentence",
-                                 json.get("hitokoto").getAsString(),
-                                 json.get("creator").getAsString(),
-                                 json.get("from").getAsString()
+                    "sentence",
+                    json.get("hitokoto").getAsString(),
+                    json.get("creator").getAsString(),
+                    json.get("from").getAsString()
             );
         });
     }

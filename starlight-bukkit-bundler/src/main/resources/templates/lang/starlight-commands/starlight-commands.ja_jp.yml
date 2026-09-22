@@ -25,10 +25,10 @@ language:
     --tip: "{#gray}{#gold}/animate-block{#gray}を使用してブロックを動かせます。{click(command,/custom-item animate-helper 1);underline}[杖]{;}{#gray}を使うとパス作成が簡単になります。"
     item-name: '{#purple}アニメーション作成の杖'
     item-lore:
-        - '{#gray}このツールで簡単にアニメーションパスを作成できます。'
-        - '{#gray}{#white}WorldEdit{#gray}で領域を選択した後、'
-        - '{#gray}左クリックでコマンドブロックをマーク、右クリックで目標位置をマーク'
-        - '{#gray}してアニメーションパスを素早く作成できます。'
+      - '{#gray}このツールで簡単にアニメーションパスを作成できます。'
+      - '{#gray}{#white}WorldEdit{#gray}で領域を選択した後、'
+      - '{#gray}左クリックでコマンドブロックをマーク、右クリックで目標位置をマーク'
+      - '{#gray}してアニメーションパスを素早く作成できます。'
   hats:
     empty: "{global#error}何も持っていません。"
     not-found: "{global#error}指定されたプレイヤーは存在しません。"

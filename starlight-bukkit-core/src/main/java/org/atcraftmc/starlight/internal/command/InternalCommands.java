@@ -5,7 +5,6 @@ import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.platform.APIProfileTest;
 import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.util.ExceptionUtil;
@@ -30,8 +29,8 @@ public interface InternalCommands {
                 Starlight.instance()
                         .getLogger()
                         .severe("failed to register internal command %s: %s".formatted(cmd.getClass()
-                                                                                               .getAnnotation(BukkitCommand.class)
-                                                                                               .name(), ExceptionUtil.getMessage(e)));
+                                .getAnnotation(BukkitCommand.class)
+                                .name(), ExceptionUtil.getMessage(e)));
             }
         }
 
@@ -45,8 +44,8 @@ public interface InternalCommands {
                 Starlight.instance()
                         .getLogger()
                         .severe("failed to unregister internal command %s: %s".formatted(command.getClass()
-                                                                                                 .getAnnotation(BukkitCommand.class)
-                                                                                                 .name(), ExceptionUtil.getMessage(e)));
+                                .getAnnotation(BukkitCommand.class)
+                                .name(), ExceptionUtil.getMessage(e)));
             }
         }
     }

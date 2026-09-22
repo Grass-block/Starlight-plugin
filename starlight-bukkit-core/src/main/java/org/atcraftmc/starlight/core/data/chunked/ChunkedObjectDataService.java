@@ -1,7 +1,7 @@
 package org.atcraftmc.starlight.core.data.chunked;
 
-import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.TableNamedDataService;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.trait.UUIDQuery;
 import org.atcraftmc.starlight.util.UUIDMapped;
 
@@ -37,5 +37,9 @@ public abstract class ChunkedObjectDataService<V extends UUIDMapped> extends Tab
 
     public ConcurrentHashMap<String, ChunkMonitorCache<V>> getCaches() {
         return caches;
+    }
+
+    public void cleanup() {
+        this.invalidateCache();
     }
 }

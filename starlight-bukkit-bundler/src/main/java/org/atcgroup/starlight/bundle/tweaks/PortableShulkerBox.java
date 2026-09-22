@@ -3,11 +3,9 @@ package org.atcgroup.starlight.bundle.tweaks;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -19,10 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BlockStateMeta;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ApplicationModule(id = "portable-shulker-box", version = "1.2", description = "Opens shulker boxes directly from the inventory")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class PortableShulkerBox extends BukkitAbstractModule {
-    private final Map<UUID,Session> sessions = new ConcurrentHashMap<>();
+    private final Map<UUID, Session> sessions = new ConcurrentHashMap<>();
 
     @Override
     public void disable() {
@@ -50,7 +46,7 @@ public final class PortableShulkerBox extends BukkitAbstractModule {
         this.sessions.put(player.getUniqueId(), session);
     }
 
-    public void close(Player player){
+    public void close(Player player) {
         this.sync(player);
         this.sessions.remove(player.getUniqueId());
     }
@@ -77,7 +73,7 @@ public final class PortableShulkerBox extends BukkitAbstractModule {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if(!(event.getWhoClicked() instanceof Player player)) {
+        if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
 
@@ -86,7 +82,7 @@ public final class PortableShulkerBox extends BukkitAbstractModule {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if(!(event.getPlayer() instanceof Player player)) {
+        if (!(event.getPlayer() instanceof Player player)) {
             return;
         }
 

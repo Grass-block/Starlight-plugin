@@ -22,13 +22,15 @@ public interface Configurations {
     String FILE_TEMPLATE = "%s/config/%s/template.%s";
     String FILE_CUSTOM = "%s/config/%s/%s";
 
-    static YamlConfiguration values(String template, String file) {
+    static YamlConfiguration values(String template, String file, boolean update) {
         var f = FilePath.tryReleaseAndGetFile(template, file);
 
         var configDOM = YamlConfiguration.loadConfiguration(f);
         var templateDOM = YamlConfiguration.loadConfiguration(new InputStreamReader(FilePath.getPluginResource(template)));
 
-        YamlUtil.update(configDOM, templateDOM, false, 2);
+        if (update) {
+            YamlUtil.update(configDOM, templateDOM, false, 1);
+        }
 
         try {
             configDOM.save(f);
@@ -165,17 +167,21 @@ public interface Configurations {
     }
 
     static ConfigurationSection standalone(String name) {
+        return standalone(name, true);
+    }
+
+    static ConfigurationSection standalone(String name, boolean update) {
         var file = "%s/config/%s.yml".formatted(FilePath.slDataFolder(), name);
         var template = "/templates/%s.yml".formatted(name);
 
-        return values(template, file).getConfigurationSection(name);
+        return values(template, file, update).getConfigurationSection(name);
     }
 
     static void saveStandalone(ConfigurationSection config) {
         var id = Objects.requireNonNull(config.getRoot()).getKeys(false).iterator().next();
 
         try {
-            ((YamlConfiguration) Objects.requireNonNull(config.getRoot())).save(file(id+".yml", false));
+            ((YamlConfiguration) Objects.requireNonNull(config.getRoot())).save(file(id + ".yml", false));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -214,7 +220,7 @@ public interface Configurations {
         var file = "%s/secret/%s.yml".formatted(FilePath.slDataFolder(), name);
         var template = "/templates/secret/%s.yml".formatted(name);
 
-        return values(template, file).getConfigurationSection(name);
+        return values(template, file, true).getConfigurationSection(name);
     }
 
     static Configuration values(PluginConcept provider, String id) {

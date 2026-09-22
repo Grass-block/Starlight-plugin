@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-@ApplicationService(id = "locale-service", impl = PlayerReadyService.class, export = true,layer = ServiceLayer.FRAMEWORK)
+@ApplicationService(id = "locale-service", impl = PlayerReadyService.class, export = true, layer = ServiceLayer.FRAMEWORK)
 public final class PlayerReadyService implements BukkitService {
     @ServiceInject
     public static final ServiceHolder<PlayerReadyService> INSTANCE = new ServiceHolder<>();
@@ -70,7 +70,7 @@ public final class PlayerReadyService implements BukkitService {
         });
 
         QLib.task().async().delay(15, () -> {
-            if(!future.completed()) {
+            if (!future.completed()) {
                 LOGGER.warn("waiting process for player {}({}) timed out (15ticks) !", player.getName(), player.getUniqueId());
                 future.complete((Void) null);
             }

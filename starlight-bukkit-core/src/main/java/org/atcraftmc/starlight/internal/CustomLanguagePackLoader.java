@@ -9,7 +9,6 @@ import org.atcraftmc.qlib.language.LanguagePack;
 import org.atcraftmc.starlight.SharedObjects;
 import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.StarlightBukkitCore;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.data.assets.AssetGroup;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 

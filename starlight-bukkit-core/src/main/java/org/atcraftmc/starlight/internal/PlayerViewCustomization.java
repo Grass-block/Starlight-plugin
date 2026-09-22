@@ -3,6 +3,8 @@ package org.atcraftmc.starlight.internal;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import me.gb2022.commons.TriState;
+import me.gb2022.commons.jdbc.JDBCDataService;
+import me.gb2022.commons.jdbc.JDBCUtil;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
@@ -30,11 +32,9 @@ import org.atcraftmc.starlight.core.ui.view.InventoryUIView;
 import org.atcraftmc.starlight.core.view.PlayerUIService;
 import org.atcraftmc.starlight.core.view.PlayerUISetting;
 import org.atcraftmc.starlight.core.view.PlayerView;
-import me.gb2022.commons.jdbc.JDBCUtil;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.JDBCDataService;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -377,7 +377,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "prev")))
+                                .item("common", "ui", "prev")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 48);
             }
@@ -386,7 +386,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
                 UI.builder()
                         .icon(UI.icon(Material.BLUE_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "next")))
+                                .item("common", "ui", "next")))
                         .operation((v, player, action) -> v.setData(renderData(v, page + 1)))
                         .operation(UI.SOUND_CLICK)
                         .build(builder, 50);
@@ -394,7 +394,7 @@ public final class PlayerViewCustomization extends BukkitAbstractModule {
                 UI.builder()
                         .icon(UI.icon(Material.GRAY_STAINED_GLASS_PANE))
                         .name(TextRenderer.data(StarlightBukkitCore.lang()
-                                                        .item("common", "ui", "next")))
+                                .item("common", "ui", "next")))
                         .operation(UI.SOUND_DISABLE)
                         .build(builder, 50);
             }

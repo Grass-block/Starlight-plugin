@@ -14,14 +14,13 @@ public abstract class POIObject implements UUIDMapped {
     protected double y;
     protected double z;
 
-    public POIObject(UUID uuid, String name, String world, double x, double y, double z, JsonObject data) {
+    public POIObject(UUID uuid, String name, String world, double x, double y, double z) {
         this.uuid = uuid;
         this.name = name;
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.deserializeData(data);
     }
 
     public abstract void deserializeData(JsonObject data);
@@ -32,15 +31,11 @@ public abstract class POIObject implements UUIDMapped {
 
     public abstract void destroy();
 
-    public void onTeleported(Location location) {
-    }
-
     public void teleport(Location location) {
         this.x = location.getX();
         this.y = location.getY();
         this.z = location.getZ();
         this.world = location.getWorld().getName();
-        this.onTeleported(location);
     }
 
     public double getX() {

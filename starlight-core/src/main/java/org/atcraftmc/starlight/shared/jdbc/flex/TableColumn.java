@@ -90,9 +90,9 @@ public abstract class TableColumn<I> {
             this.owner = owner;
             this.service = service;
             this.cache = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofMinutes(cacheLife)).build();
-            this.connection = new WrappedConnection(service.getDatabase().getSharedConnection(), SQLMapper.create((m)->{
-                m.replaceSQL("_col_",this.owner.name);
-                m.replaceSQL("_table_",this.service.getTableName());
+            this.connection = new WrappedConnection(service.getDatabase().getSharedConnection(), SQLMapper.create((m) -> {
+                m.replaceSQL("_col_", this.owner.name);
+                m.replaceSQL("_table_", this.service.getTableName());
             }));
         }
 

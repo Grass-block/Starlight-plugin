@@ -4,8 +4,6 @@ import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.command.execute.CommandErrorType;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.permission.PermissionService;
 import org.bukkit.command.CommandSender;

@@ -4,8 +4,6 @@ import org.atcraftmc.qlib.command.AbstractCommand;
 import org.atcraftmc.qlib.command.CommandManager;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;
-import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.framework.module.BukkitModule;
 

@@ -1,12 +1,12 @@
 package org.atcraftmc.starlight.shared;
 
+import me.gb2022.commons.jdbc.document.DocumentField;
 import me.gb2022.gluon.service.Service;
 import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.qlib.platform.PluginPlatform;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
-import me.gb2022.commons.jdbc.document.DocumentField;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

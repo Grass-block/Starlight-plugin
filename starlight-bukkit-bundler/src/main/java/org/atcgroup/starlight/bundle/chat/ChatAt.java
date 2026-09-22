@@ -116,9 +116,9 @@ public final class ChatAt extends BukkitAbstractModule {
                 continue;
             }
             TextSender.subtitle(p, QLib.textBuilder().buildComponent(this.generateTitleMessage(titleBuilder.toString(), event.getPlayer())),
-                                cfg.value("title-fadein").intValue(),
-                                cfg.value("title-stay").intValue(),
-                                cfg.value("title-fadeout").intValue()
+                    cfg.value("title-fadein").intValue(),
+                    cfg.value("title-stay").intValue(),
+                    cfg.value("title-fadeout").intValue()
             );
             if (cfg.value("sound").bool()) {
                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 0);

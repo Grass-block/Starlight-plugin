@@ -22,7 +22,7 @@ public enum EnumInstrument {
     UNKNOWN,
     HUMAN_VOICE, STD_DRUM, HAT;
 
-    static Sound legacyBukkit(EnumInstrument map){
+    static Sound legacyBukkit(EnumInstrument map) {
         return switch (map) {
             case BASS_GUITAR -> Sound.valueOf("NOTE_BASS_GUITAR");
             case SNARE_DRUM -> Sound.valueOf("NOTE_SNARE_DRUM");
@@ -57,7 +57,7 @@ public enum EnumInstrument {
                 case HUMAN_VOICE -> Sound.BLOCK_NOTE_BLOCK_HARP;
                 case STD_DRUM -> Sound.BLOCK_NOTE_BLOCK_BASS;//this shouldn't happen
             };
-        }catch (NoSuchFieldError ignored){
+        } catch (NoSuchFieldError ignored) {
             return legacyBukkit(map);
         }
     }

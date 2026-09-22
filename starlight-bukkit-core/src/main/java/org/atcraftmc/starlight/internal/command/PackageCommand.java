@@ -15,7 +15,6 @@ import org.atcraftmc.starlight.ProductInfo;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.core.TextSender;
 import org.atcraftmc.starlight.core.command.CoreCommand;
-import org.atcraftmc.starlight.framework.PluginApplication;
 import org.atcraftmc.starlight.framework.SLPluginHandle;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

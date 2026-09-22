@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class JDBCDataService implements GenericQueryDatasourceProvider{
+public abstract class JDBCDataService implements GenericQueryDatasourceProvider {
     protected JDBCDatabase database;
     protected DataSource datasource;
     protected DataSource genericSource;

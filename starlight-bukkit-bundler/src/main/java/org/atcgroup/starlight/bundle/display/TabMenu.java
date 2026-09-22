@@ -94,7 +94,7 @@ public final class TabMenu extends BukkitAbstractModule {
         footer = PlaceHolderService.formatPlayer(player, footer);
 
         if (config().value("render-ping").bool()) {
-            QLib.task().global().run(()->{
+            QLib.task().global().run(() -> {
                 for (var p : Bukkit.getOnlinePlayers()) {
                     var ping = Integer.parseInt(PlaceHolderService.PLAYER.get("ping-value", p));
                     VisualScoreboardService.instance().visualScoreboard(player).setTabColumn(p, ping, Component.text("ms"));

@@ -3,16 +3,15 @@ package org.atcgroup.starlight.bundle.chat;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
 import me.gb2022.gluon.Registrations;
+import me.gb2022.gluon.module.ApplicationModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import org.ahocorasick.trie.Trie;
 import org.apache.logging.log4j.Logger;
+import org.atcgroup.starlight.bundle.api.ChatReportedEvent;
 import org.atcraftmc.qlib.bukkit.QLib;
-import org.atcraftmc.qlib.config.ConfigContainer;
 import org.atcraftmc.qlib.language.LanguageEntry;
 import org.atcraftmc.starlight.config.Configurations;
-import org.atcgroup.starlight.bundle.api.ChatReportedEvent;
-import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.migration.ConfigAccessor;
 import org.atcraftmc.starlight.migration.MessageAccessor;
@@ -30,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ApplicationModule(id = "chat-filter", version = "1.0.0",description = "Filter player's bad words in chat and signs.")
+@ApplicationModule(id = "chat-filter", version = "1.0.0", description = "Filter player's bad words in chat and signs.")
 public final class ChatFilter extends BukkitAbstractModule {
     public static final char WRAP_START = '\ufffa';
     public static final char WRAP_END = '\ufffb';
@@ -73,7 +72,7 @@ public final class ChatFilter extends BukkitAbstractModule {
             ahoCorasick.parseText(block[0], emit -> {
                 keywords.add(emit.getKeyword());
 
-                if(cover){
+                if (cover) {
                     block[0] = block[0].replace(emit.getKeyword(), coverSource.repeat(emit.getKeyword().length()));
                 }
 
@@ -109,7 +108,7 @@ public final class ChatFilter extends BukkitAbstractModule {
         var localCounter = new AtomicInteger();
         this.patterns.clear();
 
-        QLib.task().async().run(()->{
+        QLib.task().async().run(() -> {
             Configurations.groupedJson("chat-filter-rules", Set.of()).forEach((k, v) -> {
                 localCounter.set(0);
                 v.getAsJsonArray("words").forEach((e) -> {

@@ -130,8 +130,8 @@ public interface LocaleService extends BukkitService {
             UI.buildComponent(builder, pos, (o) -> {
                 o.icon(item);
                 o.name(TextRenderer.literal(Component.text(icon.displayName())
-                                                    .color(NamedTextColor.AQUA)
-                                                    .decoration(TextDecoration.ITALIC, false)));
+                        .color(NamedTextColor.AQUA)
+                        .decoration(TextDecoration.ITALIC, false)));
                 o.operation(UI.command((p) -> "locale " + icon.locale)).operation(UI.SOUND_CLICK);
             });
         }

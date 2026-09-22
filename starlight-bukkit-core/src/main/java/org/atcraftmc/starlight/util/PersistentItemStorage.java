@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Type;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 
 public final class PersistentItemStorage extends HashSet<ItemStack> {
     public static final Type MAP_TYPE = new TypeToken<Map<String, Object>>() {
@@ -47,9 +49,15 @@ public final class PersistentItemStorage extends HashSet<ItemStack> {
     }
 
     public static ItemStack deserialize(JsonObject json) {
-        var nativeData = Base64.getDecoder().decode(json.get("native").getAsString());
         var type = json.get("type").getAsString();
         var amount = json.get("amount").getAsInt();
+
+        if (!json.has("bukkit")) {
+            return new ItemStack(Objects.requireNonNull(Material.matchMaterial(type)), amount);
+        }
+
+        var nativeData = Base64.getDecoder().decode(json.get("native").getAsString());
+
 
         try {
             var item = ItemStack.deserializeBytes(nativeData);

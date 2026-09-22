@@ -19,6 +19,7 @@ public interface FilePath {
         return f;
     }
 
+    @SuppressWarnings("UnusedReturnValue")//API method.
     static boolean coverFile(String srcDir, String fileDir) {
         File f = new File(fileDir);
         if (f.getParentFile().mkdirs()) {

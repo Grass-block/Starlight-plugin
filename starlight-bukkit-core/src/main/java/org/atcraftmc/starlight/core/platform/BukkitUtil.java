@@ -7,7 +7,6 @@ import org.atcraftmc.qlib.bukkit.BukkitEventManager;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.atcraftmc.starlight.Starlight;
-import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.api.event.ItemCreateEvent;
 import org.atcraftmc.starlight.internal.PlatformPatcher;
 import org.atcraftmc.starlight.internal.platform.SpigotReflection;
@@ -15,8 +14,6 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,12 +21,9 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.util.Vector;
 
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
@@ -108,7 +102,7 @@ public interface BukkitUtil {
     }
 
     static void registerEventListener(Listener listener) {
-        BukkitEventManager.registerEventListener(Starlight.instance(),listener);
+        BukkitEventManager.registerEventListener(Starlight.instance(), listener);
     }
 
     static void unregisterEventListener(Listener listener) {

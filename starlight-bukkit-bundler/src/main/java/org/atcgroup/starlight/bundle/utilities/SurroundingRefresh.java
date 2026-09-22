@@ -24,7 +24,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 import java.util.List;
 
-@ApplicationModule(id="surrounding-refresh", description = "Refreshes surrounding blocks and chunks for a player")
+@ApplicationModule(id = "surrounding-refresh", description = "Refreshes surrounding blocks and chunks for a player")
 @BukkitCommand(name = "refresh-area", permission = "+starlight.world.refresh", playerOnly = true)
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class SurroundingRefresh extends SLCommandModule {
@@ -96,7 +96,7 @@ public final class SurroundingRefresh extends SLCommandModule {
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent event) {
-        if(!this.config().value("update-on-explode").bool()){
+        if (!this.config().value("update-on-explode").bool()) {
             return;
         }
 
@@ -117,7 +117,7 @@ public final class SurroundingRefresh extends SLCommandModule {
 
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent event) {
-        if(!this.config().value("update-on-explode").bool()){
+        if (!this.config().value("update-on-explode").bool()) {
             return;
         }
 

@@ -167,7 +167,7 @@ public final class ModuleCommand extends CoreCommand {
                 &7Status: %s%s
                 &7Version: &d%s
                 &7Description: &d%s
-                                
+                
                 &6[Click: Open doc]
                 """.formatted(
                 m.getMetadata().key(),
@@ -204,7 +204,7 @@ public final class ModuleCommand extends CoreCommand {
         public void writePackageHeader(ApplicationPackage pkg) {
             var group = pkg.getModules();
 
-            if(group.stream().allMatch((m)->!m.getMetadata().fullId().contains(this.search))){
+            if (group.stream().allMatch((m) -> !m.getMetadata().fullId().contains(this.search))) {
                 return;
             }
 
@@ -229,7 +229,7 @@ public final class ModuleCommand extends CoreCommand {
         public void writePackageEnd(ApplicationPackage pkg) {
             var group = pkg.getModules();
 
-            if(group.stream().allMatch((m)->!m.getMetadata().fullId().contains(this.search))){
+            if (group.stream().allMatch((m) -> !m.getMetadata().fullId().contains(this.search))) {
                 return;
             }
 

@@ -13,9 +13,8 @@ import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcgroup.starlight.bundle.api.RegionKey;
-import org.atcgroup.starlight.bundle.worldguard.data.RegionKey_L;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -26,7 +25,6 @@ import java.util.UUID;
 
 @ApplicationService(id = "wg-region-service")
 public interface WGRegionService extends Service {
-
 
     @ServiceInject
     static void checkServiceCompatibility() throws APIIncompatibleException {
@@ -68,18 +66,6 @@ public interface WGRegionService extends Service {
         }
 
         return Optional.ofNullable(rm.getRegion(key.getRegionId()));
-    }
-
-    static Optional<ProtectedRegion> getRegion(RegionKey_L key) {
-        var container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-        var wgWorld = BukkitAdapter.adapt(key.world());
-        var rm = container.get(wgWorld);
-
-        if (rm == null) {
-            return Optional.empty();
-        }
-
-        return Optional.ofNullable(rm.getRegion(key.id()));
     }
 
     static boolean canAccess(Player player, org.bukkit.entity.Player ep) {

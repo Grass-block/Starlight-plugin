@@ -3,7 +3,7 @@ package org.atcraftmc.starlight.shared.jdbc;
 import me.gb2022.commons.jdbc.document.DocumentDataService;
 import org.atcraftmc.starlight.shared.jdbc.flex.FlexibleMapService;
 
-public interface JDBCData  {
+public interface JDBCData {
     String SL_SHARED = "starlight:shared";
     String SL_LOCAL = "starlight:default";
 

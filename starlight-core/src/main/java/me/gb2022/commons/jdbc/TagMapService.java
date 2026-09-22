@@ -1,10 +1,10 @@
 package me.gb2022.commons.jdbc;
 
-import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.source.SQLMappedDataSource;
+import me.gb2022.commons.jdbc.source.SQLMapper;
 import me.gb2022.commons.jdbc.source.WrappedDataSource;
-import org.atcraftmc.starlight.shared.JDBCService;
 import me.gb2022.commons.jdbc.trait.TagMap;
+import org.atcraftmc.starlight.shared.JDBCService;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
