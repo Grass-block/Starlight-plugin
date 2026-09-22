@@ -1,9 +1,13 @@
 package org.atcgroup.starlight.bundle;
 
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.pack.ApplicationPackageProvider;
 import me.gb2022.gluon.pack.ContentBuilder;
+import net.milkbowl.vault.economy.Economy;
 import org.atcgroup.starlight.bundle.ai.AIChatService;
 import org.atcgroup.starlight.bundle.ai.AICommandChat;
+import org.atcgroup.starlight.bundle.economy.EconomyRewardProvider;
+import org.atcgroup.starlight.bundle.economy.EconomyService;
 import org.atcgroup.starlight.bundle.mission.CommissionService;
 import org.atcgroup.starlight.bundle.mission.RewardService;
 import org.atcgroup.starlight.bundle.music.MusicPlayer;
@@ -17,8 +21,10 @@ import org.atcgroup.starlight.bundle.warp.RTP;
 import org.atcgroup.starlight.bundle.warp.TPA;
 import org.atcgroup.starlight.bundle.warp.Waypoints;
 import org.atcgroup.starlight.bundle.worldguard.*;
+import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.PluginPackageAttachment;
 import org.atcraftmc.starlight.framework.pack.SLPackageProvider;
+import org.bukkit.Bukkit;
 
 @SLPackageProvider
 public interface ExtensionBundler {
@@ -116,6 +122,11 @@ public interface ExtensionBundler {
     static void worldguard(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
+        b.compatibilityProvider(() -> {
+            Compatibility.requirePlugin("WorldGuard");
+            Compatibility.requirePlugin("WorldEdit");
+        });
+
         b.service(WGRegionService.class);
         b.service(WGCommandService.class);
         b.service(WGPlotInfoService.class);
@@ -134,6 +145,21 @@ public interface ExtensionBundler {
         p.language("/starlight-worldguard", "ja_jp");
         p.language("/starlight-worldguard", "ru_ru");
         p.language("/starlight-worldguard", "zh_tw");
+    }
+
+    //还没做完
+    @ApplicationPackageProvider(id = "starlight-economy")
+    static void economy(ContentBuilder b) {
+        b.compatibilityProvider(() -> {
+            Compatibility.requireClass(() -> Class.forName("net.milkbowl.vault.economy.Economy"));
+
+            if (Bukkit.getServicesManager().getRegistration(Economy.class) == null) {
+                throw new APIIncompatibleException("No 'economy' service found!");
+            }
+        });
+
+        b.service(EconomyService.class);
+        b.module(EconomyRewardProvider.class);
     }
 
     //还没做完

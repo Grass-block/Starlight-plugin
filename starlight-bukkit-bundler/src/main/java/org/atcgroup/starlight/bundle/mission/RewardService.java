@@ -30,6 +30,8 @@ public interface RewardService extends Service {
 
     RewardProviderRegistry getProviderRegistry();
 
+    Map<String, Reward> getRegistry();
+
     <E> void triggerEvent(UUID receiver, E event);
 
     boolean add(RewardInstance instance);
@@ -55,6 +57,11 @@ public interface RewardService extends Service {
         @Override
         public RewardProviderRegistry getProviderRegistry() {
             return providerRegistry;
+        }
+
+        @Override
+        public Map<String, Reward> getRegistry() {
+            return registry;
         }
 
         @Override

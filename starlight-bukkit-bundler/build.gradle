@@ -52,6 +52,7 @@ dependencies {
     compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0-SNAPSHOT'
     compileOnly projectLib("worldguard-bukkit-7.1.0-20220312.223410-2")
     compileOnly projectLib("worldguard-core-7.1.0-20220312.223410-2")
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
 
     implementation projectLib("paper-logger")
     compileOnly projectLib("ProtocolLib")
@@ -60,6 +61,7 @@ dependencies {
 repositories {
     maven { url = "https://repo.viaversion.com" }
     maven { url = 'https://maven.enginehub.org/repo/' }
+    maven { url = 'https://jitpack.io' }
 }
 
 tasks.named('build').get().dependsOn(':starlight-core:build')

@@ -27,11 +27,6 @@ public final class WGClaimCommand extends BukkitAbstractModule {
     }
 
     @Override
-    public void checkCompatibility() throws APIIncompatibleException {
-        Compatibility.requirePlugin("WorldGuard");
-    }
-
-    @Override
     public void enable() {
         WGCommandService.COMMAND.registerSubCommand(new ClaimCommand());
         WGCommandService.COMMAND.registerSubCommand(new UnClaimCommand());

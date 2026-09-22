@@ -77,11 +77,6 @@ public interface WGPlotInfoService extends Service {
         }
 
         @Override
-        public void checkCompatibility() throws APIIncompatibleException {
-            Compatibility.requirePlugin("WorldGuard");
-        }
-
-        @Override
         public void disable() {
             QLib.task().async().cancel("wg-extra-v2:purge-cancel");
             WGCommandService.COMMAND.unregisterSubCommand(this.command);

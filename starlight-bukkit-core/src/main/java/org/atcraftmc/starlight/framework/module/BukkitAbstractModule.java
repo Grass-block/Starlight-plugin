@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight.framework.module;
 
+import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.AbstractModule;
 import org.atcraftmc.qlib.config.ConfigEntry;
 import org.atcraftmc.qlib.language.LanguageEntry;

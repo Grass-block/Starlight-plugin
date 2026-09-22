@@ -29,15 +29,8 @@ import java.util.stream.Collectors;
 @ApplicationModule(id = "wg-region-hud", description = "Create an HUD displaying WorldGuard region info.")
 @AutoRegister(Registrations.SERVER_EVENT)
 public final class WGRegionHUD extends BukkitAbstractModule {
-
     public static final Pipeline<Formatter> PIPELINE = new Pipeline<>();
     private final Map<UUID, ProtectedRegion> stateCache = new HashMap<>();
-
-    @Override
-    public void checkCompatibility() throws APIIncompatibleException {
-        Compatibility.requirePlugin("WorldGuard");
-        Compatibility.requirePlugin("WorldEdit");
-    }
 
     public String format(ProtectedRegion region, World world, String s) {
         var owners = "{msg#ui-empty-owners}";

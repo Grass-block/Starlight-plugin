@@ -15,6 +15,9 @@ import me.gb2022.gluon.service.ServiceInject;
 import org.atcgroup.starlight.bundle.mission.commission.Commission;
 import org.atcgroup.starlight.bundle.mission.commission.CommissionRegistry;
 import org.atcgroup.starlight.bundle.mission.commission.CommissionStatus;
+import org.atcgroup.starlight.bundle.mission.commission.ManualCommission;
+import org.atcraftmc.starlight.shared.JDBCService;
+import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -68,6 +71,12 @@ public interface CommissionService extends Service {
     final class CommissionServiceImpl implements CommissionService {
         private final CommissionRegistry registry = new CommissionRegistry();
         private final CommissionDataService data = new CommissionDataService("sl_commission", this.registry);
+
+        @Override
+        public void enable() throws Exception {
+            this.registry.register("starlight:manual", ManualCommission.class);
+            this.data.initService(JDBCService.dataSource(JDBCData.SL_LOCAL));
+        }
 
         @Override
         public void set(Commission commission) {

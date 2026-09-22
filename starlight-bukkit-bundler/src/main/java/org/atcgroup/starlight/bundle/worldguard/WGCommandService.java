@@ -27,12 +27,6 @@ public interface WGCommandService extends Service {
     PlotCommand COMMAND = new PlotCommand();
 
     @ServiceInject
-    static void checkServiceCompatibility() throws APIIncompatibleException {
-        Compatibility.requirePlugin("WorldGuard");
-        Compatibility.requirePlugin("WorldEdit");
-    }
-
-    @ServiceInject
     static void start() {
         StarlightBukkitCore.instance().getCommandManager().register(COMMAND);
     }

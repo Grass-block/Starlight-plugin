@@ -26,12 +26,6 @@ import java.util.UUID;
 @ApplicationService(id = "wg-region-service")
 public interface WGRegionService extends Service {
 
-    @ServiceInject
-    static void checkServiceCompatibility() throws APIIncompatibleException {
-        Compatibility.requirePlugin("WorldGuard");
-        Compatibility.requirePlugin("WorldEdit");
-    }
-
     static Set<RegionKey> getAllKeys() {
         var result = new HashSet<RegionKey>();
         var container = WorldGuard.getInstance()

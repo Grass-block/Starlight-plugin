@@ -44,11 +44,6 @@ public final class WorldGuardWECheck extends BukkitAbstractModule {
         WorldEdit.getInstance().getEventBus().unregister(this);
     }
 
-    @Override
-    public void checkCompatibility() throws APIIncompatibleException {
-        Compatibility.requirePlugin("WorldGuard");
-        Compatibility.requirePlugin("WorldEdit");
-    }
 
 
     @Subscribe(priority = EventHandler.Priority.VERY_EARLY)
