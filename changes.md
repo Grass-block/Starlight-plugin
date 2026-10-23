@@ -6,6 +6,7 @@
 - Chat-Translator: enable users to translate chat lines to their language.
 - WE-Commands: history can now remember outline-box operations.
 - Extra-Damage: allow user to attach extra damage to certain weapon.
+- AIPlayerSupport: Add extra support for AI players(MCPs)
 
 ### Bug fixes
 
