@@ -10,15 +10,15 @@ import org.bukkit.event.HandlerList;
 public final class ChatForwardingEvent extends CustomEvent implements Cancellable {
     private final CommandSender sender;
     private final CommandSender viewer;
-    private final Component previous;
+    private final Component originChatLine;
     private Component examined;
     private boolean cancelled;
 
-    public ChatForwardingEvent(CommandSender sender, CommandSender viewer, Component previous) {
+    public ChatForwardingEvent(CommandSender sender, CommandSender viewer, Component originChatLine) {
         this.sender = sender;
         this.viewer = viewer;
-        this.previous = previous;
-        this.examined = previous;
+        this.originChatLine = originChatLine;
+        this.examined = originChatLine;
     }
 
     public static HandlerList getHandlerList() {
@@ -41,8 +41,8 @@ public final class ChatForwardingEvent extends CustomEvent implements Cancellabl
         this.examined = examined;
     }
 
-    public Component getPrevious() {
-        return previous;
+    public Component getOriginChatLine() {
+        return originChatLine;
     }
 
     @Override

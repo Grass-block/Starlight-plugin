@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission.commission;
+package org.atcgroup.starlight.bundle.quest.commission;
 
 import com.google.gson.JsonObject;
 

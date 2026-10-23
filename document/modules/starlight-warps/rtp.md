@@ -1,10 +1,10 @@
-# 随机传送 <Badge>starlight:rtp</Badge>
+# 随机传送 <Badge>starlight-warps:rtp</Badge>
 
 随机传送至野外安全位置
 
 ## 基本信息
 
-- 命名空间id: `starlight:rtp`
+- 命名空间id: `starlight-warps:rtp`
 - 版本: `-`
 - 是否为内部模块: `否`
 - 是否默认开启: `是`

@@ -1,6 +1,6 @@
-package org.atcgroup.starlight.bundle.mission.reward;
+package org.atcgroup.starlight.bundle.quest.reward;
 
-import org.atcgroup.starlight.bundle.mission.commission.Commission;
+import org.atcgroup.starlight.bundle.quest.commission.Commission;
 
 import java.util.Set;
 import java.util.UUID;

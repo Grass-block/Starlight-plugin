@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MusicData {
+    public static final MusicData INT_SESSION = new MusicData("_end_",0,1,50,0);
     private final List<List<MusicNode>> nodes;
     private final int offset;
     private final long millsLength;

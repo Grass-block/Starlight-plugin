@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission;
+package org.atcgroup.starlight.bundle.quest;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -12,10 +12,10 @@ import me.gb2022.gluon.service.ApplicationService;
 import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
-import org.atcgroup.starlight.bundle.mission.commission.Commission;
-import org.atcgroup.starlight.bundle.mission.commission.CommissionRegistry;
-import org.atcgroup.starlight.bundle.mission.commission.CommissionStatus;
-import org.atcgroup.starlight.bundle.mission.commission.ManualCommission;
+import org.atcgroup.starlight.bundle.quest.commission.Commission;
+import org.atcgroup.starlight.bundle.quest.commission.CommissionRegistry;
+import org.atcgroup.starlight.bundle.quest.commission.CommissionStatus;
+import org.atcgroup.starlight.bundle.quest.commission.ManualCommission;
 import org.atcraftmc.starlight.shared.JDBCService;
 import org.atcraftmc.starlight.shared.jdbc.JDBCData;
 import org.bukkit.entity.Player;

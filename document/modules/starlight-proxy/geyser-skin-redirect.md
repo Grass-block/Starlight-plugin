@@ -1,6 +1,6 @@
 # Geyser皮肤重映射 <Badge>starlight-proxy:geyser-skin-redirect</Badge>
 
-为 Geyser 基岩版玩家手动重定向皮肤，解决基岩版玩家皮肤显示异常问题。
+按玩家名前缀为基岩版玩家重定向同名 Java 玩家皮肤。
 
 ## 基本信息
 
@@ -12,11 +12,18 @@
 
 ## 描述
 
-该模块允许管理员手动为 Geyser 连接的基岩版玩家设置皮肤重定向。通过 `/geyser-skin-redirect` 命令可将指定基岩版玩家的皮肤替换为
-Java 版玩家的皮肤。模块在玩家加入时自动检测 Geyser 玩家，管理员可通过命令指定皮肤源玩家。
+模块在玩家加入时检查名字前缀，移除该前缀后取得同名离线 Java 玩家档案，将其纹理复制到目标玩家档案。需要服务端提供 `OfflinePlayer.getPlayerProfile` 等玩家档案 API。
+
+管理员可通过 `/redirect-be-skin <在线玩家>` 手动重新应用该规则；命令只接受目标玩家，不能指定任意皮肤来源玩家。当前没有 `/geyser-skin-redirect` 命令。
 
 ## 可配置项目
 
 | 配置路径                                 | 类型     | 默认值 | 描述             |
 |--------------------------------------|--------|-----|----------------|
 | `config.geyser-skin-redirect.prefix` | string | `.` | Geyser 玩家名前缀标识 |
+
+## 命令
+
+| 命令 | 权限节点 | 说明 |
+|----|----|----|
+| `/redirect-be-skin <在线玩家>` | `quark.be.redirectskin` | 为带配置前缀的玩家重新应用去掉前缀后的同名皮肤 |

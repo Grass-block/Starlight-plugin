@@ -1,10 +1,10 @@
-# 传送请求 <Badge>starlight:tpa</Badge>
+# 传送请求 <Badge>starlight-warps:tpa</Badge>
 
 玩家间传送请求系统
 
 ## 基本信息
 
-- 命名空间id: `starlight:tpa`
+- 命名空间id: `starlight-warps:tpa`
 - 版本: `1.0.2`
 - 是否为内部模块: `否`
 - 是否默认开启: `是`

@@ -6,17 +6,8 @@ import me.gb2022.gluon.service.ServiceLayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.atcraftmc.qlib.bukkit.QLib;
-import org.atcraftmc.qlib.command.AbstractCommand;
-import org.atcraftmc.qlib.command.BukkitCommand;
-import org.atcraftmc.qlib.command.execute.CommandExecution;
-import org.atcraftmc.qlib.command.execute.CommandSuggestion;
-import org.atcraftmc.qlib.language.LocaleMapping;
 import org.atcraftmc.qlib.language.MinecraftLocale;
 import org.atcraftmc.starlight.StarlightBukkitCore;
-import org.atcraftmc.starlight.api.event.ClientLocaleChangeEvent;
-import org.atcraftmc.starlight.core.command.CoreCommand;
-import org.atcraftmc.starlight.core.platform.BukkitUtil;
 import org.atcraftmc.starlight.core.ui.InventoryUI;
 import org.atcraftmc.starlight.core.ui.TextRenderer;
 import org.atcraftmc.starlight.core.ui.UI;
@@ -37,9 +28,7 @@ import java.util.*;
 
 @ApplicationService(id = "locale", layer = ServiceLayer.FRAMEWORK)
 public interface LocaleService extends BukkitService {
-    AbstractCommand LANGUAGE_COMMAND = new LanguageDecideCommand();
-
-    @SuppressWarnings("deprecation")//because other server software still uses it.
+    @Deprecated
     static MinecraftLocale locale(Object sender) {
         if (sender instanceof ConsoleCommandSender || sender instanceof BlockCommandSender) {
             return MinecraftLocale.locale(Locale.getDefault());
@@ -48,21 +37,7 @@ public interface LocaleService extends BukkitService {
             return MinecraftLocale.locale(Locale.getDefault());
         }
 
-        return BukkitLocaleService.getInstance().getLocale(p);
-    }
-
-    static void setCustomLanguage(Player user, String value) {
-        var locale = "auto".equals(value) ? null : MinecraftLocale.minecraft(value);
-        BukkitLocaleService.getInstance().setCustomLocale(user, locale);
-    }
-
-    static String remapLanguageNames(String id) {
-        return switch (id) {
-            case "zh_cn" -> "zh-Hans(简体中文)";
-            case "zh_tw" -> "zh-Hant-TW(繁体中文)";
-            case "zh_hk" -> "zh-Hant-HK(繁体中文-香港地区)";
-            default -> id;
-        };
+        return BukkitLocaleService.instance().getLocale(p);
     }
 
     enum LanguageIcon {
@@ -107,9 +82,7 @@ public interface LocaleService extends BukkitService {
         private final String displayName;
         private final String texture;
 
-        LanguageIcon(
-                String locale, String displayName, String texture
-        ) {
+        LanguageIcon(String locale, String displayName, String texture) {
             this.locale = locale;
             this.displayName = displayName;
             this.texture = texture;
@@ -162,30 +135,7 @@ public interface LocaleService extends BukkitService {
         }
     }
 
-    @SuppressWarnings("deprecation")//because other server still uses getLocale()
-    @BukkitCommand(name = "locale", permission = "+quark.locale", playerOnly = true)
-    final class LanguageDecideCommand extends CoreCommand {
-        @Override
-        public void suggest(CommandSuggestion suggestion) {
-            suggestion.suggest(0, List.of(LocaleMapping.MINECRAFT_KNOWN_LANGUAGES));
-            suggestion.suggest(0, "gui", "auto");
-        }
-
-        @Override
-        public void execute(CommandExecution context) {
-            var data = context.requireArgumentAt(0);
-            if (Objects.equals(data, "gui")) {
-                //GUI.open(context.requireSenderAsPlayer());
-            }
-
-            setCustomLanguage(context.requireSenderAsPlayer(), data);
-
-
-            StarlightBukkitCore.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), remapLanguageNames(data));
-            BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), locale(context.getSender())));
-        }
-    }
-
+    //todo: add flag based UI icons.
     final class LocaleUI implements GUIProvider<InventoryUI> {
         @Override
         public InventoryUI create() {
@@ -206,6 +156,7 @@ public interface LocaleService extends BukkitService {
                 b.icon(UI.icon(Material.REDSTONE));
                 b.name(TextRenderer.data(StarlightBukkitCore.lang().item("common", "ui", "close")));
                 b.operation(UI.SOUND_CLICK);
+                b.operation(UI.command((p)->"/locale "));
                 b.operation(UI.close());
             });
         }

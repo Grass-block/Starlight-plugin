@@ -1,11 +1,21 @@
 language:
   -module-name:
+    chat-translator: Traduction du chat
     chat-at: Mention de chat
     chat-component: Support de chat en texte enrichi
     mail: Courrier
     chat-filter: Filtre de chat
     chat-report: Signalement de chat
     mute: Mise en sourdine du chat
+  chat-translator:
+    --tip:
+      - '{#gray}Vous pouvez traduire les messages du chat dans votre langue en cliquant sur le bouton « [🌏] » après un message.'
+      - '{#gray}Vous pouvez aussi utiliser {#gold}/translate-chat auto{#gray} pour activer ou désactiver la traduction automatique.'
+    not-found: "Le texte demandé n’existe pas ou a expiré."
+    translator-not-configured: "{global#sys-error}Aucun service de traduction n’est configuré. Veuillez contacter un administrateur."
+    translate-origin: "Texte original{#white} : "
+    translate-target: "Traduction{#gray}({#white}{}{#gray}){#white} : "
+    translate-hint: "La traduction est effectuée par une machine ou une IA. Le résultat est fourni à titre indicatif."
   chat-component:
     --tip:
       - '{#gray}Dans le chat, les pancartes et les commandes (partiellement supporté), vous pouvez utiliser des balises de texte enrichi pour ajouter des effets au texte.'

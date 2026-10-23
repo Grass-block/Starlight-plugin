@@ -50,7 +50,7 @@ public final class MyModule extends BukkitAbstractModule {
 - `language()`：返回 `LanguageEntry`。
   ```java
   language().item("hello").send(QLib.audience(player), player.getName());
-  var text = language().inline("some-template", LocaleService.locale(player));
+  var text = language().inline("some-template", QLib.audience(player).pointed().locale());
   ```
 - 也可用 `@Inject` 注入：
   ```java
@@ -59,6 +59,8 @@ public final class MyModule extends BukkitAbstractModule {
   ```
 
 ## 3.4 命令
+
+26.6.4 的聊天统一事件、渲染器和语言服务迁移见 [5. 聊天转发与语言 API](05-chat-and-locale.md)。
 
 ### 模块即命令（推荐）
 
@@ -236,4 +238,3 @@ public void checkCompatibility() throws APIIncompatibleException {
 | `blackListPlatform(APIProfile...)` | 黑名单平台                                                          |
 | `assertion(boolean)`               | 自定义布尔断言                                                        |
 | `reversed(String, Runnable)`       | 要求给定操作**失败**，否则抛异常                                             |
-

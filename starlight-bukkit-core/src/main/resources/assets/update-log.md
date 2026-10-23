@@ -2,6 +2,7 @@
 
 ### 26.6.2
 
+- Fixed **STUPID CPU USE** OF MUSIC PLAYER!!!!!
 - Fixed service configuration unavailable on certain service.
 - Fixed command render issue on waypoint listing command.
 - Fixed error on hot-reloading.

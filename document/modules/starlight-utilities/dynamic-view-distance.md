@@ -18,11 +18,12 @@
 
 | 配置路径                                       | 类型  | 默认值      | 描述          |
 |--------------------------------------------|-----|----------|-------------|
-| `config.dynamic-view-distance.max`         | int | `32`     | 最大渲染距离      |
 | `config.dynamic-view-distance.calc-period` | int | `100000` | 渲染距离计算周期（刻） |
+
+距离被代码固定限制在 2–32 区块之间，没有可配置的 `max` 字段。模块要求玩家视距相关 API，并排除 Arclight 平台。
 
 ## 命令
 
 | 命令                               | 权限                    | 描述                                           |
 |----------------------------------|-----------------------|----------------------------------------------|
-| `/view-distance [值\|reset] [玩家]` | `+quark.viewdistance` | 查看/设置渲染距离（指定玩家需 `-quark.viewdistance.other`） |
+| `/view-distance [值\|reset] [玩家]` | `+quark.viewdistance` | 设置 2–32 的自定义距离，省略数值或使用 reset 恢复策略计算；指定玩家需 `-quark.viewdistance.other` |

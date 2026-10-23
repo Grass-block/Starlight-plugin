@@ -1,6 +1,5 @@
 package org.atcgroup.starlight.bundle.chat;
 
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.gb2022.commons.math.SHA;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.Inject;
@@ -12,10 +11,9 @@ import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.language.Language;
 import org.atcraftmc.qlib.language.LanguageItem;
 import org.atcraftmc.starlight.SharedObjects;
-import org.atcraftmc.starlight.api.CustomChatRenderer;
 import org.atcraftmc.starlight.api.PluginMessages;
 import org.atcraftmc.starlight.api.PluginStorage;
-import org.atcraftmc.starlight.core.ComponentSerializer;
+import org.atcraftmc.starlight.api.event.ForwardedChatEvent;
 import org.atcraftmc.starlight.core.command.CommandProvider;
 import org.atcraftmc.starlight.core.command.ModuleCommand;
 import org.atcraftmc.starlight.core.platform.APIProfile;
@@ -67,18 +65,20 @@ public final class ChatReport extends BukkitAbstractModule {
         PluginStorage.set(PluginMessages.CHAT_ANNOUNCE_TIP_PICK, (s) -> s.remove(this.tip));
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onChat(AsyncChatEvent event) {
-        var sender = event.getPlayer().getName();
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onChat(ForwardedChatEvent event) {
+        var sender = event.getSender().getName();
         var time = SharedObjects.DATE_FORMAT.format(new Date());
-        var content = ComponentSerializer.plain(event.message());
+        var content = event.getRawChatMessage();
 
         var shorted = (content.substring(0, Math.min(content.length(), 4)) + "...").replace(" ", "");
         var uuid = hash(content);
         this.records.put(uuid, "%s;%s;%s;%s".formatted(time, sender, content, shorted));
 
         var template = Language.format(Objects.requireNonNull(config().value("append").string()), uuid).formatted(uuid);
-        CustomChatRenderer.renderer(event).postfixNearest(QLib.textBuilder().buildComponent(template));
+
+        event.getRenderer().postFix(QLib.textBuilder().buildComponent(template));
     }
 
     @BukkitCommand(name = "chat-report")

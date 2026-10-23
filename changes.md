@@ -1,12 +1,28 @@
-## V5: Now - Gluon engine
+## 26.6.4
 
-### 26.6.4
+### New features
 
-- Re-added Hover-Display module.
+- Hover-Display: hover-texts based on armor-stands
+- Chat-Translator: enable users to translate chat lines to their language.
+- WE-Commands: history can now remember outline-box operations.
+- Extra-Damage: allow user to attach extra damage to certain weapon.
+
+### Bug fixes
+
 - Fixed crashing when disable module failed on shut-down.
 - Fixed lobby-default-inventory saving issue.
 - Fixed global-config saving issue.
+- Fixed language use for certain scopes.
+- Fixed language detection on hot-reload.
+
+### API Changes
+
 - Removed the deprecated WG_REGION_DATA api.
+- ChatForwardingService will now tend to use native API on paper environment.
+- Deprecated the ChatForwardingEvent
+- Added ForwardedChatEvent for platform alignment.
+
+---
 
 ### 26.6.3
 

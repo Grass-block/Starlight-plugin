@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission.reward;
+package org.atcgroup.starlight.bundle.quest.reward;
 
 import org.atcraftmc.starlight.core.platform.Players;
 import org.atcraftmc.starlight.util.PersistentItemStorage;

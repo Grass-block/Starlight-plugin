@@ -45,3 +45,6 @@ test-servers
 productions
 /test/
 /deprecated/
+/gradle/wrapper/gradle-wrapper.jar
+/gradlew
+/gradlew.bat

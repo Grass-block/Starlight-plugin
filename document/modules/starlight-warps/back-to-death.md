@@ -1,10 +1,10 @@
-# 回到死亡点 <Badge>starlight:back-to-death</Badge>
+# 回到死亡点 <Badge>starlight-warps:back-to-death</Badge>
 
 传送回上次死亡位置
 
 ## 基本信息
 
-- 命名空间id: `starlight:back-to-death`
+- 命名空间id: `starlight-warps:back-to-death`
 - 版本: `1.3.0`
 - 是否为内部模块: `否`
 - 是否默认开启: `是`

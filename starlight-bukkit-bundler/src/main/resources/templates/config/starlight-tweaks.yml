@@ -7,9 +7,11 @@ config:
     max-iterations: 64
     regex: "_ore|_leaves|_log|glowstone|ancient_debris"
   extra-damage:
-    extra-damage: { }
-    percent-damage:
-      tacz:modern_kinetic_gun: 0.05
+    true-damage:
+      tacz:bullet: [ "percent:1.5","append:150" ]
+      createbigcannons:he_shell: [ "append:350234" ]
+    extra-damage:
+      tacz:bullet: [ "append:500" ]
   item-drop-secure:
     unlock-time: 120
     list:

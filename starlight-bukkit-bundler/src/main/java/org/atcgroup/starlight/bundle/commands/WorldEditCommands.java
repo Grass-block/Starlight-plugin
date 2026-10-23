@@ -3,15 +3,23 @@ package org.atcgroup.starlight.bundle.commands;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.extension.input.InputParseException;
 import com.sk89q.worldedit.extension.input.ParserContext;
 import com.sk89q.worldedit.extension.platform.Actor;
+import com.sk89q.worldedit.function.RegionFunction;
+import com.sk89q.worldedit.function.RegionMaskingFilter;
+import com.sk89q.worldedit.function.block.BlockReplace;
+import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.function.pattern.Pattern;
+import com.sk89q.worldedit.function.visitor.RegionVisitor;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.util.formatting.text.TextComponent;
 import com.sk89q.worldedit.util.formatting.text.TranslatableComponent;
+import com.sk89q.worldedit.world.block.BlockType;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.gluon.module.ApplicationModule;
 import org.atcraftmc.qlib.command.BukkitCommand;
@@ -32,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Optional;
 
-@ApplicationModule(id = "world-edit-commands", description = "Provides WorldEdit utility brush and editing commands")
+@ApplicationModule(id = "world-edit-commands", description = "Provides WorldEdit utility commands.")
 @CommandProvider({WorldEditCommands.MirrorCommand.class, WorldEditCommands.MirrorRotateCommand.class, WorldEditCommands.DrainWaterCommand.class, WorldEditCommands.FastBrushCommand.class, WorldEditCommands.BoxOutlineCommand.class})
 public final class WorldEditCommands extends BukkitAbstractModule {
     @Override
@@ -40,18 +48,26 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         Compatibility.requirePlugin("WorldEdit");
     }
 
+    public static Pattern parsePattern(Player player, String input) throws Exception {
+        BukkitPlayer wePlayer = BukkitAdapter.adapt(player);
+
+        ParserContext context = new ParserContext();
+        context.setActor(wePlayer);
+        context.setWorld(wePlayer.getWorld());
+
+        return WorldEdit.getInstance().getBlockFactory().parseFromInput(input, context);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static final class SimpleIVA extends HashMap<Class<?>, Object> implements InjectedValueAccess {
+        @Override
+        public <T> @NotNull Optional<T> injectedValue(@NotNull Key<T> key, @NotNull InjectedValueAccess injectedValueAccess) {
+            return (Optional<T>) Optional.ofNullable(this.get(key.getTypeToken().getRawType()));
+        }
+    }
+
     @BukkitCommand(name = "/outline-box", permission = "-worldedit.region.outline")
     public static final class BoxOutlineCommand extends ModuleCommand<WorldEditCommands> {
-        public static Pattern parsePattern(Player player, String input) throws Exception {
-            BukkitPlayer wePlayer = BukkitAdapter.adapt(player);
-
-            ParserContext context = new ParserContext();
-            context.setActor(wePlayer);
-            context.setWorld(wePlayer.getWorld());
-
-            return WorldEdit.getInstance().getBlockFactory().parseFromInput(input, context);
-        }
-
         public static void drawHollowBorder(Player player, Pattern pattern) throws Exception {
 
             var wePlayer = BukkitAdapter.adapt(player);
@@ -96,7 +112,7 @@ public final class WorldEditCommands extends BukkitAbstractModule {
                 }
 
                 editSession.flushSession();
-
+                WorldEdit.getInstance().getSessionManager().get(BukkitAdapter.adapt(player)).remember(editSession);
                 wePlayer.printInfo(TranslatableComponent.of("worldedit.line.changed", TextComponent.of(change)));
             }
         }
@@ -131,14 +147,6 @@ public final class WorldEditCommands extends BukkitAbstractModule {
                 throw e;
             } catch (Exception e) {
                 throw new RuntimeException(e);
-            }
-        }
-
-        private static final class SimpleIVA extends HashMap<Class<?>, Object> implements InjectedValueAccess {
-
-            @Override
-            public <T> @NotNull Optional<T> injectedValue(@NotNull Key<T> key, @NotNull InjectedValueAccess injectedValueAccess) {
-                return (Optional<T>) Optional.ofNullable(this.get(key.getTypeToken().getRawType()));
             }
         }
     }
@@ -179,8 +187,8 @@ public final class WorldEditCommands extends BukkitAbstractModule {
         public void execute(CommandExecution context) {
             var player = context.requireSenderAsPlayer();
 
-            Bukkit.dispatchCommand(player, "/set ^[waterlogged=false]");
             Bukkit.dispatchCommand(player, "/replace water air");
+            Bukkit.dispatchCommand(player, "/set ^[waterlogged=false]");
         }
     }
 

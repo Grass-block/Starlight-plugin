@@ -1,3 +1,5 @@
+//file:noinspection DependencyNotationArgument
+
 plugins {
     id 'java'
 }
@@ -9,6 +11,13 @@ applyGlobalScript("Publish/MinecraftServerTest.gradle")
 applyGlobalScript("Publish/ProjectOutput.gradle")
 applyGlobalScript("Repo/MinecraftPlugins.gradle")
 applyGlobalScript("Dependencies.gradle")
+
+repositories {
+    maven { url = "https://repo.viaversion.com" }
+    maven { url = 'https://maven.enginehub.org/repo/' }
+    maven { url = 'https://jitpack.io' }
+}
+
 
 //platform libraries
 dependencies {
@@ -35,15 +44,16 @@ dependencies {
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
     compileOnly 'io.netty:netty-buffer:4.1.25.Final'
-    compileOnly 'io.netty:netty-codec-http:4.1.128.Final'
-    compileOnly project(":starlight-core")
+    compileOnly 'io.netty:netty-codec-http:4.2.18.Final'
+
     compileOnly gbuildLib("me.gb2022:gluon-main")
 
+    compileOnly project(":starlight-core")
     implementation project(":starlight-bukkit-core")
 }
 
 dependencies {
-    compileOnly "org.apache.logging.log4j:log4j-core:2.8.1"
+    compileOnly 'org.apache.logging.log4j:log4j-core:2.25.4'
     compileOnly "org.ahocorasick:ahocorasick:0.6.3"
     compileOnly "net.bytebuddy:byte-buddy:1.17.8"
     compileOnly "com.viaversion:viaversion-api:5.7.1"
@@ -58,16 +68,18 @@ dependencies {
     compileOnly projectLib("ProtocolLib")
 }
 
-repositories {
-    maven { url = "https://repo.viaversion.com" }
-    maven { url = 'https://maven.enginehub.org/repo/' }
-    maven { url = 'https://jitpack.io' }
-}
-
 tasks.named('build').get().dependsOn(':starlight-core:build')
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes "Main-Class": "org.atcraftmc.starlight.SelfBootUtil"
+    }
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
 
 processResources {

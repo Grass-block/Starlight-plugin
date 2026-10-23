@@ -28,6 +28,8 @@ public interface BaseBundler {
         b.module(Mute.class);
         b.module(ChatFilter.class);
         b.module(ChatReport.class);
+        b.module(ChatTranslator.class);
+        b.module(AIPlayerSupport.class);
 
         p.config("starlight-chat");
         p.language("/starlight-chat", "zh_cn");
@@ -165,7 +167,7 @@ public interface BaseBundler {
         b.module(GuestMode.class);
         b.module(EndProtect.class);
         b.module(PluginBackdoorScanner.class);
-        b.module(ItemDefender.class);
+        b.module(ItemBlocker.class);
 
         p.config("starlight-security");
         p.language("/starlight-security", "zh_cn");
@@ -187,7 +189,7 @@ public interface BaseBundler {
         b.module(CustomMotd.class);
         b.module(CustomScoreboard.class);
         b.module(DropItemInfo.class);
-        b.module(PlayerNameHeader.class); //todo [DFU] import header
+        b.module(PlayerNameHeader.class);//todo: refactor with object-translation based header.
         b.module(TabMenu.class);
         b.module(WelcomeMessage.class);
         b.module(WESessionRenderer.class);

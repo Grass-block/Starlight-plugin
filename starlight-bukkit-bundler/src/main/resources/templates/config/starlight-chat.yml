@@ -19,3 +19,13 @@ config:
     handled-commands: [ "say","tell","mail" ] #commands will be handled as they attempt to send message.
     punish: true #will punish player.
     punish-command: "mute {player} 3600 {#yellow}[starlight]{#red}BadChatBehavior" #punish player using this command. support other plugins.
+  chat-translator:
+    append: ' {click(command,/translate-chat {});color(aqua)}[🌏]{;}' #{} is replaced with the chat record ID.
+    substring-raw: true
+    template:
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"
+      - '{#aqua}{msg#translate-origin} {#white}{}'
+      - '{#green}{msg#translate-target} {#white}{}'
+      - ''
+      - '{#gray}({msg#translate-hint})'
+      - "{#yellow}一一一一一一一一一一一一一一一一一一一一一一一一一一一"

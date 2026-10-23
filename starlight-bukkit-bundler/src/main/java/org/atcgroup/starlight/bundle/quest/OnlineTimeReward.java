@@ -1,8 +1,8 @@
-package org.atcgroup.starlight.bundle.mission;
+package org.atcgroup.starlight.bundle.quest;
 
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcgroup.starlight.bundle.mission.reward.RewardInstance;
-import org.atcgroup.starlight.bundle.mission.reward.RewardProvider;
+import org.atcgroup.starlight.bundle.quest.reward.RewardInstance;
+import org.atcgroup.starlight.bundle.quest.reward.RewardProvider;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.starlight.api.event.BukkitEvent;
 import org.atcraftmc.starlight.api.event.CustomEvent;

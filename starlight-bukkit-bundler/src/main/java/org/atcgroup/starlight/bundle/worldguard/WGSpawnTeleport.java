@@ -20,7 +20,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.joml.Vector3d;
 
-//todo: untested
 @ApplicationModule(id = "wg-spawn-tp")
 public final class WGSpawnTeleport extends BukkitAbstractModule {
     private final StandaloneCommand plotTeleportCommand = new PlotTeleportCommand();

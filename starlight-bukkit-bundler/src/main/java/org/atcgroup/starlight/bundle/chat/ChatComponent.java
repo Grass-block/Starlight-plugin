@@ -1,6 +1,5 @@
 package org.atcgroup.starlight.bundle.chat;
 
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.gb2022.commons.compatibility.APIIncompatibleException;
 import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.commons.reflect.method.MethodHandle;
@@ -17,6 +16,7 @@ import org.atcraftmc.qlib.command.LegacyCommandManager;
 import org.atcraftmc.qlib.texts.placeholder.GloballyPlaceHolder;
 import org.atcraftmc.qlib.util.pipe.Pipeline;
 import org.atcraftmc.starlight.PlaceHolders;
+import org.atcraftmc.starlight.api.event.ForwardedChatEvent;
 import org.atcraftmc.starlight.core.ComponentSerializer;
 import org.atcraftmc.starlight.core.placeholder.PlaceHolderService;
 import org.atcraftmc.starlight.core.platform.BukkitDataAccess;
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 
 
 @AutoRegister(Registrations.SERVER_EVENT)
-@ComponentProvider({ChatComponent.PaperChatListener.class, ChatComponent.PaperSignChangeListener.class})
+@ComponentProvider({ChatComponent.PaperAnvilListener.class, ChatComponent.PaperSignChangeListener.class})
 @ApplicationModule(id = "chat-component", version = "1.3.0", description = "Processes chat components and sign text formatting")
 public final class ChatComponent extends BukkitAbstractModule {
     private final Pipeline<BiFunction<Player, String, String>> pipeline = new Pipeline<>();
@@ -120,6 +120,17 @@ public final class ChatComponent extends BukkitAbstractModule {
         return input;
     }
 
+    @EventHandler
+    public void onChat(ForwardedChatEvent event) {
+        event.setBuilder((msg) -> {
+            msg = this.processColorChars(msg);
+            msg = PlaceHolderService.format(msg);
+            msg = PlaceHolderService.formatPlayer(event.getSender(), msg);
+            msg = processIndirectChars(msg);
+            return QLib.textBuilder().buildComponent(msg, true);
+        });
+    }
+
     @AutoRegister(Registrations.SERVER_EVENT)
     public static final class PaperSignChangeListener extends SLModuleComponent<ChatComponent> {
         private MethodHandleO2<SignChangeEvent, Integer, Component> setLine;
@@ -142,7 +153,7 @@ public final class ChatComponent extends BukkitAbstractModule {
             this.getLine = MethodHandle.select((ctx) -> {
                 ctx.attempt(
                         () -> t.getMethod("line", int.class),
-                        (o, i) -> ComponentSerializer.legacy(Objects.requireNonNullElse(o.line(i), Component.text("")))
+                        (o, i) -> LegacyComponentSerializer.legacy('&').serialize(Objects.requireNonNullElse(o.line(i), Component.text("")))
                 );
                 //noinspection Convert2MethodRef
                 ctx.dummy((o, i) -> o.getLine(i));
@@ -170,20 +181,10 @@ public final class ChatComponent extends BukkitAbstractModule {
     }
 
     @AutoRegister(Registrations.SERVER_EVENT)
-    public static final class PaperChatListener extends SLModuleComponent<ChatComponent> {
+    public static final class PaperAnvilListener extends SLModuleComponent<ChatComponent> {
         @Override
         public void checkCompatibility() throws APIIncompatibleException {
             Compatibility.requireClass(() -> Class.forName("io.papermc.paper.event.player.AsyncChatEvent"));
-        }
-
-        @EventHandler
-        public void onChatting(AsyncChatEvent event) {
-            String msg = LegacyComponentSerializer.legacySection().serialize(event.message());
-            msg = this.parent.processColorChars(msg);
-            msg = PlaceHolderService.format(msg);
-            msg = PlaceHolderService.formatPlayer(event.getPlayer(), msg);
-            msg = processIndirectChars(msg);
-            event.message(QLib.textBuilder().buildComponent(msg, true));
         }
 
         @EventHandler

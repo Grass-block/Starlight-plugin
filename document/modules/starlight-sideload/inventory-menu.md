@@ -1,10 +1,10 @@
-# 物品菜单 <Badge>starlight:inventory-menu</Badge>
+# 物品菜单 <Badge>starlight-sideload:inventory-menu</Badge>
 
 可配置的 GUI 物品菜单系统
 
 ## 基本信息
 
-- 命名空间id: `starlight:inventory-menu`
+- 命名空间id: `starlight-sideload:inventory-menu`
 - 版本: `-`
 - 是否为内部模块: `否`
 - 是否默认开启: `是`
@@ -16,11 +16,11 @@
 
 ## 可配置项目
 
-无独立配置项。菜单和组件通过 `inventory-ui/` 与 `inventory-ui-component/` 目录下的 YAML 配置定义。
+无独立配置项。菜单和组件通过插件数据目录的 `config/inventory-ui/` 与 `config/inventory-ui-component/` 下的 YAML 配置定义，根节点分别为 `inventory-ui:` 和 `inventory-ui-component:`。
 
 ## 命令
 
 | 命令               | 权限                    | 说明          |
 |------------------|-----------------------|-------------|
 | `/gui open <id>` | `starlight.gui.admin` | 打开指定 ID 的菜单 |
-| `/gui reload`    | `starlight.gui.admin` | 重新加载所有菜单配置  |
+| `/gui reload`    | `starlight.gui.admin` | 当前无法执行重载：参数校验接受 reload，但实现分支写为 load；修改菜单后需重新启用模块或重载插件 |

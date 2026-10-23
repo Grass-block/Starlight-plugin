@@ -17,13 +17,13 @@
 
 ## 可配置项目
 
-| 配置项        | 类型      | 说明           |
-|------------|---------|--------------|
-| `particle` | String  | 渲染使用的粒子类型    |
-| `interval` | Integer | 渲染更新间隔（tick） |
+无独立配置项，当前不读取 `particle` / `interval`。持久模式每 10 tick 重绘，更新模式在选区变化后短暂重绘。玩家模式存入共享玩家数据的 `we-session-render-mode` 字段，默认为 `UPDATE`。
 
 ## 命令
 
 | 命令              | 权限  | 说明               |
 |-----------------|-----|------------------|
-| `/we-selection` | `-` | 管理选区渲染器（切换模式/开关） |
+| `/we-selection` 或 `/we-selection render` | 无独立权限声明 | 临时显示当前选区，不修改模式 |
+| `/we-selection update` | 同上 | 选区变化时短暂显示（默认模式） |
+| `/we-selection persistent` | 同上 | 持续显示选区 |
+| `/we-selection off` | 同上 | 关闭自动显示 |

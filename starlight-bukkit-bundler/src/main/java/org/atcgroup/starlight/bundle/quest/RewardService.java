@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission;
+package org.atcgroup.starlight.bundle.quest;
 
 import com.google.gson.JsonParser;
 import me.gb2022.commons.jdbc.TableNamedDataService;
@@ -7,9 +7,9 @@ import me.gb2022.gluon.service.Service;
 import me.gb2022.gluon.service.ServiceHolder;
 import me.gb2022.gluon.service.ServiceInject;
 import org.apache.logging.log4j.Logger;
-import org.atcgroup.starlight.bundle.mission.reward.Reward;
-import org.atcgroup.starlight.bundle.mission.reward.RewardInstance;
-import org.atcgroup.starlight.bundle.mission.reward.RewardProviderRegistry;
+import org.atcgroup.starlight.bundle.quest.reward.Reward;
+import org.atcgroup.starlight.bundle.quest.reward.RewardInstance;
+import org.atcgroup.starlight.bundle.quest.reward.RewardProviderRegistry;
 import org.atcraftmc.starlight.SLPluginEnvironment;
 import org.bukkit.Bukkit;
 

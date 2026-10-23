@@ -1,11 +1,21 @@
 language:
   -module-name:
+    chat-translator: Chat Translation
     chat-at: Chat Mention
     chat-component: Rich Text Chat Support
     mail: Mail
     chat-filter: Chat Filter
     chat-report: Chat Report
     mute: Chat Mute
+  chat-translator:
+    --tip:
+      - '{#gray}You can translate chat messages into your language by clicking the "[🌏]" button after a message.'
+      - '{#gray}You can also use {#gold}/translate-chat auto{#gray} to toggle automatic translation.'
+    not-found: "The requested text does not exist or has expired."
+    translator-not-configured: "{global#sys-error}No translation service is configured. Please contact an administrator."
+    translate-origin: "Original{#white}: "
+    translate-target: "Translation{#gray}({#white}{}{#gray}){#white}: "
+    translate-hint: "Translation is performed by a machine or AI. Results are for reference only."
   chat-component:
     --tip:
       - '{#gray}In chat, signs and commands (partially supported), you can use rich text tags to add more effects to text.'

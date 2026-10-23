@@ -135,7 +135,10 @@ public final class StarlightBukkitCore implements PluginApplication {
     }
 
     interface QLibPlatform {
-        LocaleHandler LOCALE_HANDLER = LocaleHandler.wrap((a, c) -> LocaleService.locale(a.getPointer(CommandSender.class)));
+        LocaleHandler LOCALE_HANDLER = LocaleHandler.wrap((a, c) -> {
+            var loc = LocaleService.locale(a.getPointer(CommandSender.class));
+            return loc;
+        });
 
         AudienceHandler.MessageRenderer GLOBAL_VARS_TEXT_RENDERER = (audience, message) -> {
             message = PlaceHolderService.format(PlaceHolderService.format(message));

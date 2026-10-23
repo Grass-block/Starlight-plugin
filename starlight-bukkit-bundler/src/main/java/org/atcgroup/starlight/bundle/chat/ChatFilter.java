@@ -120,23 +120,7 @@ public final class ChatFilter extends BukkitAbstractModule {
                 this.logger.info("loaded json rules {}({} words).", k, localCounter.get());
             });
 
-            var txtDefaults = Set.of(
-                    "chat-filter-defaults/cn-ads.txt",
-                    "chat-filter-defaults/cn-bribery.txt",
-                    "chat-filter-defaults/cn-covid19.txt",
-                    "chat-filter-defaults/cn-extra.txt",
-                    "chat-filter-defaults/cn-extra-more.txt",
-                    "chat-filter-defaults/cn-gfw-extra.txt",
-                    "chat-filter-defaults/cn-guns.txt",
-                    "chat-filter-defaults/cn-illegal-urls.txt",
-                    "chat-filter-defaults/cn-politics.txt",
-                    "chat-filter-defaults/cn-reactionary.txt",
-                    "chat-filter-defaults/cn-sex.txt",
-                    "chat-filter-defaults/cn-society.txt",
-                    "chat-filter-defaults/cn-terror.txt",
-                    "chat-filter-defaults/cn-yellow.txt",
-                    "chat-filter-defaults/other-defaults.txt"
-            );
+            var txtDefaults = Set.of("chat-filter-defaults/cn-ads.txt", "chat-filter-defaults/cn-bribery.txt", "chat-filter-defaults/cn-covid19.txt", "chat-filter-defaults/cn-extra.txt", "chat-filter-defaults/cn-extra-more.txt", "chat-filter-defaults/cn-gfw-extra.txt", "chat-filter-defaults/cn-guns.txt", "chat-filter-defaults/cn-illegal-urls.txt", "chat-filter-defaults/cn-politics.txt", "chat-filter-defaults/cn-reactionary.txt", "chat-filter-defaults/cn-sex.txt", "chat-filter-defaults/cn-society.txt", "chat-filter-defaults/cn-terror.txt", "chat-filter-defaults/cn-yellow.txt", "chat-filter-defaults/other-defaults.txt");
 
             Configurations.grouped("chat-filter-rules", txtDefaults, "#", "txt").forEach((k, v) -> {
                 localCounter.set(0);
@@ -206,10 +190,7 @@ public final class ChatFilter extends BukkitAbstractModule {
                     continue;
                 }
 
-                var repl = TextReplacementConfig.builder()
-                        .match(GET_ALL)
-                        .replacement((result, builder) -> builder.content(process(result.group())))
-                        .build();
+                var repl = TextReplacementConfig.builder().match(GET_ALL).replacement((result, builder) -> builder.content(process(result.group()))).build();
 
                 event.line(i, origin.replaceText(repl));
             }
@@ -252,8 +233,6 @@ public final class ChatFilter extends BukkitAbstractModule {
     * */
 
     public String process(String msg) {
-        System.out.println(config().value("cover-char").string());
-
         var exceptPlayer = config().value("except-player").bool();
         var cover = config().value("cover").bool();
         var coverChar = config().value("cover-char").string().charAt(0);

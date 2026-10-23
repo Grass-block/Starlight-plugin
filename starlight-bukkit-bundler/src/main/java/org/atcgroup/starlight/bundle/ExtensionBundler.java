@@ -8,8 +8,8 @@ import org.atcgroup.starlight.bundle.ai.AIChatService;
 import org.atcgroup.starlight.bundle.ai.AICommandChat;
 import org.atcgroup.starlight.bundle.economy.EconomyRewardProvider;
 import org.atcgroup.starlight.bundle.economy.EconomyService;
-import org.atcgroup.starlight.bundle.mission.CommissionService;
-import org.atcgroup.starlight.bundle.mission.RewardService;
+import org.atcgroup.starlight.bundle.quest.CommissionService;
+import org.atcgroup.starlight.bundle.quest.RewardService;
 import org.atcgroup.starlight.bundle.music.MusicPlayer;
 import org.atcgroup.starlight.bundle.music.MusicService;
 import org.atcgroup.starlight.bundle.oddities.ChinesePeopleCanFly;
@@ -148,7 +148,7 @@ public interface ExtensionBundler {
     }
 
     //还没做完
-    @ApplicationPackageProvider(id = "starlight-economy")
+    //@ApplicationPackageProvider(id = "starlight-economy")
     static void economy(ContentBuilder b) {
         b.compatibilityProvider(() -> {
             Compatibility.requireClass(() -> Class.forName("net.milkbowl.vault.economy.Economy"));

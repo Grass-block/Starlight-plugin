@@ -38,9 +38,11 @@ config:
     below-name: " {msg#custom-scoreboard:play-time}  {msg#custom-scoreboard:ping}"
     below-name-enable: false
   chat-format:
-    world: "common:world:{}"
-    time: "<post>   {#gray}{}"
-    template: '[{#white}{world}{#white}]{0} {color(gold)}> {color(white)}{1} {time}'
+    template: "[{#white}{world}{#white}]{0} {color(gold)}> {color(white)}{1}"
+    prefix: ""
+    prefix-near: ""
+    postfix: ""
+    postfix-near: "{#gray}{time}   "
   custom-death-message:
     prefix: "{#gray}[{#red}X{#gray}]{#reset}"
     suffix: ""

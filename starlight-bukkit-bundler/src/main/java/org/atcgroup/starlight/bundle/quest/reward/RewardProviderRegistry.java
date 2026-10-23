@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission.reward;
+package org.atcgroup.starlight.bundle.quest.reward;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public final class RewardProviderRegistry {
     public <E> HashSet<RewardInstance> triggerEvent(UUID receiver, E event) {
         var type = event.getClass();
         if (!this.pipelines.containsKey(type)) {
-            return null;
+            return new HashSet<>();
         }
 
         var providers = this.pipelines.get(type);

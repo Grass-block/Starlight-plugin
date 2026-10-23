@@ -1,11 +1,27 @@
 language:
   -module-name:
+    chat-translator: 聊天翻译
     chat-at: 聊天提及
     chat-component: 富文本聊天支持
     mail: 邮件
     chat-filter: 屏蔽词
     chat-report: 聊天举报
     mute: 聊天禁言
+  chat-translator:
+    --tip:
+      - '{#gray}您可以通过点击聊天栏后的"[🌏]"按钮来将聊天翻译为您的语言。'
+      - '{#gray}也可以使用{#gold}/translate-chat auto{#gray}切换自动翻译模式。'
+    not-found: "{global#sys-error}请求的文本不存在或已超时"
+    translator-not-configured: "{global#sys-error}未配置翻译服务, 请联系管理员。"
+    translate-origin: "原文{#white}: "
+    translate-target: "译文{#gray}({#white}{}{#gray}){#white}: "
+    translate-hint: "翻译由机器或AI执行，结果仅供参考"
+    icon-hover: -|
+      点击以翻译该消息到您的语言;
+      也可以在{#aqua}菜单>设置{#white}中切换自动翻译模式!
+    auto-translate-on: "{global#info}自动翻译已开启, 接下来的全部玩家聊天信息将翻译到您的客户端语言。"
+    auto-translate-off: "{global#info}自动翻译已关闭。"
+    auto-translate-hint: "{#yellow}原文: {#white}{}"
   chat-component:
     --tip:
       - '{#gray}在聊天，告示牌和命令（部分支持）中，您可以使用富文本标签对文字添加更多效果。'

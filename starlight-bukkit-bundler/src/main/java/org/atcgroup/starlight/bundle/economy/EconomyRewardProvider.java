@@ -1,9 +1,9 @@
 package org.atcgroup.starlight.bundle.economy;
 
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcgroup.starlight.bundle.mission.RewardService;
-import org.atcgroup.starlight.bundle.mission.reward.Reward;
-import org.atcgroup.starlight.bundle.mission.reward.RewardInstance;
+import org.atcgroup.starlight.bundle.quest.RewardService;
+import org.atcgroup.starlight.bundle.quest.reward.Reward;
+import org.atcgroup.starlight.bundle.quest.reward.RewardInstance;
 import org.atcraftmc.starlight.StarlightBukkitCore;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.entity.Player;

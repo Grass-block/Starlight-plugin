@@ -1,0 +1,39 @@
+item-blocker-rules:
+  projecte:
+    name: "[ProjectE RM Item]"
+    level: WARNING
+    cancel-action: true
+    remove-item: false
+    filter-id:
+      - "projecte:rm_morning_star"
+      - "projecte:rm_sward"
+      - "projecte:rm_katar"
+  avataria:
+    name: "[Avaritia Combat]"
+    level: WARNING
+    cancel-action: true
+    remove-item: false
+    filter-id:
+      - "avaritia:infinity_sword"
+      - "avaritia:infinity_bow"
+      - "avaritia:infinity_crossbow"
+      - "avaritia:infinity_trident"
+      - "avaritia:infinity_mace"
+      - "avaritia:infinity_spear"
+      - "avaritia:infinity_spear"
+      - "avaritia:neutron_ring"
+      - "avaritia:infinity_clock"
+  minecraft:
+    name: "[Vanilla]"
+    level: WARNING
+    cancel-action: false
+    remove-item: false
+    filter-id:
+      - "minecraft:tnt"
+      - "minecraft:lava-bukkit"
+  twilight-forest:
+    name: "[Twilight-Forest Dupe]"
+    level: WARNING
+    cancel-action: true
+    remove-item: false
+    filter-id: [ "twilightforest:uncrafting_table" ]

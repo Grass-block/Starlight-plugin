@@ -1,10 +1,10 @@
-# 导航点 <Badge>starlight:waypoint</Badge>
+# 导航点 <Badge>starlight-warps:waypoint</Badge>
 
 导航点与家系统
 
 ## 基本信息
 
-- 命名空间id: `starlight:waypoint`
+- 命名空间id: `starlight-warps:waypoint`
 - 版本: `2.0.4`
 - 是否为内部模块: `否`
 - 是否默认开启: `是`
@@ -19,19 +19,20 @@
 
 | 路径                                     | 类型      | 默认值    | 说明                |
 |----------------------------------------|---------|--------|-------------------|
-| `config.waypoint.allow-coordinate-add` | boolean | `true` | 是否允许玩家通过坐标参数添加导航点 |
+| `config.waypoint.allow-coordinate-add` | boolean | `true` | 模板保留项；当前添加实现未读取此开关 |
 | `config.waypoint.home`                 | boolean | `true` | 是否启用家系统           |
 
 ## 命令
 
 | 命令                                    | 权限                                                              | 说明              |
 |---------------------------------------|-----------------------------------------------------------------|-----------------|
-| `/waypoint add [name] [坐标...]`        | `starlight.waypoint.command`                                    | 添加导航点           |
+| `/waypoint add <name> #here` | `starlight.waypoint.command` | 在当前位置添加导航点 |
+| `/waypoint add <name> <世界名> <x> <y> <z> [yaw pitch]` | `starlight.waypoint.command` | 指定坐标添加；视角参数若填写需成对提供 |
 | `/waypoint remove <name>`             | `starlight.waypoint.command`                                    | 删除导航点           |
 | `/waypoint list`                      | `starlight.waypoint.command`                                    | 列出所有导航点         |
 | `/waypoint tp <name>`                 | `starlight.waypoint.command`                                    | 传送至导航点          |
 | `/waypoint allow <name> <player>`     | `starlight.waypoint.command`                                    | 允许其他玩家使用导航点     |
 | `/waypoint disallow <name> <player>`  | `starlight.waypoint.command`                                    | 禁止其他玩家使用导航点     |
-| `/waypoint add-public [name] [坐标...]` | `starlight.waypoint.command` + `starlight.waypoint.edit-public` | 添加公共导航点（所有玩家可用） |
+| `/waypoint add-public <name> <#here或世界及坐标...>` | `starlight.waypoint.command` + `starlight.waypoint.edit-public` | 使用与 add 相同的位置参数添加，再开放访问 |
 | `/sethome`                            | `starlight.waypoint.sethome`                                    | 设置家位置           |
 | `/home`                               | `starlight.waypoint.home`                                       | 传送回家            |

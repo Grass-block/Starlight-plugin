@@ -1,11 +1,21 @@
 language:
   -module-name:
+    chat-translator: チャット翻訳
     chat-at: チャットメンション
     chat-component: リッチテキストチャット対応
     mail: メール
     chat-filter: チャットフィルター
     chat-report: チャット通報
     mute: チャットミュート
+  chat-translator:
+    --tip:
+      - '{#gray}チャットメッセージの後ろにある「[🌏]」ボタンをクリックすると、メッセージを自分の言語に翻訳できます。'
+      - '{#gray}{#gold}/translate-chat auto{#gray}で自動翻訳モードを切り替えることもできます。'
+    not-found: "指定されたテキストが存在しないか、有効期限が切れています。"
+    translator-not-configured: "{global#sys-error}翻訳サービスが設定されていません。管理者にお問い合わせください。"
+    translate-origin: "原文{#white}： "
+    translate-target: "訳文{#gray}（{#white}{}{#gray}）{#white}： "
+    translate-hint: "翻訳は機械またはAIによって行われます。結果は参考としてご利用ください。"
   chat-component:
     --tip:
       - '{#gray}チャット、看板、コマンド（一部対応）で、リッチテキストタグを使用してテキストに効果を追加できます。'

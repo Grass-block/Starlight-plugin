@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@ApplicationModule(id = "chinese-can-fly", defaultEnable = false)
+@ApplicationModule(id = "chinese-can-fly", defaultEnable = false, description = "[Easter Egg] Enable flying for player using zh_ language.")
 public final class ChinesePeopleCanFly extends BukkitAbstractModule {
     private final Map<UUID, Boolean> recordedFlyMode = new HashMap<>();
 

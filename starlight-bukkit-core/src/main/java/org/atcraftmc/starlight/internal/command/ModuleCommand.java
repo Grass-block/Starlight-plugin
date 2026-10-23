@@ -38,7 +38,7 @@ public final class ModuleCommand extends CoreCommand {
             case SUCCESS -> success;
             case NOT_FOUND -> "not-found";
             case ALREADY_OPERATED -> "already-op";
-            case INTERNAL_ERROR -> "internal-error";
+            case INTERNAL_ERROR, INCOMPATIBLE -> "internal-error";
             case BLOCKED_INTERNAL -> "blocked-internal";
         };
     }

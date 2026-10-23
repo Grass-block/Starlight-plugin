@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission.commission;
+package org.atcgroup.starlight.bundle.quest.commission;
 
 import java.util.Map;
 import java.util.UUID;

@@ -1,11 +1,21 @@
 language:
   -module-name:
+    chat-translator: 聊天翻譯
     chat-at: 聊天提及
     chat-component: 富文本聊天支援
     mail: 郵件
     chat-filter: 屏蔽詞
     chat-report: 聊天舉報
     mute: 聊天禁言
+  chat-translator:
+    --tip:
+      - '{#gray}您可以點擊聊天訊息後方的「[🌏]」按鈕，將聊天翻譯成您的語言。'
+      - '{#gray}也可以使用{#gold}/translate-chat auto{#gray}切換自動翻譯模式。'
+    not-found: "請求的文字不存在或已逾時"
+    translator-not-configured: "{global#sys-error}未設定翻譯服務，請聯絡管理員。"
+    translate-origin: "原文{#white}: "
+    translate-target: "譯文{#gray}({#white}{}{#gray}){#white}: "
+    translate-hint: "翻譯由機器或AI執行，結果僅供參考"
   chat-component:
     --tip:
       - '{#gray}在聊天，告示牌和指令（部分支援）中，您可以使用富文本標籤對文字新增更多效果。'

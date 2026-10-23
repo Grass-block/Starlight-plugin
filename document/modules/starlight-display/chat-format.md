@@ -1,6 +1,6 @@
 # 聊天行格式化 <Badge>starlight-display:chat-format</Badge>
 
-重新格式化聊天消息的显示样式，支持世界观名、时间戳、颜色代码等元素组合。
+重新格式化聊天消息的显示样式，支持世界名、时间戳、颜色代码和消息前后缀。
 
 ## 基本信息
 
@@ -12,16 +12,25 @@
 
 ## 描述
 
-通过监听`AsyncChatEvent`/`AsyncPlayerChatEvent`
-事件，使用可配置模板对聊天消息进行重排版。支持按世界区分格式、显示发送时间、自定义消息前后缀，并集成PlaceHolderService进行变量占位符替换。
+监听统一的 `ForwardedChatEvent`，使用模板对聊天消息进行重排版。Paper 环境由核心接入原生聊天渲染器，其他 Bukkit 环境由核心提供兼容转发。
+
+`template` 中 `{0}` 为发送者显示名，`{1}` 为消息正文，`{world}` 为本地化世界名，`{time}` 为发送时间。世界名按 `common:world:<维度键>` 解析；不再提供独立的 `world` 格式项。
+
+前后缀也支持 `{world}`、`{time}`，并经过发送者的玩家占位符处理。`prefix-near` / `postfix-near` 表示紧邻完整模板行的内侧前后缀，`prefix` / `postfix` 位于外侧；其他模块也可添加前后缀。
 
 ## 可配置项目
 
-| 配置项        | 类型     | 说明             |
-|------------|--------|----------------|
-| `world`    | String | 世界观名格式模板（含占位符） |
-| `time`     | String | 消息时间格式模板       |
-| `template` | String | 聊天行整体格式模板      |
+位于 `config/values/starlight-display.yml` 的 `config.chat-format` 下。
+
+| 配置项 | 类型 | 默认值 / 说明 |
+|----|----|----|
+| `template` | String | `[{#white}{world}{#white}]{0} {color(gold)}> {color(white)}{1}` |
+| `prefix` | String | 空字符串，外侧前缀 |
+| `prefix-near` | String | 空字符串，内侧前缀 |
+| `postfix` | String | 空字符串，外侧后缀 |
+| `postfix-near` | String | `{#gray}{time}   `，内侧后缀 |
+
+从旧配置升级时，将 `time` 字段中的显示文本迁入 `postfix-near` 等字段，并用 `{time}` 引用时间。旧 `time: "<post> ..."` 和 `world` 字段不再被此模块读取。
 
 ## 命令
 

@@ -1,0 +1,13 @@
+translate-service:
+  active: "NONE"
+  default-google-public:
+    type: "google-public"
+  default-tencent:
+    type: "tencent"
+    tencent-secret-id: "" #Tencent Cloud SecretId; required by tencent-cloud.
+    tencent-secret-key: "" #Tencent Cloud SecretKey; required by tencent-cloud.
+    tencent-region: "ap-guangzhou" #Tencent Cloud region for TextTranslate.
+  default-deepl:
+    type: "deepl"
+    deepl-endpoint: "http://127.0.0.1:1188/translate" #Full DeepLX endpoint; only used by deep-lx.
+    deepl-token: "" #DeepLX Bearer token; leave empty if authentication is not required.

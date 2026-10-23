@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.mission.reward;
+package org.atcgroup.starlight.bundle.quest.reward;
 
 import org.bukkit.entity.Player;
 

@@ -1,5 +1,6 @@
 package org.atcraftmc.starlight;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 import java.text.DecimalFormat;
@@ -15,8 +16,7 @@ public interface SharedObjects {
     SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
-    ExecutorService SHARED_THREAD_POOL = Executors.newFixedThreadPool(4);
-
     Random RANDOM = new Random();
     JsonParser JSON_PARSER = new JsonParser();
+    Gson GSON = new Gson();
 }

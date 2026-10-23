@@ -1,7 +1,7 @@
-package org.atcgroup.starlight.bundle.mission;
+package org.atcgroup.starlight.bundle.quest;
 
 import me.gb2022.gluon.module.ApplicationModule;
-import org.atcgroup.starlight.bundle.mission.commission.Commission;
+import org.atcgroup.starlight.bundle.quest.commission.Commission;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.BukkitCommand;
 import org.atcraftmc.qlib.command.execute.CommandExecution;
