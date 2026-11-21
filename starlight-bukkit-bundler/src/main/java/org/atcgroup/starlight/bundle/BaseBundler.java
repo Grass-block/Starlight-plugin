@@ -101,6 +101,7 @@ public interface BaseBundler {
         b.module(MenuItem.class);
         b.module(InventoryProfile.class);
         b.module(ModernMinecartSync.class);
+        b.module(YSMSyncFix.class);
 
         p.config("starlight-utilities");
         p.language("/starlight-utilities", "zh_cn");

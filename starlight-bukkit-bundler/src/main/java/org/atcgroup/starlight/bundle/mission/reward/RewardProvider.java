@@ -1,6 +1,4 @@
-package org.atcgroup.starlight.bundle.quest.reward;
-
-import org.atcgroup.starlight.bundle.quest.commission.Commission;
+package org.atcgroup.starlight.bundle.mission.reward;
 
 import java.util.Set;
 import java.util.UUID;
@@ -36,6 +34,7 @@ public abstract class RewardProvider<E> {
         void handleReward(E event, UUID receiver, Set<RewardInstance> rewards);
     }
 
+    /*
     private static final class CommissionRewardProvider extends RewardProvider<Commission> {
         private CommissionRewardProvider(Class<Commission> type) {
             super(type);
@@ -59,5 +58,8 @@ public abstract class RewardProvider<E> {
                 rewards.add(new RewardInstance(type, receiver, data));
             }
         }
+
     }
+
+     */
 }

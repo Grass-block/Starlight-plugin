@@ -8,8 +8,9 @@ import org.atcgroup.starlight.bundle.ai.AIChatService;
 import org.atcgroup.starlight.bundle.ai.AICommandChat;
 import org.atcgroup.starlight.bundle.economy.EconomyRewardProvider;
 import org.atcgroup.starlight.bundle.economy.EconomyService;
-import org.atcgroup.starlight.bundle.quest.CommissionService;
-import org.atcgroup.starlight.bundle.quest.RewardService;
+import org.atcgroup.starlight.bundle.mission.QuestService;
+import org.atcgroup.starlight.bundle.mission.Quests;
+import org.atcgroup.starlight.bundle.mission.RewardService;
 import org.atcgroup.starlight.bundle.music.MusicPlayer;
 import org.atcgroup.starlight.bundle.music.MusicService;
 import org.atcgroup.starlight.bundle.oddities.ChinesePeopleCanFly;
@@ -167,8 +168,10 @@ public interface ExtensionBundler {
     static void mission(ContentBuilder b) {
         var p = b.getAttachment(PluginPackageAttachment.class);
 
-        b.service(CommissionService.class);
+        b.service(QuestService.class);
         b.service(RewardService.class);
+
+        b.module(Quests.class);
 
         p.language("/starlight-mission", "zh_cn");
         p.language("/starlight-mission", "zh_tw");

@@ -1,4 +1,4 @@
-package org.atcgroup.starlight.bundle.quest.reward;
+package org.atcgroup.starlight.bundle.mission.reward;
 
 import java.util.*;
 

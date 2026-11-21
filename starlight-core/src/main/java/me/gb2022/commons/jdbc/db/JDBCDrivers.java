@@ -3,12 +3,12 @@ package me.gb2022.commons.jdbc.db;
 import me.gb2022.commons.jdbc.JDBCUtil;
 import org.apache.logging.log4j.Logger;
 import org.atcraftmc.starlight.SLPluginEnvironment;
+import org.atcraftmc.starlight.util.dependency.GradleDependency;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo: auto load dependencies
 public interface JDBCDrivers {
     Logger LOGGER = SLPluginEnvironment.createLogger("JDBC-Driver");
 
@@ -35,11 +35,19 @@ public interface JDBCDrivers {
     abstract class JDBCDriver {
         private static final List<JDBCDriver> DRIVERS = new ArrayList<>();
         protected final String name;
-        protected final ClassLoaderCallback loader;
+        private final String driverClass;
+        private final GradleDependency dependency;
 
-        public JDBCDriver(String name, ClassLoaderCallback loader) {
+        protected JDBCDriver(String name) {
             this.name = name;
-            this.loader = loader;
+            this.driverClass = getClass().getName();
+            this.dependency = null;
+        }
+
+        public JDBCDriver(String name, String driverClass, String dependency) {
+            this.name = name;
+            this.driverClass = driverClass;
+            this.dependency = GradleDependency.fromGradle(dependency);
         }
 
         public static JDBCDriver registerDriver(JDBCDriver d) {
@@ -62,14 +70,38 @@ public interface JDBCDrivers {
 
         public final void loadDriver() {
             try {
-                this.loader.get();
-                LOGGER.info("loading {} -> {} ---- SUCCESS", this.name, this.loader.get().getName());
-            } catch (ClassNotFoundException | NoClassDefFoundError e) {
-                LOGGER.info("loading {} -> {} ---- NOT_FOUND", this.name, e.getMessage());
-            } catch (Exception e) {
+                var c_driver = findDriverClass();
+
+                LOGGER.info("loading {} -> {} ---- SUCCESS", this.name, c_driver.getName());
+                return;
+            } catch (ClassNotFoundException | NoClassDefFoundError ignored) {
+                LOGGER.info("loading {} -> {} ---- DOWNLOADING", this.name, this.dependency);
+            } catch (LinkageError e) {
+                LOGGER.warn("loading {} -> {} ---- EXCEPTION({})", this.name, this.driverClass, e.getMessage());
+                LOGGER.catching(e);
+                return;
+            }
+
+            try {
+                if (this.dependency == null) {
+                    throw new IllegalStateException("No dependency configured for JDBC driver " + this.name);
+                }
+                var libraryManager = SLPluginEnvironment.getLibraryManager();
+
+                libraryManager.resolveDependencies(List.of(this.dependency));
+                libraryManager.injectLibraries(SLPluginEnvironment.getPlugin());
+
+                var c_driver = findDriverClass();
+
+                LOGGER.info("loading {} -> {} ---- SUCCESS", this.name, c_driver.getName());
+            } catch (Exception | LinkageError e) {
                 LOGGER.warn("loading {} -> ? ---- EXCEPTION({})", this.name, e.getMessage());
                 LOGGER.catching(e);
             }
+        }
+
+        private Class<?> findDriverClass() throws ClassNotFoundException {
+            return Class.forName(this.driverClass, true, SLPluginEnvironment.getPlugin().classLoader());
         }
 
         // ---------- 匹配 ----------
@@ -87,16 +119,12 @@ public interface JDBCDrivers {
         public final String getName() {
             return this.name;
         }
-
-        public interface ClassLoaderCallback {
-            Class<?> get() throws Exception;
-        }
     }
 }
 
 final class UnknownDriver extends JDBCDrivers.JDBCDriver {
     public UnknownDriver() {
-        super("_custom_", () -> UnknownDriver.class);
+        super("_custom_");
     }
 
     @Override
@@ -108,7 +136,7 @@ final class UnknownDriver extends JDBCDrivers.JDBCDriver {
 final class H2Driver extends JDBCDrivers.JDBCDriver {
 
     public H2Driver() {
-        super("h2", () -> Class.forName("org.h2.Driver"));
+        super("h2", "org.h2.Driver", "com.h2database:h2:2.3.232");
     }
 
     @Override
@@ -139,7 +167,7 @@ final class H2Driver extends JDBCDrivers.JDBCDriver {
 final class SQLiteDriver extends JDBCDrivers.JDBCDriver {
 
     public SQLiteDriver() {
-        super("sqlite", () -> Class.forName("org.sqlite.JDBC"));
+        super("sqlite", "org.sqlite.JDBC", "org.xerial:sqlite-jdbc:3.47.1.0");
     }
 
     @Override
@@ -161,7 +189,7 @@ final class SQLiteDriver extends JDBCDrivers.JDBCDriver {
 final class DerbyDriver extends JDBCDrivers.JDBCDriver {
 
     public DerbyDriver() {
-        super("derby", () -> Class.forName("org.apache.derby.jdbc.EmbeddedDriver"));
+        super("derby", "org.apache.derby.jdbc.EmbeddedDriver", "org.apache.derby:derby:10.14.2.0");
     }
 
     @Override
@@ -191,7 +219,7 @@ final class DerbyDriver extends JDBCDrivers.JDBCDriver {
 final class HSQLDBDriver extends JDBCDrivers.JDBCDriver {
 
     public HSQLDBDriver() {
-        super("hsqldb", () -> Class.forName("org.hsqldb.jdbc.JDBCDriver"));
+        super("hsqldb", "org.hsqldb.jdbc.JDBCDriver", "org.hsqldb:hsqldb:2.7.4");
     }
 
     @Override
@@ -216,7 +244,23 @@ final class HSQLDBDriver extends JDBCDrivers.JDBCDriver {
 final class MySQLDriver extends JDBCDrivers.JDBCDriver {
 
     public MySQLDriver(String name) {
-        super(name, () -> Class.forName("com.mysql.cj.jdbc.Driver"));
+        super(name, driverClass(name), dependency(name));
+    }
+
+    private static String driverClass(String name) {
+        return switch (name) {
+            case "mariadb" -> "org.mariadb.jdbc.Driver";
+            case "oceanbase" -> "com.oceanbase.jdbc.Driver";
+            default -> "com.mysql.cj.jdbc.Driver";
+        };
+    }
+
+    private static String dependency(String name) {
+        return switch (name) {
+            case "mariadb" -> "org.mariadb.jdbc:mariadb-java-client:3.5.1";
+            case "oceanbase" -> "com.oceanbase:oceanbase-client:2.4.12";
+            default -> "com.mysql:mysql-connector-j:9.1.0";
+        };
     }
 
     @Override
@@ -238,7 +282,7 @@ final class MySQLDriver extends JDBCDrivers.JDBCDriver {
 final class OracleDriver extends JDBCDrivers.JDBCDriver {
 
     public OracleDriver(String name) {
-        super(name, () -> Class.forName("oracle.jdbc.OracleDriver"));
+        super(name, "oracle.jdbc.OracleDriver", "com.oracle.database.jdbc:ojdbc11:23.5.0.24.07");
     }
 
     @Override
@@ -250,7 +294,7 @@ final class OracleDriver extends JDBCDrivers.JDBCDriver {
 final class SQLServerDriver extends JDBCDrivers.JDBCDriver {
 
     public SQLServerDriver(String name) {
-        super(name, () -> Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"));
+        super(name, "com.microsoft.sqlserver.jdbc.SQLServerDriver", "com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11");
     }
 
     @Override
@@ -266,7 +310,7 @@ final class SQLServerDriver extends JDBCDrivers.JDBCDriver {
 final class PostgreSQLDriver extends JDBCDrivers.JDBCDriver {
 
     public PostgreSQLDriver(String name) {
-        super(name, () -> Class.forName("org.postgresql.Driver"));
+        super(name, "org.postgresql.Driver", "org.postgresql:postgresql:42.7.4");
     }
 
     @Override

@@ -3,6 +3,7 @@
 ## Dev environment
 - Use codegraph CLI command `codegraph ...` to search files
 - Write any complete changes to update.md if created by agent.
+- Before every task start, sync codegraph to up-to-date state.
 
 ## Testing instructions
 - Do not attempt to add dependencies to gradle, instead ask for confirmation.

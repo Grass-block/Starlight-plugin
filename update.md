@@ -1,5 +1,10 @@
 # Agent updates
 
+## 2026-11-17
+
+- Moved JDBC driver provisioning out of the core product dependency list. Each registered JDBC driver now detects its driver class during initialization and uses the active `LibraryManager` to download, inject, and activate its own Maven artifact when absent.
+- Added on-demand artifacts for H2, SQLite, Derby, HSQLDB, MySQL/TiDB, MariaDB, OceanBase, PostgreSQL/CockroachDB, Oracle, and SQL Server drivers.
+
 ## 2026-10-23
 
 - 补充 `starlight-chat:ai-player-support` 模块文档，记录 `/i-am-ai`、纯文本系统消息、聊天副本、退出清理和无配置项等行为。

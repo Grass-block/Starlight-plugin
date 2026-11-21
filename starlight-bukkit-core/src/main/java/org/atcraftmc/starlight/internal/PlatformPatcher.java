@@ -5,8 +5,12 @@ import me.gb2022.commons.reflect.AutoRegister;
 import me.gb2022.gluon.Registrations;
 import me.gb2022.gluon.module.ApplicationModule;
 import me.gb2022.gluon.module.component.ComponentProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atcraftmc.qlib.bukkit.QLib;
 import org.atcraftmc.qlib.command.LegacyCommandManager;
+import org.atcraftmc.qlib.language.MinecraftLocale;
+import org.atcraftmc.starlight.core.BukkitLocaleService;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.atcraftmc.starlight.framework.module.SLModuleComponent;
@@ -25,6 +29,7 @@ import java.util.Optional;
 @ApplicationModule(id = "platform-patcher", description = "Provide fixes for certain platform.")
 @ComponentProvider({PlatformPatcher.PlayerLastLoginPatch.class, PlatformPatcher.ServerTPSPatch.class, PlatformPatcher.LegacyCommandTimingsPatch.class})
 public final class PlatformPatcher extends BukkitAbstractModule {
+    private static final Logger LOGGER = LogManager.getLogger(PlatformPatcher.class);
     static PlatformPatcher INSTANCE;
 
     public static Optional<PlatformPatcher> instance() {

@@ -31,6 +31,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static org.atcraftmc.starlight.StarlightBukkitCore.LOGGER;
+
 @ApplicationService(id = "locale-service", impl = BukkitLocaleService.class, export = true)
 @SuppressWarnings({"Convert2MethodRef", "deprecation"})//For optional func and not-std languages
 public final class BukkitLocaleService extends LocaleService<CommandSender> implements BukkitService {
@@ -91,7 +93,8 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
         BukkitUtil.registerEventListener(this);
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(Starlight.instance(), ID);
-        Bukkit.getMessenger().registerIncomingPluginChannel(Starlight.instance(), ID, (channel, player, message) -> testLocale(player.getUniqueId(), MinecraftLocale.minecraft(new String(message, StandardCharsets.UTF_8)), true));
+        Bukkit.getMessenger()
+              .registerIncomingPluginChannel(Starlight.instance(), ID, (channel, player, message) -> testLocale(player.getUniqueId(), MinecraftLocale.minecraft(new String(message, StandardCharsets.UTF_8)), true));
 
         PlayerReadyService.instance().registerWait(ID);
 
@@ -141,6 +144,8 @@ public final class BukkitLocaleService extends LocaleService<CommandSender> impl
     public void onPlayerQuit(PlayerQuitEvent event) {
         this.checked.remove(event.getPlayer().getUniqueId());
         this.cache.invalidate(event.getPlayer().getUniqueId());
+
+        QLib.task().entity(event.getPlayer()).cancel("notification");
     }
 
     @EventHandler
@@ -165,7 +170,10 @@ final class LanguageDecideCommand extends CoreCommand {
         }
 
         BukkitLocaleService.setCustomLanguage(context.requireSenderAsPlayer(), data);
-        StarlightBukkitCore.lang().item("starlight-core.locale.set").send(QLib.audience(context.getSender()), BukkitLocaleService.remapLanguageNames(data));
-        BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), BukkitLocaleService.instance().getLocale(context.getSender())));
+        StarlightBukkitCore.lang()
+                           .item("starlight-core.locale.set")
+                           .send(QLib.audience(context.getSender()), BukkitLocaleService.remapLanguageNames(data));
+        BukkitUtil.callEvent(new ClientLocaleChangeEvent((Player) context.getSender(), BukkitLocaleService.instance()
+                                                                                                          .getLocale(context.getSender())));
     }
 }

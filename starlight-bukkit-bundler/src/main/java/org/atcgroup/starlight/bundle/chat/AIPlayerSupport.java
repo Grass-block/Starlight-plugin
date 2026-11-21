@@ -39,15 +39,20 @@ public final class AIPlayerSupport extends BukkitAbstractModule {
 
     @Override
     public void enable() throws Exception {
-        QLib.textEngine().getMessagePipeline().addFirst("starlight:ai-msg-mapper", new MessageHandler() {
+        QLib.textEngine().getMessagePipeline().addLast("starlight:ai-msg-mapper", new MessageHandler() {
             @Override
             public void handle(PointedAudience pointedAudience, Component component) {
-                if (!botPlayers.contains(pointedAudience.getPointer(Player.class).getUniqueId())) {
+                if (!(pointedAudience.getPointer(Object.class) instanceof Player player)) {
                     this.parent.handle(pointedAudience, component);
                     return;
                 }
 
-                pointedAudience.sendMessage(ComponentSerializer.legacy(component));
+                if (!botPlayers.contains(player.getUniqueId())) {
+                    this.parent.handle(pointedAudience, component);
+                    return;
+                }
+
+                player.sendMessage(ComponentSerializer.plain(component));
             }
         });
     }
@@ -67,7 +72,7 @@ public final class AIPlayerSupport extends BukkitAbstractModule {
         for (var uuid : this.botPlayers) {
             var player = Bukkit.getPlayer(uuid);
             if (player != null) {
-                player.sendMessage("[CHAT]%s :%s".formatted(event.getPlayer().getName(), event.getMessage()));
+                player.sendMessage("[CHAT]%s: %s".formatted(event.getPlayer().getName(), event.getMessage()));
             }
         }
     }

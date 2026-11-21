@@ -217,49 +217,66 @@ public final class LibraryManager {
         return loadedURLs;
     }
 
-    public void injectLibraries(Object context) {
-        var cl = (URLClassLoader) context.getClass().getClassLoader();
-        for (var url : this.loadedURLs.values()) {
-            try {
-                var addURLMethod = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-                try {
-                    addURLMethod.setAccessible(true);
-                } catch (Exception e) {
-                    var c_unsafe = Class.forName("sun.misc.Unsafe");
-                    var f_unsafe = c_unsafe.getDeclaredField("theUnsafe");
 
-                    f_unsafe.setAccessible(true);
-
-                    var unsafe = (Unsafe) f_unsafe.get(null);
-                    var baseModule = Object.class.getModule();
-                    var c_current = LibraryManager.class; //suggest: use ref if error
-                    var addr = unsafe.objectFieldOffset(Class.class.getDeclaredField("module"));
-                    var prev = unsafe.getAndSetObject(c_current, addr, baseModule);
-
-                    addURLMethod.setAccessible(true);
-                    unsafe.getAndSetObject(c_current, addr, prev);
-                }
-                addURLMethod.invoke(cl, url);
-
-
-                var f = new File(url.toURI());
-                var log = !this.loggedURLs.contains(url.toString());
-
-                if (this.loadFully) {
-                    loadFullJar(cl, f, log);
-                } else {
-                    if (log) {
-                        LOGGER.info("Loaded library(URL): {}({}KiB)", f.getName(), f.length() / 1024);
-                    }
-                }
-
-                this.loggedURLs.add(url.toString());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+    public boolean addURL(URLClassLoader cl, URL url) {
+        for (var u : cl.getURLs()) {
+            if (u.toString().equals(url.toString())) {
+                return false;
             }
         }
 
-        LOGGER.info("Loaded {} extra libs.", this.loadedURLs.size());
+        try {
+            var addURLMethod = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+            try {
+                addURLMethod.setAccessible(true);
+            } catch (Exception e) {
+                var c_unsafe = Class.forName("sun.misc.Unsafe");
+                var f_unsafe = c_unsafe.getDeclaredField("theUnsafe");
+
+                f_unsafe.setAccessible(true);
+
+                var unsafe = (Unsafe) f_unsafe.get(null);
+                var baseModule = Object.class.getModule();
+                var c_current = LibraryManager.class; //suggest: use ref if error
+                var addr = unsafe.objectFieldOffset(Class.class.getDeclaredField("module"));
+                var prev = unsafe.getAndSetObject(c_current, addr, baseModule);
+
+                addURLMethod.setAccessible(true);
+                unsafe.getAndSetObject(c_current, addr, prev);
+            }
+            addURLMethod.invoke(cl, url);
+
+
+            var f = new File(url.toURI());
+            var log = !this.loggedURLs.contains(url.toString());
+
+            if (this.loadFully) {
+                loadFullJar(cl, f, log);
+            } else {
+                if (log) {
+                    LOGGER.info("Loaded library(URL): {}({}KiB)", f.getName(), f.length() / 1024);
+                }
+            }
+
+            this.loggedURLs.add(url.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+
+    public void injectLibraries(Object context) {
+        var cl = (URLClassLoader) context.getClass().getClassLoader();
+        var counter = 0;
+        for (var url : this.loadedURLs.values()) {
+            if (this.addURL(cl, url)) {
+                counter++;
+            }
+        }
+
+        LOGGER.info("Loaded {} extra libs.", counter);
     }
 
 
@@ -314,7 +331,9 @@ public final class LibraryManager {
             var version = l_ver.getLength() == 0 ? owner.getVersion() : l_ver.item(0).getTextContent().trim();
 
             var l_optional = dependencyElement.getElementsByTagName("optional");
-            var optional = l_optional.getLength() != 0 && Boolean.parseBoolean(l_optional.item(0).getTextContent().trim());
+            var optional = l_optional.getLength() != 0 && Boolean.parseBoolean(l_optional.item(0)
+                                                                                         .getTextContent()
+                                                                                         .trim());
 
             if (optional) {
                 continue;

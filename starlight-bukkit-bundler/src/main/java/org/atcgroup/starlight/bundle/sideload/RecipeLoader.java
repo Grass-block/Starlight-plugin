@@ -9,6 +9,7 @@ import org.atcraftmc.starlight.Starlight;
 import org.atcraftmc.starlight.config.Configurations;
 import org.atcraftmc.starlight.core.crafting.RecipeBuilder;
 import org.atcraftmc.starlight.core.crafting.RecipeManager;
+import org.atcraftmc.starlight.core.platform.APIProfile;
 import org.atcraftmc.starlight.core.platform.Compatibility;
 import org.atcraftmc.starlight.framework.module.BukkitAbstractModule;
 import org.bukkit.Bukkit;
@@ -34,6 +35,9 @@ public final class RecipeLoader extends BukkitAbstractModule {
 
     @Override
     public void checkCompatibility() throws APIIncompatibleException {
+        Compatibility.blackListPlatform(APIProfile.YOUER);
+        Compatibility.blackListPlatform(APIProfile.ARCLIGHT);
+        Compatibility.blackListPlatform(APIProfile.BANNER);
         Compatibility.requireClass(() -> Class.forName("org.bukkit.inventory.RecipeChoice"));
     }
 

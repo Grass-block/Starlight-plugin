@@ -1,3 +1,14 @@
+## 26.7.0
+
+### New features
+
+- Added auto driver-loading to most supported DBs.
+
+### Bug fixes
+
+- Blocked custom recipe loading on mohist/arclight/banner/youer as their crafting API glitched.
+- Optimized library loading by skipping existing URLs.
+
 ## 26.6.4
 
 ### New features
